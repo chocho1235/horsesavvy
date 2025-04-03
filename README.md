@@ -47,7 +47,3 @@ src/
 - Tailwind CSS
 - Vite
 - Lucide React (Icons)
-
-## License
-
-MIT 
