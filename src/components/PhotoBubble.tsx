@@ -5,14 +5,12 @@ interface PhotoBubbleProps {
   imageSrc: string;
   size?: "sm" | "md" | "lg";
   className?: string;
-  alt?: string;
 }
 
 export const PhotoBubble = ({ 
   imageSrc, 
   size = "md", 
-  className,
-  alt = "Horse image"
+  className 
 }: PhotoBubbleProps) => {
 
   const sizeClasses = {
@@ -29,7 +27,7 @@ export const PhotoBubble = ({
     )}>
       <img 
         src={imageSrc} 
-        alt={alt} 
+        alt="Horse training" 
         className="w-full h-full object-cover"
       />
     </div>
