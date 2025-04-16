@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -6,12 +5,14 @@ interface CircleNavButtonProps {
   to: string;
   label: string;
   color: "white" | "yellow" | "red" | "blue";
+  className?: string;
 }
 
 export const CircleNavButton = ({ 
   to, 
   label, 
-  color = "white"
+  color = "white",
+  className
 }: CircleNavButtonProps) => {
   
   const colorClasses = {
@@ -26,13 +27,14 @@ export const CircleNavButton = ({
       to={to} 
       className={cn(
         "flex items-center justify-center",
-        "w-28 h-28 rounded-full flex-shrink-0",
-        "text-center font-bold p-2 transition-transform duration-200 hover:scale-105",
-        "border-2 border-white shadow-md",
-        colorClasses[color]
+        "w-[130px] aspect-square rounded-full flex-shrink-0",
+        "text-center font-bold p-4 transition-transform duration-200 hover:scale-105",
+        "border-2 border-white shadow-md text-lg",
+        colorClasses[color],
+        className
       )}
     >
-      <div className="text-sm leading-tight">{label}</div>
+      <div className="leading-tight max-w-[110px]">{label}</div>
     </Link>
   );
 };
