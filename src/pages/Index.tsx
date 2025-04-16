@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { CircleNavButton } from "@/components/CircleNavButton";
 import { ContactHeader } from "@/components/ContactHeader";
@@ -27,35 +28,35 @@ const Index = () => {
           <PhotoBubble 
             imageSrc={horseImages.horse1} 
             size="md"
-            className="absolute right-[-90px] top-[20px]"
+            className="absolute right-[-50px] top-[50px]"
           />
 
           {/* Upper Middle Right Bubble - Following the curve */}
           <PhotoBubble 
             imageSrc={horseImages.horse2} 
             size="md"
-            className="absolute right-[-90px] top-[130px]"
+            className="absolute right-[-70px] top-[170px]"
           />
 
           {/* Lower Middle Right Bubble - Along the curve */}
           <PhotoBubble 
             imageSrc={horseImages.horse3} 
             size="md"
-            className="absolute right-[-70px] top-[240px]"
+            className="absolute right-[-50px] top-[290px]"
           />
 
           {/* Bottom Right Bubble - Near the bottom curve */}
           <PhotoBubble 
             imageSrc={horseImages.horse4} 
             size="md"
-            className="absolute right-[-40px] top-[350px]"
+            className="absolute right-[-20px] top-[400px]"
           />
 
           {/* Bottom Bubble - At the curve's end */}
           <PhotoBubble 
             imageSrc={horseImages.horse5} 
             size="md"
-            className="absolute right-[70px] top-[400px]"
+            className="absolute right-[70px] top-[450px]"
           />
         </div>
       </div>
@@ -107,3 +108,4 @@ const Index = () => {
 };
 
 export default Index;
+
