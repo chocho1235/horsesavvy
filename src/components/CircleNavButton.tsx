@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 interface CircleNavButtonProps {
   to: string;
   label: string;
-  color: "white" | "yellow" | "red" | "blue";
+  color: "white" | "yellow" | "red" | "blue" | "green" | "purple" | "black-gold";
   className?: string;
 }
 
@@ -17,9 +17,12 @@ export const CircleNavButton = ({
   
   const colorClasses = {
     white: "bg-white text-black hover:bg-gray-100",
-    yellow: "bg-yellow-400 text-black hover:bg-yellow-300",
-    red: "bg-red-600 text-white hover:bg-red-500",
-    blue: "bg-blue-600 text-white hover:bg-blue-500",
+    yellow: "bg-[#FFD700] text-black hover:bg-[#FFE44D]",
+    red: "bg-[#FF0000] text-white hover:bg-[#FF3333]",
+    blue: "bg-[#0066FF] text-white hover:bg-[#3385FF]",
+    green: "bg-[#00B300] text-white hover:bg-[#00CC00]",
+    purple: "bg-[#8000FF] text-white hover:bg-[#944DFF]",
+    "black-gold": "bg-black text-[#FFD700] hover:bg-gray-900",
   };
   
   return (
@@ -27,14 +30,14 @@ export const CircleNavButton = ({
       to={to} 
       className={cn(
         "flex items-center justify-center",
-        "w-[130px] aspect-square rounded-full flex-shrink-0",
-        "text-center font-bold p-4 transition-transform duration-200 hover:scale-105",
-        "border-2 border-white shadow-md text-lg",
+        "w-[140px] h-[140px] md:w-[200px] md:h-[200px] rounded-full flex-shrink-0",
+        "text-center font-bold p-4 md:p-6 transition-transform duration-200 hover:scale-105",
+        "border-2 md:border-4 border-white shadow-lg text-base md:text-xl",
         colorClasses[color],
         className
       )}
     >
-      <div className="leading-tight max-w-[110px]">{label}</div>
+      <div className="leading-tight max-w-[120px] md:max-w-[160px]">{label}</div>
     </Link>
   );
 };
