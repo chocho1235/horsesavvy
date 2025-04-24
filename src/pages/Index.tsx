@@ -23,60 +23,63 @@ const Index = () => {
 
         {/* Photo Bubbles */}
         <div className="absolute inset-0">
-          {/* Top Right Bubble - On the curve near top */}
+          {/* Top Right Bubble */}
           <PhotoBubble 
             imageSrc={horseImages.horse1} 
             size="lg"
-            className="absolute right-[-60px] top-[80px]"
+            className="absolute right-[-130px] top-[10%]"
           />
 
-          {/* Upper Middle Right Bubble - Following the curve */}
+          {/* Upper Right Bubble */}
           <PhotoBubble 
             imageSrc={horseImages.horse2} 
             size="lg"
-            className="absolute right-[-80px] top-[220px]"
+            className="absolute right-[-100px] top-[28%]"
           />
 
-          {/* Lower Middle Right Bubble - Along the curve */}
+          {/* Middle Right Bubble */}
           <PhotoBubble 
             imageSrc={horseImages.horse3} 
             size="lg"
-            className="absolute right-[-60px] top-[360px]"
+            className="absolute right-[-35px] top-[46%]"
           />
 
-          {/* Bottom Right Bubble - Near the bottom curve */}
+          {/* Lower Right Bubble */}
           <PhotoBubble 
             imageSrc={horseImages.horse4} 
             size="lg"
-            className="absolute right-[-20px] top-[480px]"
+            className="absolute right-[-15px] top-[64%]"
           />
 
-          {/* Bottom Bubble - At the curve's end */}
+          {/* Bottom Right Bubble */}
           <PhotoBubble 
             imageSrc={horseImages.horse5} 
             size="lg"
-            className="absolute right-[100px] top-[540px]"
+            className="absolute right-[40px] top-[82%]"
           />
         </div>
       </div>
 
       <ContactHeader />
       
-      <div className="relative min-h-[800px]">
+      <div className="relative min-h-[600px]">
         {/* Mobile Welcome Header */}
         <div className="md:hidden block bg-white w-full py-6 px-4">
           <h1 className="text-4xl font-bold text-black text-center">Welcome</h1>
         </div>
         
         {/* Center content */}
-        <div className="pt-[120px] md:pt-[200px] px-4 md:px-8 max-w-[1600px] mx-auto">
+        <div className="pt-[100px] md:pt-[150px] px-4 md:px-8 max-w-[1600px] mx-auto">
           <div className="md:pl-[500px]">
             <div className="max-w-[600px]">
-              <h2 className="text-4xl md:text-7xl font-bold mb-12 text-center md:text-left">Welcome to BeHorseSavvy</h2>
+              <h2 className="text-4xl md:text-7xl font-bold mb-8 text-center md:text-left">Welcome to BeHorseSavvy</h2>
               
-              <div className="mb-16">
-                <p className="text-lg md:text-xl leading-relaxed mb-10">
-                  Penny Pleasant is a skilled equestrian professional with over 40 years of experience in Working Hunter and Show Jumping. A Panel Judge and Ride Judge, as well as a BSPS Course Builder, she works with riders from complete novices to top-level competitors.
+              <div className="mb-12">
+                <p className="text-lg md:text-xl leading-relaxed mb-8">
+                  BHS Accredited Professional Coach, Panel Judge, Pony Club Assesor & BSPS Course Builder.
+                </p>
+                <p className="text-lg md:text-xl leading-relaxed mb-8">
+                  Contact: Penelopepleasant@gmail.com
                 </p>
                 <div className="flex flex-col md:flex-row items-center gap-6">
                   <button className="text-xl bg-white text-black px-12 py-5 rounded-full hover:bg-gray-200 transition-colors w-full md:w-auto font-semibold">
@@ -96,7 +99,7 @@ const Index = () => {
       </div>
       
       {/* Navigation circles */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 mt-16 px-4 md:px-12 pb-16 overflow-y-auto max-w-[1600px] mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 mt-8 px-4 md:px-8 pb-8 max-w-[1600px] mx-auto">
         <div className="flex justify-center">
           <CircleNavButton to="/education" color="black-gold" label="Home Education Equestrians" />
         </div>
@@ -118,6 +121,19 @@ const Index = () => {
         <div className="col-span-2 md:col-span-3 flex justify-center">
           <CircleNavButton to="/penny-club" color="red" label="The Penny Club" />
         </div>
+      </div>
+
+      {/* Powered by Equinology */}
+      <div className="flex justify-center pb-8">
+        <a 
+          href="https://equinology.co.uk" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="relative inline-block text-white text-sm font-medium overflow-hidden group"
+        >
+          <span className="relative z-10">Powered by Equinology</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+        </a>
       </div>
     </div>
   );

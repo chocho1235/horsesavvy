@@ -8,7 +8,7 @@ export const ContactHeader = () => {
         <span>+44 7506 600 222</span>
         <span className="mx-2">|</span>
         <Mail className="h-5 w-5" />
-        <span>contact@behorsesavvy.online</span>
+        <span>Penelopepleasant@gmail.com</span>
       </div>
     </div>
   );
