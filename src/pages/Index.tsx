@@ -14,20 +14,34 @@ const horseImages = {
 };
 
 const carouselImages = [
-  "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80"
+  "https://i.ibb.co/pvFg8ddc/372ed90b-45bf-4897-9821-453bfbb0cee0.jpg"
 ];
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
       {/* Left side curve shape - positioned before header to go behind */}
-      <div className="absolute top-0 left-0 h-[40vh] w-[35vw] min-w-[400px] max-w-[500px] bg-white rounded-br-[100%] md:block hidden z-[51]">
-        <div className="pl-16 pt-12">
-          <h1 className="text-5xl font-medium text-black">Welcome</h1>
+      <div className="absolute top-0 left-0 h-[60vh] w-[35vw] min-w-[400px] max-w-[500px] bg-white rounded-br-[100%] md:block hidden z-[51] overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Carousel className="w-full h-full">
+            <CarouselContent>
+              {carouselImages.map((image, index) => (
+                <CarouselItem key={index}>
+                  <div className="relative w-full h-full">
+                    <img
+                      src={image}
+                      alt={`Horse ${index + 1}`}
+                      className="object-cover w-full h-full"
+                    />
+                    <div className="absolute inset-0 bg-white/50"></div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
+        <div className="relative pl-16 pt-12 pr-8 h-full flex flex-col z-10">
+          <h1 className="text-5xl font-medium text-gray-600 [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)]">Welcome</h1>
         </div>
       </div>
 
@@ -42,9 +56,9 @@ const Index = () => {
         {/* Center content */}
         <div className="pt-[80px] md:pt-[100px] px-4 md:px-8 max-w-[1600px] mx-auto">
           <div className="md:pl-[500px]">
-            <div className="max-w-[1000px] flex flex-col md:flex-row gap-8 items-center">
+            <div className="max-w-[1000px] flex flex-col gap-8 items-center">
               {/* Welcome Text */}
-              <div className="flex-1 order-2 md:order-1">
+              <div className="flex-1 w-full">
                 <h2 className="text-4xl md:text-6xl font-bold mb-8 text-center md:text-left">Welcome to BeHorseSavvy</h2>
                 
                 <div className="mb-12">
@@ -66,28 +80,6 @@ const Index = () => {
                     </Link>
                   </div>
                 </div>
-              </div>
-
-              {/* Image Carousel */}
-              <div className="w-full md:w-[300px] flex-shrink-0 order-1 md:order-2 hidden md:block">
-                <Carousel className="w-full">
-                  <CarouselContent>
-                    {carouselImages.map((image, index) => (
-                      <CarouselItem key={index}>
-                        <div className="relative aspect-square overflow-hidden rounded-lg">
-                          <img
-                            src={image}
-                            alt={`Horse ${index + 1}`}
-                            className="object-cover w-full h-full transition-transform duration-500 hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="left-2 bg-black/50 hover:bg-black/70 text-white border-none" />
-                  <CarouselNext className="right-2 bg-black/50 hover:bg-black/70 text-white border-none" />
-                </Carousel>
               </div>
             </div>
           </div>
