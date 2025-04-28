@@ -30,14 +30,14 @@ export const CircleNavButton = ({
       to={to} 
       className={cn(
         "flex items-center justify-center",
-        "w-[140px] h-[140px] md:w-[200px] md:h-[200px] rounded-full flex-shrink-0",
+        "w-[140px] h-[140px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] rounded-full flex-shrink-0",
         "text-center font-bold p-4 md:p-6 transition-transform duration-200 hover:scale-105",
         "border-2 md:border-4 border-white shadow-lg text-base md:text-xl",
         colorClasses[color],
         className
       )}
     >
-      <div className="leading-tight max-w-[120px] md:max-w-[160px]">{label}</div>
+      <div className="leading-tight max-w-[120px] md:max-w-[140px] lg:max-w-[160px]">{label}</div>
     </Link>
   );
 };
