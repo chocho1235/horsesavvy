@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ContactHeader } from "@/components/ContactHeader";
 import { ChevronLeft, Clock, CheckCircle2, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import PostcodeChecker from "@/components/PostcodeChecker";
 
 const courses = [
   {
@@ -160,6 +161,9 @@ const Learning = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Postcode Checker */}
+        <PostcodeChecker />
 
         {/* Disclaimer */}
         <motion.div 
