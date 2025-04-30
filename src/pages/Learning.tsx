@@ -41,7 +41,7 @@ const Learning = () => {
     <div className="min-h-screen bg-black text-white">
       <ContactHeader />
       
-      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-12">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12">
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ const Learning = () => {
         </motion.div>
 
         {/* Vertical stack of courses */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[1000px] mx-auto">
           {courses.map((course, index) => (
             <motion.div 
               key={course.id}
