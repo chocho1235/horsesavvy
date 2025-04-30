@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ContactHeader } from "@/components/ContactHeader";
-import { ChevronLeft, Clock, CheckCircle2, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { ChevronLeft, Clock, CheckCircle2, ChevronRight, ChevronDown, Award } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import PostcodeChecker from "@/components/PostcodeChecker";
 import { Footer } from "@/components/Footer";
 
@@ -10,33 +11,56 @@ const courses = [
     id: "bhs-stage-1",
     title: "BHS Stage 1",
     description: "Begin your equestrian journey with BHS Stage 1. This course covers the fundamental skills and knowledge needed for horse care and riding.",
-    duration: "12 weeks",
     features: [
       "Basic horse care and welfare",
       "Fundamental riding skills",
       "Stable management",
       "Health and safety"
     ],
-    level: "Beginner",
-    rating: 4.8
+    targetAudience: [
+      "BHS Stage 1 exam candidates",
+      "Equestrian college students",
+      "Novice horse-owners",
+      "Aspiring Grooms"
+    ]
   },
   {
     id: "bhs-stage-2",
     title: "BHS Stage 2",
     description: "Advance your equestrian skills with BHS Stage 2. This course builds upon Stage 1 knowledge and introduces more advanced riding techniques and horse care practices.",
-    duration: "16 weeks",
     features: [
       "Advanced riding techniques",
       "Comprehensive horse care",
       "Training principles",
       "Competition preparation"
     ],
-    level: "Intermediate",
-    rating: 4.9
+    targetAudience: [
+      "BHS Stage 2 exam candidates",
+      "Equine college students",
+      "Aspiring Riding Instructors",
+      "Intermediate horse-owners"
+    ]
   }
 ];
 
 const Learning = () => {
+  const [expandedFeatures, setExpandedFeatures] = useState<Record<string, boolean>>({});
+  const [expandedAudience, setExpandedAudience] = useState<Record<string, boolean>>({});
+
+  const toggleFeatures = (courseId: string) => {
+    setExpandedFeatures(prev => ({
+      ...prev,
+      [courseId]: !prev[courseId]
+    }));
+  };
+
+  const toggleAudience = (courseId: string) => {
+    setExpandedAudience(prev => ({
+      ...prev,
+      [courseId]: !prev[courseId]
+    }));
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       <ContactHeader />
@@ -93,12 +117,9 @@ const Learning = () => {
                   <div>
                     <h2 className="text-3xl font-bold mb-2 text-white">{course.title}</h2>
                     <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <span className="px-3 py-1.5 bg-blue-500/10 rounded-full border border-blue-500/20 backdrop-blur-sm">
-                        {course.level}
-                      </span>
-                      <span className="flex items-center gap-1 px-4 py-1.5 bg-blue-600/20 rounded-full text-sm font-medium border border-blue-500/30 backdrop-blur-sm">
-                        <Clock className="w-4 h-4" />
-                        {course.duration}
+                      <span className="px-3 py-1.5 bg-blue-500/10 rounded-full border border-blue-500/20 backdrop-blur-sm flex items-center gap-1">
+                        <Award className="w-4 h-4 text-blue-400" />
+                        BHS Approved
                       </span>
                     </div>
                   </div>
@@ -119,7 +140,7 @@ const Learning = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.2 }}
                   viewport={{ once: true }}
-                  className="mb-10"
+                  className="mb-10 h-[200px]"
                 >
                   <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
                     <CheckCircle2 className="w-6 h-6 text-blue-500" />
@@ -141,6 +162,34 @@ const Learning = () => {
                     ))}
                   </ul>
                 </motion.div>
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.25 }}
+                  viewport={{ once: true }}
+                  className="mb-10 h-[200px]"
+                >
+                  <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
+                    <CheckCircle2 className="w-6 h-6 text-blue-500" />
+                    <span className="text-white">Who is this course for?</span>
+                  </h3>
+                  <ul className="space-y-4">
+                    {course.targetAudience?.map((audience, index) => (
+                      <motion.li 
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+                        viewport={{ once: true }}
+                        className="flex items-center gap-3 text-gray-300 group/item text-lg"
+                      >
+                        <div className="w-2 h-2 rounded-full bg-blue-500 group-hover/item:scale-125 transition-transform"></div>
+                        <span className="group-hover/item:text-white transition-colors">{audience}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </motion.div>
                 
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
@@ -153,7 +202,7 @@ const Learning = () => {
                     to={`/learning/${course.id}`}
                     className="group/btn relative px-8 py-3 bg-transparent border border-white/20 hover:bg-white/5 text-white rounded-lg transition-all duration-300 font-medium text-lg backdrop-blur-sm"
                   >
-                    <span className="relative z-10">Learn More</span>
+                    <span className="relative z-10">Read More</span>
                   </Link>
                   <Link
                     to={`/learning/${course.id}`}
