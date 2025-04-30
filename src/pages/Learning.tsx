@@ -83,7 +83,7 @@ const Learning = () => {
           <div className="relative">
             <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 bg-clip-text text-transparent">
               <div className="flex justify-center items-center">
-                <img src="/homed2.png" alt="Home Education" className="w-full max-w-[600px] h-auto" />
+                <img src="/homeeducation.svg" alt="Home Education" className="w-full max-w-[600px] h-auto" />
               </div>
             </h1>
           </div>
@@ -121,6 +121,12 @@ const Learning = () => {
                         <Award className="w-4 h-4 text-blue-400" />
                         BHS Approved
                       </span>
+                      {course.id === "bhs-stage-1" && (
+                        <span className="px-3 py-1.5 bg-blue-500/10 rounded-full border border-blue-500/20 backdrop-blur-sm flex items-center gap-1">
+                          <CheckCircle2 className="w-4 h-4 text-blue-400" />
+                          Beginner Friendly
+                        </span>
+                      )}
                     </div>
                   </div>
                 </motion.div>
