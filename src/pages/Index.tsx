@@ -4,6 +4,7 @@ import { ContactHeader } from "@/components/ContactHeader";
 import { PhotoBubble } from "@/components/PhotoBubble";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { motion } from "framer-motion";
+import { Footer } from "../components/Footer";
 
 // Stock horse images
 const horseImages = {
@@ -186,84 +187,7 @@ const Index = () => {
         </motion.div>
       </motion.div>
 
-      {/* Footer */}
-      <motion.footer 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        viewport={{ once: true, margin: "-50px" }}
-        className="w-full py-12 relative overflow-hidden"
-      >
-        {/* Decorative background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black"></div>
-        
-        <div className="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            {/* Left section */}
-            <motion.div 
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: true }}
-              className="flex flex-col items-center md:items-start gap-2"
-            >
-              <div className="flex items-center gap-3 group">
-                <span className="text-white/40 text-xs font-light tracking-widest uppercase">EST.</span>
-                <span className="text-white/40 text-xs font-light tracking-widest uppercase">2025</span>
-              </div>
-              <div className="text-white/40 text-xs font-light tracking-widest uppercase">BeHorseSavvy</div>
-            </motion.div>
-
-            {/* Center section */}
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: true }}
-              className="flex items-center gap-6"
-            >
-              <a href="https://www.facebook.com/penny.pleasant" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white/80 transition-colors">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
-                </svg>
-              </a>
-            </motion.div>
-
-            {/* Right section */}
-            <motion.div 
-              initial={{ opacity: 0, x: 10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: true }}
-              className="flex flex-col items-center md:items-end gap-2"
-            >
-              <div className="text-white/40 text-xs font-light tracking-widest uppercase">© 2025 BeHorseSavvy</div>
-              <div className="text-white/40 text-xs font-light tracking-widest uppercase">All rights reserved</div>
-            </motion.div>
-          </div>
-        </div>
-      </motion.footer>
-
-      {/* Powered by Equinology */}
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        viewport={{ once: true }}
-        className="w-full py-4 relative"
-      >
-        <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex justify-center">
-          <a 
-            href="https://equinology.co.uk" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="relative inline-block text-white/40 text-xs font-light tracking-widest uppercase overflow-hidden group"
-          >
-            <span className="relative z-10">Powered by Equinology</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-          </a>
-        </div>
-      </motion.div>
+      <Footer />
     </div>
   );
 };

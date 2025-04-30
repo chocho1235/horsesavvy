@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Search, CheckCircle2, XCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const LIVERPOOL_COORDS = {
-  lat: 53.4084,
-  lng: -2.9916
+// Coordinates for BB18 6TD (Barnoldswick)
+const REFERENCE_COORDS = {
+  lat: 53.9167,
+  lng: -2.1833
 };
 
 const PostcodeChecker = () => {
@@ -44,13 +46,13 @@ const PostcodeChecker = () => {
         const distance = calculateDistance(
           latitude,
           longitude,
-          LIVERPOOL_COORDS.lat,
-          LIVERPOOL_COORDS.lng
+          REFERENCE_COORDS.lat,
+          REFERENCE_COORDS.lng
         );
         
         setResult({
           distance: Math.round(distance * 10) / 10,
-          isWithinRadius: distance <= 20
+          isWithinRadius: distance <= 100
         });
       } else {
         setError("Invalid postcode. Please try again.");
@@ -79,7 +81,16 @@ const PostcodeChecker = () => {
         </div>
         
         <p className="text-white/60 text-sm leading-relaxed mb-6">
-          Enter your postcode to check if you are within 20 miles of us, this is a requirement for the stage 1 and stage 2 qualifications.
+          Enter your postcode to check if you are within 100 miles of us, this is a requirement for the stage 1 and stage 2 qualifications.
+        </p>
+        <p className="text-white/60 text-sm leading-relaxed mb-6">
+          If you are not within our area, please refer to{" "}
+          <Link 
+            to="/education" 
+            className="text-blue-400 hover:text-blue-300 underline"
+          >
+            Home Education Equestrians
+          </Link>
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
@@ -166,7 +177,7 @@ const PostcodeChecker = () => {
                 <p className={`text-sm ${result.isWithinRadius ? "text-green-400" : "text-yellow-400"}`}>
                   {result.isWithinRadius
                     ? "You are within our service area! We can provide in-person training sessions."
-                    : "You are outside our service area. Please contact us for alternative arrangements."}
+                    : `You are ${result.distance - 100} miles outside our service area. Please contact us for alternative arrangements.`}
                 </p>
               </div>
             </motion.div>
