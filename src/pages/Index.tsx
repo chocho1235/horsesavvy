@@ -16,7 +16,7 @@ const horseImages = {
 };
 
 const carouselImages = [
-  "https://i.ibb.co/pvFg8ddc/372ed90b-45bf-4897-9821-453bfbb0cee0.jpg"
+  "/WhatsApp Image 2025-05-02 at 23.25.28.jpeg"
 ];
 
 const Index = () => {
@@ -59,16 +59,6 @@ const Index = () => {
       <ContactHeader />
       
       <div className="relative min-h-[600px]">
-        {/* Mobile Welcome Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="md:hidden block bg-gradient-to-r from-white/90 to-white/80 w-full py-6 px-4 backdrop-blur-sm"
-        >
-          <h1 className="text-3xl font-medium text-black text-center">Welcome</h1>
-        </motion.div>
-        
         {/* Center content */}
         <div className="pt-[80px] md:pt-[100px] px-4 md:px-8 max-w-[1600px] mx-auto">
           <div className="md:pl-[500px]">

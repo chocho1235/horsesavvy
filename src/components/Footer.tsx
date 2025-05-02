@@ -94,7 +94,7 @@ export const Footer = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-white/30 text-xs font-light tracking-widest uppercase">
-              © 2025 BeHorseSavvy. All rights reserved.
+f              © 2025 BeHorseSavvy. All rights reserved.
             </div>
             <a 
               href="https://equinology.co.uk" 
