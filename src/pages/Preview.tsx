@@ -55,20 +55,35 @@ export default function Preview() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-4xl md:text-6xl font-bold mb-8 text-yellow-400">
-                Horse Knowledge Courses
-              </h1>
-              <p className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-12 leading-relaxed">
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-4xl md:text-6xl font-bold mb-8 text-yellow-400"
+              >
+                Horse Knowledge One
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-12 leading-relaxed"
+              >
                 The BHS Challenge Award Horse Knowledge, Part One course covers essential topics such as yard safety, horse behaviour, and safe handling. It consists of seven modules with interactive quizzes, videos, and assessments, designed to be completed at your own pace in approximately 30 hours. Upon completion, you will receive a certificate from the British Horse Society. The course is ideal for horse owners, prospective owners, or anyone looking to improve their knowledge of horse care.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              </motion.p>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+              >
                 <Button className="bg-yellow-400 text-black hover:bg-yellow-500 px-8 py-6 text-lg">
                   Enroll Now
                 </Button>
                 <Button variant="outline" className="border-yellow-400 text-yellow-400 hover:bg-yellow-400/10 px-8 py-6 text-lg">
                   Learn More
                 </Button>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -77,89 +92,196 @@ export default function Preview() {
       {/* Course Overview */}
       <section className="py-16 bg-black/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-center mb-12"
+          >
             <h2 className="text-3xl font-bold mb-4 text-yellow-400">Course Overview</h2>
             <div className="w-16 h-1 mx-auto bg-yellow-400/70" />
-          </div>
+          </motion.div>
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="group relative bg-black/80 p-8 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="group relative bg-black/80 p-8 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
-                <h3 className="text-xl font-semibold mb-6 text-yellow-400 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-400/10 flex items-center justify-center mr-3">
-                    <ChevronRight className="w-4 h-4 text-yellow-400" />
+                <h3 className="font-serif text-2xl font-semibold mb-6 text-[#c7a750] flex items-center">
+                  <span className="w-10 h-10 rounded-full bg-[#c7a750]/10 flex items-center justify-center mr-4">
+                    <ChevronRight className="w-5 h-5 text-[#c7a750]" />
                   </span>
                   What You'll Learn
                 </h3>
                 <ul className="space-y-4">
                   <li className="flex items-start group/item">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-2 mr-3" />
-                    <span className="text-white/80 group-hover/item:text-white transition-colors">Comprehensive horse care and management</span>
+                    <span className="w-2 h-2 rounded-full bg-[#c7a750] mt-2 mr-3" />
+                    <span className="text-white/80 group-hover/item:text-white transition-colors">Complete horse care and management</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-2 mr-3" />
-                    <span className="text-white/80 group-hover/item:text-white transition-colors">Practical skills for horse handling</span>
+                    <span className="w-2 h-2 rounded-full bg-[#c7a750] mt-2 mr-3" />
+                    <span className="text-white/80 group-hover/item:text-white transition-colors">Horse handling skills</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-2 mr-3" />
-                    <span className="text-white/80 group-hover/item:text-white transition-colors">Safety and welfare best practices</span>
+                    <span className="w-2 h-2 rounded-full bg-[#c7a750] mt-2 mr-3" />
+                    <span className="text-white/80 group-hover/item:text-white transition-colors">Safety and welfare guidelines</span>
                   </li>
                 </ul>
               </div>
-            </div>
-            <div className="group relative bg-black/80 p-8 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="group relative bg-black/80 p-8 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
-                <h3 className="text-xl font-semibold mb-6 text-yellow-400 flex items-center">
-                  <span className="w-8 h-8 rounded-full bg-yellow-400/10 flex items-center justify-center mr-3">
-                    <ChevronRight className="w-4 h-4 text-yellow-400" />
+                <h3 className="font-serif text-2xl font-semibold mb-6 text-[#c7a750] flex items-center">
+                  <span className="w-10 h-10 rounded-full bg-[#c7a750]/10 flex items-center justify-center mr-4">
+                    <ChevronRight className="w-5 h-5 text-[#c7a750]" />
                   </span>
                   Course Features
                 </h3>
                 <ul className="space-y-4">
                   <li className="flex items-start group/item">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-2 mr-3" />
-                    <span className="text-white/80 group-hover/item:text-white transition-colors">Self-paced learning</span>
+                    <span className="w-2 h-2 rounded-full bg-[#c7a750] mt-2 mr-3" />
+                    <span className="text-white/80 group-hover/item:text-white transition-colors">Learn at your own pace</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-2 mr-3" />
+                    <span className="w-2 h-2 rounded-full bg-[#c7a750] mt-2 mr-3" />
                     <span className="text-white/80 group-hover/item:text-white transition-colors">Expert tutor support</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 mt-2 mr-3" />
-                    <span className="text-white/80 group-hover/item:text-white transition-colors">Practical assessments</span>
+                    <span className="w-2 h-2 rounded-full bg-[#c7a750] mt-2 mr-3" />
+                    <span className="text-white/80 group-hover/item:text-white transition-colors">Fully online, access from anywhere</span>
                   </li>
                 </ul>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Certificate Image */}
+      {/* Who is the Course For */}
+      <section className="py-20 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-6 text-yellow-400">Is This Course Right For You?</h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto mb-12">
+              Don't worry if you're new to horses! This course is perfect for anyone who wants to learn about horse care, no matter your experience level.
+            </p>
+          </motion.div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="group relative bg-black/80 p-6 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-yellow-400/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Users className="h-8 w-8 text-yellow-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-yellow-400 mb-3">New Horse Owners</h3>
+                <p className="text-white/80 group-hover:text-white transition-colors">
+                  Just got a horse or thinking about getting one? This course will teach you everything you need to know to get started.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="group relative bg-black/80 p-6 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-yellow-400/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <BookOpen className="h-8 w-8 text-yellow-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-yellow-400 mb-3">Complete Beginners</h3>
+                <p className="text-white/80 group-hover:text-white transition-colors">
+                  Never worked with horses before? No problem! We'll guide you through everything step by step.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="group relative bg-black/80 p-6 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-yellow-400/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Sparkles className="h-8 w-8 text-yellow-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-yellow-400 mb-3">Home Educated Children</h3>
+                <p className="text-white/80 group-hover:text-white transition-colors">
+                  Perfect for home education! Learn about horses in a fun, engaging way that fits your learning schedule.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="group relative bg-black/80 p-6 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-yellow-400/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Globe className="h-8 w-8 text-yellow-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-yellow-400 mb-3">Future Horse Professionals</h3>
+                <p className="text-white/80 group-hover:text-white transition-colors">
+                  Thinking about a career with horses? This course is your first step towards professional horse care and management.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Certificate and Graph Images */}
       <section className="py-12 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="flex justify-center">
-              <div className="relative w-full aspect-[4/3] max-w-xl">
-                <div className="absolute inset-0 bg-black/40 rounded-lg" />
-                <img 
-                  src="/Untitled design (11).png" 
-                  alt="Course Certificate" 
-                  className="w-full h-full object-contain rounded-lg shadow-lg"
-                />
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <div className="relative w-full aspect-[4/3] max-w-xl">
-                <div className="absolute inset-0 bg-black/40 rounded-lg" />
-                <img 
-                  src="/graph.png" 
-                  alt="Course Structure Graph" 
-                  className="w-full h-full object-contain rounded-lg shadow-lg"
-                />
-              </div>
-            </div>
+          <div className="flex justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="relative w-full aspect-[4/3] max-w-xl group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/10 via-transparent to-transparent rounded-xl" />
+              <img 
+                src="/Untitled design (11).png" 
+                alt="Course Certificate" 
+                className="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+            </motion.div>
           </div>
         </div>
       </section>
@@ -167,63 +289,81 @@ export default function Preview() {
       {/* Course Snapshot */}
       <section className="py-16 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-center mb-12"
+          >
             <h2 className="text-3xl font-bold mb-4 text-yellow-400">Course Snapshot</h2>
             <div className="w-16 h-1 mx-auto bg-yellow-400/70" />
-          </div>
+          </motion.div>
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              <div className="group relative bg-black/80 p-6 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="space-y-4"
+            >
+              <div className="group relative backdrop-blur-sm bg-white/[0.03] p-8 rounded-xl border border-white/10 hover:border-[#c7a750]/30 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-start">
-                  <div className="w-12 h-12 rounded-lg bg-yellow-400/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                    <Clock className="h-6 w-6 text-yellow-400" />
+                  <div className="w-14 h-14 rounded-xl bg-[#c7a750]/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <Clock className="h-7 w-7 text-[#c7a750]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-yellow-400 mb-1">Duration</h3>
+                    <h3 className="font-serif text-xl font-semibold text-[#c7a750] mb-2">Duration</h3>
                     <p className="text-white/80 group-hover:text-white transition-colors">30 hours of self-paced learning</p>
                   </div>
                 </div>
               </div>
-              <div className="group relative bg-black/80 p-6 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="group relative backdrop-blur-sm bg-white/[0.03] p-8 rounded-xl border border-white/10 hover:border-[#c7a750]/30 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-start">
-                  <div className="w-12 h-12 rounded-lg bg-yellow-400/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                    <Users className="h-6 w-6 text-yellow-400" />
+                  <div className="w-14 h-14 rounded-xl bg-[#c7a750]/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <Users className="h-7 w-7 text-[#c7a750]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-yellow-400 mb-1">Support</h3>
+                    <h3 className="font-serif text-xl font-semibold text-[#c7a750] mb-2">Support</h3>
                     <p className="text-white/80 group-hover:text-white transition-colors">Optional tutor call included</p>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="space-y-4">
-              <div className="group relative bg-black/80 p-6 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="space-y-4"
+            >
+              <div className="group relative backdrop-blur-sm bg-white/[0.03] p-8 rounded-xl border border-white/10 hover:border-[#c7a750]/30 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-start">
-                  <div className="w-12 h-12 rounded-lg bg-yellow-400/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                    <BookOpen className="h-6 w-6 text-yellow-400" />
+                  <div className="w-14 h-14 rounded-xl bg-[#c7a750]/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <BookOpen className="h-7 w-7 text-[#c7a750]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-yellow-400 mb-1">Format</h3>
+                    <h3 className="font-serif text-xl font-semibold text-[#c7a750] mb-2">Format</h3>
                     <p className="text-white/80 group-hover:text-white transition-colors">7 interactive modules with quizzes</p>
                   </div>
                 </div>
               </div>
-              <div className="group relative bg-black/80 p-6 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="group relative backdrop-blur-sm bg-white/[0.03] p-8 rounded-xl border border-white/10 hover:border-[#c7a750]/30 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-start">
-                  <div className="w-12 h-12 rounded-lg bg-yellow-400/10 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                    <Globe className="h-6 w-6 text-yellow-400" />
+                  <div className="w-14 h-14 rounded-xl bg-[#c7a750]/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <Globe className="h-7 w-7 text-[#c7a750]" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-yellow-400 mb-1">Study Anywhere</h3>
+                    <h3 className="font-serif text-xl font-semibold text-[#c7a750] mb-2">Study Anywhere</h3>
                     <p className="text-white/80 group-hover:text-white transition-colors">All courses are designed to be studied anywhere in the world</p>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -231,47 +371,71 @@ export default function Preview() {
       {/* Tutor Images */}
       <section className="py-12 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-center mb-8"
+          >
             <h2 className="text-3xl font-bold mb-4 text-yellow-400">Meet Your Tutor</h2>
             <div className="w-16 h-1 mx-auto bg-yellow-400/70" />
-          </div>
-          <div className="flex justify-center">
-            <div className="relative max-w-2xl">
-              <div className="absolute inset-0 bg-black/40 rounded-lg" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="flex justify-center"
+          >
+            <div className="relative max-w-2xl group">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/10 via-transparent to-transparent rounded-xl" />
               <img 
                 src="/77991a05-3d01-4281-b89e-df73707d1ff8.jpeg" 
                 alt="Penny Pleasant - Tutor Images" 
-                className="w-full h-auto rounded-lg shadow-lg"
+                className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Tutor Introduction */}
       <section className="py-16 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto">
-            <div className="group relative bg-black/80 p-8 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="max-w-3xl mx-auto"
+          >
+            <div className="group relative backdrop-blur-sm bg-white/[0.03] p-10 rounded-xl border border-white/10 hover:border-[#c7a750]/30 transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
-                <h3 className="text-2xl font-bold text-yellow-400 mb-2">Penny Pleasant</h3>
-                <p className="text-white/80 text-lg group-hover:text-white transition-colors">
+                <h3 className="font-serif text-3xl font-bold text-[#c7a750] mb-4">Penny Pleasant</h3>
+                <p className="text-white/80 text-lg group-hover:text-white transition-colors leading-relaxed">
                   Penny designed this course from the ground up, drawing on years of coaching and judging to make each lesson clear, practical and fun.
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* FAQs */}
       <section className="py-16 bg-black/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-center mb-12"
+          >
             <h2 className="text-3xl font-bold mb-4 text-yellow-400">Frequently Asked Questions</h2>
             <div className="w-16 h-1 mx-auto bg-yellow-400/70" />
-          </div>
+          </motion.div>
           <div className="max-w-3xl mx-auto space-y-4">
             {faqs.map((faq, idx) => (
               <motion.div
@@ -279,17 +443,17 @@ export default function Preview() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                viewport={{ once: true, margin: "100px" }}
+                viewport={{ once: true, margin: "0px" }}
                 className="group"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full text-left bg-black/80 p-6 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+                  className="w-full text-left backdrop-blur-sm bg-white/[0.03] p-8 rounded-xl border border-white/10 hover:border-[#c7a750]/30 transition-all duration-300"
                 >
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-semibold text-yellow-400 pr-4">{faq.question}</h3>
+                    <h3 className="font-serif text-xl font-semibold text-white group-hover:text-[#c7a750] transition-colors pr-4">{faq.question}</h3>
                     <motion.span 
-                      className="text-2xl text-yellow-400 flex-shrink-0 w-6 h-6 flex items-center justify-center"
+                      className="text-2xl text-[#c7a750] flex-shrink-0 w-8 h-8 flex items-center justify-center"
                       animate={{ rotate: openFaq === idx ? 180 : 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
@@ -308,7 +472,7 @@ export default function Preview() {
                         }}
                         className="overflow-hidden"
                       >
-                        <div className="pt-4 mt-4 border-t border-yellow-400/10 text-white/80">
+                        <div className="pt-6 mt-6 border-t border-white/10 text-white/80 leading-relaxed">
                           {faq.answer}
                         </div>
                       </motion.div>
@@ -324,51 +488,72 @@ export default function Preview() {
       {/* CTA Section */}
       <section className="py-16 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-center"
+          >
             <h2 className="text-3xl font-bold mb-6 text-yellow-400">Get Started Now!</h2>
             <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              {/* UK Full Payment */}
-              <div className="group relative bg-black/80 p-8 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="group relative bg-black/80 p-8 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
                   <div className="text-center">
-                    <p className="text-4xl font-bold text-yellow-400 mb-2">£125</p>
-                    <p className="text-white/80 mb-6">UK students</p>
-                    <Button className="w-full bg-yellow-400 text-black hover:bg-yellow-500">
+                    <p className="font-serif text-5xl font-bold text-[#c7a750] mb-3">£125</p>
+                    <p className="text-white/80 mb-8">UK students</p>
+                    <Button className="w-full bg-[#c7a750] text-black hover:bg-[#d4b86a] transition-colors duration-300 py-6 text-lg font-medium">
                       Enroll Now
                     </Button>
                   </div>
                 </div>
-              </div>
-
-              {/* International Full Payment */}
-              <div className="group relative bg-black/80 p-8 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+                className="group relative bg-black/80 p-8 rounded-lg border border-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#c7a750]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative">
                   <div className="text-center">
-                    <p className="text-4xl font-bold text-yellow-400 mb-2">$195</p>
-                    <p className="text-white/80 mb-6">International Students</p>
-                    <Button className="w-full bg-yellow-400 text-black hover:bg-yellow-500">
+                    <p className="font-serif text-5xl font-bold text-[#c7a750] mb-3">$195</p>
+                    <p className="text-white/80 mb-8">International Students</p>
+                    <Button className="w-full bg-[#c7a750] text-black hover:bg-[#d4b86a] transition-colors duration-300 py-6 text-lg font-medium">
                       Enroll Now
                     </Button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Quiz Prompt */}
       <section className="py-16 bg-black border-t border-yellow-400/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h3 className="text-2xl font-bold text-yellow-400 mb-4">Find Your Perfect Course Match</h3>
-            <p className="text-lg text-white/80 mb-6">Take our quick assessment to discover which course aligns best with your goals and experience level</p>
-            <Button className="bg-yellow-400 text-black hover:bg-yellow-500 px-8 py-6 text-lg">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="text-center"
+          >
+            <h3 className="font-serif text-3xl font-bold text-[#c7a750] mb-4">Find Your Perfect Course Match</h3>
+            <p className="text-lg text-white/80 mb-8">Take our quick assessment to discover which course aligns best with your goals and experience level</p>
+            <Button className="bg-[#c7a750] text-black hover:bg-[#d4b86a] px-8 py-6 text-lg font-medium transition-colors duration-300">
               Start Your Course Assessment
             </Button>
-          </div>
+          </motion.div>
         </div>
       </section>
 
