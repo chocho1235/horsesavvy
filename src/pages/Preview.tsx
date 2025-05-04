@@ -19,10 +19,6 @@ const faqs = [
     answer: "Once you have enrolled on the course, you can begin steadily working through the modules completing the learning activities as you progress. You work at your own pace fitting in your studies around your personal commitments. You then send your completed workbook to your tutor for marking and feedback."
   },
   {
-    question: "What happens if I have any questions about the course?",
-    answer: "When you enrol on the course we will allocate you a tutor - you can contact your tutor as little or as often as you need to. If you have any questions at any stage we will be here to support you and offer guidance."
-  },
-  {
     question: "Are there any other costs associated with the course?",
     answer: "There are no further costs associated with this course - everything you need to pass the course is included in the fee you pay when you enrol. The cost of this course also includes the BHS Challenge Award workbook that will be posted to you."
   },
@@ -75,13 +71,15 @@ export default function Preview() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
+                className="flex justify-center"
               >
-                <Button className="bg-yellow-400 text-black hover:bg-yellow-500 px-8 py-6 text-lg">
+                <Button 
+                  onClick={() => {
+                    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="bg-yellow-400 text-black hover:bg-yellow-500 px-8 py-6 text-lg"
+                >
                   Enroll Now
-                </Button>
-                <Button variant="outline" className="border-yellow-400 text-yellow-400 hover:bg-yellow-400/10 px-8 py-6 text-lg">
-                  Learn More
                 </Button>
               </motion.div>
             </motion.div>
@@ -486,7 +484,7 @@ export default function Preview() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-black">
+      <section id="pricing" className="py-16 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
