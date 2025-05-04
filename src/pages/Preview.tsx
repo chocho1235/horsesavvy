@@ -42,8 +42,8 @@ export default function Preview() {
       {/* Hero Section */}
       <section className="relative bg-black py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black" />
-        <div className="absolute inset-0 bg-[url('/pennyclubmanifest.jpeg')] bg-cover bg-center opacity-5" />
-        <div className="absolute inset-0 bg-gradient-to-b from-yellow-400/5 to-transparent" />
+        <div className="absolute inset-0 bg-[url('/pennyclubmanifest.jpeg')] bg-cover bg-center opacity-20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-yellow-400/10 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-3xl mx-auto">
             <motion.div
