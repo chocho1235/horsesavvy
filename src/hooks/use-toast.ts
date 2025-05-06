@@ -5,8 +5,8 @@ import type {
   ToastProps,
 } from "@/components/ui/toast"
 
-const TOAST_LIMIT = 1
-const TOAST_REMOVE_DELAY = 1000000
+const TOAST_LIMIT = 5
+const TOAST_REMOVE_DELAY = 5000 // 5 seconds is more reasonable
 
 type ToasterToast = ToastProps & {
   id: string
@@ -55,10 +55,17 @@ interface State {
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
 
-const addToRemoveQueue = (toastId: string) => {
+// Clear timeout when component unmounts to prevent memory leaks
+const clearToastTimeout = (toastId: string) => {
   if (toastTimeouts.has(toastId)) {
-    return
+    clearTimeout(toastTimeouts.get(toastId));
+    toastTimeouts.delete(toastId);
   }
+};
+
+const addToRemoveQueue = (toastId: string) => {
+  // Clear existing timeout if any
+  clearToastTimeout(toastId);
 
   const timeout = setTimeout(() => {
     toastTimeouts.delete(toastId)
@@ -90,8 +97,7 @@ export const reducer = (state: State, action: Action): State => {
     case "DISMISS_TOAST": {
       const { toastId } = action
 
-      // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity
+      // Dismiss specific toast or all toasts
       if (toastId) {
         addToRemoveQueue(toastId)
       } else {
@@ -114,11 +120,15 @@ export const reducer = (state: State, action: Action): State => {
     }
     case "REMOVE_TOAST":
       if (action.toastId === undefined) {
+        // Clear all timeouts when removing all toasts
+        state.toasts.forEach(toast => clearToastTimeout(toast.id));
         return {
           ...state,
           toasts: [],
         }
       }
+      // Clear timeout for the specific toast
+      clearToastTimeout(action.toastId);
       return {
         ...state,
         toasts: state.toasts.filter((t) => t.id !== action.toastId),
@@ -179,7 +189,7 @@ function useToast() {
         listeners.splice(index, 1)
       }
     }
-  }, [state])
+  }, [])
 
   return {
     ...state,

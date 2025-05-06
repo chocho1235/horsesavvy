@@ -61,10 +61,14 @@ export default function BHSStage1Theory() {
 
   // Simple animation props with subtle scroll trigger
   const getAnimationProps = () => {
-    // Disable animations on mobile devices
-    if (window.innerWidth < 768 || prefersReducedMotion) {
+    // Check if we're in a browser environment
+    const isBrowser = typeof window !== 'undefined';
+    
+    // Disable animations on mobile devices or if reduced motion is preferred
+    if ((isBrowser && window.innerWidth < 768) || prefersReducedMotion) {
       return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
     }
+    
     return {
       initial: "initial",
       whileInView: "whileInView",

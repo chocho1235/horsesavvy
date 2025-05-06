@@ -35,10 +35,14 @@ const faqs = [
 
 // Add font preloading
 const preloadFonts = () => {
-  const fontLinks = [
-    { rel: 'preload', href: '/fonts/your-main-font.woff2', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
-    // Add other font files as needed
+  // Only preload fonts if there are valid fonts to load
+  // This prevents unnecessary network requests for non-existent fonts
+  const fontLinks: Array<Record<string, string>> = [
+    // Only uncomment and use actual font files that exist in your project
+    // { rel: 'preload', href: '/fonts/your-main-font.woff2', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
   ];
+  
+  if (fontLinks.length === 0) return;
   
   fontLinks.forEach(link => {
     const linkElement = document.createElement('link');
@@ -80,10 +84,14 @@ export default function HorseKnowledge() {
 
   // Simple animation props with subtle scroll trigger
   const getAnimationProps = () => {
-    // Disable animations on mobile devices
-    if (window.innerWidth < 768 || prefersReducedMotion) {
+    // Check if we're in a browser environment
+    const isBrowser = typeof window !== 'undefined';
+    
+    // Disable animations on mobile devices or if reduced motion is preferred
+    if ((isBrowser && window.innerWidth < 768) || prefersReducedMotion) {
       return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
     }
+    
     return {
       initial: "initial",
       whileInView: "whileInView",

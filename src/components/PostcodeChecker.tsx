@@ -21,6 +21,26 @@ const REFERENCE_COORDS = {
 /** Maximum service radius in miles */
 const SERVICE_RADIUS = 100;
 
+// Define interfaces for type safety
+interface PostcodeResult {
+  status: number;
+  result: {
+    latitude: number;
+    longitude: number;
+    [key: string]: any;
+  };
+}
+
+interface PostcodeError {
+  status: number;
+  error: string;
+}
+
+interface CheckResult {
+  distance: number;
+  isWithinRadius: boolean;
+}
+
 /**
  * Calculates the distance between two points using the Haversine formula
  * @param lat1 - Latitude of first point
@@ -43,9 +63,18 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
 
 const PostcodeChecker = () => {
   const [postcode, setPostcode] = useState("");
-  const [result, setResult] = useState<{ distance: number; isWithinRadius: boolean } | null>(null);
+  const [result, setResult] = useState<CheckResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  /**
+   * Validates and formats a UK postcode
+   * @param code - The postcode to validate and format
+   * @returns The formatted postcode or null if invalid
+   */
+  const formatPostcode = (code: string): string => {
+    return code.trim().toUpperCase().replace(/\s+/g, "");
+  };
 
   /**
    * Checks if the entered postcode is within the service radius
@@ -61,12 +90,11 @@ const PostcodeChecker = () => {
     setResult(null);
 
     try {
-      const response = await fetch(
-        `https://api.postcodes.io/postcodes/${postcode.replace(/\s/g, "")}`
-      );
-      const data = await response.json();
-
-      if (data.status === 200) {
+      const formattedPostcode = formatPostcode(postcode);
+      const response = await fetch(`https://api.postcodes.io/postcodes/${formattedPostcode}`);
+      const data = await response.json() as PostcodeResult | PostcodeError;
+      
+      if ('result' in data && data.status === 200) {
         const { latitude, longitude } = data.result;
         const distance = calculateDistance(
           latitude,
@@ -80,12 +108,20 @@ const PostcodeChecker = () => {
           isWithinRadius: distance <= SERVICE_RADIUS
         });
       } else {
-        setError("Invalid postcode. Please try again.");
+        setError('error' in data ? data.error : "Invalid postcode. Please try again.");
       }
     } catch (err) {
-      setError("An error occurred. Please try again.");
+      console.error("Postcode API error:", err);
+      setError("An error occurred. Please check your connection and try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Handle form submission with Enter key
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !loading) {
+      checkPostcode();
     }
   };
 
@@ -128,6 +164,7 @@ const PostcodeChecker = () => {
               type="text"
               value={postcode}
               onChange={(e) => setPostcode(e.target.value.toUpperCase())}
+              onKeyDown={handleKeyDown}
               placeholder="Enter your postcode"
               className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
               aria-label="Postcode"

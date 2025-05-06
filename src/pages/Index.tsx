@@ -1,23 +1,8 @@
 import { Link } from "react-router-dom";
 import { CircleNavButton } from "@/components/CircleNavButton";
 import { ContactHeader } from "@/components/ContactHeader";
-import { PhotoBubble } from "@/components/PhotoBubble";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { motion } from "framer-motion";
 import { Footer } from "../components/Footer";
-
-// Stock horse images
-const horseImages = {
-  horse1: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80",
-  horse2: "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?auto=format&fit=crop&q=80",
-  horse3: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80",
-  horse4: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80",
-  horse5: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80"
-};
-
-const carouselImages = [
-  "/WhatsApp Image 2025-05-02 at 23.25.28.jpeg"
-];
 
 const Index = () => {
   return (
@@ -35,22 +20,14 @@ const Index = () => {
         className="absolute top-0 left-0 h-[60vh] w-[35vw] min-w-[400px] max-w-[500px] bg-gradient-to-br from-white/90 to-white/80 rounded-br-[100%] md:block hidden z-[51] overflow-hidden backdrop-blur-sm"
       >
         <div className="absolute inset-0 z-0">
-          <Carousel className="w-full h-full">
-            <CarouselContent>
-              {carouselImages.map((image, index) => (
-                <CarouselItem key={index}>
-                  <div className="relative w-full h-full">
-                    <img
-                      src={image}
-                      alt={`Horse ${index + 1}`}
-                      className="object-cover w-full h-full"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-white/30"></div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
+          <div className="relative w-full h-full">
+            <img
+              src="/WhatsApp Image 2025-05-02 at 23.25.28.jpeg"
+              alt="Horse"
+              className="object-cover w-full h-full"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-white/30"></div>
+          </div>
         </div>
         <div className="relative pl-16 pt-12 pr-8 h-full flex flex-col z-10">
         </div>
@@ -92,9 +69,12 @@ const Index = () => {
                     transition={{ duration: 0.4, delay: 0.2 }}
                     className="flex flex-col md:flex-row items-center gap-6"
                   >
-                    <button className="relative text-xl bg-white text-black px-12 py-5 rounded-full hover:bg-white/90 transition-all duration-300 w-full md:w-auto font-semibold shadow-sm hover:shadow-md">
+                    <Link 
+                      to="/about"
+                      className="relative text-xl bg-white text-black px-12 py-5 rounded-full hover:bg-white/90 transition-all duration-300 w-full md:w-auto font-semibold shadow-sm hover:shadow-md"
+                    >
                       About Us
-                    </button>
+                    </Link>
                     <Link 
                       to="/case-studies" 
                       className="relative text-xl bg-white text-black px-12 py-5 rounded-full hover:bg-white/90 transition-all duration-300 w-full md:w-auto text-center font-semibold shadow-sm hover:shadow-md"
