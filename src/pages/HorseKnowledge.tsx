@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ChevronDown } from "lucide-react";
+import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ChevronDown, ArrowLeft } from "lucide-react";
 import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
+import { Link } from "react-router-dom";
 
 const faqs = [
   {
@@ -12,19 +13,19 @@ const faqs = [
   },
   {
     question: "What happens after I have enrolled?",
-    answer: "You will have immediate access to the course material and can begin to study the course straight away! You will also be sent a comprehensive workbook to work through."
+    answer: "You will have immediate access to the course material and can begin to study the course straight away!"
   },
   {
     question: "How does studying via distance learning work?",
-    answer: "Once you have enrolled on the course, you can begin steadily working through the modules completing the learning activities as you progress. You work at your own pace fitting in your studies around your personal commitments. You then send your completed workbook to your tutor for marking and feedback."
+    answer: "Once you have enrolled on the course, you can begin steadily working through the modules completing the learning activities as you progress. You work at your own pace fitting in your studies around your personal commitments."
   },
   {
     question: "Are there any other costs associated with the course?",
-    answer: "There are no further costs associated with this course - everything you need to pass the course is included in the fee you pay when you enrol. The cost of this course also includes the workbook that will be posted to you."
+    answer: "There are no further costs associated with this course - everything you need to pass the course is included in the fee you pay when you enrol."
   },
   {
     question: "What will I receive on successful completion of the course?",
-    answer: "You will receive a Certificate of Completion from BeHorseSavvy. You will also receive your marked workbook that you can keep and refer to for future reference."
+    answer: "You will receive a Certificate of Completion from BeHorseSavvy."
   },
   {
     question: "Can international students study this course?",
@@ -54,7 +55,7 @@ const fadeIn = {
   whileInView: { opacity: 1, y: 0 }
 };
 
-export default function Preview() {
+export default function HorseKnowledge() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
@@ -79,7 +80,8 @@ export default function Preview() {
 
   // Simple animation props with subtle scroll trigger
   const getAnimationProps = () => {
-    if (prefersReducedMotion) {
+    // Disable animations on mobile devices
+    if (window.innerWidth < 768 || prefersReducedMotion) {
       return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
     }
     return {
@@ -97,6 +99,19 @@ export default function Preview() {
   return (
     <div className="min-h-[100dvh] bg-gradient-to-b from-blue-950 to-blue-950 text-white">
       <ContactHeader bgColor="bg-blue-950" />
+      
+      {/* Back Home Button */}
+      <div className="absolute md:top-24 left-6 sm:left-8 z-20 mt-2 md:mt-0 top-[40px]">
+        <Link to="/">
+          <Button 
+            variant="outline" 
+            className="bg-blue-900/80 hover:bg-blue-800 text-white border-white/30 rounded-full px-4 py-1.5 sm:px-5 sm:py-2 flex items-center gap-1.5 sm:gap-2 shadow-lg transition-all duration-300 hover:translate-x-[-5px] text-sm sm:text-base"
+          >
+            <ArrowLeft size={16} strokeWidth={2.5} />
+            <span className="font-medium">Back Home</span>
+          </Button>
+        </Link>
+      </div>
       
       {/* Hero Section */}
       <section className="relative bg-blue-950 py-16 sm:py-24 md:py-32 overflow-hidden">

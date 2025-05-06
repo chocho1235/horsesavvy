@@ -127,7 +127,7 @@ const Index = () => {
             <CircleNavButton to="/education" color="black-gold" label="Home Education Equestrians" />
           </div>
           <div className="flex justify-center">
-            <CircleNavButton to="/learning" color="blue" label="Online & Interactive Learning" />
+            <CircleNavButton to="/courses" color="blue" label="Courses" />
           </div>
           <div className="flex justify-center">
             <CircleNavButton to="/clinics" color="white" label="Clinics" />
@@ -157,7 +157,7 @@ const Index = () => {
             <CircleNavButton to="/education" color="black-gold" label="Home Education Equestrians" />
           </div>
           <div className="flex justify-center">
-            <CircleNavButton to="/learning" color="blue" label="Online & Interactive Learning" />
+            <CircleNavButton to="/courses" color="blue" label="Courses" />
           </div>
           <div className="flex justify-center">
             <CircleNavButton to="/clinics" color="white" label="Clinics" />
