@@ -8,16 +8,16 @@ export const Footer = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
       viewport={{ once: true, margin: "-50px" }}
-      className="w-full py-24 relative overflow-hidden bg-gradient-to-b from-transparent via-black/30 to-black mt-32"
+      className="w-full py-24 relative overflow-hidden bg-blue-950 mt-32"
     >
       {/* Decorative elements */}
       <div className="absolute inset-0">
         {/* Left decorative element */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-r from-white/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-r from-white/10 to-transparent rounded-full blur-3xl"></div>
         {/* Right decorative element */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-l from-white/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-l from-white/10 to-transparent rounded-full blur-3xl"></div>
         {/* Bottom decorative line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
       </div>
       
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
