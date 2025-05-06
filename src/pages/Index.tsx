@@ -93,7 +93,7 @@ const Index = () => {
                     className="flex flex-col md:flex-row items-center gap-6"
                   >
                     <button className="relative text-xl bg-white text-black px-12 py-5 rounded-full hover:bg-white/90 transition-all duration-300 w-full md:w-auto font-semibold shadow-sm hover:shadow-md">
-                      Read More
+                      About Us
                     </button>
                     <Link 
                       to="/case-studies" 
