@@ -6,6 +6,33 @@ import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 
+const faqs = [
+  {
+    question: "When does the course start and finish?",
+    answer: "The course starts now! As soon as you have enrolled you have access to the course and can start straight away."
+  },
+  {
+    question: "What happens after I have enrolled?",
+    answer: "You will have immediate access to the course material and can begin to study the course straight away!"
+  },
+  {
+    question: "How does studying via distance learning work?",
+    answer: "Once you have enrolled on the course, you can begin steadily working through the modules completing the learning activities as you progress. You work at your own pace fitting in your studies around your personal commitments."
+  },
+  {
+    question: "Are there any other costs associated with the course?",
+    answer: "There are no further costs associated with this course - everything you need to pass the course is included in the fee you pay when you enrol."
+  },
+  {
+    question: "Will this course help me prepare for the BHS Stage 1 exam?",
+    answer: "Yes, this course is specifically designed to cover the entire BHS Stage 1 syllabus and prepare you for the official examination."
+  },
+  {
+    question: "Can international students study this course?",
+    answer: "YES! All of our courses are designed to be studied anywhere in the world and we have many international students studying with us."
+  }
+];
+
 // Subtle animation variants
 const fadeIn = {
   initial: { opacity: 0, y: 10 },
@@ -14,6 +41,7 @@ const fadeIn = {
 
 export default function BHSStage1Theory() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
     // Check for reduced motion preference
@@ -131,9 +159,24 @@ export default function BHSStage1Theory() {
                   This training course has been designed to correspond with the British Horse Society Stage 1 Care syllabus. In total, there are 8 separate topics covering all the relevant information needed to help you gain the BHS Stage 1 qualification. Plus, we also include 2 bonus subjects to ensure you are fully prepared for your first BHS exam.
                 </p>
                 <p className="text-white/90 text-lg group-hover:text-white leading-relaxed">
-                  Once subscribed, you will be provided with full access to all of the online course material for 2 years. This enables you the time and flexibility needed to study in your own time, at your pace.
+                  Once subscribed, you will be provided with full access to all of the online course material for 10 months. This enables you the time and flexibility needed to study in your own time, at your pace.
                 </p>
               </div>
+            </div>
+          </motion.div>
+          
+          {/* Course Image */}
+          <motion.div 
+            {...getAnimationProps()}
+            className="flex justify-center mt-12 mb-4"
+          >
+            <div className="relative max-w-lg group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-transparent rounded-xl" />
+              <img 
+                src="/image.png" 
+                alt="BHS Stage 1 Theory Course" 
+                className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+              />
             </div>
           </motion.div>
         </div>
@@ -206,7 +249,7 @@ export default function BHSStage1Theory() {
             variants={fadeIn}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4 text-white">BHS Stage One Subjects</h2>
+            <h2 className="text-3xl font-bold mb-4 text-white">BHS Stage One Syllabus</h2>
             <div className="w-16 h-1 mx-auto bg-red-600/70 mb-8" />
           </motion.div>
           
@@ -298,6 +341,53 @@ export default function BHSStage1Theory() {
         </div>
       </section>
 
+      {/* Tutor Images */}
+      <section className="py-12 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            {...getAnimationProps()}
+            className="text-center mb-8"
+          >
+            <h2 className="text-3xl font-bold mb-4 text-white">Meet Your Tutor</h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70" />
+          </motion.div>
+          <motion.div
+            {...getAnimationProps()}
+            className="flex justify-center"
+          >
+            <div className="relative max-w-2xl group">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
+              <img 
+                src="/P1000200.jpg" 
+                alt="Penny Pleasant - Tutor Images" 
+                className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Tutor Introduction */}
+      <section className="py-16 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            {...getAnimationProps()}
+            className="max-w-3xl mx-auto"
+          >
+            <div className="group relative backdrop-blur-sm bg-white/10 p-10 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <h3 className="font-serif text-3xl font-bold text-white mb-4">Penny Pleasant</h3>
+                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed">
+                  These courses are designed by The British Horse Society (BHS) and are delivered online by Penny, with the added benefit of optional booked phone calls and ongoing support throughout.
+                  Upon completion, you'll receive a BHS Certificate, making it a great stepping stone for anyone looking to build a solid foundation in horse care and knowledge.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
       <section id="pricing" className="py-16 bg-gradient-to-b from-blue-950 to-blue-950 border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -320,19 +410,71 @@ export default function BHSStage1Theory() {
               <div className="relative">
                 <div className="text-center">
                   <h3 className="font-serif text-2xl font-bold text-white mb-3">Course Price</h3>
-                  <p className="font-serif text-lg font-medium text-white/80 mb-5">One single payment for 2 years access</p>
+                  <p className="font-serif text-lg font-medium text-white/80 mb-5">One single payment for 10 months access</p>
                   <p className="font-serif text-5xl font-bold text-red-500 mb-8">£85.00</p>
                   
                   <Button className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-6 text-lg font-medium">
                     Enroll Now
                   </Button>
-                  
-                  <p className="text-white/80 mt-4 text-sm">
-                    Still not sure? Sign up for our <span className="text-red-400 underline">Free Trial</span> and get a taster of what we offer.
-                  </p>
                 </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            {...getAnimationProps()}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70" />
+          </motion.div>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqs.map((faq, idx) => (
+              <motion.div
+                key={idx}
+                {...getAnimationProps()}
+                className="group"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full text-left backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
+                >
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-serif text-xl font-semibold text-white group-hover:text-red-500 transition-colors pr-4">{faq.question}</h3>
+                    <motion.span 
+                      className="text-2xl text-red-500 flex-shrink-0 w-8 h-8 flex items-center justify-center"
+                      animate={{ rotate: openFaq === idx ? 180 : 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      +
+                    </motion.span>
+                  </div>
+                  <AnimatePresence initial={false}>
+                    {openFaq === idx && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ 
+                          height: { duration: 0.3, ease: "easeInOut" },
+                          opacity: { duration: 0.2, ease: "easeInOut" }
+                        }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-6 mt-6 border-t border-white/20 text-white/80 leading-relaxed">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </button>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

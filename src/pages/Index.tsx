@@ -10,13 +10,15 @@ import { Footer } from "../components/Footer";
 const horseImages = {
   horse1: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80",
   horse2: "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?auto=format&fit=crop&q=80",
-  horse3: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80",
-  horse4: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80",
-  horse5: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80"
+  horse3: "https://images.unsplash.com/photo-1566251037378-5e04e2dae4bb?auto=format&fit=crop&q=80",
+  horse4: "https://images.unsplash.com/photo-1594768816444-63fec33ec663?auto=format&fit=crop&q=80",
+  horse5: "https://images.unsplash.com/photo-1696167479735-9d7217fe1360?auto=format&fit=crop&q=80"
 };
 
 const carouselImages = [
-  "/WhatsApp Image 2025-05-02 at 23.25.28.jpeg"
+  horseImages.horse1,
+  horseImages.horse2,
+  horseImages.horse3
 ];
 
 const Index = () => {
