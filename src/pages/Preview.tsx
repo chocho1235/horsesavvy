@@ -48,28 +48,14 @@ const preloadFonts = () => {
   });
 };
 
-// Animation variants with reduced motion support
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: "easeOut" }
-};
-
-const fadeInLeft = {
-  initial: { opacity: 0, x: -20 },
-  animate: { opacity: 1, x: 0 },
-  transition: { duration: 0.7, ease: "easeOut" }
-};
-
-const fadeInRight = {
-  initial: { opacity: 0, x: 20 },
-  animate: { opacity: 1, x: 0 },
-  transition: { duration: 0.7, ease: "easeOut" }
+// Subtle animation variants
+const fadeIn = {
+  initial: { opacity: 0, y: 10 },
+  whileInView: { opacity: 1, y: 0 }
 };
 
 export default function Preview() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [shouldAnimate, setShouldAnimate] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -86,31 +72,31 @@ export default function Preview() {
 
     mediaQuery.addEventListener('change', handleChange);
 
-    // Delay animations slightly to prevent initial flicker
-    const timer = setTimeout(() => {
-      setShouldAnimate(true);
-    }, 100);
-
     return () => {
       mediaQuery.removeEventListener('change', handleChange);
-      clearTimeout(timer);
     };
   }, []);
 
-  // Helper function to get animation props
-  const getAnimationProps = (variant: any, delay = 0) => {
-    if (prefersReducedMotion || !shouldAnimate) {
-      return { initial: false, animate: false };
+  // Simple animation props with subtle scroll trigger
+  const getAnimationProps = () => {
+    if (prefersReducedMotion) {
+      return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
     }
     return {
-      ...variant,
-      transition: { ...variant.transition, delay }
+      initial: "initial",
+      whileInView: "whileInView",
+      viewport: { once: true, margin: "-50px" },
+      variants: fadeIn,
+      transition: { 
+        duration: 0.4,
+        ease: "easeOut"
+      }
     };
   };
 
   return (
     <div className="min-h-[100dvh] bg-gradient-to-b from-blue-950 to-blue-950 text-white">
-      <ContactHeader />
+      <ContactHeader bgColor="bg-blue-950" />
       
       {/* Hero Section */}
       <section className="relative bg-blue-950 py-16 sm:py-24 md:py-32 overflow-hidden">
@@ -119,21 +105,18 @@ export default function Preview() {
         <div className="absolute inset-0 bg-gradient-to-b from-red-800/20 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-3xl mx-auto">
-            <motion.div {...getAnimationProps(fadeInUp)}>
+            <motion.div {...getAnimationProps()} variants={fadeIn}>
               <motion.h1 
-                {...getAnimationProps(fadeInUp, 0.2)}
                 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
               >
                 Horse Knowledge Part One & Two
               </motion.h1>
               <motion.p 
-                {...getAnimationProps(fadeInUp, 0.4)}
                 className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
               >
                 The BHS Challenge Award Horse Knowledge (Parts One & Two) offers a complete foundation in horse care. Part One focuses on safety, behavior, and handling basics, while Part Two advances to health and management. Each part includes seven interactive modules with quizzes and videos, taking 30 hours to complete. Perfect for horse owners and enthusiasts, with BHS certification upon completion.
               </motion.p>
               <motion.div 
-                {...getAnimationProps(fadeInUp, 0.6)}
                 className="flex justify-center gap-4"
               >
                 <Button 
@@ -162,13 +145,15 @@ export default function Preview() {
       <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps(fadeInUp)}
+            {...getAnimationProps()}
+            variants={fadeIn}
             className="text-center mb-12"
           >
             <h2 className="text-4xl font-bold mb-6 text-white">Horse Knowledge Part One</h2>
           </motion.div>
           <motion.div 
-            {...getAnimationProps(fadeInUp)}
+            {...getAnimationProps()}
+            variants={fadeIn}
             className="text-center mb-8 sm:mb-16"
           >
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">Course Overview</h2>
@@ -176,7 +161,8 @@ export default function Preview() {
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
             <motion.div
-              {...getAnimationProps(fadeInLeft, 0.2)}
+              {...getAnimationProps()}
+              variants={fadeIn}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -205,7 +191,8 @@ export default function Preview() {
             </motion.div>
 
             <motion.div
-              {...getAnimationProps(fadeInRight, 0.4)}
+              {...getAnimationProps()}
+              variants={fadeIn}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -234,7 +221,8 @@ export default function Preview() {
             </motion.div>
 
             <motion.div
-              {...getAnimationProps(fadeInUp, 0.6)}
+              {...getAnimationProps()}
+              variants={fadeIn}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -264,7 +252,7 @@ export default function Preview() {
           </div>
 
           {/* Syllabus for Part One */}
-          <motion.div {...getAnimationProps(fadeInUp, 0.2)} className="max-w-2xl mx-auto mt-16 mb-12">
+          <motion.div {...getAnimationProps()} className="max-w-2xl mx-auto mt-16 mb-12">
             <div className="backdrop-blur-sm bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 rounded-xl shadow-xl p-8 sm:p-10 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <h3 className="font-serif text-2xl font-bold mb-8 text-center text-white relative">
@@ -301,7 +289,8 @@ export default function Preview() {
       <section className="py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps(fadeInUp)}
+            {...getAnimationProps()}
+            variants={fadeIn}
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold mb-6 text-white">Is This Course Right For You?</h2>
@@ -311,7 +300,8 @@ export default function Preview() {
           </motion.div>
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <motion.div
-              {...getAnimationProps(fadeInLeft, 0.2)}
+              {...getAnimationProps()}
+              variants={fadeIn}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -327,7 +317,8 @@ export default function Preview() {
             </motion.div>
 
             <motion.div
-              {...getAnimationProps(fadeInLeft, 0.3)}
+              {...getAnimationProps()}
+              variants={fadeIn}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -343,7 +334,8 @@ export default function Preview() {
             </motion.div>
 
             <motion.div
-              {...getAnimationProps(fadeInRight, 0.4)}
+              {...getAnimationProps()}
+              variants={fadeIn}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -359,7 +351,8 @@ export default function Preview() {
             </motion.div>
 
             <motion.div
-              {...getAnimationProps(fadeInRight, 0.5)}
+              {...getAnimationProps()}
+              variants={fadeIn}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -382,7 +375,7 @@ export default function Preview() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center">
             <motion.div
-              {...getAnimationProps(fadeInUp, 0.2)}
+              {...getAnimationProps()}
               className="relative w-full aspect-[4/3] max-w-xl group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
@@ -400,7 +393,7 @@ export default function Preview() {
       <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps(fadeInUp)}
+            {...getAnimationProps()}
             className="text-center mb-8 sm:mb-16"
           >
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">Course Snapshot</h2>
@@ -408,7 +401,7 @@ export default function Preview() {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
             <motion.div
-              {...getAnimationProps(fadeInLeft, 0.2)}
+              {...getAnimationProps()}
               className="space-y-4"
             >
               <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
@@ -437,7 +430,7 @@ export default function Preview() {
               </div>
             </motion.div>
             <motion.div
-              {...getAnimationProps(fadeInRight, 0.4)}
+              {...getAnimationProps()}
               className="space-y-4"
             >
               <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
@@ -473,14 +466,14 @@ export default function Preview() {
       <section className="py-12 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps(fadeInUp)}
+            {...getAnimationProps()}
             className="text-center mb-8"
           >
             <h2 className="text-3xl font-bold mb-4 text-white">Meet Your Tutor</h2>
             <div className="w-16 h-1 mx-auto bg-red-600/70" />
           </motion.div>
           <motion.div
-            {...getAnimationProps(fadeInLeft, 0.2)}
+            {...getAnimationProps()}
             className="flex justify-center"
           >
             <div className="relative max-w-2xl group">
@@ -499,7 +492,7 @@ export default function Preview() {
       <section className="py-16 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            {...getAnimationProps(fadeInUp)}
+            {...getAnimationProps()}
             className="max-w-3xl mx-auto"
           >
             <div className="group relative backdrop-blur-sm bg-white/10 p-10 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
@@ -520,7 +513,7 @@ export default function Preview() {
       <section className="py-16 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps(fadeInUp)}
+            {...getAnimationProps()}
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
@@ -530,8 +523,7 @@ export default function Preview() {
             {faqs.map((faq, idx) => (
               <motion.div
                 key={idx}
-                {...getAnimationProps(fadeInLeft, idx * 0.1)}
-                viewport={{ once: true, margin: "0px" }}
+                {...getAnimationProps()}
                 className="group"
               >
                 <button
@@ -577,7 +569,7 @@ export default function Preview() {
       <section id="part-two" className="py-16 bg-blue-950 border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps(fadeInUp)}
+            {...getAnimationProps()}
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold mb-4 text-white">Horse Knowledge Part Two</h2>
@@ -588,7 +580,7 @@ export default function Preview() {
             
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
               <motion.div
-                {...getAnimationProps(fadeInLeft, 0.2)}
+                {...getAnimationProps()}
                 className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -616,7 +608,7 @@ export default function Preview() {
               </motion.div>
 
               <motion.div
-                {...getAnimationProps(fadeInRight, 0.4)}
+                {...getAnimationProps()}
                 className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -645,7 +637,7 @@ export default function Preview() {
             </div>
 
             {/* Syllabus for Part Two */}
-            <motion.div {...getAnimationProps(fadeInUp, 0.4)} className="max-w-2xl mx-auto mt-8 mb-12">
+            <motion.div {...getAnimationProps()} className="max-w-2xl mx-auto mt-8 mb-12">
               <div className="backdrop-blur-sm bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 rounded-xl shadow-xl p-8 sm:p-10 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <h3 className="font-serif text-2xl font-bold mb-8 text-center text-white relative">
@@ -692,7 +684,7 @@ export default function Preview() {
       <section id="pricing" className="py-16 bg-gradient-to-b from-blue-950 to-blue-950 border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps(fadeInUp)}
+            {...getAnimationProps()}
             className="text-center mb-10"
           >
             <h2 className="text-4xl font-bold mb-4 text-white">Get Started Now!</h2>
@@ -703,7 +695,7 @@ export default function Preview() {
           
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <motion.div
-              {...getAnimationProps(fadeInLeft, 0.2)}
+              {...getAnimationProps()}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
@@ -736,7 +728,7 @@ export default function Preview() {
             </motion.div>
             
             <motion.div
-              {...getAnimationProps(fadeInRight, 0.4)}
+              {...getAnimationProps()}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
@@ -771,7 +763,7 @@ export default function Preview() {
         </div>
       </section>
 
-      <Footer />
+      <Footer bgColor="bg-blue-950" />
     </div>
   );
 }
