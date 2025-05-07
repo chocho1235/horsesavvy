@@ -28,6 +28,22 @@
       scroll-behavior: auto !important;
     }
   }
+
+  /* Global animation optimizations to prevent flickering on mobile */
+  .animate-gpu,
+  [data-animate="true"],
+  .motion-safe\:animate-gpu {
+    /* GPU acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-perspective: 1000;
+    will-change: transform, opacity;
+    /* Prevent text flicker */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 @layer utilities {
@@ -149,5 +165,16 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Use on parent containers of animated content to create a proper 3D context */
+@layer components {
+  .animation-container {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-perspective: 1000;
   }
 }

@@ -14,6 +14,7 @@
 
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { memo } from "react";
 
 interface CircleNavButtonProps {
   /** Route path to navigate to */
@@ -39,7 +40,7 @@ const colorClasses = {
   "black-gold": "bg-black text-[#FFD700] hover:bg-gray-900/90",
 } as const;
 
-export const CircleNavButton = ({ 
+export const CircleNavButton = memo(({ 
   to, 
   label, 
   color = "white",
@@ -57,6 +58,8 @@ export const CircleNavButton = ({
         "text-center font-bold p-4 md:p-6 text-base md:text-xl",
         // Animation and effects
         "transition-all duration-300 hover:scale-[1.02]",
+        // GPU acceleration and anti-flicker
+        "animate-gpu transform-gpu",
         // Border and shadow
         "border-2 md:border-4 border-white shadow-lg",
         // Color scheme
@@ -65,10 +68,14 @@ export const CircleNavButton = ({
         className
       )}
       aria-label={label}
+      data-animate="true"
     >
-      <div className="leading-tight max-w-[120px] md:max-w-[140px] lg:max-w-[160px]">
+      <div className="leading-tight max-w-[120px] md:max-w-[140px] lg:max-w-[160px] -webkit-font-smoothing-antialiased">
         {label}
       </div>
     </Link>
   );
-};
+});
+
+// Add display name for React DevTools
+CircleNavButton.displayName = 'CircleNavButton';

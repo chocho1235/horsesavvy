@@ -7,7 +7,7 @@
  * @component
  */
 
-import { useState } from "react";
+import { useState, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Search, CheckCircle2, XCircle } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -61,7 +61,60 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
   return R * c;
 };
 
-const PostcodeChecker = () => {
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.4,
+      ease: "easeOut"
+    }
+  }
+};
+
+const errorVariants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  },
+  exit: { 
+    opacity: 0, 
+    y: -10,
+    transition: { 
+      duration: 0.2,
+      ease: "easeIn"
+    }
+  }
+};
+
+const resultVariants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  },
+  exit: { 
+    opacity: 0, 
+    y: -10,
+    transition: { 
+      duration: 0.2,
+      ease: "easeIn"
+    }
+  }
+};
+
+const PostcodeChecker = memo(() => {
   const [postcode, setPostcode] = useState("");
   const [result, setResult] = useState<CheckResult | null>(null);
   const [loading, setLoading] = useState(false);
@@ -127,16 +180,17 @@ const PostcodeChecker = () => {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      initial="hidden"
+      whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
-      className="mt-16 p-8 bg-gradient-to-br from-black/50 to-black/30 rounded-2xl border border-white/10 backdrop-blur-sm"
+      variants={containerVariants}
+      className="mt-16 p-8 bg-gradient-to-br from-black/50 to-black/30 rounded-2xl border border-white/10 backdrop-blur-sm animation-container"
+      data-animate="true"
     >
       <div className="relative">
         {/* Header */}
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20">
+          <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20 animate-gpu">
             <MapPin className="w-5 h-5 text-blue-400" aria-hidden="true" />
           </div>
           <h3 className="text-lg font-semibold text-blue-400">Location Checker</h3>
@@ -178,15 +232,16 @@ const PostcodeChecker = () => {
             disabled={loading}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-lg transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white rounded-lg transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 animate-gpu transform-gpu"
             aria-label={loading ? "Checking postcode..." : "Check distance"}
+            data-animate="true"
           >
             {loading ? (
               <>
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full"
+                  className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-gpu"
                   aria-hidden="true"
                 />
                 <span>Checking...</span>
@@ -204,11 +259,13 @@ const PostcodeChecker = () => {
         <AnimatePresence>
           {error && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2"
+              variants={errorVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-2 animate-gpu"
               role="alert"
+              data-animate="true"
             >
               <XCircle className="w-5 h-5 text-red-400" aria-hidden="true" />
               <p className="text-red-400 text-sm">{error}</p>
@@ -220,10 +277,12 @@ const PostcodeChecker = () => {
         <AnimatePresence>
           {result && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mt-6 p-6 bg-gradient-to-br from-white/5 to-white/10 rounded-lg border border-white/10"
+              variants={resultVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="mt-6 p-6 bg-gradient-to-br from-white/5 to-white/10 rounded-lg border border-white/10 animate-gpu"
+              data-animate="true"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className={`p-2 rounded-lg border ${
@@ -258,6 +317,8 @@ const PostcodeChecker = () => {
       </div>
     </motion.div>
   );
-};
+});
+
+PostcodeChecker.displayName = 'PostcodeChecker';
 
 export default PostcodeChecker; 
