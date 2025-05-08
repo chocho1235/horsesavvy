@@ -3,7 +3,8 @@ import { ContactHeader } from "@/components/ContactHeader";
 import { ChevronLeft, Clock, ChevronRight, Award, CheckCircle, User, Globe, MapPin, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import { Footer } from "@/components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 const onlineCourses = [
   {
@@ -54,9 +55,54 @@ const practicalCourses = [
 // UK postcodes covered for practical training
 const validPostcodeAreas = ["RG", "OX", "SL", "HP", "GU"];
 
+// Subtle animation variants
+const fadeIn = {
+  initial: { opacity: 0, y: 10 },
+  whileInView: { opacity: 1, y: 0 }
+};
+
 const Courses = () => {
   const [postcode, setPostcode] = useState("");
   const [postcodeResult, setPostcodeResult] = useState<null | { available: boolean; message: string }>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  
+  useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
+
+  // Simple animation props with subtle scroll trigger
+  const getAnimationProps = () => {
+    // Check if we're in a browser environment
+    const isBrowser = typeof window !== 'undefined';
+    
+    // Disable animations on mobile devices or if reduced motion is preferred
+    if ((isBrowser && window.innerWidth < 768) || prefersReducedMotion) {
+      return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
+    }
+    
+    return {
+      initial: "initial",
+      whileInView: "whileInView",
+      viewport: { once: true, margin: "-50px" },
+      variants: fadeIn,
+      transition: { 
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    };
+  };
   
   const checkPostcode = () => {
     if (!postcode.trim()) {
@@ -77,10 +123,8 @@ const Courses = () => {
 
   const CourseCard = ({ course, type }: { course: typeof onlineCourses[0], type: "online" | "practical" }) => (
     <motion.div 
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="group bg-black/80 border border-amber-500/30 hover:border-amber-500/60 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]"
+      {...getAnimationProps()}
+      className="group backdrop-blur-sm bg-white/5 border border-white/20 hover:border-red-500/30 rounded-lg overflow-hidden transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-blue-900/20"
     >
       <Link
         to={course.id === "bhs-stage-1-theory" 
@@ -89,25 +133,28 @@ const Courses = () => {
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 w-full"
       >
-        <div className="flex-1 mb-4 md:mb-0 md:mr-8">
-          <div className="flex items-center gap-2 mb-2">
-            <h2 className="text-xl font-bold text-amber-400 group-hover:text-amber-300 transition-colors">{course.title}</h2>
-            <span className="px-2 py-1 bg-amber-900/40 rounded-full text-xs text-amber-200 flex items-center">
-              {type === "online" ? <Globe className="w-3 h-3 mr-1" /> : <MapPin className="w-3 h-3 mr-1" />}
-              {type === "online" ? "Online" : "In-Person"}
-            </span>
+        <div className="flex-1 mb-4 md:mb-0 md:mr-8 relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="relative">
+            <div className="flex items-center gap-2 mb-2">
+              <h2 className="text-xl font-bold text-white group-hover:text-white transition-colors">{course.title}</h2>
+              <span className="px-2 py-1 bg-blue-800/40 rounded-full text-xs text-white/90 flex items-center">
+                {type === "online" ? <Globe className="w-3 h-3 mr-1" /> : <MapPin className="w-3 h-3 mr-1" />}
+                {type === "online" ? "Online" : "In-Person"}
+              </span>
+            </div>
+            <p className="text-white/70 text-sm md:text-base group-hover:text-white/80 transition-colors">{course.description}</p>
           </div>
-          <p className="text-gray-400 text-sm md:text-base">{course.description}</p>
         </div>
         
         <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto">
           <div className="flex items-center gap-3 md:mr-6">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4">
-              <span className="px-3 py-1 bg-amber-900/30 rounded-full text-xs text-amber-300 flex items-center">
+              <span className="px-3 py-1 bg-blue-800/30 rounded-full text-xs text-white/80 flex items-center">
                 <Clock className="w-3 h-3 mr-1" />
                 {course.duration}
               </span>
-              <span className="px-3 py-1 bg-amber-900/30 rounded-full text-xs text-amber-300 flex items-center">
+              <span className="px-3 py-1 bg-blue-800/30 rounded-full text-xs text-white/80 flex items-center">
                 <Award className="w-3 h-3 mr-1" />
                 {course.level}
               </span>
@@ -115,9 +162,9 @@ const Courses = () => {
           </div>
           
           <div className="flex items-center gap-2">
-            <span className="font-bold text-amber-400 text-lg">{course.price}</span>
-            <span className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
-              <ChevronRight className="w-5 h-5 text-amber-400" />
+            <span className="font-bold text-red-400 text-lg group-hover:text-red-300 transition-colors">{course.price}</span>
+            <span className="w-8 h-8 rounded-full bg-blue-800/30 flex items-center justify-center group-hover:bg-red-500/20 transition-all duration-300">
+              <ChevronRight className="w-5 h-5 text-white group-hover:text-white" />
             </span>
           </div>
         </div>
@@ -126,79 +173,81 @@ const Courses = () => {
   );
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <ContactHeader />
-      
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12">
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mb-12"
-        >
-          <Link 
-            to="/" 
-            className="inline-flex items-center gap-2 text-gray-300 hover:text-amber-400 transition-colors mb-8 group"
+    <div className="min-h-[100dvh] bg-gradient-to-b from-blue-950 to-blue-950 text-white">
+      <ContactHeader bgColor="bg-blue-950" />
+
+      {/* Back Home Button */}
+      <div className="absolute md:top-24 left-6 sm:left-8 z-20 mt-2 md:mt-0 top-[40px]">
+        <Link to="/">
+          <Button 
+            variant="outline" 
+            className="bg-blue-900/80 hover:bg-blue-800 text-white border-white/30 rounded-full px-4 py-1.5 sm:px-5 sm:py-2 flex items-center gap-1.5 sm:gap-2 shadow-lg transition-all duration-300 hover:translate-x-[-5px] text-sm sm:text-base"
           >
-            <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Home</span>
-          </Link>
-          
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-300 bg-clip-text text-transparent">
-              BeHorseSavvy
-            </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-amber-400">
-              Our Courses
-            </h2>
-            <p className="text-xl text-white/70 max-w-4xl mx-auto mb-6">
-              There's a course suited to everyone. Explore our online and practical options below.
-            </p>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6"
-            >
-              <div className="flex items-center gap-2 px-4 py-2 bg-amber-900/20 rounded-full">
-                <CheckCircle className="h-5 w-5 text-amber-400" />
-                <span className="text-amber-300 text-sm font-medium">BHS Approved</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-amber-900/20 rounded-full">
-                <User className="h-5 w-5 text-amber-400" />
-                <span className="text-amber-300 text-sm font-medium">Delivered by Penny Pleasant BHS Accredited Professional Coach</span>
-              </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="p-4 border border-amber-500/30 bg-gradient-to-b from-amber-900/20 to-black/20 rounded-lg max-w-2xl mx-auto"
-            >
-              <p className="text-white/80 text-sm">
-                Our courses feature a mix of programs designed by the British Horse Society and BeHorseSavvy, 
-                all personally delivered by Penny, our expert instructor with over 40 years of equestrian experience.
-              </p>
+            <ChevronLeft size={16} strokeWidth={2.5} />
+            <span className="font-medium">Back Home</span>
+          </Button>
+        </Link>
+      </div>
+      
+      {/* Hero Section */}
+      <section className="relative bg-blue-950 py-16 sm:py-24 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-blue-950" />
+        <div className="absolute inset-0 bg-[url('/BHS-Acc-Pro-Coach-logo-COL.jpg')] bg-cover bg-center opacity-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-red-800/20 to-transparent" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center max-w-3xl mx-auto">
+            <motion.div {...getAnimationProps()} variants={fadeIn}>
+              <motion.h1 
+                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
+              >
+                BeHorseSavvy Courses
+              </motion.h1>
+              <motion.p 
+                className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
+              >
+                There's a course suited to everyone. Explore our online and practical options below.
+              </motion.p>
+              <motion.div
+                {...getAnimationProps()}
+                className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6"
+              >
+                <div className="flex items-center gap-2 px-4 py-2 bg-blue-800/30 rounded-full">
+                  <CheckCircle className="h-5 w-5 text-red-400" />
+                  <span className="text-white/90 text-sm font-medium">BHS Approved</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 bg-blue-800/30 rounded-full">
+                  <User className="h-5 w-5 text-red-400" />
+                  <span className="text-white/90 text-sm font-medium">Delivered by Penny Pleasant BHS Accredited Professional Coach</span>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                {...getAnimationProps()}
+                className="p-6 backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg max-w-2xl mx-auto shadow-lg"
+              >
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Our courses feature a mix of programs designed by the British Horse Society and BeHorseSavvy, 
+                  all personally delivered by Penny, our expert instructor with over 40 years of equestrian experience.
+                </p>
+              </motion.div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
+      </section>
 
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12">
         {/* Online Courses */}
         <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mb-12 max-w-4xl mx-auto"
+          {...getAnimationProps()}
+          className="mb-16 max-w-4xl mx-auto"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <Globe className="h-6 w-6 text-amber-400" />
-            <h2 className="text-2xl font-bold text-white">ONLINE</h2>
-            <div className="h-px bg-amber-500/30 flex-grow ml-3"></div>
+          <div className="flex items-center gap-3 mb-8">
+            <Globe className="h-6 w-6 text-red-400" />
+            <h2 className="text-2xl font-bold text-white">ONLINE COURSES</h2>
+            <div className="h-px bg-white/20 flex-grow ml-3"></div>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-6">
             {onlineCourses.map((course) => (
               <CourseCard key={course.id} course={course} type="online" />
             ))}
@@ -207,26 +256,25 @@ const Courses = () => {
         
         {/* Practical Courses */}
         <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="mb-12 max-w-4xl mx-auto"
+          {...getAnimationProps()}
+          className="mb-16 max-w-4xl mx-auto"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <MapPin className="h-6 w-6 text-amber-400" />
-            <h2 className="text-2xl font-bold text-white">PRACTICAL</h2>
-            <div className="h-px bg-amber-500/30 flex-grow ml-3"></div>
+          <div className="flex items-center gap-3 mb-8">
+            <MapPin className="h-6 w-6 text-red-400" />
+            <h2 className="text-2xl font-bold text-white">PRACTICAL COURSES</h2>
+            <div className="h-px bg-white/20 flex-grow ml-3"></div>
           </div>
           
           {/* Postcode Checker */}
           <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="mb-8 p-5 bg-amber-900/10 border border-amber-500/20 rounded-lg"
+            {...getAnimationProps()}
+            className="mb-10 p-6 backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg shadow-lg"
           >
-            <h3 className="text-lg font-semibold text-amber-400 mb-3">Check if we deliver in your area</h3>
-            <p className="text-white/70 text-sm mb-4">
+            <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
+              <Search className="w-5 h-5 text-red-400 mr-2" />
+              Check if we deliver in your area
+            </h3>
+            <p className="text-white/70 text-sm mb-6">
               Practical courses are available in select areas. Enter your postcode to check availability:
             </p>
             
@@ -237,23 +285,23 @@ const Courses = () => {
                   value={postcode}
                   onChange={(e) => setPostcode(e.target.value)}
                   placeholder="Enter postcode (e.g. RG1 1AA)" 
-                  className="w-full px-4 py-2 bg-black/50 border border-amber-500/30 rounded-md text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                  className="w-full px-4 py-3 bg-blue-900/50 border border-white/20 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 shadow-inner transition-all"
                 />
               </div>
-              <button 
+              <Button 
                 onClick={checkPostcode}
-                className="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-md transition-colors flex items-center justify-center"
+                className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center h-[46px]"
               >
-                <Search className="w-4 h-4 mr-1" />
-                Check
-              </button>
+                <Search className="w-4 h-4 mr-2" />
+                Check Availability
+              </Button>
             </div>
             
             {postcodeResult && (
               <motion.div
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`mt-4 p-3 rounded ${postcodeResult.available ? 'bg-green-900/20 border border-green-500/30' : 'bg-red-900/20 border border-red-500/30'}`}
+                className={`mt-6 p-4 rounded ${postcodeResult.available ? 'bg-green-900/20 border border-green-500/30' : 'bg-red-900/20 border border-red-500/30'}`}
               >
                 <p className={`text-sm ${postcodeResult.available ? 'text-green-400' : 'text-red-400'}`}>
                   {postcodeResult.message}
@@ -262,7 +310,7 @@ const Courses = () => {
             )}
           </motion.div>
           
-          <div className="space-y-4">
+          <div className="space-y-6">
             {practicalCourses.map((course) => (
               <CourseCard key={course.id} course={course} type="practical" />
             ))}
@@ -271,14 +319,17 @@ const Courses = () => {
 
         {/* Disclaimer */}
         <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="mt-16 p-6 bg-black/50 rounded-lg border border-amber-500/20 max-w-4xl mx-auto"
+          {...getAnimationProps()}
+          className="mt-16 p-6 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg max-w-4xl mx-auto"
         >
           <div className="relative">
-            <h3 className="text-sm font-semibold mb-2 text-amber-400">Important Notice</h3>
-            <p className="text-white/60 text-xs">
+            <h3 className="text-sm font-semibold mb-2 text-red-400 flex items-center">
+              <span className="w-5 h-5 rounded-full bg-red-900/30 flex items-center justify-center mr-2">
+                <ChevronRight className="w-3 h-3 text-red-400" />
+              </span>
+              Important Notice
+            </h3>
+            <p className="text-white/60 text-xs ml-7">
               These courses prepare you for BHS assessments, but official qualification requires examination at a recognized BHS centre.
             </p>
           </div>
