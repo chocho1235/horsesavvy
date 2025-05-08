@@ -22,6 +22,7 @@ import BronzeReward from "./pages/BronzeReward";
 import Courses from "./pages/Courses";
 import BHSStage1Theory from "./pages/BHSStage1Theory";
 import About from "./pages/About";
+import BeHorseSavvy from "./pages/BeHorseSavvy";
 
 // Initialize React Query client
 const queryClient = new QueryClient({
@@ -79,6 +80,7 @@ const routes = [
   { path: "/bronze-reward", element: <BronzeReward /> },
   { path: "/bhs-stage-1-theory", element: <BHSStage1Theory /> },
   { path: "/about", element: <About /> },
+  { path: "/behorsesavvy", element: <BeHorseSavvy /> },
   { path: "/penny-club", element: <NotFound /> },
   { path: "/events", element: <NotFound /> },
   { path: "/clinics", element: <NotFound /> },

@@ -3,7 +3,7 @@ import { ContactHeader } from "@/components/ContactHeader";
 import { ChevronLeft, Clock, ChevronRight, Award, CheckCircle, User, Globe, MapPin, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import { Footer } from "@/components/Footer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 
 const onlineCourses = [
@@ -62,9 +62,10 @@ const fadeIn = {
 };
 
 const Courses = () => {
-  const [postcode, setPostcode] = useState("");
   const [postcodeResult, setPostcodeResult] = useState<null | { available: boolean; message: string }>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [checkedOnce, setCheckedOnce] = useState(false);
+  const postcodeInputRef = useRef<HTMLInputElement>(null);
   
   useEffect(() => {
     // Check for reduced motion preference
@@ -105,12 +106,13 @@ const Courses = () => {
   };
   
   const checkPostcode = () => {
-    if (!postcode.trim()) {
+    if (!postcodeInputRef.current || !postcodeInputRef.current.value.trim()) {
       setPostcodeResult(null);
       return;
     }
     
-    const postcodeArea = postcode.trim().toUpperCase().split(" ")[0].replace(/[0-9]/g, "");
+    const postcodeValue = postcodeInputRef.current.value.trim();
+    const postcodeArea = postcodeValue.toUpperCase().split(" ")[0].replace(/[0-9]/g, "");
     const isAvailable = validPostcodeAreas.includes(postcodeArea);
     
     setPostcodeResult({
@@ -119,11 +121,15 @@ const Courses = () => {
         ? "Great news! We offer practical training in your area."
         : "Sorry, we don't currently offer practical training in your area, but our online courses are available nationwide."
     });
+    
+    if (!checkedOnce) {
+      setCheckedOnce(true);
+    }
   };
 
   const CourseCard = ({ course, type }: { course: typeof onlineCourses[0], type: "online" | "practical" }) => (
     <motion.div 
-      {...getAnimationProps()}
+      {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : getAnimationProps())}
       className="group backdrop-blur-sm bg-white/5 border border-white/20 hover:border-red-500/30 rounded-lg overflow-hidden transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-blue-900/20"
     >
       <Link
@@ -256,7 +262,7 @@ const Courses = () => {
         
         {/* Practical Courses */}
         <motion.div 
-          {...getAnimationProps()}
+          {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : getAnimationProps())}
           className="mb-16 max-w-4xl mx-auto"
         >
           <div className="flex items-center gap-3 mb-8">
@@ -267,7 +273,7 @@ const Courses = () => {
           
           {/* Postcode Checker */}
           <motion.div 
-            {...getAnimationProps()}
+            {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : getAnimationProps())}
             className="mb-10 p-6 backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg shadow-lg"
           >
             <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
@@ -282,8 +288,7 @@ const Courses = () => {
               <div className="relative flex-grow">
                 <input 
                   type="text" 
-                  value={postcode}
-                  onChange={(e) => setPostcode(e.target.value)}
+                  ref={postcodeInputRef}
                   placeholder="Enter postcode (e.g. RG1 1AA)" 
                   className="w-full px-4 py-3 bg-blue-900/50 border border-white/20 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 shadow-inner transition-all"
                 />
@@ -301,6 +306,7 @@ const Courses = () => {
               <motion.div
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
                 className={`mt-6 p-4 rounded ${postcodeResult.available ? 'bg-green-900/20 border border-green-500/30' : 'bg-red-900/20 border border-red-500/30'}`}
               >
                 <p className={`text-sm ${postcodeResult.available ? 'text-green-400' : 'text-red-400'}`}>
@@ -319,7 +325,7 @@ const Courses = () => {
 
         {/* Disclaimer */}
         <motion.div 
-          {...getAnimationProps()}
+          {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : getAnimationProps())}
           className="mt-16 p-6 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg max-w-4xl mx-auto"
         >
           <div className="relative">

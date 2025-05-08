@@ -12,32 +12,28 @@ const Index = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiA4YzAgMi4yMS0xLjc5IDQtNCA0cy00LTEuNzktNC00IDEuNzktNCA0LTQgNCAxLjc5IDQgNHptMCA0OGMwIDIuMjEtMS43OSA0LTQgNHMtNC0xLjc5LTQtNCAxLjc5LTQgNC00IDQgMS43OSA0IDR6TTggMzZjMCAyLjIxLTEuNzkgNC00IDRTMCAzOC4yMSAwIDM2czEuNzktNCA0LTRzNCAxLjc5IDQgNHptNDggMGMwIDIuMjEtMS43OSA0LTQgNHMtNC0xLjc5LTQtNCAxLjc5LTQgNC00IDQgMS43OSA0IDR6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+')] opacity-10"></div>
       </div>
 
-      {/* Left side curve shape - positioned before header to go behind */}
+      {/* Left side banner image - positioned before header to go behind */}
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
-        className="absolute top-0 left-0 h-[60vh] w-[35vw] min-w-[400px] max-w-[500px] bg-gradient-to-br from-white/90 to-white/80 rounded-br-[100%] md:block hidden z-[51] overflow-hidden backdrop-blur-sm animate-gpu shadow-2xl"
+        className="absolute top-0 left-0 h-[70vh] w-[40vw] min-w-[450px] max-w-[600px] rounded-br-[100%] md:block hidden z-[51] overflow-hidden backdrop-blur-sm animate-gpu shadow-2xl border-r-4 border-b-4 border-white/20"
       >
-        <div className="absolute inset-0 z-0">
-          <div className="relative w-full h-full overflow-hidden">
-            <img
-              src="/Untitled design (17).png"
-              alt="BeHorseSavvy"
-              className="object-cover w-full h-full"
-              loading="eager"
-              decoding="async"
-              style={{
-                objectPosition: "center center"
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-white/20"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
-            <div className="absolute inset-0 border-b-[2px] border-r-[2px] border-white/15 rounded-br-[100%]"></div>
-          </div>
-        </div>
-        <div className="relative pl-16 pt-12 pr-8 h-full flex flex-col z-10">
-        </div>
+        <img
+          src="/DSC_1374.jpg"
+          alt="BeHorseSavvy"
+          className="object-cover w-full h-full"
+          loading="eager"
+          decoding="async"
+          style={{
+            objectPosition: "center center"
+          }}
+        />
+        {/* White film overlay for subtle blending */}
+        <div className="absolute inset-0 bg-white/25 mix-blend-soft-light"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white/15 to-white/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 border-b-[2px] border-r-[2px] border-white/15 rounded-br-[100%]"></div>
       </motion.div>
 
       <ContactHeader />
@@ -116,7 +112,7 @@ const Index = () => {
           duration: 0.4,
           ease: "easeOut"
         }}
-        className="flex flex-col items-center relative z-10 animation-container"
+        className="flex flex-col items-center relative z-[60] animation-container"
       >
         {/* Mobile grid */}
         <motion.div 
@@ -130,7 +126,7 @@ const Index = () => {
           className="grid grid-cols-2 gap-6 md:hidden w-full max-w-[1200px] px-4 animate-gpu"
         >
           <div className="flex justify-center">
-            <CircleNavButton to="/education" color="black-gold" label="Home Education Equestrians" />
+            <CircleNavButton to="/behorsesavvy" color="black-gold" label="Home Education Equestrians" />
           </div>
           <div className="flex justify-center">
             <CircleNavButton to="/courses" color="blue" label="Courses" />
@@ -164,7 +160,7 @@ const Index = () => {
           className="hidden md:flex flex-wrap justify-center gap-2 lg:gap-12 px-2 lg:px-8 pb-8 max-w-[1200px] animate-gpu"
         >
           <div className="flex justify-center">
-            <CircleNavButton to="/education" color="black-gold" label="Home Education Equestrians" />
+            <CircleNavButton to="/behorsesavvy" color="black-gold" label="Home Education Equestrians" />
           </div>
           <div className="flex justify-center">
             <CircleNavButton to="/courses" color="blue" label="Courses" />

@@ -37,7 +37,7 @@ const colorClasses = {
   blue: "bg-[#0066FF] text-white hover:bg-[#3385FF]/90",
   green: "bg-[#00B300] text-white hover:bg-[#00CC00]/90",
   purple: "bg-[#8000FF] text-white hover:bg-[#944DFF]/90",
-  "black-gold": "bg-black text-[#FFD700] hover:bg-gray-900/90",
+  "black-gold": "bg-black text-gold hover:bg-gray-900/95 border-gold/70",
 } as const;
 
 export const CircleNavButton = memo(({ 
@@ -46,6 +46,9 @@ export const CircleNavButton = memo(({
   color = "white",
   className
 }: CircleNavButtonProps) => {
+  // Determine if we need to override the border color based on the color scheme
+  const hasBorderOverride = color === "black-gold";
+  
   return (
     <Link 
       to={to} 
@@ -61,7 +64,11 @@ export const CircleNavButton = memo(({
         // GPU acceleration and anti-flicker
         "animate-gpu transform-gpu",
         // Border and shadow
-        "border-2 md:border-4 border-white shadow-lg",
+        "border-2 md:border-4 shadow-lg",
+        // Apply default border color only if not overridden
+        !hasBorderOverride && "border-white",
+        // Z-index and positioning
+        "relative z-[5]",
         // Color scheme
         colorClasses[color],
         // Custom classes
