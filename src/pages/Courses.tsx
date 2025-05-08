@@ -26,7 +26,7 @@ const onlineCourses = [
     id: "bhs-stage-1-theory",
     title: "BHS Stage 1 Theory",
     description: "Official preparation for BHS Stage 1 exams with complete syllabus coverage.",
-    price: "£85",
+    price: "£97",
     duration: "30 hours",
     level: "Beginner"
   }
@@ -152,7 +152,7 @@ const Courses = () => {
               Our Courses
             </h2>
             <p className="text-xl text-white/70 max-w-4xl mx-auto mb-6">
-              Discover our range of equestrian courses to help you excel in horse care
+              There's a course suited to everyone. Explore our online and practical options below.
             </p>
             
             <motion.div
@@ -167,7 +167,7 @@ const Courses = () => {
               </div>
               <div className="flex items-center gap-2 px-4 py-2 bg-amber-900/20 rounded-full">
                 <User className="h-5 w-5 text-amber-400" />
-                <span className="text-amber-300 text-sm font-medium">Delivered by Penny</span>
+                <span className="text-amber-300 text-sm font-medium">Delivered by Penny Pleasant BHS Accredited Professional Coach</span>
               </div>
             </motion.div>
             
@@ -178,8 +178,8 @@ const Courses = () => {
               className="p-4 border border-amber-500/30 bg-gradient-to-b from-amber-900/20 to-black/20 rounded-lg max-w-2xl mx-auto"
             >
               <p className="text-white/80 text-sm">
-                All our courses are officially approved by the British Horse Society and personally delivered by Penny, 
-                our expert instructor with over 20 years of equestrian experience.
+                Our courses feature a mix of programs designed by the British Horse Society and BeHorseSavvy, 
+                all personally delivered by Penny, our expert instructor with over 40 years of equestrian experience.
               </p>
             </motion.div>
           </div>

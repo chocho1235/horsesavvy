@@ -17,18 +17,23 @@ const Index = () => {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
-        className="absolute top-0 left-0 h-[60vh] w-[35vw] min-w-[400px] max-w-[500px] bg-gradient-to-br from-white/90 to-white/80 rounded-br-[100%] md:block hidden z-[51] overflow-hidden backdrop-blur-sm animate-gpu"
+        className="absolute top-0 left-0 h-[60vh] w-[35vw] min-w-[400px] max-w-[500px] bg-gradient-to-br from-white/90 to-white/80 rounded-br-[100%] md:block hidden z-[51] overflow-hidden backdrop-blur-sm animate-gpu shadow-2xl"
       >
         <div className="absolute inset-0 z-0">
-          <div className="relative w-full h-full">
+          <div className="relative w-full h-full overflow-hidden">
             <img
-              src="/DSC_1374.jpg"
-              alt="Horse"
+              src="/Untitled design (17).png"
+              alt="BeHorseSavvy"
               className="object-cover w-full h-full"
               loading="eager"
               decoding="async"
+              style={{
+                objectPosition: "center center"
+              }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-white/30"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-white/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 border-b-[2px] border-r-[2px] border-white/15 rounded-br-[100%]"></div>
           </div>
         </div>
         <div className="relative pl-16 pt-12 pr-8 h-full flex flex-col z-10">

@@ -114,7 +114,7 @@ export default function BHSStage1Theory() {
               <motion.p 
                 className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
               >
-                Whichever route you plan to take with horses, whether you wish to start a career as a groom, be a dedicated owner, or simply want to further your knowledge about the general care of horses - then this course is your very first step.
+                Whichever route you plan to take with horses, whether you wish to start a career as a groom, be a dedicated owner, or simply want to further your knowledge about the general care of horses.
               </motion.p>
               <motion.div 
                 className="flex justify-center gap-4"
@@ -337,7 +337,16 @@ export default function BHSStage1Theory() {
               <div className="relative">
                 <h3 className="font-serif text-2xl font-bold text-white mb-4">Please Read</h3>
                 <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-4">
-                  This course is intended for training purposes only. If you wish to obtain the BHS Stage 1 Care qualification you will need to sit and pass each exam at a recognised BHS exam centre. To find relevant dates and centres of where to take this exam, visit the British Horse Society website.
+                  This Stage 1 course is online. It delivers all the theory and preparation for your Stage 1 Care exam.
+                </p>
+                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-4">
+                  Once completed, you can book your BHS exam at any Approved Equestrian Centre.
+                </p>
+                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-4">
+                  Please use the postcode checker: If you are inside the radius, you can book directly with Penny any 1-to-1 coaching sessions in preparation for your Flatwork exam at the BHS approved Equestrian Centre.
+                </p>
+                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed">
+                  Alternatively, you can book your ride training at your local BHS approved centre.
                 </p>
               </div>
             </div>
@@ -348,22 +357,15 @@ export default function BHSStage1Theory() {
       {/* Tutor Images */}
       <section className="py-12 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            {...getAnimationProps()}
-            className="text-center mb-8"
-          >
-            <h2 className="text-3xl font-bold mb-4 text-white">Meet Your Tutor</h2>
-            <div className="w-16 h-1 mx-auto bg-red-600/70" />
-          </motion.div>
           <motion.div
             {...getAnimationProps()}
             className="flex justify-center"
           >
-            <div className="relative max-w-2xl group">
+            <div className="relative max-w-xl group">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
               <img 
-                src="/P1000200.jpg" 
-                alt="Penny Pleasant - Tutor Images" 
+                src="/Screenshot_20250506_132854_Chrome~3.jpg" 
+                alt="BHS Approved Instructor" 
                 className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
@@ -383,8 +385,8 @@ export default function BHSStage1Theory() {
               <div className="relative">
                 <h3 className="font-serif text-3xl font-bold text-white mb-4">Penny Pleasant</h3>
                 <p className="text-white/90 text-lg group-hover:text-white leading-relaxed">
-                  These courses are designed by The British Horse Society (BHS) and are delivered online by Penny, with the added benefit of optional booked phone calls and ongoing support throughout.
-                  Upon completion, you'll receive a BHS Certificate, making it a great stepping stone for anyone looking to build a solid foundation in horse care and knowledge.
+                  These courses are designed by The British Horse Society (BHS) and are delivered online by Penny, with the added benefit of optional booked phone calls.
+                  This is a preparation course for the BHS Stage 1 exam, which you will need to book separately at an approved center.
                 </p>
               </div>
             </div>

@@ -20,7 +20,7 @@ const awards = [
     title: "🏇🏼 Handling your Horse",
     items: [
       "Working safely on a yard",
-      "Understanding horse behavior",
+      "Understanding horse behaviour",
       "Headcollar and tying up",
       "Leading techniques",
       "Tack cleaning"
@@ -29,7 +29,7 @@ const awards = [
   {
     title: "💙 Caring for your horse",
     items: [
-      "Natural behaviors and instincts",
+      "Natural behaviours and instincts",
       "Stable care and bedding",
       "Field care and fencing",
       "Rug types and usage",

@@ -137,7 +137,7 @@ export default function HorseKnowledge() {
               <motion.p 
                 className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
               >
-                The BHS Challenge Award Horse Knowledge (Parts One & Two) offers a complete foundation in horse care. Part One focuses on safety, behavior, and handling basics, while Part Two advances to health and management. Each part includes seven interactive modules with quizzes and videos, taking 30 hours to complete. Perfect for horse owners and enthusiasts, with BHS certification upon completion.
+                The BHS Challenge Award Horse Knowledge (Parts One & Two) offers a complete foundation in horse care. Part One focuses on safety, behaviour, and handling basics, while Part Two advances to health and management. Each part includes interactive modules with quizzes, taking 30 hours to complete. Perfect for horse owners and enthusiasts, with BHS certification upon completion.
               </motion.p>
               <motion.div 
                 className="flex justify-center gap-4"
@@ -292,7 +292,6 @@ export default function HorseKnowledge() {
                   "Identification and points of the horse",
                   "Grooming Kit",
                   "Points of the Horse",
-                  "Horse Knowledge part 1 Coach Powerpoint",
                   "Session Plans Horse Knowledge Part 1"
                 ].map((item, index) => (
                   <li key={index} className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
@@ -464,7 +463,7 @@ export default function HorseKnowledge() {
                   </div>
                   <div>
                     <h3 className="font-serif text-xl font-semibold text-white mb-2">Format</h3>
-                    <p className="text-white/90 group-hover:text-white transition-colors">7 interactive modules with quizzes</p>
+                    <p className="text-white/90 group-hover:text-white transition-colors">Interactive modules with quizzes</p>
                   </div>
                 </div>
               </div>
@@ -524,7 +523,7 @@ export default function HorseKnowledge() {
                 <h3 className="font-serif text-3xl font-bold text-white mb-4">Penny Pleasant</h3>
                 <p className="text-white/90 text-lg group-hover:text-white leading-relaxed">
                   These courses are designed by The British Horse Society (BHS) and are delivered online by Penny, with the added benefit of optional booked phone calls and ongoing support throughout.
-                  Upon completion, you'll receive a BHS Certificate, making it a great stepping stone for anyone looking to build a solid foundation in horse care and knowledge.
+                  You will receive a BHS Horse Knowledge certificate on completion of Part 1 and on completion of Part 2 a BHS Horse Knowledge Part 2 certificate.
                 </p>
               </div>
             </div>
@@ -731,7 +730,7 @@ export default function HorseKnowledge() {
                     <ul className="space-y-3 text-left">
                       <li className="flex items-center text-white/90">
                         <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
-                        <span>Complete foundation in horse care</span>
+                        <span>Foundation in horse care</span>
                       </li>
                       <li className="flex items-center text-white/90">
                         <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
