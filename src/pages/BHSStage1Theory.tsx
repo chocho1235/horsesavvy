@@ -141,6 +141,42 @@ export default function BHSStage1Theory() {
         </div>
       </section>
 
+      {/* Introduction and Explanation */}
+      <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            {...getAnimationProps()}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl font-bold mb-6 text-white">Introduction and Explanation</h2>
+          </motion.div>
+          
+          <motion.div
+            {...getAnimationProps()}
+            className="max-w-3xl mx-auto mb-12"
+          >
+            <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-6">
+                  British Horse Society Courses with Penny Pleasant
+                </p>
+                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-6">
+                  Penny Pleasant delivers official British Horse Society (BHS) courses, meticulously designed by the BHS and delivered online for your convenience. As part of our online offering, you'll benefit from pre-booked one-to-one telephone support sessions.
+                </p>
+                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-6">
+                  Upon successful completion of the Online Stage 1 Theory course, you will be eligible to book the Stage 1 Care Examination at a BHS-approved centre.
+                </p>
+                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed">
+                  For those who complete the Stage 1 Theory course alongside one-to-one coaching, you will then be eligible to book the complete Stage 1 Examination—encompassing both care and ridden elements—at a BHS-approved centre.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Course Overview */}
       <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -359,14 +395,22 @@ export default function BHSStage1Theory() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             {...getAnimationProps()}
-            className="flex justify-center"
+            className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
           >
-            <div className="relative max-w-xl group">
+            <div className="relative aspect-[4/3] group">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
               <img 
                 src="/Screenshot_20250506_132854_Chrome~3.jpg" 
                 alt="BHS Approved Instructor" 
-                className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+                className="absolute inset-0 w-full h-full object-cover rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+            </div>
+            <div className="relative aspect-[4/3] group">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
+              <img 
+                src="/DSC_9397.jpg" 
+                alt="BHS Training" 
+                className="absolute inset-0 w-full h-full object-cover rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
           </motion.div>

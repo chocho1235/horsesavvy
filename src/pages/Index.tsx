@@ -29,11 +29,9 @@ const Index = () => {
             objectPosition: "center center"
           }}
         />
-        {/* White film overlay for subtle blending */}
-        <div className="absolute inset-0 bg-white/25 mix-blend-soft-light"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-white/15 to-white/5"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 border-b-[2px] border-r-[2px] border-white/15 rounded-br-[100%]"></div>
+        {/* Overlay gradient to ensure text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/0 via-black/10 to-black/30"></div>
+        <div className="absolute inset-0 rounded-br-[100%]"></div>
       </motion.div>
 
       <ContactHeader />
