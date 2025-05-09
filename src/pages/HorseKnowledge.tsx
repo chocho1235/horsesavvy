@@ -667,14 +667,21 @@ export default function HorseKnowledge() {
                 </h3>
                 <ul className="space-y-4 relative z-10">
                   {[
+                    "Coach Guidance Horse Knowledge Part 2",
                     "Advanced Horse Behaviour",
                     "Passports and Microchips",
                     "Health Indicators and Assessment",
                     "Disease Prevention and Healthcare",
+                    "Horse Care",
                     "Advanced Feeding Techniques",
                     "Field Management and Safety",
                     "Poisonous Plants Identification",
+                    "Feeding",
+                    "Field checks",
+                    "Parts of tack",
                     "Tack and Equipment Knowledge",
+                    "Parts of the Bridle",
+                    "Parts of the Saddle",
                     "Parts of the Saddle and Bridle",
                     "Expert Horse Management",
                     "Horse Knowledge Part 2 Coach Resources"
