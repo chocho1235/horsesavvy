@@ -61,6 +61,10 @@ const fadeIn = {
   whileInView: { opacity: 1, y: 0 }
 };
 
+const HorseShoe = () => (
+  <img src="/Untitled design (9).svg" alt="Horseshoe icon" className="w-12 h-12 object-contain" />
+);
+
 const Courses = () => {
   const [postcodeResult, setPostcodeResult] = useState<null | { available: boolean; message: string }>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -130,51 +134,23 @@ const Courses = () => {
   const CourseCard = ({ course, type }: { course: typeof onlineCourses[0], type: "online" | "practical" }) => (
     <motion.div 
       {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : getAnimationProps())}
-      className="group backdrop-blur-sm bg-white/5 border border-white/20 hover:border-red-500/30 rounded-lg overflow-hidden transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-blue-900/20"
+      className="bg-red-600 rounded-2xl shadow-lg flex items-center justify-between px-6 py-8 mb-6"
     >
-      <Link
-        to={course.id === "bhs-stage-1-theory" 
-          ? "/bhs-stage-1-theory" 
-          : "/horse-knowledge"}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 w-full"
-      >
-        <div className="flex-1 mb-4 md:mb-0 md:mr-8 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="relative">
-            <div className="flex items-center gap-2 mb-2">
-              <h2 className="text-xl font-bold text-white group-hover:text-white transition-colors">{course.title}</h2>
-              <span className="px-2 py-1 bg-blue-800/40 rounded-full text-xs text-white/90 flex items-center">
-                {type === "online" ? <Globe className="w-3 h-3 mr-1" /> : <MapPin className="w-3 h-3 mr-1" />}
-                {type === "online" ? "Online" : "In-Person"}
-              </span>
-            </div>
-            <p className="text-white/70 text-sm md:text-base group-hover:text-white/80 transition-colors">{course.description}</p>
-          </div>
-        </div>
-        
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-full md:w-auto">
-          <div className="flex items-center gap-3 md:mr-6">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4">
-              <span className="px-3 py-1 bg-blue-800/30 rounded-full text-xs text-white/80 flex items-center">
-                <Clock className="w-3 h-3 mr-1" />
-                {course.duration}
-              </span>
-              <span className="px-3 py-1 bg-blue-800/30 rounded-full text-xs text-white/80 flex items-center">
-                <Award className="w-3 h-3 mr-1" />
-                {course.level}
-              </span>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-red-400 text-lg group-hover:text-red-300 transition-colors">{course.price}</span>
-            <span className="w-8 h-8 rounded-full bg-blue-800/30 flex items-center justify-center group-hover:bg-red-500/20 transition-all duration-300">
-              <ChevronRight className="w-5 h-5 text-white group-hover:text-white" />
-            </span>
-          </div>
-        </div>
-      </Link>
+      <div className="flex-1">
+        <div className="text-white text-2xl italic font-semibold mb-4">{course.title}</div>
+        <Link
+          to={course.id === "bhs-stage-1-theory" 
+            ? "/bhs-stage-1-theory" 
+            : "/horse-knowledge"}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="text-white underline text-lg font-medium hover:text-yellow-300 transition-colors"
+        >
+          Click Here
+        </Link>
+      </div>
+      <div className="ml-6 flex-shrink-0">
+        <HorseShoe />
+      </div>
     </motion.div>
   );
 
