@@ -43,17 +43,24 @@ const About = () => {
   
   // Animation props function (matching other pages)
   const getAnimationProps = (delay = 0) => {
-    // Don't animate components until page is loaded
-    if (!pageLoaded) {
+    // For mobile devices, use simpler animations
+    if (isMobile) {
       return {
-        initial: "initial", 
-        animate: "initial" // Keep at initial state until page loads
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { 
+          duration: 0.3,
+          delay: delay * 0.5 // Reduce delay on mobile
+        }
       };
     }
     
-    // For mobile devices, return empty animation props
-    if (isMobile) {
-      return {};
+    // Don't animate components until page is loaded
+    if (!pageLoaded) {
+      return {
+        initial: { opacity: 0 },
+        animate: { opacity: 0 }
+      };
     }
     
     // Animation with reduced motion for desktop only
@@ -70,19 +77,27 @@ const About = () => {
     };
   };
 
-  // Decorative animation props
-  const decorativeAnimProps = !isMobile && pageLoaded ? {
+  // Decorative animation props - simplified for mobile
+  const decorativeAnimProps = !isMobile ? {
     initial: { opacity: 0 },
-    animate: { opacity: 1 },
+    animate: { opacity: 0.4 },
     transition: { duration: 1.5 }
-  } : { initial: { opacity: 0 }, animate: { opacity: 0 } };
-
-  // Decorative animation props with delay
-  const decorativeAnimPropsWithDelay = !isMobile && pageLoaded ? {
+  } : {
     initial: { opacity: 0 },
-    animate: { opacity: 1 },
+    animate: { opacity: 0.3 },
+    transition: { duration: 0.5 }
+  };
+
+  // Decorative animation props with delay - simplified for mobile
+  const decorativeAnimPropsWithDelay = !isMobile ? {
+    initial: { opacity: 0 },
+    animate: { opacity: 0.3 },
     transition: { duration: 1.5, delay: 0.3 }
-  } : { initial: { opacity: 0 }, animate: { opacity: 0 } };
+  } : {
+    initial: { opacity: 0 },
+    animate: { opacity: 0.2 },
+    transition: { duration: 0.5, delay: 0.2 }
+  };
 
   return (
     <AnimatePresence mode="wait">
@@ -91,7 +106,7 @@ const About = () => {
         initial={pageAnimation.initial}
         animate={pageAnimation.animate}
         exit={pageAnimation.exit}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className="min-h-screen bg-black text-white overflow-hidden relative"
       >
         {/* Background pattern - matching Index page */}
@@ -120,16 +135,16 @@ const About = () => {
             {/* Decorative images */}
             <motion.div 
               {...decorativeAnimProps}
-              className="absolute top-28 -right-20 md:block hidden z-0 opacity-60"
+              className="absolute top-28 -right-20 md:block hidden z-0"
             >
-              <div className={`w-[280px] h-[280px] rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm ${!isMobile ? 'animate-pulse' : ''}`} />
+              <div className={`w-[280px] h-[280px] rounded-full bg-gradient-to-br from-gold/20 via-gold/10 to-transparent backdrop-blur-sm ${!isMobile ? 'animate-pulse' : ''}`} style={!isMobile ? { animationDuration: '6s' } : {}} />
             </motion.div>
             
             <motion.div 
               {...decorativeAnimPropsWithDelay}
-              className="absolute top-[60%] -left-24 md:block hidden z-0 opacity-50"
+              className="absolute top-[60%] -left-24 md:block hidden z-0"
             >
-              <div className={`w-[200px] h-[200px] rounded-full bg-gradient-to-tr from-white/10 to-white/5 backdrop-blur-sm ${!isMobile ? 'animate-pulse' : ''}`} style={!isMobile ? { animationDuration: '8s' } : {}} />
+              <div className={`w-[200px] h-[200px] rounded-full bg-gradient-to-tr from-gold/20 via-gold/10 to-transparent backdrop-blur-sm ${!isMobile ? 'animate-pulse' : ''}`} style={!isMobile ? { animationDuration: '8s' } : {}} />
             </motion.div>
             
             <motion.div 
@@ -165,12 +180,12 @@ const About = () => {
                 className="md:col-span-2 prose prose-lg prose-invert"
               >
                 <p className="text-xl text-white/90 leading-relaxed mb-8">
-                  <span className="text-2xl font-medium text-white">BeHorse Savvy</span> is a UK-based equestrian education company founded on a profound passion for horses and an unwavering commitment to excellence in horsemanship. With a focus on nurturing confident, skilled riders and knowledgeable horse owners, BeHorse Savvy provides tailored coaching and training that upholds the highest standards of equestrian practice.
+                  <span className="text-2xl font-medium text-white">BeHorseSavvy</span> is a UK-based equestrian education company founded on a profound passion for horses and an unwavering commitment to excellence in horsemanship. With a focus on nurturing confident, skilled riders and knowledgeable horse owners, BeHorseSavvy provides tailored coaching and training that upholds the highest standards of equestrian practice.
                 </p>
                 
                 <div className="bg-gradient-to-r from-white/10 to-white/5 p-6 rounded-xl backdrop-blur-sm mb-8 border border-white/10">
                   <p className="text-xl text-white leading-relaxed mb-0">
-                    At the heart of the company is a BeHorse Savvy BHS accredited professional coach who brings a wealth of expertise to every session. With credentials that include panel judging, Pony Club assessment, and active involvement in BeHorse accreditation programs, our lead coach ensures each student receives guidance grounded in both experience and current best practices.
+                    At the heart of the company is a BeHorseSavvy BHS accredited professional coach who brings a wealth of expertise to every session. With credentials that include panel judging, Pony Club assessment, and active involvement in BeHorse accreditation programs, our lead coach ensures each student receives guidance grounded in both experience and current best practices.
                   </p>
                 </div>
               </motion.div>

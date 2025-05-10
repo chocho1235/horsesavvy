@@ -87,19 +87,19 @@ export default function BHSStage1Theory() {
       
       {/* Back Home Button */}
       <div className="absolute md:top-24 left-6 sm:left-8 z-20 mt-2 md:mt-0 top-[40px]">
-        <Link to="/">
+        <Link to="/courses">
           <Button 
             variant="outline" 
             className="bg-blue-900/80 hover:bg-blue-800 text-white border-white/30 rounded-full px-4 py-1.5 sm:px-5 sm:py-2 flex items-center gap-1.5 sm:gap-2 shadow-lg transition-all duration-300 hover:translate-x-[-5px] text-sm sm:text-base"
           >
             <ArrowLeft size={16} strokeWidth={2.5} />
-            <span className="font-medium">Back Home</span>
+            <span className="font-medium">Back to Courses</span>
           </Button>
         </Link>
       </div>
       
       {/* Hero Section */}
-      <section className="relative bg-blue-950 py-16 sm:py-24 md:py-32 overflow-hidden">
+      <section className="relative bg-blue-950 py-12 sm:py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-blue-950" />
         <div className="absolute inset-0 bg-[url('/BHS-Acc-Pro-Coach-logo-COL.jpg')] bg-cover bg-center opacity-10" />
         <div className="absolute inset-0 bg-gradient-to-b from-red-800/20 to-transparent" />
@@ -107,23 +107,23 @@ export default function BHSStage1Theory() {
           <div className="text-center max-w-3xl mx-auto">
             <motion.div {...getAnimationProps()} variants={fadeIn}>
               <motion.h1 
-                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
+                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 text-white"
               >
                 BHS Stage 1 Theory
               </motion.h1>
               <motion.p 
-                className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
+                className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 max-w-4xl mx-auto mb-6 sm:mb-8 md:mb-10 leading-relaxed px-2 sm:px-4"
               >
                 Whichever route you plan to take with horses, whether you wish to start a career as a groom, be a dedicated owner, or simply want to further your knowledge about the general care of horses.
               </motion.p>
               <motion.div 
-                className="flex justify-center gap-4"
+                className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
               >
                 <Button 
                   onClick={() => {
                     document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="bg-red-600 text-white hover:bg-red-700 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px]"
+                  className="bg-red-600 text-white hover:bg-red-700 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base w-full sm:w-auto h-[44px] sm:h-[52px] md:h-[60px]"
                 >
                   Enroll Now
                 </Button>
@@ -131,7 +131,7 @@ export default function BHSStage1Theory() {
                   onClick={() => {
                     document.getElementById('syllabus')?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px]"
+                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base w-full sm:w-auto h-[44px] sm:h-[52px] md:h-[60px]"
                 >
                   View Syllabus
                 </Button>
@@ -142,34 +142,31 @@ export default function BHSStage1Theory() {
       </section>
 
       {/* Introduction and Explanation */}
-      <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
+      <section className="py-6 sm:py-8 md:py-12 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             {...getAnimationProps()}
             variants={fadeIn}
-            className="text-center mb-12"
+            className="text-center mb-6 sm:mb-8"
           >
-            <h2 className="text-4xl font-bold mb-6 text-white">Introduction and Explanation</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Introduction and Explanation</h2>
           </motion.div>
           
           <motion.div
             {...getAnimationProps()}
-            className="max-w-3xl mx-auto mb-12"
+            className="max-w-3xl mx-auto mb-6 sm:mb-8"
           >
-            <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
+            <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
-                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-6">
+                <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
                   British Horse Society Courses with Penny Pleasant
                 </p>
-                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-6">
+                <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
                   Penny Pleasant delivers official British Horse Society (BHS) courses, meticulously designed by the BHS and delivered online for your convenience. As part of our online offering, you'll benefit from pre-booked one-to-one telephone support sessions.
                 </p>
-                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-6">
+                <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed">
                   Upon successful completion of the Online Stage 1 Theory course, you will be eligible to book the Stage 1 Care Examination at a BHS-approved centre.
-                </p>
-                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed">
-                  For those who complete the Stage 1 Theory course alongside one-to-one coaching, you will then be eligible to book the complete Stage 1 Examination—encompassing both care and ridden elements—at a BHS-approved centre.
                 </p>
               </div>
             </div>
@@ -178,27 +175,27 @@ export default function BHSStage1Theory() {
       </section>
 
       {/* Course Overview */}
-      <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
+      <section className="py-6 sm:py-8 md:py-12 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             {...getAnimationProps()}
             variants={fadeIn}
-            className="text-center mb-12"
+            className="text-center mb-6 sm:mb-8"
           >
-            <h2 className="text-4xl font-bold mb-6 text-white">Course Overview</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Course Overview</h2>
           </motion.div>
           
           <motion.div
             {...getAnimationProps()}
-            className="max-w-3xl mx-auto mb-12"
+            className="max-w-3xl mx-auto mb-6 sm:mb-8"
           >
-            <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
+            <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
-                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed mb-6">
+                <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
                   This training course has been designed to correspond with the British Horse Society Stage 1 Care syllabus. In total, there are 8 separate topics covering all the relevant information needed to help you gain the BHS Stage 1 qualification. Plus, we also include 2 bonus subjects to ensure you are fully prepared for your first BHS exam.
                 </p>
-                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed">
+                <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed">
                   Once subscribed, you will be provided with full access to all of the online course material for 10 months. This enables you the time and flexibility needed to study in your own time, at your pace.
                 </p>
               </div>
@@ -208,14 +205,15 @@ export default function BHSStage1Theory() {
           {/* Course Image */}
           <motion.div 
             {...getAnimationProps()}
-            className="flex justify-center mt-12 mb-4"
+            className="flex justify-center mt-6 sm:mt-8 mb-6 sm:mb-8"
           >
-            <div className="relative max-w-lg group">
+            <div className="relative w-full max-w-2xl group">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-transparent rounded-xl" />
               <img 
                 src="/image.png" 
                 alt="BHS Stage 1 Theory Course" 
                 className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+                style={{ maxHeight: '300px', objectFit: 'contain' }}
               />
             </div>
           </motion.div>
@@ -223,37 +221,37 @@ export default function BHSStage1Theory() {
       </section>
       
       {/* Who is this course for */}
-      <section className="py-20 bg-blue-950">
+      <section className="py-12 sm:py-16 md:py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             {...getAnimationProps()}
             variants={fadeIn}
-            className="text-center mb-16"
+            className="text-center mb-8 sm:mb-12 md:mb-16"
           >
-            <h2 className="text-4xl font-bold mb-6 text-white">Who Is This Course For?</h2>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Who Is This Course For?</h2>
+            <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl mx-auto mb-8 sm:mb-12">
               Equine Knowledge BHS Stage 1 Training Course is suitable for:
             </p>
           </motion.div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
             <motion.div
               {...getAnimationProps()}
-              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+              className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
-                <ul className="space-y-4">
+                <ul className="space-y-3 sm:space-y-4">
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Anyone training for the BHS Stage 1 exam.</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Anyone training for the BHS Stage 1 exam.</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Equestrian college students.</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Equestrian college students.</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Novice horse-owners & riding school clients.</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Novice horse-owners & riding school clients.</span>
                   </li>
                 </ul>
               </div>
@@ -261,18 +259,18 @@ export default function BHSStage1Theory() {
 
             <motion.div
               {...getAnimationProps()}
-              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+              className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
-                <ul className="space-y-4">
+                <ul className="space-y-3 sm:space-y-4">
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">D & C test Pony Club members.</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">D & C test Pony Club members.</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Anyone wanting to learn about the general care of horses.</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Anyone wanting to learn about the general care of horses.</span>
                   </li>
                 </ul>
               </div>
@@ -391,26 +389,28 @@ export default function BHSStage1Theory() {
       </section>
 
       {/* Tutor Images */}
-      <section className="py-12 bg-blue-950">
+      <section className="py-8 sm:py-12 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             {...getAnimationProps()}
-            className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 max-w-6xl mx-auto"
           >
-            <div className="relative aspect-[4/3] group">
+            <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
               <img 
                 src="/Screenshot_20250506_132854_Chrome~3.jpg" 
                 alt="BHS Approved Instructor" 
-                className="absolute inset-0 w-full h-full object-cover rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+                className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+                style={{ maxHeight: '300px', objectFit: 'contain' }}
               />
             </div>
-            <div className="relative aspect-[4/3] group">
+            <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
               <img 
                 src="/DSC_9397.jpg" 
                 alt="BHS Training" 
-                className="absolute inset-0 w-full h-full object-cover rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+                className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+                style={{ maxHeight: '300px', objectFit: 'contain' }}
               />
             </div>
           </motion.div>

@@ -30,6 +30,14 @@ const onlineCourses = [
     price: "£97",
     duration: "30 hours",
     level: "Beginner"
+  },
+  {
+    id: "bhs-stage-2-theory",
+    title: "BHS Stage 2 Theory",
+    description: "Comprehensive preparation for BHS Stage 2 Care and Lungeing qualifications.",
+    price: "£97",
+    duration: "30 hours",
+    level: "Intermediate"
   }
 ];
 
@@ -132,26 +140,29 @@ const Courses = () => {
   };
 
   const CourseCard = ({ course, type }: { course: typeof onlineCourses[0], type: "online" | "practical" }) => (
-    <motion.div 
-      {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : getAnimationProps())}
-      className="bg-red-600 rounded-2xl shadow-lg flex items-center justify-between px-6 py-8 mb-6"
+    <Link
+      to={course.id === "bhs-stage-1-theory" 
+        ? "/bhs-stage-1-theory" 
+        : course.id === "bhs-stage-2-theory"
+        ? "/bhs-stage-2-theory"
+        : "/horse-knowledge"}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="block"
     >
-      <div className="flex-1">
-        <div className="text-white text-2xl italic font-semibold mb-4">{course.title}</div>
-        <Link
-          to={course.id === "bhs-stage-1-theory" 
-            ? "/bhs-stage-1-theory" 
-            : "/horse-knowledge"}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="text-white underline text-lg font-medium hover:text-yellow-300 transition-colors"
-        >
-          Click Here
-        </Link>
-      </div>
-      <div className="ml-6 flex-shrink-0">
-        <HorseShoe />
-      </div>
-    </motion.div>
+      <motion.div 
+        {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : getAnimationProps())}
+        className="bg-red-600 rounded-2xl shadow-lg flex items-center justify-between px-6 py-8 mb-6 group hover:bg-red-700 transition-all duration-300 cursor-pointer"
+      >
+        <div className="flex-1">
+          <div className="text-white text-2xl italic font-semibold mb-2 group-hover:text-yellow-300 transition-colors">{course.title}</div>
+          <div className="text-white/80 text-sm">{course.description}</div>
+          <div className="mt-4 text-white/90 text-sm italic">Click here to learn more</div>
+        </div>
+        <div className="ml-6 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+          <HorseShoe />
+        </div>
+      </motion.div>
+    </Link>
   );
 
   return (

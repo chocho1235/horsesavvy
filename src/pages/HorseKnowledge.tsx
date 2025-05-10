@@ -110,13 +110,13 @@ export default function HorseKnowledge() {
       
       {/* Back Home Button */}
       <div className="absolute md:top-24 left-6 sm:left-8 z-20 mt-2 md:mt-0 top-[40px]">
-        <Link to="/">
+        <Link to="/courses">
           <Button 
             variant="outline" 
             className="bg-blue-900/80 hover:bg-blue-800 text-white border-white/30 rounded-full px-4 py-1.5 sm:px-5 sm:py-2 flex items-center gap-1.5 sm:gap-2 shadow-lg transition-all duration-300 hover:translate-x-[-5px] text-sm sm:text-base"
           >
             <ArrowLeft size={16} strokeWidth={2.5} />
-            <span className="font-medium">Back Home</span>
+            <span className="font-medium">Back to Courses</span>
           </Button>
         </Link>
       </div>
@@ -132,12 +132,12 @@ export default function HorseKnowledge() {
               <motion.h1 
                 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
               >
-                Horse Knowledge Part One & Two
+                Horse Knowledge Part 1 & 2
               </motion.h1>
               <motion.p 
                 className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
               >
-                The BHS Challenge Award Horse Knowledge (Parts One & Two) offers a complete foundation in horse care. Part One focuses on safety, behaviour, and handling basics, while Part Two advances to health and management. Each part includes interactive modules with quizzes, taking 30 hours to complete. Perfect for horse owners and enthusiasts, with BHS certification upon completion.
+                The BHS Challenge Award: Horse Knowledge (parts 1 & 2) provides a comprehensive foundation in horse care. Part 1 covers safety, behaviour, and the basics of handling, while part 2 progresses to topics such as health and management. Each part includes interactive modules with quizzes and takes approximately 30 hours to complete. Ideal for horse owners and enthusiasts, the course offers BHS certification upon completion.
               </motion.p>
               <motion.div 
                 className="flex justify-center gap-4"
@@ -172,7 +172,7 @@ export default function HorseKnowledge() {
             variants={fadeIn}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold mb-6 text-white">Horse Knowledge Part One</h2>
+            <h2 className="text-4xl font-bold mb-6 text-white">1. Horse Knowledge Part 1</h2>
           </motion.div>
           <motion.div 
             {...getAnimationProps()}
@@ -594,7 +594,7 @@ export default function HorseKnowledge() {
             {...getAnimationProps()}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4 text-white">Horse Knowledge Part Two</h2>
+            <h2 className="text-3xl font-bold mb-4 text-white">2. Horse Knowledge Part 2</h2>
             <div className="w-16 h-1 mx-auto bg-red-600/70 mb-8" />
             <p className="text-lg text-white/80 max-w-4xl mx-auto mb-12">
               Part two further builds on your understanding and confidence by looking more in-depth at what you need to know when caring for a horse.

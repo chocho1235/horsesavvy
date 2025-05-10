@@ -21,6 +21,7 @@ import HorseKnowledge from "./pages/HorseKnowledge";
 import BronzeReward from "./pages/BronzeReward";
 import Courses from "./pages/Courses";
 import BHSStage1Theory from "./pages/BHSStage1Theory";
+import BHSStage2Theory from "./pages/BHSStage2Theory";
 import About from "./pages/About";
 import BeHorseSavvy from "./pages/BeHorseSavvy";
 
@@ -79,6 +80,7 @@ const routes = [
   { path: "/horse-knowledge", element: <HorseKnowledge /> },
   { path: "/bronze-reward", element: <BronzeReward /> },
   { path: "/bhs-stage-1-theory", element: <BHSStage1Theory /> },
+  { path: "/bhs-stage-2-theory", element: <BHSStage2Theory /> },
   { path: "/about", element: <About /> },
   { path: "/behorsesavvy", element: <BeHorseSavvy /> },
   { path: "/penny-club", element: <NotFound /> },
