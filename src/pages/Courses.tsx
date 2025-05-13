@@ -70,7 +70,7 @@ const fadeIn = {
 };
 
 const HorseShoe = () => (
-  <img src="/Untitled design (9).svg" alt="Horseshoe icon" className="w-12 h-12 object-contain" />
+  <img src="/horse shoe.svg" alt="Horseshoe icon" className="w-12 h-12 object-contain" />
 );
 
 const Courses = () => {
@@ -140,13 +140,13 @@ const Courses = () => {
   };
 
   const CourseCard = ({ course, type }: { course: typeof onlineCourses[0], type: "online" | "practical" }) => (
-    <Link
-      to={course.id === "bhs-stage-1-theory" 
-        ? "/bhs-stage-1-theory" 
+        <Link
+          to={course.id === "bhs-stage-1-theory" 
+            ? "/bhs-stage-1-theory" 
         : course.id === "bhs-stage-2-theory"
         ? "/bhs-stage-2-theory"
-        : "/horse-knowledge"}
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            : "/horse-knowledge"}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className="block"
     >
       <motion.div 
@@ -157,11 +157,11 @@ const Courses = () => {
           <div className="text-white text-2xl italic font-semibold mb-2 group-hover:text-yellow-300 transition-colors">{course.title}</div>
           <div className="text-white/80 text-sm">{course.description}</div>
           <div className="mt-4 text-white/90 text-sm italic">Click here to learn more</div>
-        </div>
+      </div>
         <div className="ml-6 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-          <HorseShoe />
-        </div>
-      </motion.div>
+        <HorseShoe />
+      </div>
+    </motion.div>
     </Link>
   );
 

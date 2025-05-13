@@ -235,55 +235,6 @@ export default function BronzeReward() {
         </div>
       </section>
 
-      {/* Meet Your Tutor Section */}
-      <section className="py-12 sm:py-16 md:py-24 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="text-center mb-8 sm:mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-yellow-400">Meet Your Tutor</h2>
-            <div className="w-16 h-1 mx-auto bg-yellow-400/70" />
-          </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative order-2 md:order-1"
-            >
-              <div className="aspect-[4/3] rounded-lg overflow-hidden">
-                <img
-                  src="/pennypleasant.jpeg"
-                  alt="Penny Pleasant"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="space-y-4 sm:space-y-6 order-1 md:order-2"
-            >
-              <h3 className="text-xl sm:text-2xl font-semibold text-[#c7a750]">Penny Pleasant</h3>
-              <p className="text-white/80 leading-relaxed text-sm sm:text-base">
-                Penelope designed this course from the ground up, drawing on years of coaching and judging to make each lesson clear, practical and fun. With extensive experience in equine education and a passion for sharing knowledge, she ensures that every student receives the highest quality learning experience.
-              </p>
-              <Button className="bg-[#c7a750] text-black hover:bg-[#d4b86a] transition-colors duration-300 w-full sm:w-auto">
-                Learn More About Penny
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section id="pricing" className="py-12 sm:py-16 md:py-24 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

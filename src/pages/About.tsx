@@ -180,11 +180,19 @@ const About = () => {
                 className="md:col-span-2 prose prose-lg prose-invert"
               >
                 <p className="text-xl text-white/90 leading-relaxed mb-8">
-                  I'm Penny, the founder of BeHorseSavvy—a BHS Accredited Professional Coach with a lifelong love of horses and a real passion for helping people grow in confidence, skills, and connection with their horses.
+                  Penny Pleasant is a British Horse Society accredited coach with over 40 years of experience in the equestrian world. Her passion for horses began at the age of six and grew steadily during her time at boarding school in North Wales, along with having her own ponies at home. From an early age, horses became a central part of her life.
                 </p>
                 
                 <p className="text-xl text-white/90 leading-relaxed mb-8">
-                  Based in the UK, BeHorseSavvy offers down-to-earth, high-quality equestrian education. Whether you're just starting out or a more experienced rider looking to refine your skills, I'm here to support your journey with personalised coaching, practical guidance, and a variety of both accredited and non-accredited courses to help expand your knowledge or move towards your career goals.
+                  Over the years, Penny has competed in a range of disciplines including show jumping, working hunter, and endurance riding. While working towards her BHS qualifications, she also raised two boys and continued to teach riders of all levels.
+                </p>
+
+                <p className="text-xl text-white/90 leading-relaxed mb-8">
+                  Today, Penny runs a range of online equestrian courses she has designed herself. These support students preparing for their pre and preliminary BHS assessments, help home-educated children build confidence, and offer flexible learning for recreational riders who want to deepen their skills and knowledge.
+                </p>
+
+                <p className="text-xl text-white/90 leading-relaxed mb-8">
+                  Penny combines decades of hands-on experience with a calm and practical teaching style. She's passionate about helping each rider grow, no matter their background or goals.
                 </p>
               </motion.div>
             </div>
@@ -193,21 +201,90 @@ const About = () => {
               {...getAnimationProps(0.3)}
               className="prose prose-lg prose-invert mx-auto relative z-10"
             >
-              <p className="text-xl text-white/90 leading-relaxed mb-8">
-                With over 40 years of experience in the equestrian world, I bring a well-rounded approach to every session. I'm a BHS Professional Coach, Pony Club Accredited Trainer and Assessor, and Panel Judge, offering tuition both online and face-to-face. Everything I teach is grounded in current best practices and real-world know-how.
-              </p>
-              
-              <p className="text-xl text-white/90 leading-relaxed mb-8">
-                I work with riders of all ages and abilities, offering everything from one-to-one coaching and group clinics to groundwork, competition preparation, and horsemanship training that's enjoyable and accessible to all. However you choose to learn, you'll be met with encouragement, integrity, and respect—for both you and your horse.
-              </p>
-              
-              <p className="text-xl text-white/90 leading-relaxed mb-8">
-                At the heart of everything I do is a horse-first philosophy. Great horsemanship is about more than just technique—it's about empathy, awareness, and building a true partnership. It's a lifelong journey, and I'd love to be part of yours.
-              </p>
-              
-              <p className="text-xl text-white/90 leading-relaxed mb-8">
-                Curious to learn more? Have a look at the services I offer or get in touch—I'd be happy to chat.
-              </p>
+              <div className="bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 mb-8">
+                <h3 className="text-2xl font-bold mb-6 text-white">Qualifications & Certifications</h3>
+                <ul className="space-y-3 text-white/90">
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>BHS Accredited Professional Coach</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Panel Judge</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>BSPS Course Builder</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Pony Club Accredited Coach & Assessor</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>DBS Checked</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Safeguarding & Child Protection Certified</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>First Aid at Work</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Fully Insured</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 mb-8">
+                <h3 className="text-2xl font-bold mb-6 text-white">Courses Available:</h3>
+                <h4 className="text-xl font-semibold mb-4 text-white/90">BRITISH HORSE SOCIETY</h4>
+                <ul className="space-y-3 text-white/90">
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Stage 1 Care - Online Theory</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Stage 2 Care - Online Theory</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Bronze Challenge Award</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Silver Challenge Award</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Horse Knowledge Part 1</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">▪</span>
+                    <span>Horse Knowledge Part 2</span>
+                  </li>
+                </ul>
+
+                <h4 className="text-xl font-semibold mt-8 mb-4 text-white/90">NON-BHS COURSES</h4>
+                <ul className="space-y-3 text-white/90">
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">☆</span>
+                    <span>The BeHorseSavvy Level 1</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">☆</span>
+                    <span>The BeHorseSavvy Level 2</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 mr-2">☆</span>
+                    <span>The BeHorseSavvy Level 3</span>
+                  </li>
+                </ul>
+              </div>
             </motion.div>
             
             {/* Core values */}

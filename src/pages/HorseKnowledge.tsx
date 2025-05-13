@@ -489,13 +489,6 @@ export default function HorseKnowledge() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             {...getAnimationProps()}
-            className="text-center mb-8"
-          >
-            <h2 className="text-3xl font-bold mb-4 text-white">Meet Your Tutor</h2>
-            <div className="w-16 h-1 mx-auto bg-red-600/70" />
-          </motion.div>
-          <motion.div
-            {...getAnimationProps()}
             className="flex justify-center"
           >
             <div className="relative max-w-2xl group">
