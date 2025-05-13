@@ -152,7 +152,7 @@ const About = () => {
               className="mb-16 text-center relative z-10"
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent">
-                About BeHorseSavvy
+                Welcome to BeHorseSavvy!
               </h1>
               
               <div className="w-32 h-1 bg-gradient-to-r from-white to-white/50 mx-auto rounded-full" />
@@ -180,14 +180,12 @@ const About = () => {
                 className="md:col-span-2 prose prose-lg prose-invert"
               >
                 <p className="text-xl text-white/90 leading-relaxed mb-8">
-                  <span className="text-2xl font-medium text-white">BeHorseSavvy</span> is a UK-based equestrian education company founded on a profound passion for horses and an unwavering commitment to excellence in horsemanship. With a focus on nurturing confident, skilled riders and knowledgeable horse owners, BeHorseSavvy provides tailored coaching and training that upholds the highest standards of equestrian practice.
+                  I'm Penny, the founder of BeHorseSavvy—a BHS Accredited Professional Coach with a lifelong love of horses and a real passion for helping people grow in confidence, skills, and connection with their horses.
                 </p>
                 
-                <div className="bg-gradient-to-r from-white/10 to-white/5 p-6 rounded-xl backdrop-blur-sm mb-8 border border-white/10">
-                  <p className="text-xl text-white leading-relaxed mb-0">
-                    At the heart of the company is a BeHorseSavvy BHS accredited professional coach who brings a wealth of expertise to every session. With credentials that include panel judging, Pony Club assessment, and active involvement in BeHorse accreditation programs, our lead coach ensures each student receives guidance grounded in both experience and current best practices.
-                  </p>
-                </div>
+                <p className="text-xl text-white/90 leading-relaxed mb-8">
+                  Based in the UK, BeHorseSavvy offers down-to-earth, high-quality equestrian education. Whether you're just starting out or a more experienced rider looking to refine your skills, I'm here to support your journey with personalised coaching, practical guidance, and a variety of both accredited and non-accredited courses to help expand your knowledge or move towards your career goals.
+                </p>
               </motion.div>
             </div>
             
@@ -196,7 +194,19 @@ const About = () => {
               className="prose prose-lg prose-invert mx-auto relative z-10"
             >
               <p className="text-xl text-white/90 leading-relaxed mb-8">
-                BeHorse Savvy works with riders of all ages and abilities, offering a variety of services ranging from individual coaching to group clinics, competition preparation, groundwork, and horsemanship education. Whether you're a novice seeking confidence or an experienced rider refining your skills, our goal is to support your journey with integrity, insight, and encouragement.
+                With over 40 years of experience in the equestrian world, I bring a well-rounded approach to every session. I'm a BHS Professional Coach, Pony Club Accredited Trainer and Assessor, and Panel Judge, offering tuition both online and face-to-face. Everything I teach is grounded in current best practices and real-world know-how.
+              </p>
+              
+              <p className="text-xl text-white/90 leading-relaxed mb-8">
+                I work with riders of all ages and abilities, offering everything from one-to-one coaching and group clinics to groundwork, competition preparation, and horsemanship training that's enjoyable and accessible to all. However you choose to learn, you'll be met with encouragement, integrity, and respect—for both you and your horse.
+              </p>
+              
+              <p className="text-xl text-white/90 leading-relaxed mb-8">
+                At the heart of everything I do is a horse-first philosophy. Great horsemanship is about more than just technique—it's about empathy, awareness, and building a true partnership. It's a lifelong journey, and I'd love to be part of yours.
+              </p>
+              
+              <p className="text-xl text-white/90 leading-relaxed mb-8">
+                Curious to learn more? Have a look at the services I offer or get in touch—I'd be happy to chat.
               </p>
             </motion.div>
             

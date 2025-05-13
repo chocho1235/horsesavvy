@@ -17,7 +17,7 @@ const Index = () => {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
-        className="absolute top-0 left-0 h-[70vh] w-[40vw] min-w-[450px] max-w-[600px] rounded-br-[100%] md:block hidden z-[51] overflow-hidden backdrop-blur-sm animate-gpu shadow-2xl border-r-4 border-b-4 border-white/20"
+        className="absolute top-0 left-0 h-[50vh] w-[50vh] min-w-[350px] max-w-[450px] rounded-full md:block hidden z-[51] overflow-hidden backdrop-blur-sm animate-gpu shadow-2xl border-4 border-white/20"
       >
         <img
           src="/DSC_1374.jpg"
@@ -30,8 +30,8 @@ const Index = () => {
           }}
         />
         {/* Overlay gradient to ensure text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/0 via-black/10 to-black/30"></div>
-        <div className="absolute inset-0 rounded-br-[100%]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/20"></div>
+        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-transparent via-black/5 to-black/10"></div>
       </motion.div>
 
       <ContactHeader />
@@ -39,7 +39,7 @@ const Index = () => {
       <div className="relative min-h-[600px]">
         {/* Center content */}
         <div className="pt-[80px] md:pt-[100px] px-4 md:px-8 max-w-[1600px] mx-auto animation-container">
-          <div className="md:pl-[500px]">
+          <div className="md:pl-[400px]">
             <div className="max-w-[1000px] flex flex-col gap-8 items-center">
               {/* Welcome Text */}
               <motion.div 
