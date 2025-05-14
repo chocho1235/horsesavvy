@@ -219,11 +219,8 @@ export default function HorseKnowledge2() {
                 Meet Your Tutor
               </h2>
               <div className="w-20 h-1 bg-red-500 mx-auto md:mx-0 mb-8"></div>
-              <p className="text-lg text-white/90 leading-relaxed mb-6">
-                Penny Pleasant is a BHS Accredited Professional Coach with over 40 years of experience in the equestrian world. Her passion for horses began at the age of six and has grown into a lifelong commitment to teaching and sharing knowledge.
-              </p>
               <p className="text-lg text-white/90 leading-relaxed">
-                As your tutor, Penny brings her extensive experience as a Panel Judge, Pony Club Assessor, and BSPS Course Builder to create an engaging and comprehensive learning experience. She has designed this course to ensure you gain both theoretical knowledge and practical understanding of horse care and management.
+                Penny Pleasant is a BHS Accredited Professional Coach with over 40 years of experience in the equestrian world. Her passion for horses began at the age of six and has grown into a lifelong commitment to teaching and sharing knowledge.
               </p>
             </motion.div>
           </div>
