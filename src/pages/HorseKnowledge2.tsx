@@ -1,12 +1,28 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ChevronDown, ArrowLeft } from "lucide-react";
-import { ContactHeader } from "@/components/ContactHeader";
+import { Button } from "@/components/ui/button";
+import { ChevronRight, Users, BookOpen, Sparkles } from "lucide-react";
 import { Footer } from "@/components/Footer";
-import { Link } from "react-router-dom";
-import { BackToHome } from "@/components/BackToHome";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { BackToHome } from "@/components/BackToHome";
+
+// Animation variants
+const fadeIn = {
+  initial: { opacity: 0, y: 10 },
+  whileInView: { opacity: 1, y: 0 }
+};
+
+const slideInRight = {
+  initial: { opacity: 0, x: 20 },
+  whileInView: { opacity: 1, x: 0 }
+};
+
+// Page-level animation
+const pageAnimation = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 }
+};
 
 const faqs = [
   {
@@ -34,32 +50,6 @@ const faqs = [
     answer: "YES! All of our courses are designed to be studied anywhere in the world and we have many international students studying with us."
   }
 ];
-
-// Add font preloading
-const preloadFonts = () => {
-  // Only preload fonts if there are valid fonts to load
-  // This prevents unnecessary network requests for non-existent fonts
-  const fontLinks: Array<Record<string, string>> = [
-    // Only uncomment and use actual font files that exist in your project
-    // { rel: 'preload', href: '/fonts/your-main-font.woff2', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
-  ];
-  
-  if (fontLinks.length === 0) return;
-  
-  fontLinks.forEach(link => {
-    const linkElement = document.createElement('link');
-    Object.entries(link).forEach(([key, value]) => {
-      linkElement.setAttribute(key, value);
-    });
-    document.head.appendChild(linkElement);
-  });
-};
-
-// Animation variants - moved outside component
-const fadeIn = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 }
-};
 
 // Memoized FAQ Item Component
 const FaqItem = React.memo(({ 
@@ -115,11 +105,11 @@ const FaqItem = React.memo(({
   </motion.div>
 ));
 
-export default function HorseKnowledge() {
+export default function HorseKnowledge2() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const isMobile = useIsMobile();
-
+  
   useEffect(() => {
     // Check for reduced motion preference
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -135,11 +125,15 @@ export default function HorseKnowledge() {
       mediaQuery.removeEventListener('change', handleChange);
     };
   }, []);
-
+  
   // Memoize animation props
   const animationProps = useMemo(() => {
     if (isMobile || prefersReducedMotion) {
-      return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
+      return {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { duration: 0.3 }
+      };
     }
     
     return {
@@ -164,13 +158,12 @@ export default function HorseKnowledge() {
   }, []);
 
   return (
-    <div className="min-h-[100dvh] bg-gradient-to-b from-blue-950 to-blue-950 text-white">
-      <ContactHeader bgColor="bg-blue-950" />
-      
+    <div className="min-h-screen bg-blue-950 text-white">
       <BackToHome />
       
       {/* Hero Section */}
       <section className="relative bg-blue-950 py-16 sm:py-24 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-blue-950" />
         <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-15" />
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/80 to-blue-950/95" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -179,19 +172,20 @@ export default function HorseKnowledge() {
               <motion.h1 
                 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
               >
-                Horse Knowledge Part 1
+                Horse Knowledge Part 2
               </motion.h1>
               <motion.p 
                 className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
               >
-                The BHS Challenge Award: Horse Knowledge Part 1 provides a comprehensive foundation in horse care, covering safety, behaviour, and the basics of handling. The course includes interactive modules with quizzes and takes approximately 30 hours to complete. Ideal for horse owners and enthusiasts, the course offers BHS certification upon completion.
+                Part two further builds on your understanding and confidence by looking more in-depth at what you need to know when caring for a horse.
               </motion.p>
-              <motion.div 
-                className="flex justify-center gap-4"
+              <motion.div
+                {...animationProps}
+                className="flex flex-col sm:flex-row items-center justify-center gap-4"
               >
-                <Button 
+                <Button
                   onClick={handleEnrollClick}
-                  className="bg-red-600 text-white hover:bg-red-700 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px]"
+                  className="bg-red-600 hover:bg-red-700 text-white px-8 py-6 text-lg font-medium rounded-lg transition-colors duration-300"
                 >
                   Enroll Now
                 </Button>
@@ -225,23 +219,20 @@ export default function HorseKnowledge() {
                 Meet Your Tutor
               </h2>
               <div className="w-20 h-1 bg-red-500 mx-auto md:mx-0 mb-8"></div>
-              <p className="text-lg text-white/90 leading-relaxed">
+              <p className="text-lg text-white/90 leading-relaxed mb-6">
                 Penny Pleasant is a BHS Accredited Professional Coach with over 40 years of experience in the equestrian world. Her passion for horses began at the age of six and has grown into a lifelong commitment to teaching and sharing knowledge.
+              </p>
+              <p className="text-lg text-white/90 leading-relaxed">
+                As your tutor, Penny brings her extensive experience as a Panel Judge, Pony Club Assessor, and BSPS Course Builder to create an engaging and comprehensive learning experience. She has designed this course to ensure you gain both theoretical knowledge and practical understanding of horse care and management.
               </p>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Course Overview */}
+      {/* Course Snapshot */}
       <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            {...animationProps}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-bold mb-6 text-white">Horse Knowledge Part 1</h2>
-          </motion.div>
           <motion.div 
             {...animationProps}
             className="text-center mb-8 sm:mb-16"
@@ -289,20 +280,20 @@ export default function HorseKnowledge() {
                   <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4">
                     <ChevronRight className="w-5 h-5 text-red-500" />
                   </span>
-                  Course Features
+                  Course Format
                 </h3>
                 <ul className="space-y-4">
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Learn at your own pace</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Interactive modules with quizzes</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Expert tutor support</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Self-paced learning</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Fully online, access from anywhere</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Certificate upon completion</span>
                   </li>
                 </ul>
               </div>
@@ -318,45 +309,144 @@ export default function HorseKnowledge() {
                   <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4">
                     <ChevronRight className="w-5 h-5 text-red-500" />
                   </span>
-                  Course Benefits
+                  Course Details
                 </h3>
                 <ul className="space-y-4">
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Professional certification</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">30 hours of content</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Lifetime access to materials</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Lifetime access</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Flexible payment options</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">BHS certification</span>
                   </li>
                 </ul>
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
 
-          {/* Syllabus for Part One */}
-          <motion.div {...animationProps} className="max-w-2xl mx-auto mt-16 mb-12">
+      {/* Is This Course Right For You */}
+      <section className="py-20 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            {...animationProps}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold mb-6 text-white">Is This Course Right For You?</h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto mb-12">
+              This advanced course is designed for those who have completed Part 1 or have equivalent horse knowledge and want to deepen their understanding.
+            </p>
+          </motion.div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <motion.div
+              {...animationProps}
+              className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Users className="h-8 w-8 text-red-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">Experienced Horse Owners</h3>
+                <p className="text-white/90 group-hover:text-white transition-colors">
+                  Looking to enhance your horse care knowledge? This course builds on your existing experience with advanced topics and techniques.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              {...animationProps}
+              className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <BookOpen className="h-8 w-8 text-red-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">Part 1 Graduates</h3>
+                <p className="text-white/90 group-hover:text-white transition-colors">
+                  Completed Part 1? Take your knowledge to the next level with this comprehensive follow-up course.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              {...animationProps}
+              className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Sparkles className="h-8 w-8 text-red-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">Aspiring Professionals</h3>
+                <p className="text-white/90 group-hover:text-white transition-colors">
+                  Planning a career in horse care? This course provides the advanced knowledge needed for professional development.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              {...animationProps}
+              className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <ChevronRight className="h-8 w-8 text-red-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">Knowledge Seekers</h3>
+                <p className="text-white/90 group-hover:text-white transition-colors">
+                  Want to deepen your understanding of horse care? This course offers comprehensive coverage of advanced topics.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Course Content */}
+      <section className="py-16 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            {...animationProps}
+            className="text-center mb-8 sm:mb-16"
+          >
+            <h2 className="text-3xl font-bold mb-4 text-white">Course Content</h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70" />
+          </motion.div>
+          <motion.div {...animationProps} className="max-w-2xl mx-auto">
             <div className="backdrop-blur-sm bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 rounded-xl shadow-xl p-8 sm:p-10 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <h3 className="font-serif text-2xl font-bold mb-8 text-center text-white relative">
-                <span className="relative z-10 after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-[1px] after:bg-red-500/40">Full Syllabus: Part One</span>
+                <span className="relative z-10 after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-[1px] after:bg-red-500/40">Full Syllabus: Part Two</span>
               </h3>
               <ul className="space-y-4 relative z-10">
                 {[
-                  "Introduction and Yard Safety",
-                  "Horse Behaviour",
-                  "Horse Welfare",
+                  "Coach Guidance Horse Knowledge Part 2",
+                  "Advanced Horse Behaviour",
+                  "Passports and Microchips",
+                  "Health Indicators and Assessment",
+                  "Disease Prevention and Healthcare",
+                  "Horse Care",
+                  "Advanced Feeding Techniques",
+                  "Field Management and Safety",
+                  "Poisonous Plants Identification",
                   "Feeding",
-                  "Stable Care",
-                  "Grooming",
-                  "Identification and points of the horse",
-                  "Grooming Kit",
-                  "Points of the Horse",
-                  "Session Plans Horse Knowledge Part 1"
+                  "Field checks",
+                  "Parts of tack",
+                  "Tack and Equipment Knowledge",
+                  "Parts of the Bridle",
+                  "Parts of the Saddle",
+                  "Parts of the Saddle and Bridle",
+                  "Expert Horse Management",
+                  "Horse Knowledge Part 2 Coach Resources"
                 ].map((item, index) => (
                   <li key={index} className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
                     <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
@@ -371,36 +461,15 @@ export default function HorseKnowledge() {
         </div>
       </section>
 
-      {/* Part One Photo */}
-      <section className="py-12 bg-blue-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center">
-            <motion.div
-              {...animationProps}
-              className="relative w-full aspect-[4/3] max-w-xl group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
-              <img 
-                src="/part one photo .svg" 
-                alt="Horse Knowledge Part One" 
-                className="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Who is the Course For */}
-      <section className="py-20 bg-blue-950">
+      {/* Course Features */}
+      <section className="py-16 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             {...animationProps}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-6 text-white">Is This Course Right For You?</h2>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto mb-12">
-              This course is perfect for anyone who wants to learn about horse care, no matter your experience level.
-            </p>
+            <h2 className="text-3xl font-bold mb-4 text-white">Course Features</h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70" />
           </motion.div>
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <motion.div
@@ -412,9 +481,9 @@ export default function HorseKnowledge() {
                 <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Users className="h-8 w-8 text-red-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">New Horse Owners</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Experienced Horse Owners</h3>
                 <p className="text-white/90 group-hover:text-white transition-colors">
-                  Just got a horse or thinking about getting one? This course will teach you everything you need to know to get started.
+                  Looking to enhance your horse care knowledge? This course builds on your existing experience with advanced topics and techniques.
                 </p>
               </div>
             </motion.div>
@@ -428,9 +497,9 @@ export default function HorseKnowledge() {
                 <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <BookOpen className="h-8 w-8 text-red-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Complete Beginners</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Part 1 Graduates</h3>
                 <p className="text-white/90 group-hover:text-white transition-colors">
-                  Never worked with horses before? No problem! We'll guide you through everything step by step.
+                  Completed Part 1? Take your knowledge to the next level with this comprehensive follow-up course.
                 </p>
               </div>
             </motion.div>
@@ -444,25 +513,9 @@ export default function HorseKnowledge() {
                 <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Sparkles className="h-8 w-8 text-red-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Home Educated Children</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Aspiring Professionals</h3>
                 <p className="text-white/90 group-hover:text-white transition-colors">
-                  Perfect for home education! Learn about horses in a fun, engaging way that fits your learning schedule.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              {...animationProps}
-              className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative text-center">
-                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Globe className="h-8 w-8 text-red-500" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Future Horse Professionals</h3>
-                <p className="text-white/90 group-hover:text-white transition-colors">
-                  Thinking about a career with horses? This course is your first step towards professional horse care and management.
+                  Planning a career in horse care? This course provides the advanced knowledge needed for professional development.
                 </p>
               </div>
             </motion.div>
@@ -470,164 +523,7 @@ export default function HorseKnowledge() {
         </div>
       </section>
 
-      {/* Certificate and Graph Images */}
-      <section className="py-12 bg-blue-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center">
-            <motion.div
-              {...animationProps}
-              className="relative w-full aspect-[4/3] max-w-xl group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
-              <img 
-                src="/Untitled design (11).png" 
-                alt="Course Certificate" 
-                className="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Course Snapshot */}
-      <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            {...animationProps}
-            className="text-center mb-8 sm:mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">Course Snapshot</h2>
-            <div className="w-16 h-1 mx-auto bg-red-600/70" />
-          </motion.div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
-            <motion.div
-              {...animationProps}
-              className="space-y-4"
-            >
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative flex items-start">
-                  <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
-                    <Clock className="h-7 w-7 text-red-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-semibold text-white mb-2">Duration</h3>
-                    <p className="text-white/90 group-hover:text-white transition-colors">30 hours of self-paced learning</p>
-                  </div>
-                </div>
-              </div>
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative flex items-start">
-                  <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
-                    <Users className="h-7 w-7 text-red-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-semibold text-white mb-2">Support</h3>
-                    <p className="text-white/90 group-hover:text-white transition-colors">Optional tutor call included</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div
-              {...animationProps}
-              className="space-y-4"
-            >
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative flex items-start">
-                  <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
-                    <BookOpen className="h-7 w-7 text-red-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-semibold text-white mb-2">Format</h3>
-                    <p className="text-white/90 group-hover:text-white transition-colors">Interactive modules with quizzes</p>
-                  </div>
-                </div>
-              </div>
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative flex items-start">
-                  <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
-                    <Globe className="h-7 w-7 text-red-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-semibold text-white mb-2">Study Anywhere</h3>
-                    <p className="text-white/90 group-hover:text-white transition-colors">All courses are designed to be studied anywhere in the world</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tutor Images */}
-      <section className="py-12 bg-blue-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            {...animationProps}
-            className="flex justify-center"
-          >
-            <div className="relative max-w-2xl group">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
-              <img 
-                src="/P1000200.jpg" 
-                alt="Penny Pleasant - Tutor Images" 
-                className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
-              />
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Tutor Introduction */}
-      <section className="py-16 bg-blue-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            {...animationProps}
-            className="max-w-3xl mx-auto"
-          >
-            <div className="group relative backdrop-blur-sm bg-white/10 p-10 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <h3 className="font-serif text-3xl font-bold text-white mb-4">Penny Pleasant</h3>
-                <p className="text-white/90 text-lg group-hover:text-white leading-relaxed">
-                  These courses are designed by The British Horse Society (BHS) and are delivered online by Penny, with the added benefit of optional booked phone calls and ongoing support throughout.
-                  You will receive a BHS Horse Knowledge certificate on completion of Part 1 and on completion of Part 2 a BHS Horse Knowledge Part 2 certificate.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FAQs */}
-      <section className="py-16 bg-blue-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            {...animationProps}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
-            <div className="w-16 h-1 mx-auto bg-red-600/70" />
-          </motion.div>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq, idx) => (
-              <FaqItem
-                key={idx}
-                question={faq.question}
-                answer={faq.answer}
-                isOpen={openFaq === idx}
-                onToggle={() => handleFaqToggle(idx)}
-                animationProps={animationProps}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Get Started Now CTA Section */}
+      {/* Pricing Section */}
       <section id="pricing" className="py-16 bg-gradient-to-b from-blue-950 to-blue-950 border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
@@ -636,7 +532,7 @@ export default function HorseKnowledge() {
           >
             <h2 className="text-4xl font-bold mb-4 text-white">Get Started Now!</h2>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-8">
-              Begin your journey into horse knowledge with expert guidance
+              Begin your advanced horse knowledge journey with expert guidance
             </p>
           </motion.div>
           
@@ -649,17 +545,17 @@ export default function HorseKnowledge() {
               <div className="relative">
                 <div className="text-center">
                   <h3 className="font-serif text-2xl font-bold text-white mb-3">Horse Knowledge</h3>
-                  <h4 className="font-serif text-xl font-bold text-white mb-5">Part One</h4>
+                  <h4 className="font-serif text-xl font-bold text-white mb-5">Part Two</h4>
                   <p className="font-serif text-5xl font-bold text-red-500 mb-3">£97</p>
                   <div className="bg-white/5 rounded-lg p-4 mb-8">
                     <ul className="space-y-3 text-left">
                       <li className="flex items-center text-white/90">
                         <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
-                        <span>Foundation in horse care</span>
+                        <span>Advanced horse care knowledge</span>
                       </li>
                       <li className="flex items-center text-white/90">
                         <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
-                        <span>Self-paced online learning</span>
+                        <span>Building on Part One foundations</span>
                       </li>
                       <li className="flex items-center text-white/90">
                         <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
@@ -677,7 +573,63 @@ export default function HorseKnowledge() {
         </div>
       </section>
 
+      {/* FAQs */}
+      <section className="py-16 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            {...animationProps}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70" />
+          </motion.div>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqs.map((faq, idx) => (
+              <motion.div
+                key={idx}
+                {...animationProps}
+                className="group"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full text-left backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
+                >
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-serif text-xl font-semibold text-white group-hover:text-red-500 transition-colors pr-4">{faq.question}</h3>
+                    <motion.span 
+                      className="text-2xl text-red-500 flex-shrink-0 w-8 h-8 flex items-center justify-center"
+                      animate={{ rotate: openFaq === idx ? 180 : 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      +
+                    </motion.span>
+                  </div>
+                  <AnimatePresence initial={false}>
+                    {openFaq === idx && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ 
+                          height: { duration: 0.3, ease: "easeInOut" },
+                          opacity: { duration: 0.2, ease: "easeInOut" }
+                        }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-6 mt-6 border-t border-white/20 text-white/80 leading-relaxed">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer bgColor="bg-blue-950" />
     </div>
   );
-}
+} 

@@ -18,6 +18,7 @@ import { Component, ErrorInfo, ReactNode, memo } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import HorseKnowledge from "./pages/HorseKnowledge";
+import HorseKnowledge2 from "./pages/HorseKnowledge2";
 import BronzeReward from "./pages/BronzeReward";
 import Courses from "./pages/Courses";
 import BHSStage1Theory from "./pages/BHSStage1Theory";
@@ -78,6 +79,7 @@ const routes = [
   { path: "/", element: <Index /> },
   { path: "/courses", element: <Courses /> },
   { path: "/horse-knowledge", element: <HorseKnowledge /> },
+  { path: "/horse-knowledge-2", element: <HorseKnowledge2 /> },
   { path: "/bronze-reward", element: <BronzeReward /> },
   { path: "/bhs-stage-1-theory", element: <BHSStage1Theory /> },
   { path: "/bhs-stage-2-theory", element: <BHSStage2Theory /> },

@@ -17,7 +17,10 @@ const Index = () => {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
-        className="absolute top-0 left-0 h-[50vh] w-[50vh] min-w-[350px] max-w-[450px] rounded-full md:block hidden z-[51] overflow-hidden backdrop-blur-sm animate-gpu shadow-2xl border-4 border-white/20"
+        className="absolute top-0 left-0 h-[50vh] w-[50vh] min-w-[350px] max-w-[450px] md:block hidden z-[51] overflow-hidden backdrop-blur-sm animate-gpu shadow-2xl border-4 border-transparent"
+        style={{
+          background: 'linear-gradient(white, white) padding-box, linear-gradient(to right, #FF0000, #0066FF, #FFFFFF) border-box'
+        }}
       >
         <img
           src="/DSC_1374.jpg"
@@ -31,7 +34,7 @@ const Index = () => {
         />
         {/* Overlay gradient to ensure text readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/20"></div>
-        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-transparent via-black/5 to-black/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 to-black/10"></div>
       </motion.div>
 
       <ContactHeader />
