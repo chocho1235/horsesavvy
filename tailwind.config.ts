@@ -73,6 +73,9 @@ export default {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			},
+			minHeight: {
+				'screen': '100dvh',
+			},
 			keyframes: {
 				'accordion-down': {
 					from: {

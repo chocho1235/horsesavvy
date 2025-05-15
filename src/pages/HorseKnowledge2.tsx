@@ -1,10 +1,20 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Users, BookOpen, Sparkles } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { BackToHome } from "@/components/BackToHome";
+
+// Lazy load FAQ component
+const FaqItem = lazy(() => import("@/components/FaqItem"));
+
+// Loading fallback for lazy components
+const LoadingFallback = () => (
+  <div className="animate-pulse">
+    <div className="h-12 bg-white/10 rounded-lg mb-4"></div>
+  </div>
+);
 
 // Animation variants
 const fadeIn = {
@@ -50,60 +60,6 @@ const faqs = [
     answer: "YES! All of our courses are designed to be studied anywhere in the world and we have many international students studying with us."
   }
 ];
-
-// Memoized FAQ Item Component
-const FaqItem = React.memo(({ 
-  question, 
-  answer, 
-  isOpen, 
-  onToggle, 
-  animationProps 
-}: { 
-  question: string; 
-  answer: string; 
-  isOpen: boolean; 
-  onToggle: () => void; 
-  animationProps: any;
-}) => (
-  <motion.div
-    {...animationProps}
-    className="group"
-  >
-    <button
-      onClick={onToggle}
-      className="w-full text-left backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
-    >
-      <div className="flex justify-between items-center">
-        <h3 className="font-serif text-xl font-semibold text-white group-hover:text-red-500 transition-colors pr-4">{question}</h3>
-        <motion.span 
-          className="text-2xl text-red-500 flex-shrink-0 w-8 h-8 flex items-center justify-center"
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          +
-        </motion.span>
-      </div>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ 
-              height: { duration: 0.3, ease: "easeInOut" },
-              opacity: { duration: 0.2, ease: "easeInOut" }
-            }}
-            className="overflow-hidden"
-          >
-            <div className="pt-6 mt-6 border-t border-white/20 text-white/80 leading-relaxed">
-              {answer}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </button>
-  </motion.div>
-));
 
 export default function HorseKnowledge2() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -581,47 +537,18 @@ export default function HorseKnowledge2() {
             <div className="w-16 h-1 mx-auto bg-red-600/70" />
           </motion.div>
           <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq, idx) => (
-              <motion.div
-                key={idx}
-                {...animationProps}
-                className="group"
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full text-left backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
-                >
-                  <div className="flex justify-between items-center">
-                    <h3 className="font-serif text-xl font-semibold text-white group-hover:text-red-500 transition-colors pr-4">{faq.question}</h3>
-                    <motion.span 
-                      className="text-2xl text-red-500 flex-shrink-0 w-8 h-8 flex items-center justify-center"
-                      animate={{ rotate: openFaq === idx ? 180 : 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                    >
-                      +
-                    </motion.span>
-                  </div>
-                  <AnimatePresence initial={false}>
-                    {openFaq === idx && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ 
-                          height: { duration: 0.3, ease: "easeInOut" },
-                          opacity: { duration: 0.2, ease: "easeInOut" }
-                        }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pt-6 mt-6 border-t border-white/20 text-white/80 leading-relaxed">
-                          {faq.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </button>
-              </motion.div>
-            ))}
+            <Suspense fallback={<LoadingFallback />}>
+              {faqs.map((faq, idx) => (
+                <FaqItem
+                  key={idx}
+                  question={faq.question}
+                  answer={faq.answer}
+                  isOpen={openFaq === idx}
+                  onToggle={() => handleFaqToggle(idx)}
+                  animationProps={animationProps}
+                />
+              ))}
+            </Suspense>
           </div>
         </div>
       </section>

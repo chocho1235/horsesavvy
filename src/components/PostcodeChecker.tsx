@@ -184,7 +184,7 @@ const PostcodeChecker = memo(() => {
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       variants={containerVariants}
-      className="mt-16 p-8 bg-gradient-to-br from-black/50 to-black/30 rounded-2xl border border-white/10 backdrop-blur-sm animation-container"
+      className="mt-16 p-8 bg-gradient-to-br from-black/50 to-black/30 rounded-2xl border border-white/10 md:backdrop-blur-sm animation-container will-change-transform"
       data-animate="true"
     >
       <div className="relative">

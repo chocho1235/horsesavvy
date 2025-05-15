@@ -134,7 +134,7 @@ export default function BeHorseSavvy() {
             {/* Benefit 1 */}
             <motion.div
               {...getAnimationProps()}
-              className="group relative backdrop-blur-sm bg-black/90 p-8 rounded-lg border border-gold/30 hover:border-gold/60 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-black/90 p-8 rounded-lg border border-gold/30 hover:border-gold/60 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-gold/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
@@ -155,7 +155,7 @@ export default function BeHorseSavvy() {
             {/* Benefit 2 */}
             <motion.div
               {...getAnimationProps()}
-              className="group relative backdrop-blur-sm bg-black/90 p-8 rounded-lg border border-gold/30 hover:border-gold/60 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-black/90 p-8 rounded-lg border border-gold/30 hover:border-gold/60 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-gold/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
@@ -176,7 +176,7 @@ export default function BeHorseSavvy() {
             {/* Benefit 3 */}
             <motion.div
               {...getAnimationProps()}
-              className="group relative backdrop-blur-sm bg-black/90 p-8 rounded-lg border border-gold/30 hover:border-gold/60 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-black/90 p-8 rounded-lg border border-gold/30 hover:border-gold/60 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-gold/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
@@ -197,7 +197,7 @@ export default function BeHorseSavvy() {
             {/* Benefit 4 */}
             <motion.div
               {...getAnimationProps()}
-              className="group relative backdrop-blur-sm bg-black/90 p-8 rounded-lg border border-gold/30 hover:border-gold/60 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-black/90 p-8 rounded-lg border border-gold/30 hover:border-gold/60 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-gold/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">

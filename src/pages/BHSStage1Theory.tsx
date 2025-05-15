@@ -5,6 +5,7 @@ import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ChevronDown, Arr
 import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
+import MeetYourTutor from "@/components/MeetYourTutor";
 
 const faqs = [
   {
@@ -99,41 +100,32 @@ export default function BHSStage1Theory() {
       </div>
       
       {/* Hero Section */}
-      <section className="relative bg-blue-950 py-12 sm:py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-blue-950" />
-        <div className="absolute inset-0 bg-[url('/BHS-Acc-Pro-Coach-logo-COL.jpg')] bg-cover bg-center opacity-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-red-800/20 to-transparent" />
+      <section className="relative bg-blue-950 py-16 sm:py-24 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-15" />
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/80 to-blue-950/95" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-3xl mx-auto">
-            <motion.div {...getAnimationProps()} variants={fadeIn}>
+            <motion.div {...getAnimationProps()}>
               <motion.h1 
-                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 text-white"
+                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
               >
                 BHS Stage 1 Theory
               </motion.h1>
               <motion.p 
-                className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 max-w-4xl mx-auto mb-6 sm:mb-8 md:mb-10 leading-relaxed px-2 sm:px-4"
+                className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
               >
                 Whichever route you plan to take with horses, whether you wish to start a career as a groom, be a dedicated owner, or simply want to further your knowledge about the general care of horses.
               </motion.p>
               <motion.div 
-                className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
+                className="flex justify-center gap-4"
               >
                 <Button 
                   onClick={() => {
                     document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="bg-red-600 text-white hover:bg-red-700 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base w-full sm:w-auto h-[44px] sm:h-[52px] md:h-[60px]"
+                  className="bg-red-600 text-white hover:bg-red-700 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px]"
                 >
                   Enroll Now
-                </Button>
-                <Button 
-                  onClick={() => {
-                    document.getElementById('syllabus')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base w-full sm:w-auto h-[44px] sm:h-[52px] md:h-[60px]"
-                >
-                  View Syllabus
                 </Button>
               </motion.div>
             </motion.div>
@@ -173,6 +165,8 @@ export default function BHSStage1Theory() {
           </motion.div>
         </div>
       </section>
+
+      <MeetYourTutor getAnimationProps={getAnimationProps} fadeIn={fadeIn} />
 
       {/* Course Overview */}
       <section className="py-6 sm:py-8 md:py-12 bg-blue-950">

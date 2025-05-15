@@ -17,7 +17,7 @@ const Index = () => {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
-        className="absolute top-0 left-0 h-[50vh] w-[50vh] min-w-[350px] max-w-[450px] md:block hidden z-[51] overflow-hidden backdrop-blur-sm animate-gpu shadow-2xl border-4 border-transparent"
+        className="absolute top-0 left-0 h-[50vh] w-[50vh] min-w-[350px] max-w-[450px] md:block hidden z-[51] md:backdrop-blur-sm animate-gpu shadow-2xl border-4 border-transparent will-change-transform"
         style={{
           background: 'linear-gradient(white, white) padding-box, linear-gradient(to right, #FF0000, #0066FF, #FFFFFF) border-box'
         }}
@@ -83,11 +83,11 @@ const Index = () => {
                       delay: 0.2,
                       ease: "easeOut"
                     }}
-                    className="flex flex-col md:flex-row items-center gap-6 animate-gpu"
+                    className="flex flex-col md:flex-row items-center justify-center gap-6 animate-gpu"
                   >
                     <Link 
                       to="/about"
-                      className="relative text-xl bg-white text-black px-12 py-5 rounded-full hover:bg-white/90 transition-all duration-300 w-full md:w-auto font-semibold shadow-sm hover:shadow-md"
+                      className="relative text-xl bg-white text-black px-12 py-5 rounded-full hover:bg-white/90 transition-all duration-300 w-full md:w-auto font-semibold shadow-sm hover:shadow-md text-center"
                     >
                       About Us
                     </Link>

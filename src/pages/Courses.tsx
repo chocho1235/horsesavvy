@@ -242,7 +242,7 @@ const Courses = () => {
                 </div>
               </motion.div>
 
-              <motion.div className="p-6 backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg max-w-2xl mx-auto shadow-lg">
+              <motion.div className="p-6 md:backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg max-w-2xl mx-auto shadow-lg will-change-transform">
                 <p className="text-white/80 text-sm leading-relaxed">
                   Our courses feature a mix of programs designed by the British
                   Horse Society and BeHorseSavvy, all personally delivered by
@@ -284,7 +284,7 @@ const Courses = () => {
 
           {/* Postcode Checker */}
           <motion.div {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : animationProps)}
-            className="mb-10 p-6 backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg shadow-lg"
+            className="mb-10 p-6 md:backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg shadow-lg will-change-transform"
           >
             <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
               <Search className="w-5 h-5 text-red-400 mr-2" />
@@ -351,7 +351,7 @@ const Courses = () => {
         {/* Disclaimer */}
         <motion.div
           {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : animationProps)}
-          className="mt-16 p-6 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg max-w-4xl mx-auto"
+          className="mt-16 p-6 md:backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg max-w-4xl mx-auto will-change-transform"
         >
           <div className="relative">
             <h3 className="text-sm font-semibold mb-2 text-red-400 flex items-center">

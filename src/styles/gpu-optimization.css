@@ -1,0 +1,12 @@
+.will-change-transform {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Optimize backdrop-filter performance */
+@media (max-width: 767px) {
+  .backdrop-blur-sm {
+    backdrop-filter: none;
+  }
+} 

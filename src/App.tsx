@@ -12,19 +12,26 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Component, ErrorInfo, ReactNode, memo } from "react";
+import { Component, ErrorInfo, ReactNode, memo, Suspense, lazy } from "react";
 
-// Page components
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import HorseKnowledge from "./pages/HorseKnowledge";
-import HorseKnowledge2 from "./pages/HorseKnowledge2";
-import BronzeReward from "./pages/BronzeReward";
-import Courses from "./pages/Courses";
-import BHSStage1Theory from "./pages/BHSStage1Theory";
-import BHSStage2Theory from "./pages/BHSStage2Theory";
-import About from "./pages/About";
-import BeHorseSavvy from "./pages/BeHorseSavvy";
+// Lazy load page components
+const Index = lazy(() => import("./pages/Index"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const HorseKnowledge = lazy(() => import("./pages/HorseKnowledge"));
+const HorseKnowledge2 = lazy(() => import("./pages/HorseKnowledge2"));
+const BronzeReward = lazy(() => import("./pages/BronzeReward"));
+const Courses = lazy(() => import("./pages/Courses"));
+const BHSStage1Theory = lazy(() => import("./pages/BHSStage1Theory"));
+const BHSStage2Theory = lazy(() => import("./pages/BHSStage2Theory"));
+const About = lazy(() => import("./pages/About"));
+const BeHorseSavvy = lazy(() => import("./pages/BeHorseSavvy"));
+
+// Loading component
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center bg-blue-950">
+    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-red-500"></div>
+  </div>
+);
 
 // Initialize React Query client
 const queryClient = new QueryClient({
@@ -99,7 +106,15 @@ const routes = [
 const AppRoutes = memo(() => (
   <Routes>
     {routes.map(({ path, element }) => (
-      <Route key={path} path={path} element={element} />
+      <Route 
+        key={path} 
+        path={path} 
+        element={
+          <Suspense fallback={<LoadingFallback />}>
+            {element}
+          </Suspense>
+        } 
+      />
     ))}
   </Routes>
 ));

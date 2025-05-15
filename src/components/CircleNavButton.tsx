@@ -31,12 +31,12 @@ interface CircleNavButtonProps {
  * Color scheme classes for different button styles
  */
 const colorClasses = {
-  white: "bg-white text-black hover:bg-gray-50",
-  yellow: "bg-[#FFD700] text-black hover:bg-[#FFE44D]/90",
-  red: "bg-[#FF0000] text-white hover:bg-[#FF3333]/90",
-  blue: "bg-[#0066FF] text-white hover:bg-[#3385FF]/90",
-  green: "bg-[#00B300] text-white hover:bg-[#00CC00]/90",
-  purple: "bg-[#8000FF] text-white hover:bg-[#944DFF]/90",
+  white: "bg-white text-black hover:bg-gray-50 border-white",
+  yellow: "bg-[#FFD700] text-black hover:bg-[#FFE44D]/90 border-[#FFD700]",
+  red: "bg-[#FF0000] text-white hover:bg-[#FF3333]/90 border-[#FF0000]",
+  blue: "bg-[#0066FF] text-white hover:bg-[#3385FF]/90 border-[#0066FF]",
+  green: "bg-[#00B300] text-white hover:bg-[#00CC00]/90 border-[#00B300]",
+  purple: "bg-[#8000FF] text-white hover:bg-[#944DFF]/90 border-[#8000FF]",
   "black-gold": "bg-black text-gold hover:bg-gray-900/95 border-gold/70",
 } as const;
 
@@ -65,10 +65,6 @@ export const CircleNavButton = memo(({
         "animate-gpu transform-gpu",
         // Border and shadow
         "border-2 md:border-4 shadow-lg",
-        // Apply default border color only if not overridden
-        !hasBorderOverride && "border-white",
-        // Z-index and positioning
-        "relative z-[5]",
         // Color scheme
         colorClasses[color],
         // Custom classes

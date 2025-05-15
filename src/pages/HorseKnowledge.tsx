@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ChevronDown, ArrowLeft } from "lucide-react";
@@ -7,6 +7,16 @@ import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { BackToHome } from "@/components/BackToHome";
 import { useIsMobile } from "@/hooks/use-mobile";
+
+// Lazy load FAQ component
+const FaqItem = lazy(() => import("@/components/FaqItem"));
+
+// Loading fallback for lazy components
+const LoadingFallback = () => (
+  <div className="animate-pulse">
+    <div className="h-12 bg-white/10 rounded-lg mb-4"></div>
+  </div>
+);
 
 const faqs = [
   {
@@ -60,60 +70,6 @@ const fadeIn = {
   initial: { opacity: 0, y: 10 },
   whileInView: { opacity: 1, y: 0 }
 };
-
-// Memoized FAQ Item Component
-const FaqItem = React.memo(({ 
-  question, 
-  answer, 
-  isOpen, 
-  onToggle, 
-  animationProps 
-}: { 
-  question: string; 
-  answer: string; 
-  isOpen: boolean; 
-  onToggle: () => void; 
-  animationProps: any;
-}) => (
-  <motion.div
-    {...animationProps}
-    className="group"
-  >
-    <button
-      onClick={onToggle}
-      className="w-full text-left backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
-    >
-      <div className="flex justify-between items-center">
-        <h3 className="font-serif text-xl font-semibold text-white group-hover:text-red-500 transition-colors pr-4">{question}</h3>
-        <motion.span 
-          className="text-2xl text-red-500 flex-shrink-0 w-8 h-8 flex items-center justify-center"
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          +
-        </motion.span>
-      </div>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ 
-              height: { duration: 0.3, ease: "easeInOut" },
-              opacity: { duration: 0.2, ease: "easeInOut" }
-            }}
-            className="overflow-hidden"
-          >
-            <div className="pt-6 mt-6 border-t border-white/20 text-white/80 leading-relaxed">
-              {answer}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </button>
-  </motion.div>
-));
 
 export default function HorseKnowledge() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -252,7 +208,7 @@ export default function HorseKnowledge() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
             <motion.div
               {...animationProps}
-              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
@@ -281,7 +237,7 @@ export default function HorseKnowledge() {
 
             <motion.div
               {...animationProps}
-              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
@@ -310,7 +266,7 @@ export default function HorseKnowledge() {
 
             <motion.div
               {...animationProps}
-              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
@@ -405,7 +361,7 @@ export default function HorseKnowledge() {
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <motion.div
               {...animationProps}
-              className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative text-center">
@@ -421,7 +377,7 @@ export default function HorseKnowledge() {
 
             <motion.div
               {...animationProps}
-              className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative text-center">
@@ -437,7 +393,7 @@ export default function HorseKnowledge() {
 
             <motion.div
               {...animationProps}
-              className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative text-center">
@@ -453,7 +409,7 @@ export default function HorseKnowledge() {
 
             <motion.div
               {...animationProps}
-              className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative text-center">
@@ -504,7 +460,7 @@ export default function HorseKnowledge() {
               {...animationProps}
               className="space-y-4"
             >
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-start">
                   <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
@@ -516,7 +472,7 @@ export default function HorseKnowledge() {
                   </div>
                 </div>
               </div>
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-start">
                   <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
@@ -533,7 +489,7 @@ export default function HorseKnowledge() {
               {...animationProps}
               className="space-y-4"
             >
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-start">
                   <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
@@ -545,7 +501,7 @@ export default function HorseKnowledge() {
                   </div>
                 </div>
               </div>
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-start">
                   <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
@@ -588,7 +544,7 @@ export default function HorseKnowledge() {
             {...animationProps}
             className="max-w-3xl mx-auto"
           >
-            <div className="group relative backdrop-blur-sm bg-white/10 p-10 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
+            <div className="group relative md:backdrop-blur-sm bg-white/10 p-10 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative">
                 <h3 className="font-serif text-3xl font-bold text-white mb-4">Penny Pleasant</h3>
@@ -613,16 +569,18 @@ export default function HorseKnowledge() {
             <div className="w-16 h-1 mx-auto bg-red-600/70" />
           </motion.div>
           <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq, idx) => (
-              <FaqItem
-                key={idx}
-                question={faq.question}
-                answer={faq.answer}
-                isOpen={openFaq === idx}
-                onToggle={() => handleFaqToggle(idx)}
-                animationProps={animationProps}
-              />
-            ))}
+            <Suspense fallback={<LoadingFallback />}>
+              {faqs.map((faq, idx) => (
+                <FaqItem
+                  key={idx}
+                  question={faq.question}
+                  answer={faq.answer}
+                  isOpen={openFaq === idx}
+                  onToggle={() => handleFaqToggle(idx)}
+                  animationProps={animationProps}
+                />
+              ))}
+            </Suspense>
           </div>
         </div>
       </section>
@@ -643,7 +601,7 @@ export default function HorseKnowledge() {
           <div className="max-w-md mx-auto">
             <motion.div
               {...animationProps}
-              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl will-change-transform"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
               <div className="relative">
