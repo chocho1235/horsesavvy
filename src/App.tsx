@@ -19,10 +19,11 @@ const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const HorseKnowledge = lazy(() => import("./pages/HorseKnowledge"));
 const HorseKnowledge2 = lazy(() => import("./pages/HorseKnowledge2"));
-const BronzeReward = lazy(() => import("./pages/BronzeReward"));
+const Bronze = lazy(() => import("./pages/Bronze"));
 const Courses = lazy(() => import("./pages/Courses"));
 const BHSStage1Theory = lazy(() => import("./pages/BHSStage1Theory"));
 const BHSStage2Theory = lazy(() => import("./pages/BHSStage2Theory"));
+const BHSStage1Practical = lazy(() => import("./pages/BhsStage1Practical"));
 const About = lazy(() => import("./pages/About"));
 const BeHorseSavvy = lazy(() => import("./pages/BeHorseSavvy"));
 
@@ -87,9 +88,10 @@ const routes = [
   { path: "/courses", element: <Courses /> },
   { path: "/horse-knowledge", element: <HorseKnowledge /> },
   { path: "/horse-knowledge-2", element: <HorseKnowledge2 /> },
-  { path: "/bronze-reward", element: <BronzeReward /> },
+  { path: "/bronze", element: <Bronze /> },
   { path: "/bhs-stage-1-theory", element: <BHSStage1Theory /> },
   { path: "/bhs-stage-2-theory", element: <BHSStage2Theory /> },
+  { path: "/bhs-stage-1-practical", element: <BHSStage1Practical /> },
   { path: "/about", element: <About /> },
   { path: "/behorsesavvy", element: <BeHorseSavvy /> },
   { path: "/penny-club", element: <NotFound /> },

@@ -20,54 +20,38 @@ import { Button } from "@/components/ui/button";
 const onlineCourses = [
   {
     id: "horse-knowledge-part-one",
-    title: "Horse Knowledge Part One",
-    description: "Essential foundation in horse care, handling, and management for beginners.",
-    price: "£97",
-    duration: "30 hours",
-    level: "Beginner"
+    title: "Horse Knowledge Part One"
   },
   {
     id: "horse-knowledge-part-two",
-    title: "Horse Knowledge Part Two",
-    description: "Advanced horse care knowledge building on the foundations from Part One.",
-    price: "£97",
-    duration: "30 hours",
-    level: "Intermediate"
+    title: "Horse Knowledge Part Two"
   },
   {
     id: "bhs-stage-1-theory",
-    title: "BHS Stage 1 Theory",
-    description: "Official preparation for BHS Stage 1 exams with complete syllabus coverage.",
-    price: "£97",
-    duration: "30 hours",
-    level: "Beginner"
+    title: "BHS Stage 1 Theory"
   },
   {
     id: "bhs-stage-2-theory",
-    title: "BHS Stage 2 Theory",
-    description: "Comprehensive preparation for BHS Stage 2 Care and Lungeing qualifications.",
-    price: "£97",
-    duration: "30 hours",
-    level: "Intermediate"
+    title: "BHS Stage 2 Theory"
   }
 ];
 
 const practicalCourses = [
   {
+    id: "bhs-bronze-awards",
+    title: "Bronze Challenge Award"
+  },
+  {
     id: "practical-horse-handling",
-    title: "Practical Horse Handling",
-    description: "Hands-on training with real horses to develop essential handling skills.",
-    price: "£195",
-    duration: "12 hours",
-    level: "Beginner to Intermediate"
+    title: "Practical Horse Handling"
   },
   {
     id: "bhs-riding-practical",
-    title: "BHS Riding Practical",
-    description: "Guided practical riding sessions to prepare for BHS riding assessments.",
-    price: "£245",
-    duration: "16 hours",
-    level: "Intermediate"
+    title: "BHS Riding Practical"
+  },
+  {
+    id: "bhs-stage-1-practical",
+    title: "BHS Stage 1 Practical"
   }
 ];
 
@@ -107,6 +91,10 @@ const CourseCard = React.memo(
           return "/bhs-stage-2-theory";
         case "horse-knowledge-part-two":
           return "/horse-knowledge-2";
+        case "bhs-bronze-awards":
+          return "/bronze";
+        case "bhs-stage-1-practical":
+          return "/bhs-stage-1-practical";
         default:
           return "/horse-knowledge";
       }
@@ -120,19 +108,19 @@ const CourseCard = React.memo(
       <Link to={toPath} onClick={onClickScroll} className="block">
         <motion.div
           {...animationProps}
-          className="bg-red-600 rounded-2xl shadow-lg flex items-center justify-between px-6 py-8 mb-6 group hover:bg-red-700 transition-all duration-300 cursor-pointer"
+          className="bg-red-600 rounded-xl shadow-lg flex items-center justify-between p-5 mb-6 group hover:bg-red-700 transition-all duration-300 cursor-pointer"
         >
-          <div className="flex-1">
-            <div className="text-white text-2xl italic font-semibold mb-2 group-hover:text-yellow-300 transition-colors">
+          <div className="flex-1 pr-4">
+            <div className="text-white text-xl md:text-2xl italic font-semibold group-hover:text-yellow-300 transition-colors">
               {course.title}
             </div>
-            <div className="text-white/80 text-sm">{course.description}</div>
-            <div className="mt-4 text-white/90 text-sm italic">
-              Click here to learn more
-            </div>
           </div>
-          <div className="ml-6 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-            <HorseShoe />
+          <div className="flex-shrink-0 w-24 h-24 md:w-28 md:h-28 relative group-hover:scale-105 transition-transform duration-300">
+            <img
+              src="/ChatGPT Image May 17, 2025, 03_40_13 PM.png"
+              alt={course.title}
+              className="w-full h-full object-contain"
+            />
           </div>
         </motion.div>
       </Link>

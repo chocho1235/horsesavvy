@@ -148,24 +148,21 @@ export default function BHSStage2Theory() {
             {...getAnimationProps()}
             className="max-w-3xl mx-auto mb-6 sm:mb-8"
           >
-            <div className="relative rounded-xl shadow-xl border border-white/10">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
-                    British Horse Society Courses with Penny Pleasant
-                  </p>
-                  <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
-                    Penny Pleasant delivers official British Horse Society (BHS) courses, meticulously designed by the BHS and delivered online for your convenience.
-                  </p>
-                  <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
-                    This course builds upon the knowledge gained in BHS Stage 1 Theory, taking your understanding to the next level. While Stage 1 focuses on basic horse care and handling, Stage 2 delves deeper into advanced care techniques and introduces lungeing skills. You should have completed Stage 1 or have equivalent knowledge before starting this course.
-                  </p>
-                  <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed">
-                    Upon successful completion of the Online Stage 2 Theory course, you will be eligible to book the Stage 2 Care and Lungeing Examinations at a BHS-approved centre.
-                  </p>
-                </div>
+            <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
+                  British Horse Society Courses with Penny Pleasant
+                </p>
+                <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
+                  Penny Pleasant delivers official British Horse Society (BHS) courses, meticulously designed by the BHS and delivered online for your convenience.
+                </p>
+                <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
+                  This course builds upon the knowledge gained in BHS Stage 1 Theory, taking your understanding to the next level. While Stage 1 focuses on basic horse care and handling, Stage 2 delves deeper into advanced care techniques and introduces lungeing skills. You should have completed Stage 1 or have equivalent knowledge before starting this course.
+                </p>
+                <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed">
+                  Upon successful completion of the Online Stage 2 Theory course, you will be eligible to book the Stage 2 Care and Lungeing Examinations at a BHS-approved centre.
+                </p>
               </div>
             </div>
           </motion.div>
@@ -201,24 +198,22 @@ export default function BHSStage2Theory() {
                 <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-red-500 flex items-center justify-center z-10">
                   <span className="text-white font-bold">1</span>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 md:backdrop-blur-sm border border-white/10 will-change-transform">
-                  <div className="group relative backdrop-blur-sm bg-white/10 p-6 sm:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 max-w-xl ml-8">
-                    <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-                    <div className="relative">
-                      <h3 className="font-serif text-2xl font-semibold text-white mb-4">BHS Stage 1</h3>
-                      <div className="space-y-3">
-                        <div className="flex items-start">
-                          <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                          <p className="text-white/90 text-sm sm:text-base">Foundation in basic horse care and handling</p>
-                        </div>
-                        <div className="flex items-start">
-                          <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                          <p className="text-white/90 text-sm sm:text-base">Essential safety and welfare knowledge</p>
-                        </div>
-                        <div className="flex items-start">
-                          <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                          <p className="text-white/90 text-sm sm:text-base">Perfect for everyone</p>
-                        </div>
+                <div className="group relative backdrop-blur-sm bg-white/10 p-6 sm:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 max-w-xl ml-8">
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+                  <div className="relative">
+                    <h3 className="font-serif text-2xl font-semibold text-white mb-4">BHS Stage 1</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-start">
+                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                        <p className="text-white/90 text-sm sm:text-base">Foundation in basic horse care and handling</p>
+                      </div>
+                      <div className="flex items-start">
+                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                        <p className="text-white/90 text-sm sm:text-base">Essential safety and welfare knowledge</p>
+                      </div>
+                      <div className="flex items-start">
+                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                        <p className="text-white/90 text-sm sm:text-base">Perfect for everyone</p>
                       </div>
                     </div>
                   </div>
@@ -230,24 +225,22 @@ export default function BHSStage2Theory() {
                 <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-red-500 flex items-center justify-center z-10">
                   <span className="text-white font-bold">2</span>
                 </div>
-                <div className="bg-white/5 rounded-xl p-6 md:backdrop-blur-sm border border-white/10 will-change-transform">
-                  <div className="group relative backdrop-blur-sm bg-white/10 p-6 sm:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 max-w-xl ml-8">
-                    <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-                    <div className="relative">
-                      <h3 className="font-serif text-2xl font-semibold text-white mb-4">BHS Stage 2</h3>
-                      <div className="space-y-3">
-                        <div className="flex items-start">
-                          <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                          <p className="text-white/90 text-sm sm:text-base">Advanced care techniques and lungeing skills</p>
-                        </div>
-                        <div className="flex items-start">
-                          <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                          <p className="text-white/90 text-sm sm:text-base">Professional grooming and horse management</p>
-                        </div>
-                        <div className="flex items-start">
-                          <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                          <p className="text-white/90 text-sm sm:text-base">Ideal for aspiring professionals and career development</p>
-                        </div>
+                <div className="group relative backdrop-blur-sm bg-white/10 p-6 sm:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 max-w-xl ml-8">
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+                  <div className="relative">
+                    <h3 className="font-serif text-2xl font-semibold text-white mb-4">BHS Stage 2</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-start">
+                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                        <p className="text-white/90 text-sm sm:text-base">Advanced care techniques and lungeing skills</p>
+                      </div>
+                      <div className="flex items-start">
+                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                        <p className="text-white/90 text-sm sm:text-base">Professional grooming and horse management</p>
+                      </div>
+                      <div className="flex items-start">
+                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                        <p className="text-white/90 text-sm sm:text-base">Ideal for aspiring professionals and career development</p>
                       </div>
                     </div>
                   </div>
@@ -256,36 +249,81 @@ export default function BHSStage2Theory() {
 
               {/* Benefits Box */}
               <div className="mt-16">
-                <div className="bg-white/5 rounded-xl p-6 md:backdrop-blur-sm border border-white/10 will-change-transform">
-                  <div className="group relative backdrop-blur-sm bg-white/10 p-6 sm:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 max-w-3xl ml-8">
-                    <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-                    <div className="relative">
-                      <h3 className="font-serif text-2xl font-semibold text-white mb-4">Career Benefits</h3>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center mb-3">
-                            <Users className="w-6 h-6 text-red-500" />
-                          </div>
-                          <p className="text-white/90 text-sm">Professional Recognition</p>
+                <div className="group relative backdrop-blur-sm bg-white/10 p-6 sm:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 max-w-3xl ml-8">
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+                  <div className="relative">
+                    <h3 className="font-serif text-2xl font-semibold text-white mb-4">Career Benefits</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center mb-3">
+                          <Users className="w-6 h-6 text-red-500" />
                         </div>
-                        <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center mb-3">
-                            <BookOpen className="w-6 h-6 text-red-500" />
-                          </div>
-                          <p className="text-white/90 text-sm">Industry Knowledge</p>
+                        <p className="text-white/90 text-sm">Professional Recognition</p>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center mb-3">
+                          <BookOpen className="w-6 h-6 text-red-500" />
                         </div>
-                        <div className="flex flex-col items-center">
-                          <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center mb-3">
-                            <Globe className="w-6 h-6 text-red-500" />
-                          </div>
-                          <p className="text-white/90 text-sm">Career Opportunities</p>
+                        <p className="text-white/90 text-sm">Industry Knowledge</p>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center mb-3">
+                          <Globe className="w-6 h-6 text-red-500" />
                         </div>
+                        <p className="text-white/90 text-sm">Career Opportunities</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Teaching Approach */}
+      <section className="py-12 sm:py-16 md:py-20 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            {...getAnimationProps()}
+            variants={fadeIn}
+            className="text-center mb-8 sm:mb-12 md:mb-16"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">How We'll Learn Together</h2>
+            <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl mx-auto mb-8 sm:mb-12">
+              Penny's friendly and supportive teaching style makes learning enjoyable and accessible
+            </p>
+          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+            <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <h3 className="font-serif text-xl font-semibold text-white mb-4">Learning at Your Pace</h3>
+                <p className="text-white/90 text-sm sm:text-base">
+                  We'll take it step by step, making sure you're comfortable with each topic before moving on. No rushing - just steady, confident progress.
+                </p>
+              </div>
+            </div>
+
+            <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <h3 className="font-serif text-xl font-semibold text-white mb-4">Practical & Fun</h3>
+                <p className="text-white/90 text-sm sm:text-base">
+                  You'll learn through engaging activities and real-world examples, making it easy to understand and remember what you've learned.
+                </p>
+              </div>
+            </div>
+
+            <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <h3 className="font-serif text-xl font-semibold text-white mb-4">Support Every Step</h3>
+                <p className="text-white/90 text-sm sm:text-base">
+                  Got questions? No problem! We're here to help you succeed, with friendly guidance and support throughout your learning journey.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -304,51 +342,47 @@ export default function BHSStage2Theory() {
             </p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
-            <div className="bg-white/5 rounded-xl p-8 md:backdrop-blur-sm border border-white/10 mb-8 will-change-transform">
-              <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <ul className="space-y-3 sm:space-y-4">
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Anyone training towards the BHS stage 2 qualification.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Those who have gained the BHS stage 1 qualification.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Anyone who has completed the Equine Knowledge BHS Stage 1 Course.</span>
-                    </li>
-                  </ul>
-                </div>
+            <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <ul className="space-y-3 sm:space-y-4">
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Anyone training towards the BHS stage 2 qualification.</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Those who have gained the BHS stage 1 qualification.</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Anyone who has completed the Equine Knowledge BHS Stage 1 Course.</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
-            <div className="bg-white/5 rounded-xl p-8 md:backdrop-blur-sm border border-white/10 mb-8 will-change-transform">
-              <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <ul className="space-y-3 sm:space-y-4">
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Equine college students.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">C & B Pony Club Members.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Intermediate horse-owners & riding school clients.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Those wanting to further their knowledge about horse care.</span>
-                    </li>
-                  </ul>
-                </div>
+            <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <ul className="space-y-3 sm:space-y-4">
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Equine college students.</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">C & B Pony Club Members.</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Intermediate horse-owners & riding school clients.</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Those wanting to further their knowledge about horse care.</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -368,181 +402,75 @@ export default function BHSStage2Theory() {
           </motion.div>
           
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
-            <div className="bg-white/5 rounded-xl p-8 md:backdrop-blur-sm border border-white/10 mb-8 will-change-transform">
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <h3 className="font-serif text-2xl font-semibold text-white mb-6">Stage 2: Care A</h3>
-                  <ul className="space-y-4">
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">1. Role, Rights & Responsibilities of an Assistant Groom.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">2. Fitting Tack & Boots.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">3. Travelling the Horse.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">4. The Horse's Behaviour.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">5. Feeding.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">6. Horse Anatomy.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">7. Fitness.</span>
-                    </li>
-                  </ul>
-                </div>
+            <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <h3 className="font-serif text-2xl font-semibold text-white mb-6">Stage 2: Care</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Role, Rights & Responsibilities of an Assistant Groom</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Fitting Tack & Boots</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Travelling the Horse</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">The Horse's Behaviour</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Feeding</span>
+                  </li>
+                </ul>
               </div>
             </div>
             
-            <div className="bg-white/5 rounded-xl p-8 md:backdrop-blur-sm border border-white/10 mb-8 will-change-transform">
-              <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <h3 className="font-serif text-2xl font-semibold text-white mb-6">Stage 2: Care B</h3>
-                  <ul className="space-y-4">
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">8. Horse Health.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">9. Preparing a Horse for Presentation.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">10. Care of the Horse's Hooves.</span>
-                    </li>
-                    <li className="flex items-start group/item">
-                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                      <span className="text-white/90 group-hover/item:text-white transition-colors">11. The Horse's Environment.</span>
-                    </li>
-                  </ul>
-                </div>
+            <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <h3 className="font-serif text-2xl font-semibold text-white mb-6">Stage 2: Lungeing</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Reasons for lungeing</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Equipment required for lungeing</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Fitting & removing lunge equipment</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Lungeing technique</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Evaluating the lunge session</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
 
-          <div className="bg-white/5 rounded-xl p-8 md:backdrop-blur-sm border border-white/10 mb-8 will-change-transform">
-            <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <h3 className="font-serif text-2xl font-semibold text-white mb-6">Stage 2: Lungeing the Horse</h3>
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="text-xl font-medium text-white mb-4">About lungeing:</h4>
-                    <ul className="space-y-2">
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">Reasons for lungeing.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">Factors affecting the lungeing process.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">Lungeing technique problems.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">Equipment required for lungeing.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="text-xl font-medium text-white mb-4">Fitting & removing lunge equipment:</h4>
-                    <ul className="space-y-2">
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to put on and fit a lunge cavesson.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to remove a lunge cavesson.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to put on side-reins.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to fit side-reins.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to remove side-reins.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="text-xl font-medium text-white mb-4">The roller:</h4>
-                    <ul className="space-y-2">
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to put on a roller.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to remove a roller.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to secure the stirrups on the saddle.</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="text-xl font-medium text-white mb-4">Lungeing the horse:</h4>
-                    <ul className="space-y-2">
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">Handling the lunge line:</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">Handling the line before lungeing the horse.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to coil the lunge line.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to fold the lunge line.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">Guidelines for handling the lunge line.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">How to lunge a horse for exercise.</span>
-                      </li>
-                      <li className="flex items-start group/item">
-                        <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                        <span className="text-white/90 group-hover/item:text-white transition-colors">Evaluating the lunge session.</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="text-center mt-8">
+            <a 
+              href="https://www.bhs.org.uk/bhs-professional-qualifications-and-careers/bhs-qualifications-and-stages/stage-2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-white/90 hover:text-white transition-colors"
+            >
+              <span className="mr-2">If you would like to view the full syllabus click here</span>
+              <ChevronRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </section>
