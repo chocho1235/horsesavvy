@@ -123,7 +123,7 @@ export default function BHSStage1Practical() {
               <motion.p 
                 className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
               >
-                Master the essential skills of horse care and riding with our comprehensive BHS Stage 1 Practical course. From safe handling and stable management to confident riding techniques, we'll guide you through every step of your equestrian journey.
+                Essential horse care and riding skills with expert guidance.
               </motion.p>
               <motion.div 
                 className="flex justify-center gap-4"
