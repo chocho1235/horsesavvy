@@ -42,14 +42,6 @@ const practicalCourses = [
     title: "Bronze Challenge Award"
   },
   {
-    id: "practical-horse-handling",
-    title: "Practical Horse Handling"
-  },
-  {
-    id: "bhs-riding-practical",
-    title: "BHS Riding Practical"
-  },
-  {
     id: "bhs-stage-1-practical",
     title: "BHS Stage 1 Practical"
   }

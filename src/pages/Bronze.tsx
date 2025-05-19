@@ -403,7 +403,7 @@ export default function Bronze() {
                 <div className="text-center">
                   <h3 className="font-serif text-2xl font-bold text-white mb-3">BHS Challenge Awards</h3>
                   <h4 className="font-serif text-xl font-bold text-white mb-5">Bronze Awards</h4>
-                  <p className="font-serif text-5xl font-bold text-red-500 mb-8">£125</p>
+                  <p className="font-serif text-5xl font-bold text-red-500 mb-8">£97</p>
                   <Button className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-6 text-lg font-medium">
                     Enroll Now
                   </Button>
