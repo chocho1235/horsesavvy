@@ -114,7 +114,7 @@ export default function BHSStage2Theory() {
               <motion.p 
                 className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
               >
-                Welcome to Equine Knowledge BHS Stage 2 Care & Stage 2 Lungeing Preparation Course.
+                Welcome to BHS Stage 2 Theory
               </motion.p>
               <motion.div 
                 className="flex justify-center gap-4"

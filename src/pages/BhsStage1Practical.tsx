@@ -210,14 +210,19 @@ export default function BHSStage1Practical() {
             {...getAnimationProps()}
             className="flex justify-center mt-6 sm:mt-8 mb-6 sm:mb-8"
           >
-            <div className="relative w-full max-w-2xl group">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-transparent rounded-xl" />
-              <img 
-                src="/image.png" 
-                alt="BHS Stage 1 Practical Course" 
-                className="w-full h-auto rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
-                style={{ maxHeight: '300px', objectFit: 'contain' }}
-              />
+            <div className="w-full max-w-4xl">
+              <motion.div 
+                {...getAnimationProps()}
+                className="relative overflow-hidden rounded-xl shadow-2xl"
+              >
+                <img 
+                  src="/Screenshot_20250506_132854_Chrome~3.jpg" 
+                  alt="BHS Stage 1 Practical Course Overview" 
+                  className="w-full h-auto object-contain"
+                  style={{ maxHeight: '600px' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -412,6 +417,7 @@ export default function BHSStage1Practical() {
                 <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">BHS Stage 1 Practical Course</h3>
                 <p className="text-white/80 mb-6">10 months access to all course materials</p>
                 <div className="text-4xl sm:text-5xl font-bold text-white mb-6">£97</div>
+                <p className="text-white/80 mb-6">Receives a BHS Horse Knowledge certificate</p>
                 <Button className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-lg">
                   Enroll Now
                 </Button>

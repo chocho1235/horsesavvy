@@ -621,7 +621,7 @@ export default function HorseKnowledge() {
                       </li>
                       <li className="flex items-center text-white/90">
                         <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
-                        <span>BHS Certificate upon completion</span>
+                        <span>Receives a BHS Horse Knowledge certificate</span>
                       </li>
                     </ul>
                   </div>
