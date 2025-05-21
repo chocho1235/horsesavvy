@@ -99,7 +99,7 @@ export const Footer = ({ bgColor = "bg-black" }: FooterProps) => {
             </div>
             <div className="flex gap-4">
               <a 
-                href="https://www.facebook.com/penelope.pleasant" 
+                href="https://www.facebook.com/penny.pleasant" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"

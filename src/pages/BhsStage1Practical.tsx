@@ -205,24 +205,26 @@ export default function BHSStage1Practical() {
             </div>
           </motion.div>
           
-          {/* Course Image */}
+          {/* Course Images */}
           <motion.div 
             {...getAnimationProps()}
-            className="flex justify-center mt-6 sm:mt-8 mb-6 sm:mb-8"
+            className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-8"
           >
-            <div className="w-full max-w-4xl">
-              <motion.div 
-                {...getAnimationProps()}
-                className="relative overflow-hidden rounded-xl shadow-2xl"
-              >
-                <img 
-                  src="/Screenshot_20250506_132854_Chrome~3.jpg" 
-                  alt="BHS Stage 1 Practical Course Overview" 
-                  className="w-full h-auto object-contain"
-                  style={{ maxHeight: '600px' }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
-              </motion.div>
+            <div className="relative overflow-hidden rounded-xl shadow-2xl">
+              <img 
+                src="/Screenshot_20250506_132854_Chrome~3.jpg" 
+                alt="BHS Stage 1 Practical Course Overview" 
+                className="w-full h-auto object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
+            </div>
+            <div className="relative overflow-hidden rounded-xl shadow-2xl">
+              <img 
+                src="/P1000291.jpg" 
+                alt="BHS Stage 1 Practical Training" 
+                className="w-full h-auto object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
             </div>
           </motion.div>
         </div>

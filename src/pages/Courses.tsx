@@ -15,6 +15,7 @@ import {
 import { motion } from "framer-motion";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { CourseSelector } from "@/components/CourseSelector";
 
 // Course data
 const onlineCourses = [
@@ -234,6 +235,9 @@ const Courses = () => {
           </div>
         </div>
       </section>
+
+      {/* Course Selection Guide */}
+      <CourseSelector />
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12">
         {/* Online Courses */}
