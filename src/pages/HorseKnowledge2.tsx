@@ -364,6 +364,25 @@ export default function HorseKnowledge2() {
         </div>
       </section>
 
+      {/* Part Two Photo */}
+      <section className="py-12 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center">
+            <motion.div
+              {...animationProps}
+              className="relative w-full aspect-[4/3] max-w-xl group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
+              <img 
+                src="/Untitled design (19).png" 
+                alt="Horse Knowledge Part Two" 
+                className="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Course Content */}
       <section className="py-16 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

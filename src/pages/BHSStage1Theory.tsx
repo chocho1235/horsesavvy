@@ -190,7 +190,7 @@ export default function BHSStage1Theory() {
                   This training course has been designed to correspond with the British Horse Society Stage 1 Care syllabus. In total, there are 8 separate topics covering all the relevant information needed to help you gain the BHS Stage 1 qualification. Plus, we also include 2 bonus subjects to ensure you are fully prepared for your first BHS exam.
                 </p>
                 <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed">
-                  Once subscribed, you will be provided with full access to all of the online course material for 10 months. This enables you the time and flexibility needed to study in your own time, at your pace.
+                  Once subscribed, you will be provided with full access to all of the online course material for 6 months. This enables you the time and flexibility needed to study in your own time, at your pace.
                 </p>
               </div>
             </div>

@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     question: "What will I receive on successful completion of the course?",
-    answer: "You will receive a Certificate of Completion from BeHorseSavvy."
+    answer: "You will receive a recognised BHS Horse Knowledge part 1 Certificate."
   },
   {
     question: "Can international students study this course?",
@@ -279,15 +279,15 @@ export default function HorseKnowledge() {
                 <ul className="space-y-4">
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Professional certification</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">BHS Certificate</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Lifetime access to materials</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">6 months access</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Flexible payment options</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Fees are due in advance in full</span>
                   </li>
                 </ul>
               </div>
@@ -322,6 +322,17 @@ export default function HorseKnowledge() {
                   </li>
                 ))}
               </ul>
+            </div>
+            <div className="text-center mt-8">
+              <a 
+                href="https://www.bhs.org.uk/go-riding-and-learn/recreational-awards/challenge-awards/horse-knowledge/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 border border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl"
+              >
+                <span className="text-lg font-medium">To view the full syllabus click here</span>
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </a>
             </div>
           </motion.div>
         </div>
@@ -436,7 +447,7 @@ export default function HorseKnowledge() {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
               <img 
-                src="/Untitled design (11).png" 
+                src="/927f3bd9-cea9-4505-af78-51f256d3ba89.jpeg" 
                 alt="Course Certificate" 
                 className="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
               />

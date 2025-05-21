@@ -225,9 +225,7 @@ export const Courses = () => {
               <motion.div className="p-6 md:backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg max-w-2xl mx-auto shadow-lg will-change-transform">
                 <p className="text-white/80 text-sm leading-relaxed">
                   Our courses feature a mix of programs designed by the British
-                  Horse Society and BeHorseSavvy, all personally delivered by
-                  Penny, our expert instructor with over 40 years of equestrian
-                  experience.
+                  Horse Society and BeHorseSavvy.
                 </p>
               </motion.div>
 
@@ -296,7 +294,7 @@ export const Courses = () => {
                 <ul className="space-y-3 text-white/70 text-lg ml-6 mb-6">
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 rounded-full bg-red-400" />
-                    <span>BHS Horse Knowledge – Parts 1 & 2</span>
+                    <span>BHS Horse Knowledge - Part 1 & 2 Fully Online</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 rounded-full bg-red-400" />
