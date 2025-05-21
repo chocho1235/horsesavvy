@@ -10,12 +10,12 @@ import {
   User,
   Globe,
   MapPin,
-  Search
+  Search,
+  ChevronDown
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { CourseSelector } from "@/components/CourseSelector";
 
 // Course data
 const onlineCourses = [
@@ -121,7 +121,7 @@ const CourseCard = React.memo(
   }
 );
 
-const Courses = () => {
+export const Courses = () => {
   const [postcodeResult, setPostcodeResult] = useState<{
     available: boolean;
     message: string;
@@ -129,6 +129,7 @@ const Courses = () => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [checkedOnce, setCheckedOnce] = useState(false);
   const postcodeInputRef = useRef<HTMLInputElement>(null);
+  const coursesRef = useRef<HTMLDivElement>(null);
 
   // Reduced motion listener
   useEffect(() => {
@@ -174,6 +175,10 @@ const Courses = () => {
     });
     if (!checkedOnce) setCheckedOnce(true);
   }, [checkedOnce]);
+
+  const scrollToCourses = () => {
+    coursesRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-[100dvh] bg-blue-950 text-white">
@@ -231,15 +236,172 @@ const Courses = () => {
                   experience.
                 </p>
               </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="mt-12"
+              >
+                <Button
+                  onClick={scrollToCourses}
+                  className="group relative bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-4 rounded-full transition-all duration-300 flex items-center gap-3 mx-auto text-lg font-medium shadow-lg hover:shadow-xl hover:scale-105"
+                >
+                  <span>View Our Courses</span>
+                  <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" />
+                  <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </Button>
+              </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Course Selection Guide */}
-      <CourseSelector />
+      {/* Course Overview Section */}
+      <section className="py-16 sm:py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/50 via-blue-950/30 to-blue-950/50" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="space-y-12"
+          >
+            <div className="text-center mb-16">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">Explore Our Online Equestrian Courses</h2>
+                <div className="w-24 h-1 bg-red-500 mx-auto mb-6" />
+                <p className="text-white/80 text-lg max-w-2xl mx-auto">
+                  We offer a wide range of online equestrian courses tailored to support either home-educated learners and aspiring riders.
+                </p>
+              </motion.div>
+            </div>
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12">
+            <div className="space-y-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 shadow-xl"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                    <Award className="w-6 h-6 text-red-400" />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white">BeHorse Savvy Courses</h3>
+                </div>
+                <p className="text-white/70 text-lg leading-relaxed">
+                  Our exclusive BeHorse Savvy Levels 1, 2 & 3 are specially designed for home-educated equestrians looking to deepen their horse knowledge. 
+                  These courses serve as an excellent foundation for those considering future college enrollment or a career in the equestrian world.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 shadow-xl"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                    <User className="w-6 h-6 text-red-400" />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white">British Horse Society (BHS) Courses</h3>
+                </div>
+                <p className="text-white/70 text-lg leading-relaxed mb-6">
+                  In addition to our own courses, we also offer Accredited British Horse Society (BHS) online theory courses, including:
+                </p>
+                <ul className="space-y-3 text-white/70 text-lg ml-6 mb-6">
+                  <li className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-red-400" />
+                    <span>BHS Horse Knowledge – Parts 1 & 2</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-red-400" />
+                    <span>BHS Stage 1 Theory (Care) – Fully Online</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-red-400" />
+                    <span>BHS Stage 2 Theory – Fully Online</span>
+                  </li>
+                </ul>
+                <div className="bg-white/5 p-6 rounded-lg border border-white/10">
+                  <p className="text-white/70 text-lg leading-relaxed">
+                    If you're located within a qualifying postcode area, you may also be eligible for the BHS Challenge Award – Silver. 
+                    This hybrid course includes online theory modules and a pre-booked coaching session with your horse at your own yard. 
+                    On successful completion, you gain direct entry to the BHS Stage 2 exam (booked via the BHS website).
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 shadow-xl"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-red-400" />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white">Learn Your Way</h3>
+                </div>
+                <p className="text-white/70 text-lg leading-relaxed mb-6">
+                  You can choose to take one course or work through the full progression. There's no pressure—just flexible, self-paced learning that includes:
+                </p>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-white/5 p-6 rounded-lg border border-white/10">
+                    <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-red-400" />
+                      Engaging Modules
+                    </h4>
+                    <p className="text-white/70">Comprehensive content designed for optimal learning</p>
+                  </div>
+                  <div className="bg-white/5 p-6 rounded-lg border border-white/10">
+                    <h4 className="text-white font-medium mb-3 flex items-center gap-2">
+                      <CheckCircle className="w-5 h-5 text-red-400" />
+                      Interactive Quizzes
+                    </h4>
+                    <p className="text-white/70">Test your knowledge and track your progress</p>
+                  </div>
+                </div>
+                <p className="text-white/70 text-lg mt-6">
+                  You decide what's working best for you or your learner, course by course.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="bg-gradient-to-br from-red-500/20 to-red-500/10 backdrop-blur-sm p-8 rounded-xl border border-red-500/20 shadow-xl"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-red-500/30 flex items-center justify-center">
+                    <User className="w-6 h-6 text-red-400" />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white">Need Guidance?</h3>
+                </div>
+                <p className="text-white/80 text-lg leading-relaxed">
+                  At any time, you can call Penny to discuss your options and make a plan that suits your goals.
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12" ref={coursesRef}>
         {/* Online Courses */}
         <section className="mb-16 max-w-4xl mx-auto">
           <div className="flex items-center gap-3 mb-8">
