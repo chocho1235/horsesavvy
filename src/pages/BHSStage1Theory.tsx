@@ -155,7 +155,7 @@ export default function BHSStage1Theory() {
                   British Horse Society Courses with Penny Pleasant
                 </p>
                 <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
-                  Penny Pleasant delivers official British Horse Society (BHS) courses, meticulously designed by the BHS and delivered online for your convenience. As part of our online offering, you'll benefit from pre-booked one-to-one telephone support sessions.
+                  Penny Pleasant delivers official British Horse Society (BHS) courses, designed by the BHS and delivered online for your convenience. As part of our online offering, you'll benefit from pre-booked one-to-one telephone support sessions.
                 </p>
                 <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed">
                   Upon successful completion of the Online Stage 1 Theory course, you will be eligible to book the Stage 1 Care Examination at a BHS-approved centre.
