@@ -51,10 +51,12 @@ const practicalCourses = [
 // UK postcodes covered for practical training
 const validPostcodeAreas = ["RG", "OX", "SL", "HP", "GU"];
 
-// Animation variants
-const fadeIn = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 }
+// Animation variants - define once at the top
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { duration: 0.4, ease: "easeOut" }
 };
 
 // Icon component
@@ -71,10 +73,8 @@ type CourseType = typeof onlineCourses[number];
 const CourseCard = React.memo(
   ({
     course,
-    animationProps,
   }: {
     course: CourseType;
-    animationProps: any;
   }) => {
     const toPath = useMemo(() => {
       switch (course.id) {
@@ -100,10 +100,7 @@ const CourseCard = React.memo(
     return (
       <Link to={toPath} onClick={onClickScroll} className="block">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          {...fadeInUp}
           className="bg-red-600 rounded-xl shadow-lg flex items-center justify-between p-5 mb-6 group hover:bg-red-700 transition-all duration-300 cursor-pointer"
         >
           <div className="flex-1 pr-4">
@@ -143,16 +140,6 @@ export const Courses = () => {
     };
     mediaQuery.addEventListener("change", handler);
     return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  // Memoized animation props
-  const animationProps = useMemo(() => {
-    return {
-      initial: "initial" as const,
-      whileInView: "whileInView" as const,
-      viewport: { once: true, margin: "-50px" },
-      transition: { duration: 0.4, ease: "easeOut" },
-    };
   }, []);
 
   // Postcode check handler
@@ -200,7 +187,7 @@ export const Courses = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/80 to-blue-950/95" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-3xl mx-auto">
-            <motion.div {...animationProps}>
+            <motion.div {...fadeInUp}>
               <motion.h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white">
                 BeHorseSavvy Courses
               </motion.h1>
@@ -259,19 +246,11 @@ export const Courses = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/50 via-blue-950/30 to-blue-950/50" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            {...fadeInUp}
             className="space-y-12"
           >
             <div className="text-center mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
+              <motion.div {...fadeInUp}>
                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">Explore Our Online Equestrian Courses</h2>
                 <div className="w-24 h-1 bg-red-500 mx-auto mb-6" />
                 <p className="text-white/80 text-lg max-w-2xl mx-auto">
@@ -281,13 +260,7 @@ export const Courses = () => {
             </div>
 
             <div className="space-y-12">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 shadow-xl"
-              >
+              <motion.div {...fadeInUp} className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
                     <Award className="w-6 h-6 text-red-400" />
@@ -300,13 +273,7 @@ export const Courses = () => {
                 </p>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 shadow-xl"
-              >
+              <motion.div {...fadeInUp} className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
                     <User className="w-6 h-6 text-red-400" />
@@ -339,13 +306,7 @@ export const Courses = () => {
                 </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 shadow-xl"
-              >
+              <motion.div {...fadeInUp} className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
                     <Clock className="w-6 h-6 text-red-400" />
@@ -376,13 +337,7 @@ export const Courses = () => {
                 </p>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="bg-gradient-to-br from-red-500/20 to-red-500/10 backdrop-blur-sm p-8 rounded-xl border border-red-500/20 shadow-xl"
-              >
+              <motion.div {...fadeInUp} className="bg-gradient-to-br from-red-500/20 to-red-500/10 backdrop-blur-sm p-8 rounded-xl border border-red-500/20 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-red-500/30 flex items-center justify-center">
                     <User className="w-6 h-6 text-red-400" />
@@ -401,10 +356,7 @@ export const Courses = () => {
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12" ref={coursesRef}>
         {/* Online Courses */}
         <motion.section 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          {...fadeInUp}
           className="mb-16 max-w-4xl mx-auto"
         >
           <div className="flex items-center gap-3 mb-8">
@@ -417,7 +369,6 @@ export const Courses = () => {
               <CourseCard
                 key={course.id}
                 course={course}
-                animationProps={animationProps}
               />
             ))}
           </div>
@@ -425,10 +376,7 @@ export const Courses = () => {
 
         {/* Practical Courses */}
         <motion.section 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          {...fadeInUp}
           className="mb-16 max-w-4xl mx-auto"
         >
           <div className="flex items-center gap-3 mb-8">
@@ -439,10 +387,7 @@ export const Courses = () => {
 
           {/* Postcode Checker */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            {...fadeInUp}
             className="mb-10 p-6 md:backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg shadow-lg will-change-transform"
           >
             <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
@@ -501,7 +446,6 @@ export const Courses = () => {
               <CourseCard
                 key={course.id}
                 course={course}
-                animationProps={animationProps}
               />
             ))}
           </div>
@@ -509,10 +453,7 @@ export const Courses = () => {
 
         {/* Disclaimer */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          {...fadeInUp}
           className="mt-16 p-6 md:backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg max-w-4xl mx-auto will-change-transform"
         >
           <div className="relative">
