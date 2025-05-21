@@ -101,7 +101,12 @@ const CourseCard = React.memo(
       <Link to={toPath} onClick={onClickScroll} className="block">
         <motion.div
           {...fadeInUp}
-          className="bg-red-600 rounded-xl shadow-lg flex items-center justify-between p-5 mb-6 group hover:bg-red-700 transition-all duration-300 cursor-pointer"
+          style={{
+            willChange: "transform, opacity",
+            transform: "translateZ(0)",
+            WebkitBackfaceVisibility: "hidden",
+          }}
+          className="bg-red-600 rounded-xl shadow-lg flex items-center justify-between p-5 mb-6 group hover:bg-red-700 transition-all duration-300 cursor-pointer overflow-hidden hover:z-10 relative"
         >
           <div className="flex-1 pr-4">
             <div className="text-white text-xl md:text-2xl italic font-semibold group-hover:text-yellow-300 transition-colors">
@@ -113,6 +118,11 @@ const CourseCard = React.memo(
               src="/ChatGPT Image May 17, 2025, 03_40_13 PM.png"
               alt={course.title}
               className="w-full h-full object-contain"
+              style={{
+                willChange: "transform",
+                transform: "translateZ(0)",
+                WebkitBackfaceVisibility: "hidden",
+              }}
             />
           </div>
         </motion.div>
