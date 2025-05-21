@@ -100,7 +100,10 @@ const CourseCard = React.memo(
     return (
       <Link to={toPath} onClick={onClickScroll} className="block">
         <motion.div
-          {...animationProps}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="bg-red-600 rounded-xl shadow-lg flex items-center justify-between p-5 mb-6 group hover:bg-red-700 transition-all duration-300 cursor-pointer"
         >
           <div className="flex-1 pr-4">
@@ -144,19 +147,13 @@ export const Courses = () => {
 
   // Memoized animation props
   const animationProps = useMemo(() => {
-    const isMobile = window.innerWidth < 768;
-    const base = {
+    return {
       initial: "initial" as const,
       whileInView: "whileInView" as const,
-      variants: fadeIn,
-    };
-    if (isMobile || prefersReducedMotion) return base;
-    return {
-      ...base,
       viewport: { once: true, margin: "-50px" },
       transition: { duration: 0.4, ease: "easeOut" },
     };
-  }, [prefersReducedMotion]);
+  }, []);
 
   // Postcode check handler
   const checkPostcode = useCallback(() => {
@@ -403,7 +400,13 @@ export const Courses = () => {
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12" ref={coursesRef}>
         {/* Online Courses */}
-        <section className="mb-16 max-w-4xl mx-auto">
+        <motion.section 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="mb-16 max-w-4xl mx-auto"
+        >
           <div className="flex items-center gap-3 mb-8">
             <Globe className="h-6 w-6 text-red-400" />
             <h2 className="text-2xl font-bold text-white">ONLINE COURSES</h2>
@@ -418,10 +421,16 @@ export const Courses = () => {
               />
             ))}
           </div>
-        </section>
+        </motion.section>
 
         {/* Practical Courses */}
-        <section className="mb-16 max-w-4xl mx-auto">
+        <motion.section 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="mb-16 max-w-4xl mx-auto"
+        >
           <div className="flex items-center gap-3 mb-8">
             <MapPin className="h-6 w-6 text-red-400" />
             <h2 className="text-2xl font-bold text-white">PRACTICAL COURSES</h2>
@@ -429,7 +438,11 @@ export const Courses = () => {
           </div>
 
           {/* Postcode Checker */}
-          <motion.div {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : animationProps)}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             className="mb-10 p-6 md:backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg shadow-lg will-change-transform"
           >
             <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
@@ -488,15 +501,18 @@ export const Courses = () => {
               <CourseCard
                 key={course.id}
                 course={course}
-                animationProps={checkedOnce ? { animate: { opacity: 1, y: 0 } } : animationProps}
+                animationProps={animationProps}
               />
             ))}
           </div>
-        </section>
+        </motion.section>
 
         {/* Disclaimer */}
         <motion.div
-          {...(checkedOnce ? { animate: { opacity: 1, y: 0 } } : animationProps)}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="mt-16 p-6 md:backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg max-w-4xl mx-auto will-change-transform"
         >
           <div className="relative">
