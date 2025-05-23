@@ -18,7 +18,7 @@ const MeetYourTutor: React.FC<MeetYourTutorProps> = ({ getAnimationProps, fadeIn
           <h2 className="text-3xl font-bold mb-4 text-white">Meet Your Tutor</h2>
           <div className="w-16 h-1 mx-auto bg-red-600/70 mb-8" />
         </motion.div>
-
+        
         {/* Penny's Image */}
         <motion.div 
           {...getAnimationProps()}

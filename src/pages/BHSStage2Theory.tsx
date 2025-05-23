@@ -155,7 +155,7 @@ export default function BHSStage2Theory() {
                   British Horse Society Courses with Penny Pleasant
                 </p>
                 <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
-                  Penny Pleasant delivers official British Horse Society (BHS) courses, meticulously designed by the BHS and delivered online for your convenience.
+                  Penny Pleasant delivers official British Horse Society (BHS) courses, designed by the BHS and delivered online for your convenience.
                 </p>
                 <p className="text-white/90 text-base sm:text-lg group-hover:text-white leading-relaxed mb-4 sm:mb-6">
                   This course builds upon the knowledge gained in BHS Stage 1 Theory, taking your understanding to the next level. While Stage 1 focuses on basic horse care and handling, Stage 2 delves deeper into advanced care techniques and introduces lungeing skills. You should have completed Stage 1 or have equivalent knowledge before starting this course.
@@ -471,7 +471,7 @@ export default function BHSStage2Theory() {
               <span className="mr-2">If you would like to view the full syllabus click here</span>
               <ChevronRight className="w-4 h-4" />
             </a>
-          </div>
+            </div>
         </div>
       </section>
 

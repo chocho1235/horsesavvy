@@ -53,7 +53,7 @@ const faqs = [
   },
   {
     question: "What will I receive on successful completion of the course?",
-    answer: "You will receive a Certificate of Completion from BeHorseSavvy."
+    answer: "You will receive a BHS Horse Knowledge Part 2 Certificate from the British Horse Society."
   },
   {
     question: "Can international students study this course?",

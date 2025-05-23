@@ -13,8 +13,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Component, ErrorInfo, ReactNode, memo, Suspense, lazy } from "react";
+import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 
-// Lazy load page components
+// Lazy load page components with better chunking
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const HorseKnowledge = lazy(() => import("./pages/HorseKnowledge"));
@@ -26,48 +27,56 @@ const BHSStage2Theory = lazy(() => import("./pages/BHSStage2Theory"));
 const BHSStage1Practical = lazy(() => import("./pages/BhsStage1Practical"));
 const About = lazy(() => import("./pages/About"));
 const BeHorseSavvy = lazy(() => import("./pages/BeHorseSavvy"));
+const BronzeReward = lazy(() => import("./pages/BronzeReward"));
 
-// Loading component
-const LoadingFallback = () => (
+// Optimized loading component
+const LoadingFallback = memo(() => (
   <div className="min-h-screen flex items-center justify-center bg-blue-950">
-    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-red-500"></div>
+    <div className="text-center">
+      <LoadingSpinner size="lg" />
+      <p className="text-white mt-4">Loading...</p>
+    </div>
   </div>
-);
+));
 
-// Initialize React Query client
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      retry: 1,
-    },
-  },
-});
+LoadingFallback.displayName = 'LoadingFallback';
 
-/**
- * Error Boundary component to catch and display errors gracefully
- */
-class ErrorBoundary extends Component<{ children: ReactNode, fallback?: ReactNode }> {
-  state = { hasError: false, error: null };
+// Error boundary with better error handling
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
 
-  static getDerivedStateFromError(error: Error) {
+class ErrorBoundary extends Component<
+  { children: ReactNode },
+  ErrorBoundaryState
+> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Application error:", error, errorInfo);
+    console.error('Application Error:', error, errorInfo);
+    // Here you could send error to monitoring service
   }
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback || (
-        <div className="min-h-screen flex items-center justify-center bg-black text-white p-6">
-          <div className="max-w-md w-full bg-black/50 border border-white/10 p-8 rounded-xl text-center">
-            <h2 className="text-2xl font-bold mb-4">Something went wrong</h2>
-            <p className="mb-6 text-white/70">The application encountered an error. Please try refreshing the page.</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="px-4 py-2 bg-white text-black rounded-md hover:bg-white/90 transition-colors"
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-blue-950 text-white p-4">
+          <div className="text-center max-w-md">
+            <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
+            <p className="text-white/80 mb-6">
+              We're sorry, but something unexpected happened. Please refresh the page to try again.
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-colors"
             >
               Refresh Page
             </button>
@@ -80,60 +89,48 @@ class ErrorBoundary extends Component<{ children: ReactNode, fallback?: ReactNod
   }
 }
 
-/**
- * Application routes configuration
- */
-const routes = [
-  { path: "/", element: <Index /> },
-  { path: "/courses", element: <Courses /> },
-  { path: "/horse-knowledge", element: <HorseKnowledge /> },
-  { path: "/horse-knowledge-2", element: <HorseKnowledge2 /> },
-  { path: "/bronze", element: <Bronze /> },
-  { path: "/bhs-stage-1-theory", element: <BHSStage1Theory /> },
-  { path: "/bhs-stage-2-theory", element: <BHSStage2Theory /> },
-  { path: "/bhs-stage-1-practical", element: <BHSStage1Practical /> },
-  { path: "/about", element: <About /> },
-  { path: "/behorsesavvy", element: <BeHorseSavvy /> },
-  { path: "/penny-club", element: <NotFound /> },
-  { path: "/events", element: <NotFound /> },
-  { path: "/clinics", element: <NotFound /> },
-  { path: "/education", element: <NotFound /> },
-  { path: "/merchandise", element: <NotFound /> },
-  { path: "/camp", element: <NotFound /> },
-  { path: "/case-studies", element: <NotFound /> },
-  { path: "*", element: <NotFound /> },
-];
+// Optimized QueryClient configuration
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-// Memoized routes to prevent unnecessary re-renders
-const AppRoutes = memo(() => (
-  <Routes>
-    {routes.map(({ path, element }) => (
-      <Route 
-        key={path} 
-        path={path} 
-        element={
-          <Suspense fallback={<LoadingFallback />}>
-            {element}
-          </Suspense>
-        } 
-      />
-    ))}
-  </Routes>
-));
+const App = memo(() => {
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <BrowserRouter>
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/horse-knowledge-part-one" element={<HorseKnowledge />} />
+                <Route path="/horse-knowledge-part-two" element={<HorseKnowledge2 />} />
+                <Route path="/bhs-bronze-awards" element={<Bronze />} />
+                <Route path="/bhs-stage-1-theory" element={<BHSStage1Theory />} />
+                <Route path="/bhs-stage-2-theory" element={<BHSStage2Theory />} />
+                <Route path="/bhs-stage-1-practical" element={<BHSStage1Practical />} />
+                <Route path="/education" element={<BeHorseSavvy />} />
+                <Route path="/bronze-reward" element={<BronzeReward />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+            <Toaster />
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  );
+});
 
-AppRoutes.displayName = 'AppRoutes';
-
-const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
-);
+App.displayName = 'App';
 
 export default App;
