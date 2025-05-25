@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Secure Environment Variables</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #0070f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0051a2;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .copy-button {
+            background-color: #28a745;
+            margin-top: 10px;
+        }
+        .copy-button:hover {
+            background-color: #218838;
+        }
+        .required-vars {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Secure Environment Variables</h1>
+        <div class="form-group">
+            <label for="password">Admin Password:</label>
+            <input type="password" id="password" placeholder="Enter your admin password">
+        </div>
+        <button onclick="generateHash()">Generate Hash</button>
+        <div id="result" class="result" style="display: none;">
+            <h3>Environment Variables to Add to Vercel:</h3>
+            <p><strong>VITE_ADMIN_PASSWORD_HASH:</strong> <span id="hashValue"></span></p>
+            <p><strong>VITE_MASTER_KEY:</strong> <span id="masterKey"></span></p>
+            <p><strong>VITE_ENCRYPTION_SALT:</strong> <span id="encryptionSalt"></span></p>
+            <p><strong>VITE_SESSION_SALT:</strong> <span id="sessionSalt"></span></p>
+            <p><strong>VITE_INTEGRITY_KEY:</strong> <span id="integrityKey"></span></p>
+            <button class="copy-button" onclick="copyToClipboard()">Copy All Values</button>
+        </div>
+        <div class="required-vars">
+            <h3>Required Environment Variables:</h3>
+            <p>All of these variables are required for the authentication system to work properly. Make sure to add all of them to your Vercel environment variables.</p>
+        </div>
+    </div>
+
+    <script>
+        function generateRandomKey() {
+            return CryptoJS.lib.WordArray.random(32).toString();
+        }
+
+        function generateHash() {
+            const password = document.getElementById('password').value;
+            if (!password) {
+                alert('Please enter a password');
+                return;
+            }
+
+            // Generate all required keys
+            const masterKey = generateRandomKey();
+            const encryptionSalt = generateRandomKey();
+            const sessionSalt = generateRandomKey();
+            const integrityKey = generateRandomKey();
+
+            // Layer 1: Basic hash with encryption salt
+            const layer1 = CryptoJS.SHA256(password + encryptionSalt).toString();
+            
+            // Layer 2: Rehash with master key
+            const layer2 = CryptoJS.SHA256(layer1 + masterKey).toString();
+            
+            // Layer 3: PBKDF2 for additional security
+            const layer3 = CryptoJS.PBKDF2(layer2, sessionSalt, {
+                keySize: 256 / 32,
+                iterations: 1000
+            }).toString();
+            
+            document.getElementById('hashValue').textContent = layer3;
+            document.getElementById('masterKey').textContent = masterKey;
+            document.getElementById('encryptionSalt').textContent = encryptionSalt;
+            document.getElementById('sessionSalt').textContent = sessionSalt;
+            document.getElementById('integrityKey').textContent = integrityKey;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function copyToClipboard() {
+            const values = {
+                'VITE_ADMIN_PASSWORD_HASH': document.getElementById('hashValue').textContent,
+                'VITE_MASTER_KEY': document.getElementById('masterKey').textContent,
+                'VITE_ENCRYPTION_SALT': document.getElementById('encryptionSalt').textContent,
+                'VITE_SESSION_SALT': document.getElementById('sessionSalt').textContent,
+                'VITE_INTEGRITY_KEY': document.getElementById('integrityKey').textContent
+            };
+
+            const text = Object.entries(values)
+                .map(([key, value]) => `${key}=${value}`)
+                .join('\n');
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert('All values copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html> 
