@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environment Variable Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #007cba;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #005a87;
+        }
+        .output {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Vercel Environment Variables Generator</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Security Notice:</strong> Delete this file immediately after use!
+        </div>
+        
+        <label for="password">Enter your admin password:</label>
+        <input type="password" id="password" placeholder="Enter a secure password (e.g., Admin2024!Secure)" value="Admin2024!Secure">
+        
+        <button onclick="generateEnvVars()">Generate Environment Variables</button>
+        
+        <div id="output" class="output" style="display: none;"></div>
+        
+        <div id="instructions" style="display: none;">
+            <h3>📋 Next Steps:</h3>
+            <ol>
+                <li>Copy all the environment variables above</li>
+                <li>Go to your Vercel project dashboard</li>
+                <li>Navigate to Settings → Environment Variables</li>
+                <li>Add each variable for <strong>Production</strong>, <strong>Preview</strong>, and <strong>Development</strong></li>
+                <li>Redeploy your project</li>
+                <li><strong>DELETE this HTML file for security!</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        function generateEnvVars() {
+            const password = document.getElementById('password').value;
+            
+            if (!password) {
+                alert('Please enter a password');
+                return;
+            }
+            
+            // Generate secure random keys
+            const masterKey = CryptoJS.lib.WordArray.random(32).toString();
+            const encryptionSalt = CryptoJS.lib.WordArray.random(16).toString();
+            const sessionSalt = CryptoJS.lib.WordArray.random(16).toString();
+            const integrityKey = CryptoJS.lib.WordArray.random(32).toString();
+            
+            // Generate password hash (matching the authentication system)
+            const layer1 = CryptoJS.SHA256(password + encryptionSalt).toString();
+            const layer2 = CryptoJS.SHA256(layer1 + masterKey).toString();
+            const layer3 = CryptoJS.PBKDF2(layer2, sessionSalt, { keySize: 256/32, iterations: 1000 }).toString();
+            
+            const output = `VITE_MASTER_KEY=${masterKey}
+VITE_ADMIN_PASSWORD_HASH=${layer3}
+VITE_ENCRYPTION_SALT=${encryptionSalt}
+VITE_SESSION_SALT=${sessionSalt}
+VITE_INTEGRITY_KEY=${integrityKey}
+
+Your admin password: ${password}`;
+            
+            document.getElementById('output').textContent = output;
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('instructions').style.display = 'block';
+        }
+    </script>
+</body>
+</html> 
