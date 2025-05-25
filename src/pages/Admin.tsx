@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Search, CheckCircle, XCircle, Clock, Calendar, User, Phone, Mail, Hash, Eye, Download, Filter, Shield, Users, Award } from "lucide-react";
+import { ArrowLeft, Search, CheckCircle, XCircle, Clock, Calendar, User, Phone, Mail, Hash, Download, Shield, Users, Award, AlertTriangle, LogOut, Timer, Eye, EyeOff, Plus, Edit, Trash2, CalendarDays } from "lucide-react";
 import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { format } from "date-fns";
 import { toast } from "sonner";
+import { simpleAuth } from "@/services/simpleAuth";
+import { ClinicManagement } from "@/components/ClinicManagement";
 
 // Types for booking data
 interface BookingData {
@@ -32,9 +33,6 @@ interface BookingData {
   paymentStatus: 'pending' | 'received' | 'confirmed';
   notes?: string;
 }
-
-// Mock admin credentials (in real app, this would be proper authentication)
-const ADMIN_PASSWORD = "admin123";
 
 // Sample bookings for demo purposes
 const sampleBookings: BookingData[] = [
@@ -94,83 +92,51 @@ const sampleBookings: BookingData[] = [
     bookingTimestamp: "2024-01-13T09:15:00Z",
     status: 'pending',
     paymentStatus: 'pending',
-  },
-  {
-    id: "booking-demo-4",
-    reference: "BHS-456789",
-    firstName: "Michael",
-    lastName: "Thompson",
-    email: "michael.thompson@example.com",
-    phone: "+44 7700 900004",
-    clinicType: "cross-country-1",
-    clinicName: "Cross Country Clinic",
-    clinicPrice: "£70",
-    experienceLevel: "expert",
-    horseName: "Storm Chaser",
-    specialRequests: "",
-    selectedDate: "Saturday, February 3, 2024",
-    selectedTime: "10:00 AM - 12:00 PM",
-    bookingTimestamp: "2024-01-12T16:45:00Z",
-    status: 'confirmed',
-    paymentStatus: 'confirmed',
-  },
-  {
-    id: "booking-demo-5",
-    reference: "BHS-567890",
-    firstName: "Sophie",
-    lastName: "Williams",
-    email: "sophie.williams@example.com",
-    phone: "+44 7700 900005",
-    clinicType: "dressage-2",
-    clinicName: "Advanced Dressage",
-    clinicPrice: "£70",
-    experienceLevel: "expert",
-    horseName: "Royal Grace",
-    specialRequests: "Interested in preparing for competition season.",
-    selectedDate: "Saturday, February 10, 2024",
-    selectedTime: "9:00 AM - 11:00 AM",
-    bookingTimestamp: "2024-01-11T11:30:00Z",
-    status: 'cancelled',
-    paymentStatus: 'pending',
-  },
-  {
-    id: "booking-demo-6",
-    reference: "BHS-678901",
-    firstName: "Oliver",
-    lastName: "Brown",
-    email: "oliver.brown@example.com",
-    phone: "+44 7700 900006",
-    clinicType: "jumping-2",
-    clinicName: "Show Jumping Advanced",
-    clinicPrice: "£75",
-    experienceLevel: "advanced",
-    horseName: "Silver Arrow",
-    specialRequests: "",
-    selectedDate: "Sunday, February 11, 2024",
-    selectedTime: "1:00 PM - 3:00 PM",
-    bookingTimestamp: "2024-01-10T13:20:00Z",
-    status: 'pending',
-    paymentStatus: 'pending',
   }
 ];
 
 const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [remainingAttempts, setRemainingAttempts] = useState(5);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const lockoutInfo = simpleAuth.getLockoutInfo();
+
+  useEffect(() => {
+    setRemainingAttempts(simpleAuth.getRemainingAttempts());
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     
-    setTimeout(() => {
-      if (password === ADMIN_PASSWORD) {
+    if (lockoutInfo.isLockedOut) {
+      toast.error(`Account locked. Try again in ${lockoutInfo.remainingMinutes} minutes.`);
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const result = await simpleAuth.login(password);
+      
+      if (result.success) {
+        toast.success(result.message);
         onLogin();
-        toast.success("Admin access granted");
       } else {
-        toast.error("Invalid password");
+        toast.error(result.message);
+        if (result.remainingAttempts !== undefined && result.remainingAttempts > 0) {
+          toast.warning(`Incorrect - (${result.remainingAttempts}) attempts remaining`);
+          setRemainingAttempts(result.remainingAttempts);
+        }
+        setPassword("");
       }
+    } catch (error) {
+      toast.error("Authentication failed");
+      setPassword("");
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -191,26 +157,84 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
             Enter admin password to access booking management
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6">
-          <form onSubmit={handleLogin} className="space-y-6">
-            <Input
-              type="password"
-              placeholder="Enter admin password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="bg-blue-900/50 border-white/30 text-white placeholder:text-white/50 h-12 text-lg focus:border-red-400 transition-all duration-300"
-            />
+        <CardContent className="p-6 space-y-6">
+          {/* Lockout Warning */}
+          {lockoutInfo.isLockedOut && (
+            <div className="bg-red-950/50 border border-red-500/50 p-4 rounded-lg">
+              <div className="flex items-center gap-2 text-red-200">
+                <AlertTriangle className="w-4 h-4" />
+                <span className="font-medium">Account Locked</span>
+              </div>
+              <p className="text-red-200/80 text-sm mt-1">
+                Try again in {lockoutInfo.remainingMinutes} minutes
+              </p>
+            </div>
+          )}
+
+          {/* Environment Configuration Warning */}
+          {!import.meta.env.VITE_ADMIN_PASSWORD_HASH && (
+            <div className="bg-red-950/50 border border-red-500/50 p-4 rounded-lg">
+              <div className="flex items-center gap-2 text-red-200 mb-2">
+                <AlertTriangle className="w-4 h-4" />
+                <span className="font-medium">Missing Configuration</span>
+              </div>
+              <p className="text-red-200/80 text-sm">
+                No password hash configured in environment variables.
+              </p>
+              <p className="text-red-200/60 text-xs mt-1">
+                Use the secure environment generator to set up authentication credentials.
+              </p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="relative">
+              <Input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter admin password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-blue-900/50 border-white/30 text-white placeholder:text-white/50 h-12 text-lg focus:border-red-400 transition-all duration-300 pr-12"
+                disabled={lockoutInfo.isLockedOut}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white transition-colors duration-200"
+                disabled={lockoutInfo.isLockedOut}
+              >
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+            
             <Button 
               type="submit" 
               className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 text-lg font-semibold shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
-              disabled={isLoading}
+              disabled={isLoading || lockoutInfo.isLockedOut}
             >
-              {isLoading ? "Verifying..." : "Login"}
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  Authenticating...
+                </div>
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
-          <p className="text-white/60 text-sm mt-4 text-center bg-white/5 p-3 rounded-lg border border-white/10">
-            Demo password: <span className="font-mono text-red-400">admin123</span>
-          </p>
+
+          {/* Attempts Counter */}
+          {!lockoutInfo.isLockedOut && remainingAttempts < 5 && (
+            <div className="text-center">
+              <p className="text-yellow-200 text-sm">
+                {remainingAttempts} login attempts remaining
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
@@ -222,6 +246,9 @@ const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [verifyReference, setVerifyReference] = useState("");
   const [verificationResult, setVerificationResult] = useState<BookingData | null>(null);
+  const [activeTab, setActiveTab] = useState<"bookings" | "clinics">("bookings");
+
+  const sessionInfo = simpleAuth.getSessionInfo();
 
   // Load bookings from localStorage
   useEffect(() => {
@@ -231,12 +258,10 @@ const AdminDashboard = () => {
       if (parsedBookings.length > 0) {
         setBookings(parsedBookings);
       } else {
-        // If no bookings exist, load sample data for demo
         setBookings(sampleBookings);
         localStorage.setItem("clinic-bookings", JSON.stringify(sampleBookings));
       }
     } else {
-      // If no localStorage data exists, load sample data for demo
       setBookings(sampleBookings);
       localStorage.setItem("clinic-bookings", JSON.stringify(sampleBookings));
     }
@@ -248,7 +273,7 @@ const AdminDashboard = () => {
     localStorage.setItem("clinic-bookings", JSON.stringify(updatedBookings));
   };
 
-  // Confirm booking (change from pending to confirmed)
+  // Confirm booking
   const confirmBooking = (bookingId: string) => {
     const updatedBookings = bookings.map(booking =>
       booking.id === bookingId ? { 
@@ -260,7 +285,7 @@ const AdminDashboard = () => {
     toast.success("Booking confirmed!");
   };
 
-  // Decline booking (change from pending to cancelled)
+  // Decline booking
   const declineBooking = (bookingId: string) => {
     const updatedBookings = bookings.map(booking =>
       booking.id === bookingId ? { 
@@ -272,14 +297,20 @@ const AdminDashboard = () => {
     toast.success("Booking declined!");
   };
 
-  // Load sample data for demo
+  // Load sample data
   const loadSampleData = () => {
     setBookings(sampleBookings);
     localStorage.setItem("clinic-bookings", JSON.stringify(sampleBookings));
     toast.success("Sample bookings loaded for demo!");
   };
 
-  // Verify reference number
+  // Logout
+  const handleLogout = () => {
+    simpleAuth.logout();
+    window.location.reload();
+  };
+
+  // Verify reference
   const handleVerifyReference = () => {
     if (!verifyReference.trim()) {
       toast.error("Please enter a reference number");
@@ -296,7 +327,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // Filter bookings by search term
+  // Filter bookings
   const filteredBookings = bookings.filter(booking => {
     const matchesSearch = 
       booking.reference.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -308,12 +339,11 @@ const AdminDashboard = () => {
     return matchesSearch;
   });
 
-  // Split bookings into pending, confirmed, and declined
   const pendingBookings = filteredBookings.filter(booking => booking.status === 'pending');
   const confirmedBookings = filteredBookings.filter(booking => booking.status === 'confirmed');
   const declinedBookings = filteredBookings.filter(booking => booking.status === 'cancelled');
 
-  // Export bookings as CSV
+  // Export bookings
   const exportBookings = () => {
     const headers = ['Reference', 'Name', 'Email', 'Phone', 'Clinic', 'Date', 'Time', 'Status', 'Booked At'];
     const csvData = filteredBookings.map(booking => [
@@ -417,49 +447,30 @@ const AdminDashboard = () => {
                   Decline
                 </Button>
               </div>
-              <div className="bg-red-950/30 border border-red-500/30 p-3 rounded-lg">
-                <p className="text-red-200 text-xs flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  Awaiting decision
-                </p>
-              </div>
-            </>
-          ) : isDeclined ? (
-            <>
-              <h4 className="text-white font-semibold">Status</h4>
-              <div className="bg-red-950/50 border border-red-500/50 p-3 rounded-lg">
-                <p className="text-red-200 text-sm flex items-center gap-2">
-                  <XCircle className="w-4 h-4" />
-                  Declined
-                </p>
-              </div>
-              <p className="text-white/60 text-xs">
-                Booking was declined
-              </p>
             </>
           ) : (
-            <>
+            <div className="space-y-3">
               <h4 className="text-white font-semibold">Status</h4>
-              <div className="bg-green-950/50 border border-green-500/50 p-3 rounded-lg">
-                <p className="text-green-200 text-sm flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4" />
-                  Confirmed
+              <div className={`p-3 rounded-lg ${
+                isDeclined 
+                  ? 'bg-red-950/50 border border-red-500/50'
+                  : 'bg-green-950/50 border border-green-500/50'
+              }`}>
+                <p className={`text-sm flex items-center gap-2 ${
+                  isDeclined ? 'text-red-200' : 'text-green-200'
+                }`}>
+                  {isDeclined ? <XCircle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
+                  {isDeclined ? 'Declined' : 'Confirmed'}
                 </p>
               </div>
-              <p className="text-white/60 text-xs">
-                Ready for clinic day!
-              </p>
-            </>
+            </div>
           )}
         </div>
       </div>
       
       {booking.specialRequests && (
         <div className="mt-6 pt-4 border-t border-white/10">
-          <h5 className="text-white font-medium mb-2 flex items-center gap-2">
-            <Eye className="w-4 h-4 text-red-400" />
-            Special Requests:
-          </h5>
+          <h5 className="text-white font-medium mb-2">Special Requests:</h5>
           <p className="text-white/70 text-sm bg-white/5 p-3 rounded-lg border border-white/10">{booking.specialRequests}</p>
         </div>
       )}
@@ -493,13 +504,73 @@ const AdminDashboard = () => {
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
           <div className="mb-12 text-center relative z-10">
+            {/* Logout Button */}
+            <div className="absolute md:top-0 right-0 sm:right-4 z-20 top-[-20px]">
+              <Button 
+                onClick={handleLogout}
+                variant="outline"
+                className="bg-red-900/80 hover:bg-red-800 text-white border-red-500/50 rounded-full px-4 py-1.5 sm:px-5 sm:py-2 flex items-center gap-1.5 sm:gap-2 shadow-lg transition-all duration-300 hover:translate-x-[5px] text-sm sm:text-base"
+              >
+                <LogOut size={16} strokeWidth={2.5} />
+                <span className="font-medium">Logout</span>
+              </Button>
+            </div>
+
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
               Admin Dashboard
             </h1>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-6" />
             <p className="text-xl text-white/80 max-w-3xl mx-auto mb-6">
-              Manage clinic bookings with ease
+              Secure clinic booking management
             </p>
+
+            {/* Tab Navigation */}
+            <div className="flex justify-center mb-8">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-2 flex gap-2">
+                <Button
+                  onClick={() => setActiveTab("bookings")}
+                  className={`px-6 py-3 rounded-md transition-all duration-300 ${
+                    activeTab === "bookings"
+                      ? "bg-red-600 text-white shadow-lg"
+                      : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Bookings
+                </Button>
+                <Button
+                  onClick={() => setActiveTab("clinics")}
+                  className={`px-6 py-3 rounded-md transition-all duration-300 ${
+                    activeTab === "clinics"
+                      ? "bg-red-600 text-white shadow-lg"
+                      : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Award className="w-4 h-4 mr-2" />
+                  Clinics
+                </Button>
+              </div>
+            </div>
+
+            {/* Session Info */}
+            {sessionInfo && (
+              <div className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg rounded-lg p-4 mb-6 max-w-2xl mx-auto">
+                <div className="flex items-center justify-center gap-4 text-sm text-white/80">
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-4 h-4 text-green-400" />
+                    <span>Session Active</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Timer className="w-4 h-4 text-blue-400" />
+                    <span>Login: {sessionInfo.loginTime}</span>
+                  </div>
+                </div>
+                <div className="text-xs text-white/60 text-center mt-2">
+                  Expires: {sessionInfo.expiresAt}
+                </div>
+              </div>
+            )}
+
             <Button 
               onClick={loadSampleData}
               variant="outline"
@@ -509,247 +580,192 @@ const AdminDashboard = () => {
             </Button>
           </div>
 
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
-              <CardContent className="p-4 md:p-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-red-500/20 rounded-lg">
-                    <Calendar className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-                  </div>
-                  <div>
-                    <p className="text-white/70 text-sm">Total</p>
-                    <p className="text-white text-xl md:text-2xl font-bold">{bookings.length}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
-              <CardContent className="p-4 md:p-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-red-500/20 rounded-lg">
-                    <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-                  </div>
-                  <div>
-                    <p className="text-white/70 text-sm">Pending</p>
-                    <p className="text-white text-xl md:text-2xl font-bold">
-                      {pendingBookings.length}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
-              <CardContent className="p-4 md:p-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-red-500/20 rounded-lg">
-                    <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-                  </div>
-                  <div>
-                    <p className="text-white/70 text-sm">Confirmed</p>
-                    <p className="text-white text-xl md:text-2xl font-bold">
-                      {confirmedBookings.length}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
-              <CardContent className="p-4 md:p-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-red-500/20 rounded-lg">
-                    <XCircle className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-                  </div>
-                  <div>
-                    <p className="text-white/70 text-sm">Declined</p>
-                    <p className="text-white text-xl md:text-2xl font-bold">
-                      {declinedBookings.length}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          {/* Bookings Tab Content */}
+          {activeTab === "bookings" && (
+            <>
+              {/* Quick Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <Calendar className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/70 text-sm">Total</p>
+                        <p className="text-white text-xl md:text-2xl font-bold">{bookings.length}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/70 text-sm">Pending</p>
+                        <p className="text-white text-xl md:text-2xl font-bold">
+                          {pendingBookings.length}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/70 text-sm">Confirmed</p>
+                        <p className="text-white text-xl md:text-2xl font-bold">
+                          {confirmedBookings.length}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <XCircle className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/70 text-sm">Declined</p>
+                        <p className="text-white text-xl md:text-2xl font-bold">
+                          {declinedBookings.length}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
 
-          {/* Export Button */}
-          <div className="mb-8 text-center">
-            <Button 
-              onClick={exportBookings}
-              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 font-semibold shadow-lg transition-all duration-300 transform hover:scale-105"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Export All Bookings (CSV)
-            </Button>
-          </div>
-
-          {/* Reference Verification */}
-          <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
-            <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
-              <CardTitle className="text-white flex items-center gap-2">
-                <Hash className="w-5 h-5" />
-                Quick Reference Lookup
-              </CardTitle>
-              <CardDescription className="text-white/90">
-                Enter a booking reference to verify and view details
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <Input
-                  placeholder="Enter reference number (e.g., BHS-123456)"
-                  value={verifyReference}
-                  onChange={(e) => setVerifyReference(e.target.value)}
-                  className="bg-blue-900/50 border-white/30 text-white placeholder:text-white/50 h-12 text-lg focus:border-red-400 transition-all duration-300"
-                />
+              {/* Export Button */}
+              <div className="mb-8 text-center">
                 <Button 
-                  onClick={handleVerifyReference}
+                  onClick={exportBookings}
                   className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 font-semibold shadow-lg transition-all duration-300 transform hover:scale-105"
                 >
-                  <Search className="w-4 h-4 mr-2" />
-                  Verify
+                  <Download className="w-4 h-4 mr-2" />
+                  Export All Bookings (CSV)
                 </Button>
               </div>
-              
-              {verificationResult && (
-                <div className="bg-white/10 p-6 rounded-lg border border-white/20 shadow-lg">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                      <h4 className="text-white font-semibold text-lg flex items-center gap-2">
-                        <CheckCircle className="w-5 h-5 text-green-400" />
-                        Booking Found
-                      </h4>
-                      <div className="space-y-2 text-sm">
-                        <p className="text-white/80"><span className="text-white font-medium">Name:</span> {verificationResult.firstName} {verificationResult.lastName}</p>
-                        <p className="text-white/80"><span className="text-white font-medium">Email:</span> {verificationResult.email}</p>
-                        <p className="text-white/80"><span className="text-white font-medium">Clinic:</span> {verificationResult.clinicName}</p>
-                        <p className="text-white/80"><span className="text-white font-medium">Date:</span> {verificationResult.selectedDate}</p>
-                        <p className="text-white/80"><span className="text-white font-medium">Time:</span> {verificationResult.selectedTime}</p>
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <h4 className="text-white font-semibold text-lg">Status</h4>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2">
-                          <span className="text-white/70 text-sm font-medium">Status:</span>
-                          {verificationResult.status === 'confirmed' ? (
-                            <Badge className="bg-green-600 text-white shadow-sm">Confirmed</Badge>
-                          ) : verificationResult.status === 'cancelled' ? (
-                            <Badge className="bg-red-600 text-white shadow-sm">Declined</Badge>
-                          ) : (
-                            <Badge className="bg-yellow-600 text-white shadow-sm">Pending</Badge>
-                          )}
-                        </div>
-                      </div>
-                    </div>
+
+              {/* Search */}
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2">
+                    <Search className="w-4 h-4 text-white/70 flex-shrink-0" />
+                    <Input
+                      placeholder="Search bookings by name, email, reference, or clinic..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="bg-blue-900/50 border-white/30 text-white placeholder:text-white/50 h-12 text-lg focus:border-red-400 transition-all duration-300"
+                    />
                   </div>
-                </div>
-              )}
-              
-              {verifyReference && !verificationResult && verifyReference.length > 3 && (
-                <div className="bg-red-950/30 border border-red-500/30 p-4 rounded-lg">
-                  <p className="text-red-200 flex items-center gap-2">
-                    <XCircle className="w-4 h-4" />
-                    Reference number not found
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                </CardContent>
+              </Card>
 
-          {/* Search */}
-          <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-2">
-                <Search className="w-4 h-4 text-white/70 flex-shrink-0" />
-                <Input
-                  placeholder="Search bookings by name, email, reference, or clinic..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="bg-blue-900/50 border-white/30 text-white placeholder:text-white/50 h-12 text-lg focus:border-red-400 transition-all duration-300"
-                />
+              {/* Pending Bookings */}
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
+                  <CardTitle className="text-white flex items-center gap-2">
+                    <Clock className="w-6 h-6" />
+                    Pending Bookings ({pendingBookings.length})
+                  </CardTitle>
+                  <CardDescription className="text-white/90">
+                    Bookings awaiting confirmation
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6">
+                  {pendingBookings.length === 0 ? (
+                    <div className="text-center py-12 text-white/60">
+                      <Clock className="w-16 h-16 text-white/30 mx-auto mb-4" />
+                      <p className="text-lg">No pending bookings</p>
+                      <p className="text-sm text-white/50">All caught up!</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {pendingBookings.map((booking) => (
+                        <BookingCard key={booking.id} booking={booking} isPending={true} />
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Confirmed Bookings */}
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
+                  <CardTitle className="text-white flex items-center gap-2">
+                    <CheckCircle className="w-6 h-6" />
+                    Confirmed Bookings ({confirmedBookings.length})
+                  </CardTitle>
+                  <CardDescription className="text-white/90">
+                    All confirmed and ready for clinic day
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6">
+                  {confirmedBookings.length === 0 ? (
+                    <div className="text-center py-12 text-white/60">
+                      <CheckCircle className="w-16 h-16 text-white/30 mx-auto mb-4" />
+                      <p className="text-lg">No confirmed bookings yet</p>
+                      <p className="text-sm text-white/50">Confirm pending bookings above</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {confirmedBookings.map((booking) => (
+                        <BookingCard key={booking.id} booking={booking} isPending={false} />
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Declined Bookings */}
+              {declinedBookings.length > 0 && (
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl">
+                  <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <XCircle className="w-6 h-6" />
+                      Declined Bookings ({declinedBookings.length})
+                    </CardTitle>
+                    <CardDescription className="text-white/90">
+                      Bookings that were declined
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <div className="space-y-4">
+                      {declinedBookings.map((booking) => (
+                        <BookingCard key={booking.id} booking={booking} isPending={false} isDeclined={true} />
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <div className="text-center sm:text-left">
+                  <h2 className="text-2xl font-bold text-white mb-2">Clinic Management</h2>
+                  <p className="text-white/70">Manage available clinics and offerings</p>
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            </>
+          )}
 
-          {/* Pending Bookings */}
-          <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
-            <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
-              <CardTitle className="text-white flex items-center gap-2">
-                <Clock className="w-6 h-6" />
-                Pending Bookings ({pendingBookings.length})
-              </CardTitle>
-              <CardDescription className="text-white/90">
-                Bookings awaiting confirmation
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
-              {pendingBookings.length === 0 ? (
-                <div className="text-center py-12 text-white/60">
-                  <Clock className="w-16 h-16 text-white/30 mx-auto mb-4" />
-                  <p className="text-lg">No pending bookings</p>
-                  <p className="text-sm text-white/50">All caught up!</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {pendingBookings.map((booking) => (
-                    <BookingCard key={booking.id} booking={booking} isPending={true} />
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Confirmed Bookings */}
-          <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl">
-            <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
-              <CardTitle className="text-white flex items-center gap-2">
-                <CheckCircle className="w-6 h-6" />
-                Confirmed Bookings ({confirmedBookings.length})
-              </CardTitle>
-              <CardDescription className="text-white/90">
-                All confirmed and ready for clinic day
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6">
-              {confirmedBookings.length === 0 ? (
-                <div className="text-center py-12 text-white/60">
-                  <CheckCircle className="w-16 h-16 text-white/30 mx-auto mb-4" />
-                  <p className="text-lg">No confirmed bookings yet</p>
-                  <p className="text-sm text-white/50">Confirm pending bookings above</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {confirmedBookings.map((booking) => (
-                    <BookingCard key={booking.id} booking={booking} isPending={false} />
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Declined Bookings */}
-          {declinedBookings.length > 0 && (
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
-                <CardTitle className="text-white flex items-center gap-2">
-                  <XCircle className="w-6 h-6" />
-                  Declined Bookings ({declinedBookings.length})
-                </CardTitle>
-                <CardDescription className="text-white/90">
-                  Bookings that were declined
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  {declinedBookings.map((booking) => (
-                    <BookingCard key={booking.id} booking={booking} isPending={false} isDeclined={true} />
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+          {/* Clinics Tab Content */}
+          {activeTab === "clinics" && (
+            <>
+              <ClinicManagement />
+            </>
           )}
         </div>
       </section>
@@ -761,6 +777,10 @@ const AdminDashboard = () => {
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setIsAuthenticated(simpleAuth.isAuthenticated());
+  }, []);
 
   return isAuthenticated ? <AdminDashboard /> : <AdminLogin onLogin={() => setIsAuthenticated(true)} />;
 };

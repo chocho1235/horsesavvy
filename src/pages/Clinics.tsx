@@ -16,7 +16,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { toast } from "sonner";
 
 // Clinic types available with predetermined dates and times
-const clinicTypes = [
+const defaultClinics = [
   {
     id: "dressage-1",
     name: "Dressage Clinic",
@@ -482,6 +482,23 @@ const Clinics = () => {
   const [selectedClinic, setSelectedClinic] = useState<string>("");
   const [bookingStep, setBookingStep] = useState<"selection" | "form" | "payment" | "confirmation">("selection");
   const [bookingReference, setBookingReference] = useState<string>("");
+  const [clinicTypes, setClinicTypes] = useState(defaultClinics);
+
+  // Load clinic types from localStorage
+  useEffect(() => {
+    const storedClinics = localStorage.getItem("clinic-types");
+    if (storedClinics) {
+      try {
+        const parsedClinics = JSON.parse(storedClinics);
+        if (parsedClinics.length > 0) {
+          setClinicTypes(parsedClinics);
+        }
+      } catch (error) {
+        console.error("Error loading clinics from localStorage:", error);
+        setClinicTypes(defaultClinics);
+      }
+    }
+  }, []);
 
   // Handle URL parameters for payment success
   useEffect(() => {

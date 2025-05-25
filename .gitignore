@@ -23,3 +23,22 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Environment and Security Files
+.env
+.env.local
+.env.production
+.env.staging
+.env.backup.*
+*.env
+auth-config.json
+secrets.json
+private-keys/
+*.pem
+*.key
+
+# Security and Authentication
+.auth/
+admin-credentials.txt
+password-hashes.txt
+jwt-secrets.txt
