@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-const config: Config = {
+export default {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
@@ -101,30 +101,4 @@ const config: Config = {
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
-	// Optimize for production
-	corePlugins: {
-		// Disable unused core plugins to reduce bundle size
-		preflight: true,
-	},
-	// Purge unused styles in production
-	purge: {
-		enabled: process.env.NODE_ENV === 'production',
-		content: [
-			"./src/**/*.{js,jsx,ts,tsx}",
-			"./public/index.html",
-		],
-		options: {
-			safelist: [
-				// Keep animation classes
-				/^animate-/,
-				// Keep motion classes
-				/^motion-/,
-				// Keep GPU acceleration classes
-				/^gpu-/,
-				/^will-change-/,
-			],
-		},
-	},
 } satisfies Config;
-
-export default config;

@@ -51,12 +51,25 @@ const practicalCourses = [
 // UK postcodes covered for practical training
 const validPostcodeAreas = ["RG", "OX", "SL", "HP", "GU"];
 
-// Animation variants - define once at the top
+// Animation variants - define once at the top with iOS Safari optimizations
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-100px" },
-  transition: { duration: 0.4, ease: "easeOut" }
+  initial: { 
+    opacity: 0, 
+    y: 20,
+    transform: "translateZ(0)", // Force GPU acceleration
+  },
+  whileInView: { 
+    opacity: 1, 
+    y: 0,
+    transform: "translateZ(0)", // Maintain GPU layer
+  },
+  viewport: { once: true, margin: "-50px" }, // Reduced margin for better mobile detection
+  transition: { 
+    duration: 0.5, // Slightly longer for smoother iOS animation
+    ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for better iOS performance
+    opacity: { duration: 0.6 }, // Separate opacity timing
+    y: { duration: 0.5 }
+  }
 };
 
 // Icon component
@@ -105,6 +118,9 @@ const CourseCard = React.memo(
             willChange: "transform, opacity",
             transform: "translateZ(0)",
             WebkitBackfaceVisibility: "hidden",
+            WebkitPerspective: 1000,
+            WebkitTransform: "translate3d(0,0,0)", // iOS Safari GPU optimization
+            isolation: "isolate", // Create stacking context
           }}
           className="bg-red-600 rounded-xl shadow-lg flex items-center justify-between p-5 mb-6 group hover:bg-red-700 transition-all duration-300 cursor-pointer overflow-hidden hover:z-10 relative"
         >
@@ -361,11 +377,16 @@ export const Courses = () => {
         </div>
       </section>
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12" ref={coursesRef}>
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12 animation-container" ref={coursesRef}>
         {/* Online Courses */}
         <motion.section 
           {...fadeInUp}
           className="mb-16 max-w-4xl mx-auto"
+          style={{
+            transform: "translateZ(0)",
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+          }}
         >
           <div className="flex items-center gap-3 mb-8">
             <Globe className="h-6 w-6 text-red-400" />

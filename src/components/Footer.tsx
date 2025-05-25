@@ -10,7 +10,8 @@
  */
 
 import { motion } from "framer-motion";
-import { Facebook, Instagram, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, Settings } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface FooterProps {
   /** Background color class (Tailwind CSS) */
@@ -116,6 +117,15 @@ export const Footer = ({ bgColor = "bg-black" }: FooterProps) => {
               >
                 <Instagram className="w-5 h-5" aria-hidden="true" />
               </a>
+              {/* Admin access - only visible on hover */}
+              <Link 
+                to="/admin"
+                className="p-2 bg-white/0 rounded-lg hover:bg-white/10 transition-all duration-300 opacity-0 hover:opacity-100 group"
+                aria-label="Admin access"
+                title="Admin Panel"
+              >
+                <Settings className="w-5 h-5 text-white/30 group-hover:text-white/70" aria-hidden="true" />
+              </Link>
             </div>
           </motion.section>
         </div>
