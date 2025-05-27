@@ -25,12 +25,12 @@ export const ContactHeader = ({ bgColor = "bg-black" }: ContactHeaderProps) => {
       aria-label="Contact information"
     >
       <div className="hidden md:flex items-center gap-2 text-xl">
-        <Phone className="h-5 w-5" aria-hidden="true" />
+        <Phone className="h-5 w-5 text-white" aria-hidden="true" />
         <a href="tel:+447506600222" className="hover:underline">
           +44 7506 600 222
         </a>
         <span className="mx-2" aria-hidden="true">|</span>
-        <Mail className="h-5 w-5" aria-hidden="true" />
+        <Mail className="h-5 w-5 text-white" aria-hidden="true" />
         <a href="mailto:Penelopepleasant@gmail.com" className="hover:underline">
           Penelopepleasant@gmail.com
         </a>

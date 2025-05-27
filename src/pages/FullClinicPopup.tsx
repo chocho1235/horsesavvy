@@ -42,7 +42,7 @@ const FullClinicPopup: React.FC<FullClinicPopupProps> = ({ open, onClose }) => {
         </h2>
         <p className="text-base text-blue-800/90 mb-6 text-center font-normal max-w-md">
           This clinic has reached its maximum capacity.<br />
-          If you'd like to be notified if a place opens up, please contact us:
+          If you'd like to be notified if a place becomes available, please contact us:
         </p>
         <a
           href="mailto:Penelopepleasant@gmail.com"
