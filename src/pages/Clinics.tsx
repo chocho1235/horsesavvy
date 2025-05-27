@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,6 +16,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from '@/services/supabaseClient';
+import React from "react";
+import { lazy } from "react";
 
 // Clinic types available with predetermined dates and times
 const defaultClinics = [
@@ -29,78 +31,22 @@ const defaultClinics = [
     time: "9:00 AM - 11:00 AM",
     dateValue: "2024-01-27",
     timeValue: "09:00",
-    instructor: "Sarah Mitchell",
+    instructor: "Penelope Pleasant",
     level: "Intermediate",
     featured: false,
   },
   {
-    id: "jumping-1",
-    name: "Show Jumping Clinic",
-    description: "Develop jumping technique, course strategy, and confidence",
-    price: "£65",
-    maxParticipants: 6,
-    date: "Sunday, January 28, 2024",
-    time: "2:00 PM - 4:00 PM",
-    dateValue: "2024-01-28",
-    timeValue: "14:00",
-    instructor: "James Thompson",
-    level: "All Levels",
-    featured: true,
-  },
-  {
-    id: "cross-country-1",
-    name: "Cross Country Clinic",
-    description: "Navigate varied terrain and obstacles with confidence",
-    price: "£70",
-    maxParticipants: 4,
-    date: "Saturday, February 3, 2024",
-    time: "10:00 AM - 12:00 PM",
-    dateValue: "2024-02-03",
+    id: "test-henry",
+    name: "Test Clinic Henry",
+    description: "This is a test clinic for Henry with a max of 1 participant.",
+    price: "£10",
+    maxParticipants: 1,
+    date: "Monday, July 1, 2024",
+    time: "10:00 AM - 11:00 AM",
+    dateValue: "2024-07-01",
     timeValue: "10:00",
-    instructor: "Emma Roberts",
-    level: "Advanced",
-    featured: false,
-  },
-  {
-    id: "flatwork-1",
-    name: "Flatwork Fundamentals",
-    description: "Master the basics of horse training and riding technique",
-    price: "£55",
-    maxParticipants: 8,
-    date: "Sunday, February 4, 2024",
-    time: "11:00 AM - 1:00 PM",
-    dateValue: "2024-02-04",
-    timeValue: "11:00",
-    instructor: "Lisa Williams",
-    level: "Beginner",
-    featured: false,
-  },
-  {
-    id: "dressage-2",
-    name: "Advanced Dressage",
-    description: "Advanced movements and collection techniques",
-    price: "£70",
-    maxParticipants: 4,
-    date: "Saturday, February 10, 2024",
-    time: "9:00 AM - 11:00 AM",
-    dateValue: "2024-02-10",
-    timeValue: "09:00",
-    instructor: "Sarah Mitchell",
-    level: "Expert",
-    featured: true,
-  },
-  {
-    id: "jumping-2",
-    name: "Show Jumping Advanced",
-    description: "Tackle higher jumps and complex courses",
-    price: "£75",
-    maxParticipants: 4,
-    date: "Sunday, February 11, 2024",
-    time: "1:00 PM - 3:00 PM",
-    dateValue: "2024-02-11",
-    timeValue: "13:00",
-    instructor: "James Thompson",
-    level: "Expert",
+    instructor: "Henry Barcroft",
+    level: "Test",
     featured: false,
   },
 ];
@@ -159,7 +105,7 @@ function Stepper({ currentStep }: { currentStep: number }) {
 const ClinicSelection = ({ 
   clinicTypes, 
   selectedClinic, 
-  onClinicSelect 
+  onClinicSelect
 }: {
   clinicTypes: Array<{
     id: string;
@@ -176,7 +122,7 @@ const ClinicSelection = ({
     featured: boolean;
   }>;
   selectedClinic: string;
-  onClinicSelect: (clinicId: string) => void;
+  onClinicSelect: (clinicId: string) => Promise<void>;
 }) => (
   <div className="mb-16">
     <div className="text-center mb-12">
@@ -484,11 +430,15 @@ const PaymentInstructions = ({
   );
 };
 
+const FullClinicPopup = React.lazy(() => import("./FullClinicPopup"));
+
 const Clinics = () => {
   const [selectedClinic, setSelectedClinic] = useState<string>("");
   const [bookingStep, setBookingStep] = useState<"selection" | "form" | "payment" | "confirmation">("selection");
   const [bookingReference, setBookingReference] = useState<string>("");
   const [clinicTypes, setClinicTypes] = useState(defaultClinics);
+  const [isCheckingClinic, setIsCheckingClinic] = useState<string | null>(null);
+  const [fullClinicPopup, setFullClinicPopup] = useState(false);
 
   // Load clinic types from localStorage
   useEffect(() => {
@@ -543,8 +493,30 @@ const Clinics = () => {
     },
   });
 
-  // Handle clinic type selection
-  const handleClinicSelect = (clinicId: string) => {
+  // Enhanced clinic selection handler with capacity check
+  const handleClinicSelect = async (clinicId: string) => {
+    setIsCheckingClinic(clinicId);
+    const selectedClinicDetails = clinicTypes.find(c => c.id === clinicId);
+    if (!selectedClinicDetails) {
+      setIsCheckingClinic(null);
+      return;
+    }
+    const maxParticipants = selectedClinicDetails.maxParticipants || 0;
+    // Check current bookings for this clinic, excluding cancelled/declined
+    const { count, error: countError } = await supabase
+      .from('bookings')
+      .select('*', { count: 'exact', head: true })
+      .eq('clinic_type', clinicId)
+      .not('status', 'in', '("cancelled","declined")');
+    setIsCheckingClinic(null);
+    if (countError) {
+      setFullClinicPopup(true);
+      return;
+    }
+    if (count >= maxParticipants) {
+      setFullClinicPopup(true);
+      return;
+    }
     setSelectedClinic(clinicId);
     form.setValue("clinicType", clinicId);
   };
@@ -562,6 +534,22 @@ const Clinics = () => {
   // Save booking to Supabase (with .select() to always return data)
   const saveBookingToSupabase = async (bookingData: any, reference: string) => {
     const selectedClinicDetails = clinicTypes.find(c => c.id === selectedClinic);
+    const maxParticipants = selectedClinicDetails?.maxParticipants || 0;
+
+    // Check current bookings for this clinic
+    const { count, error: countError } = await supabase
+      .from('bookings')
+      .select('*', { count: 'exact', head: true })
+      .eq('clinic_type', selectedClinic);
+    if (countError) {
+      toast.error('Error checking clinic capacity. Please try again.');
+      return null;
+    }
+    if (count >= maxParticipants) {
+      toast.error('Sorry, this clinic is fully booked. If you are still interested in partaking, please email Penelopepleasant@gmail.com.');
+      return null;
+    }
+
     const { data, error } = await supabase
       .from('bookings')
       .insert([
@@ -646,6 +634,11 @@ const Clinics = () => {
 
   return (
     <div className="min-h-screen bg-blue-950 text-white relative">
+      {fullClinicPopup && (
+        <Suspense fallback={null}>
+          <FullClinicPopup open={fullClinicPopup} onClose={() => setFullClinicPopup(false)} />
+        </Suspense>
+      )}
       <ContactHeader bgColor="bg-blue-950" />
       <Stepper currentStep={
         bookingStep === "selection" ? 0 :
@@ -703,8 +696,8 @@ const Clinics = () => {
                     {/* Stats or highlights */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                       <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20 shadow-lg">
-                        <div className="text-2xl font-bold text-red-400 mb-1">50+</div>
-                        <div className="text-white/90 text-sm font-medium">Expert Instructors</div>
+                        <div className="text-2xl font-bold text-red-400 mb-1">5*</div>
+                        <div className="text-white/90 text-sm font-medium">Rated Experience</div>
                       </div>
                       <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20 shadow-lg">
                         <div className="text-2xl font-bold text-red-400 mb-1">1000+</div>

@@ -293,12 +293,6 @@ const AdminDashboard = () => {
     if (success) toast.success('Booking declined!');
   };
 
-  // Load sample data
-  const loadSampleData = () => {
-    setBookings(sampleBookings);
-    toast.success("Sample bookings loaded for demo!");
-  };
-
   // Logout
   const handleLogout = () => {
     simpleAuth.logout();
@@ -367,6 +361,22 @@ const AdminDashboard = () => {
     a.click();
     window.URL.revokeObjectURL(url);
     toast.success("Bookings exported successfully");
+  };
+
+  // Delete all declined/cancelled bookings
+  const deleteDeclinedBookings = async () => {
+    const { error } = await supabase
+      .from('bookings')
+      .delete()
+      .or('status.eq.declined,status.eq.cancelled');
+    if (error) {
+      toast.error('Failed to delete declined/cancelled bookings');
+    } else {
+      toast.success('All declined/cancelled bookings deleted');
+      // Refetch bookings
+      const { data } = await supabase.from('bookings').select('*');
+      setBookings(data || []);
+    }
   };
 
   // Booking card component
@@ -567,19 +577,22 @@ const AdminDashboard = () => {
                 </div>
               </div>
             )}
-
-            <Button 
-              onClick={loadSampleData}
-              variant="outline"
-              className="bg-blue-900/50 border-white/30 text-white hover:bg-blue-800 px-6 py-2 font-semibold shadow-lg transition-all duration-300"
-            >
-              🎯 Load Sample Data (Demo)
-            </Button>
           </div>
 
           {/* Bookings Tab Content */}
           {activeTab === "bookings" && (
             <>
+              {/* Delete Declined Bookings Button */}
+              <div className="mb-6 flex justify-end">
+                <button
+                  onClick={deleteDeclinedBookings}
+                  className="flex items-center gap-2 border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-200 shadow-sm"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete All Declined Bookings
+                </button>
+              </div>
+
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
