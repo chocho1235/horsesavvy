@@ -11,26 +11,27 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 import { simpleAuth } from "@/services/simpleAuth";
 import { ClinicManagement } from "@/components/ClinicManagement";
+import { supabase } from '@/services/supabaseClient';
 
 // Types for booking data
 interface BookingData {
   id: string;
   reference: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   phone: string;
-  clinicType: string;
-  clinicName: string;
-  clinicPrice: string;
-  experienceLevel: string;
-  horseName: string;
-  specialRequests?: string;
-  selectedDate: string;
-  selectedTime: string;
-  bookingTimestamp: string;
+  clinic_type: string;
+  clinic_name: string;
+  clinic_price: string;
+  experience_level: string;
+  horse_name: string;
+  special_requests?: string;
+  selected_date: string;
+  selected_time: string;
+  created_at: string;
   status: 'pending' | 'confirmed' | 'cancelled' | 'completed';
-  paymentStatus: 'pending' | 'received' | 'confirmed';
+  payment_status: 'pending' | 'received' | 'confirmed';
   notes?: string;
 }
 
@@ -39,59 +40,59 @@ const sampleBookings: BookingData[] = [
   {
     id: "booking-demo-1",
     reference: "BHS-123456",
-    firstName: "Sarah",
-    lastName: "Johnson",
+    first_name: "Sarah",
+    last_name: "Johnson",
     email: "sarah.johnson@example.com",
     phone: "+44 7700 900001",
-    clinicType: "dressage-1",
-    clinicName: "Dressage Clinic",
-    clinicPrice: "£60",
-    experienceLevel: "intermediate",
-    horseName: "Thunder",
-    specialRequests: "My horse can be nervous around other horses, please seat us accordingly.",
-    selectedDate: "Saturday, January 27, 2024",
-    selectedTime: "9:00 AM - 11:00 AM",
-    bookingTimestamp: "2024-01-15T10:30:00Z",
+    clinic_type: "dressage-1",
+    clinic_name: "Dressage Clinic",
+    clinic_price: "£60",
+    experience_level: "intermediate",
+    horse_name: "Thunder",
+    special_requests: "My horse can be nervous around other horses, please seat us accordingly.",
+    selected_date: "Saturday, January 27, 2024",
+    selected_time: "9:00 AM - 11:00 AM",
+    created_at: "2024-01-15T10:30:00Z",
     status: 'pending',
-    paymentStatus: 'pending',
+    payment_status: 'pending',
   },
   {
     id: "booking-demo-2",
     reference: "BHS-234567",
-    firstName: "James",
-    lastName: "Mitchell",
+    first_name: "James",
+    last_name: "Mitchell",
     email: "james.mitchell@example.com",
     phone: "+44 7700 900002",
-    clinicType: "jumping-1",
-    clinicName: "Show Jumping Clinic",
-    clinicPrice: "£65",
-    experienceLevel: "advanced",
-    horseName: "Midnight Star",
-    specialRequests: "",
-    selectedDate: "Sunday, January 28, 2024",
-    selectedTime: "2:00 PM - 4:00 PM",
-    bookingTimestamp: "2024-01-14T14:20:00Z",
+    clinic_type: "jumping-1",
+    clinic_name: "Show Jumping Clinic",
+    clinic_price: "£65",
+    experience_level: "advanced",
+    horse_name: "Midnight Star",
+    special_requests: "",
+    selected_date: "Sunday, January 28, 2024",
+    selected_time: "2:00 PM - 4:00 PM",
+    created_at: "2024-01-14T14:20:00Z",
     status: 'confirmed',
-    paymentStatus: 'confirmed',
+    payment_status: 'confirmed',
   },
   {
     id: "booking-demo-3",
     reference: "BHS-345678",
-    firstName: "Emma",
-    lastName: "Roberts",
+    first_name: "Emma",
+    last_name: "Roberts",
     email: "emma.roberts@example.com",
     phone: "+44 7700 900003",
-    clinicType: "flatwork-1",
-    clinicName: "Flatwork Fundamentals",
-    clinicPrice: "£55",
-    experienceLevel: "beginner",
-    horseName: "Gentle Ben",
-    specialRequests: "First time at a clinic, would appreciate extra guidance.",
-    selectedDate: "Sunday, February 4, 2024",
-    selectedTime: "11:00 AM - 1:00 PM",
-    bookingTimestamp: "2024-01-13T09:15:00Z",
+    clinic_type: "flatwork-1",
+    clinic_name: "Flatwork Fundamentals",
+    clinic_price: "£55",
+    experience_level: "beginner",
+    horse_name: "Gentle Ben",
+    special_requests: "First time at a clinic, would appreciate extra guidance.",
+    selected_date: "Sunday, February 4, 2024",
+    selected_time: "11:00 AM - 1:00 PM",
+    created_at: "2024-01-13T09:15:00Z",
     status: 'pending',
-    paymentStatus: 'pending',
+    payment_status: 'pending',
   }
 ];
 
@@ -250,57 +251,51 @@ const AdminDashboard = () => {
 
   const sessionInfo = simpleAuth.getSessionInfo();
 
-  // Load bookings from localStorage
+  // Load bookings from Supabase
   useEffect(() => {
-    const storedBookings = localStorage.getItem("clinic-bookings");
-    if (storedBookings) {
-      const parsedBookings = JSON.parse(storedBookings);
-      if (parsedBookings.length > 0) {
-        setBookings(parsedBookings);
+    const fetchBookings = async () => {
+      const { data, error } = await supabase.from('bookings').select('*');
+      if (error) {
+        toast.error('Failed to load bookings from Supabase');
+        setBookings([]);
       } else {
-        setBookings(sampleBookings);
-        localStorage.setItem("clinic-bookings", JSON.stringify(sampleBookings));
+        setBookings(data || []);
       }
-    } else {
-      setBookings(sampleBookings);
-      localStorage.setItem("clinic-bookings", JSON.stringify(sampleBookings));
-    }
+    };
+    fetchBookings();
   }, []);
 
-  // Save bookings to localStorage
-  const saveBookings = (updatedBookings: BookingData[]) => {
-    setBookings(updatedBookings);
-    localStorage.setItem("clinic-bookings", JSON.stringify(updatedBookings));
+  // Save bookings to Supabase (update status)
+  const updateBookingStatus = async (bookingId: string, status: string) => {
+    const { error } = await supabase
+      .from('bookings')
+      .update({ status })
+      .eq('id', bookingId);
+    if (error) {
+      toast.error('Failed to update booking status');
+      return false;
+    }
+    // Refetch bookings
+    const { data } = await supabase.from('bookings').select('*');
+    setBookings(data || []);
+    return true;
   };
 
   // Confirm booking
-  const confirmBooking = (bookingId: string) => {
-    const updatedBookings = bookings.map(booking =>
-      booking.id === bookingId ? { 
-        ...booking, 
-        status: 'confirmed' as BookingData['status']
-      } : booking
-    );
-    saveBookings(updatedBookings);
-    toast.success("Booking confirmed!");
+  const confirmBooking = async (bookingId: string) => {
+    const success = await updateBookingStatus(bookingId, 'confirmed');
+    if (success) toast.success('Booking confirmed!');
   };
 
   // Decline booking
-  const declineBooking = (bookingId: string) => {
-    const updatedBookings = bookings.map(booking =>
-      booking.id === bookingId ? { 
-        ...booking, 
-        status: 'cancelled' as BookingData['status']
-      } : booking
-    );
-    saveBookings(updatedBookings);
-    toast.success("Booking declined!");
+  const declineBooking = async (bookingId: string) => {
+    const success = await updateBookingStatus(bookingId, 'cancelled');
+    if (success) toast.success('Booking declined!');
   };
 
   // Load sample data
   const loadSampleData = () => {
     setBookings(sampleBookings);
-    localStorage.setItem("clinic-bookings", JSON.stringify(sampleBookings));
     toast.success("Sample bookings loaded for demo!");
   };
 
@@ -331,10 +326,10 @@ const AdminDashboard = () => {
   const filteredBookings = bookings.filter(booking => {
     const matchesSearch = 
       booking.reference.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       booking.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.clinicName.toLowerCase().includes(searchTerm.toLowerCase());
+      booking.clinic_name.toLowerCase().includes(searchTerm.toLowerCase());
     
     return matchesSearch;
   });
@@ -348,14 +343,16 @@ const AdminDashboard = () => {
     const headers = ['Reference', 'Name', 'Email', 'Phone', 'Clinic', 'Date', 'Time', 'Status', 'Booked At'];
     const csvData = filteredBookings.map(booking => [
       booking.reference,
-      `${booking.firstName} ${booking.lastName}`,
+      `${booking.first_name} ${booking.last_name}`,
       booking.email,
       booking.phone,
-      booking.clinicName,
-      booking.selectedDate,
-      booking.selectedTime,
+      booking.clinic_name,
+      booking.selected_date,
+      booking.selected_time,
       booking.status,
-      format(new Date(booking.bookingTimestamp), 'yyyy-MM-dd HH:mm')
+      booking.created_at && !isNaN(new Date(booking.created_at).getTime())
+        ? format(new Date(booking.created_at), 'yyyy-MM-dd HH:mm')
+        : 'N/A'
     ]);
 
     const csvContent = [headers, ...csvData]
@@ -380,7 +377,7 @@ const AdminDashboard = () => {
           <div className="flex items-center gap-2 mb-2">
             <User className="w-4 h-4 text-red-400" />
             <span className="text-white font-semibold text-lg">
-              {booking.firstName} {booking.lastName}
+              {booking.first_name} {booking.last_name}
             </span>
           </div>
           <div className="space-y-1 text-sm">
@@ -405,10 +402,10 @@ const AdminDashboard = () => {
             Clinic Details
           </h4>
           <div className="space-y-1 text-sm">
-            <p className="text-white/90 font-medium">{booking.clinicName}</p>
-            <p className="text-red-400 font-semibold">{booking.clinicPrice}</p>
-            <p className="text-white/70">{booking.selectedDate}</p>
-            <p className="text-white/70">{booking.selectedTime}</p>
+            <p className="text-white/90 font-medium">{booking.clinic_name}</p>
+            <p className="text-red-400 font-semibold">{booking.clinic_price}</p>
+            <p className="text-white/70">{booking.selected_date}</p>
+            <p className="text-white/70">{booking.selected_time}</p>
           </div>
         </div>
         
@@ -416,13 +413,13 @@ const AdminDashboard = () => {
           <h4 className="text-white font-semibold">Horse & Experience</h4>
           <div className="space-y-1 text-sm">
             <p className="text-white/80">
-              <span className="text-white/60">Horse:</span> {booking.horseName}
+              <span className="text-white/60">Horse:</span> {booking.horse_name}
             </p>
             <p className="text-white/80">
-              <span className="text-white/60">Level:</span> {booking.experienceLevel}
+              <span className="text-white/60">Level:</span> {booking.experience_level}
             </p>
             <p className="text-white/60 text-xs">
-              Booked: {format(new Date(booking.bookingTimestamp), 'MMM d, HH:mm')}
+              Booked: {booking.created_at && !isNaN(new Date(booking.created_at).getTime()) ? format(new Date(booking.created_at), 'MMM d, HH:mm') : 'N/A'}
             </p>
           </div>
         </div>
@@ -468,10 +465,10 @@ const AdminDashboard = () => {
         </div>
       </div>
       
-      {booking.specialRequests && (
+      {booking.special_requests && (
         <div className="mt-6 pt-4 border-t border-white/10">
           <h5 className="text-white font-medium mb-2">Special Requests:</h5>
-          <p className="text-white/70 text-sm bg-white/5 p-3 rounded-lg border border-white/10">{booking.specialRequests}</p>
+          <p className="text-white/70 text-sm bg-white/5 p-3 rounded-lg border border-white/10">{booking.special_requests}</p>
         </div>
       )}
     </div>
