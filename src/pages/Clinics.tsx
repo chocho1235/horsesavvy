@@ -19,38 +19,6 @@ import { supabase } from '@/services/supabaseClient';
 import React from "react";
 import { lazy } from "react";
 
-// Clinic types available with predetermined dates and times
-const defaultClinics = [
-  {
-    id: "dressage-1",
-    name: "Dressage Clinic",
-    description: "Focus on precision, balance, and communication between horse and rider",
-    price: "£60",
-    maxParticipants: 6,
-    date: "Saturday, January 27, 2024",
-    time: "9:00 AM - 11:00 AM",
-    dateValue: "2024-01-27",
-    timeValue: "09:00",
-    instructor: "Penelope Pleasant",
-    level: "Intermediate",
-    featured: false,
-  },
-  {
-    id: "test-henry",
-    name: "Test Clinic Henry",
-    description: "This is a test clinic for Henry with a max of 1 participant.",
-    price: "£10",
-    maxParticipants: 1,
-    date: "Monday, July 1, 2024",
-    time: "10:00 AM - 11:00 AM",
-    dateValue: "2024-07-01",
-    timeValue: "10:00",
-    instructor: "Henry Barcroft",
-    level: "Test",
-    featured: false,
-  },
-];
-
 // Booking form schema
 const bookingSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -436,24 +404,36 @@ const Clinics = () => {
   const [selectedClinic, setSelectedClinic] = useState<string>("");
   const [bookingStep, setBookingStep] = useState<"selection" | "form" | "payment" | "confirmation">("selection");
   const [bookingReference, setBookingReference] = useState<string>("");
-  const [clinicTypes, setClinicTypes] = useState(defaultClinics);
+  const [clinicTypes, setClinicTypes] = useState<any[]>([]);
   const [isCheckingClinic, setIsCheckingClinic] = useState<string | null>(null);
   const [fullClinicPopup, setFullClinicPopup] = useState(false);
 
-  // Load clinic types from localStorage
+  // Fetch clinics from Supabase on mount
   useEffect(() => {
-    const storedClinics = localStorage.getItem("clinic-types");
-    if (storedClinics) {
-      try {
-        const parsedClinics = JSON.parse(storedClinics);
-        if (parsedClinics.length > 0) {
-          setClinicTypes(parsedClinics);
-        }
-      } catch (error) {
-        console.error("Error loading clinics from localStorage:", error);
-        setClinicTypes(defaultClinics);
+    const fetchClinics = async () => {
+      const { data, error } = await supabase.from('clinics').select('*').order('date_value', { ascending: true });
+      if (error) {
+        toast.error('Failed to load clinics');
+        setClinicTypes([]);
+      } else {
+        // Map Supabase fields to expected frontend fields
+        setClinicTypes((data || []).map(c => ({
+          id: c.id,
+          name: c.name,
+          description: c.description,
+          price: c.price,
+          maxParticipants: c.max_participants,
+          date: c.date,
+          time: c.time,
+          dateValue: c.date_value,
+          timeValue: c.time_value,
+          instructor: c.instructor,
+          level: c.level,
+          featured: c.featured,
+        })));
       }
-    }
+    };
+    fetchClinics();
   }, []);
 
   // Handle URL parameters for payment success
@@ -713,13 +693,20 @@ const Clinics = () => {
               </section>
               {/* Content section */}
               <div className="max-w-7xl mx-auto px-6 relative py-16">
-                <ClinicSelection 
-                  clinicTypes={clinicTypes}
-                  selectedClinic={selectedClinic}
-                  onClinicSelect={handleClinicSelect}
-                />
+                {clinicTypes.length === 0 ? (
+                  <div className="text-center py-24 text-white/70 text-2xl font-semibold">
+                    There are no clinics available right now.<br />
+                    Please check back soon!
+                  </div>
+                ) : (
+                  <ClinicSelection 
+                    clinicTypes={clinicTypes}
+                    selectedClinic={selectedClinic}
+                    onClinicSelect={handleClinicSelect}
+                  />
+                )}
                 {/* Enhanced Continue Button */}
-                {selectedClinic && (
+                {selectedClinic && clinicTypes.length > 0 && (
                   <div className="text-center animate-fadeIn">
                     <Button
                       onClick={() => setBookingStep("form")}

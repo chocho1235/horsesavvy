@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Edit, Trash2, CalendarDays, Clock, User, Users, Award } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from '@/services/supabaseClient';
 
 // Types for clinic data
 export interface ClinicData {
@@ -12,75 +13,15 @@ export interface ClinicData {
   name: string;
   description: string;
   price: string;
-  maxParticipants: number;
+  max_participants: number;
   date: string;
   time: string;
-  dateValue: string;
-  timeValue: string;
+  date_value: string;
+  time_value: string;
   instructor: string;
   level: string;
   featured: boolean;
 }
-
-// Sample clinics for demo purposes
-const defaultClinics: ClinicData[] = [
-  {
-    id: "dressage-1",
-    name: "Dressage Clinic",
-    description: "Focus on precision, balance, and communication between horse and rider",
-    price: "£60",
-    maxParticipants: 6,
-    date: "Saturday, January 27, 2024",
-    time: "9:00 AM - 11:00 AM",
-    dateValue: "2024-01-27",
-    timeValue: "09:00",
-    instructor: "Sarah Mitchell",
-    level: "Intermediate",
-    featured: false,
-  },
-  {
-    id: "jumping-1",
-    name: "Show Jumping Clinic",
-    description: "Develop jumping technique, course strategy, and confidence",
-    price: "£65",
-    maxParticipants: 6,
-    date: "Sunday, January 28, 2024",
-    time: "2:00 PM - 4:00 PM",
-    dateValue: "2024-01-28",
-    timeValue: "14:00",
-    instructor: "James Thompson",
-    level: "All Levels",
-    featured: true,
-  },
-  {
-    id: "cross-country-1",
-    name: "Cross Country Clinic",
-    description: "Navigate varied terrain and obstacles with confidence",
-    price: "£70",
-    maxParticipants: 4,
-    date: "Saturday, February 3, 2024",
-    time: "10:00 AM - 12:00 PM",
-    dateValue: "2024-02-03",
-    timeValue: "10:00",
-    instructor: "Emma Roberts",
-    level: "Advanced",
-    featured: false,
-  },
-  {
-    id: "flatwork-1",
-    name: "Flatwork Fundamentals",
-    description: "Master the basics of horse training and riding technique",
-    price: "£55",
-    maxParticipants: 8,
-    date: "Sunday, February 4, 2024",
-    time: "11:00 AM - 1:00 PM",
-    dateValue: "2024-02-04",
-    timeValue: "11:00",
-    instructor: "Lisa Williams",
-    level: "Beginner",
-    featured: false,
-  },
-];
 
 // Clinic Form Component
 const ClinicForm = ({ clinic, onSave, onCancel }: {
@@ -92,23 +33,23 @@ const ClinicForm = ({ clinic, onSave, onCancel }: {
     name: clinic?.name || '',
     description: clinic?.description || '',
     price: clinic?.price || '',
-    maxParticipants: clinic?.maxParticipants || 6,
+    max_participants: clinic?.max_participants || 6,
     date: clinic?.date || '',
     time: clinic?.time || '',
-    dateValue: clinic?.dateValue || '',
-    timeValue: clinic?.timeValue || '',
+    date_value: clinic?.date_value || '',
+    time_value: clinic?.time_value || '',
     instructor: clinic?.instructor || '',
     level: clinic?.level || 'All Levels',
     featured: clinic?.featured || false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.description || !formData.price || !formData.instructor) {
-      toast.error("Please fill in all required fields");
+    if (!formData.name || !formData.description || !formData.price || !formData.instructor || !formData.date_value) {
+      toast.error("Please fill in all required fields (including a valid date)");
       return;
     }
-    onSave(formData);
+    await onSave(formData);
   };
 
   return (
@@ -169,8 +110,8 @@ const ClinicForm = ({ clinic, onSave, onCancel }: {
               <label className="text-white font-semibold block mb-2">Max Participants</label>
               <Input
                 type="number"
-                value={formData.maxParticipants}
-                onChange={(e) => setFormData({ ...formData, maxParticipants: parseInt(e.target.value) || 6 })}
+                value={formData.max_participants}
+                onChange={(e) => setFormData({ ...formData, max_participants: parseInt(e.target.value) || 6 })}
                 min="1"
                 max="20"
                 className="bg-blue-900/50 border-white/30 text-white placeholder:text-white/50 h-12"
@@ -196,9 +137,19 @@ const ClinicForm = ({ clinic, onSave, onCancel }: {
             <div>
               <label className="text-white font-semibold block mb-2">Date</label>
               <Input
-                value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                placeholder="e.g., Saturday, January 27, 2024"
+                type="date"
+                value={formData.date_value}
+                onChange={(e) => {
+                  const isoDate = e.target.value;
+                  // Optionally, format a human-readable date string
+                  const readable = isoDate ? new Date(isoDate).toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : '';
+                  setFormData({
+                    ...formData,
+                    date_value: isoDate,
+                    date: readable,
+                  });
+                }}
+                placeholder="e.g., 2024-07-01"
                 className="bg-blue-900/50 border-white/30 text-white placeholder:text-white/50 h-12"
               />
             </div>
@@ -251,67 +202,69 @@ export const ClinicManagement = () => {
   const [clinics, setClinics] = useState<ClinicData[]>([]);
   const [showClinicForm, setShowClinicForm] = useState(false);
   const [editingClinic, setEditingClinic] = useState<ClinicData | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  // Load clinics from localStorage
-  useEffect(() => {
-    const storedClinics = localStorage.getItem("clinic-types");
-    if (storedClinics) {
-      const parsedClinics = JSON.parse(storedClinics);
-      if (parsedClinics.length > 0) {
-        setClinics(parsedClinics);
-      } else {
-        setClinics(defaultClinics);
-        localStorage.setItem("clinic-types", JSON.stringify(defaultClinics));
-      }
+  // Fetch clinics from Supabase
+  const fetchClinics = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.from('clinics').select('*').order('date_value', { ascending: true });
+    if (error) {
+      toast.error('Failed to load clinics from Supabase');
+      setClinics([]);
     } else {
-      setClinics(defaultClinics);
-      localStorage.setItem("clinic-types", JSON.stringify(defaultClinics));
+      setClinics(data || []);
     }
-  }, []);
-
-  // Save clinics to localStorage
-  const saveClinics = (updatedClinics: ClinicData[]) => {
-    setClinics(updatedClinics);
-    localStorage.setItem("clinic-types", JSON.stringify(updatedClinics));
+    setLoading(false);
   };
 
+  useEffect(() => {
+    fetchClinics();
+  }, []);
+
   // Add new clinic
-  const addClinic = (clinicData: Omit<ClinicData, 'id'>) => {
-    const newClinic: ClinicData = {
-      ...clinicData,
-      id: `clinic-${Date.now()}`,
-    };
-    const updatedClinics = [...clinics, newClinic];
-    saveClinics(updatedClinics);
-    setShowClinicForm(false);
-    toast.success("Clinic added successfully!");
+  const addClinic = async (clinicData: Omit<ClinicData, 'id'>) => {
+    setLoading(true);
+    console.log('Sending to Supabase:', clinicData);
+    const { error } = await supabase.from('clinics').insert([{ ...clinicData }]);
+    if (error) {
+      console.error('Supabase insert error:', error);
+      toast.error('Failed to add clinic');
+    } else {
+      toast.success('Clinic added successfully!');
+      fetchClinics();
+      setShowClinicForm(false);
+    }
+    setLoading(false);
   };
 
   // Edit clinic
-  const editClinic = (clinicId: string, clinicData: Omit<ClinicData, 'id'>) => {
-    const updatedClinics = clinics.map(clinic =>
-      clinic.id === clinicId ? { ...clinicData, id: clinicId } : clinic
-    );
-    saveClinics(updatedClinics);
-    setEditingClinic(null);
-    setShowClinicForm(false);
-    toast.success("Clinic updated successfully!");
+  const editClinic = async (clinicId: string, clinicData: Omit<ClinicData, 'id'>) => {
+    setLoading(true);
+    const { error } = await supabase.from('clinics').update({ ...clinicData }).eq('id', clinicId);
+    if (error) {
+      toast.error('Failed to update clinic');
+    } else {
+      toast.success('Clinic updated successfully!');
+      fetchClinics();
+      setEditingClinic(null);
+      setShowClinicForm(false);
+    }
+    setLoading(false);
   };
 
   // Delete clinic
-  const deleteClinic = (clinicId: string) => {
-    if (confirm("Are you sure you want to delete this clinic? This action cannot be undone.")) {
-      const updatedClinics = clinics.filter(clinic => clinic.id !== clinicId);
-      saveClinics(updatedClinics);
-      toast.success("Clinic deleted successfully!");
+  const deleteClinic = async (clinicId: string) => {
+    if (confirm('Are you sure you want to delete this clinic? This action cannot be undone.')) {
+      setLoading(true);
+      const { error } = await supabase.from('clinics').delete().eq('id', clinicId);
+      if (error) {
+        toast.error('Failed to delete clinic');
+      } else {
+        toast.success('Clinic deleted successfully!');
+        fetchClinics();
+      }
+      setLoading(false);
     }
-  };
-
-  // Load sample clinic data
-  const loadSampleClinicData = () => {
-    setClinics(defaultClinics);
-    localStorage.setItem("clinic-types", JSON.stringify(defaultClinics));
-    toast.success("Sample clinics loaded for demo!");
   };
 
   return (
@@ -323,13 +276,6 @@ export const ClinicManagement = () => {
           <p className="text-white/70">Manage available clinics and offerings</p>
         </div>
         <div className="flex gap-3">
-          <Button
-            onClick={loadSampleClinicData}
-            variant="outline"
-            className="bg-blue-900/50 border-white/30 text-white hover:bg-blue-800 px-4 py-2"
-          >
-            🎯 Load Sample Clinics
-          </Button>
           <Button
             onClick={() => {
               setEditingClinic(null);
@@ -348,11 +294,11 @@ export const ClinicManagement = () => {
         <div className="mb-8">
           <ClinicForm
             clinic={editingClinic || undefined}
-            onSave={(data) => {
+            onSave={async (data) => {
               if (editingClinic) {
-                editClinic(editingClinic.id, data);
+                await editClinic(editingClinic.id, data);
               } else {
-                addClinic(data);
+                await addClinic(data);
               }
             }}
             onCancel={() => {
@@ -375,7 +321,12 @@ export const ClinicManagement = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-6">
-          {clinics.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12 text-white/60">
+              <Award className="w-16 h-16 text-white/30 mx-auto mb-4 animate-pulse" />
+              <p className="text-lg">Loading clinics...</p>
+            </div>
+          ) : clinics.length === 0 ? (
             <div className="text-center py-12 text-white/60">
               <Award className="w-16 h-16 text-white/30 mx-auto mb-4" />
               <p className="text-lg">No clinics available</p>
@@ -417,7 +368,7 @@ export const ClinicManagement = () => {
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                       <Users className="w-4 h-4 text-red-400" />
-                      <span className="text-white/80">Max {clinic.maxParticipants} participants</span>
+                      <span className="text-white/80">Max {clinic.max_participants} participants</span>
                     </div>
                   </div>
 
