@@ -622,21 +622,24 @@ const Clinics = () => {
   // Handle payment confirmation (now does the Supabase insert)
   const handlePaymentConfirmed = async () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    let errorOccurred = false;
+
     if (!pendingBookingData || !bookingReference) {
       toast.error("Missing booking details. Please try again.");
-      setBookingStep("confirmation");
-      return;
+      errorOccurred = true;
+    } else {
+      const result = await saveBookingToSupabase(pendingBookingData, bookingReference);
+      if (!result) {
+        toast.error("Failed to save booking. Please try again.");
+        errorOccurred = true;
+      }
     }
-    const result = await saveBookingToSupabase(pendingBookingData, bookingReference);
-    if (!result) {
-      toast.error("Failed to save booking. Please try again.");
-      setBookingStep("confirmation");
-      return;
-    }
-    // Optionally, you could send a payment confirmation email here
+
     setTimeout(() => {
       setBookingStep("confirmation");
-      toast.success("Booking confirmed successfully!");
+      if (!errorOccurred) {
+        toast.success("Booking confirmed successfully!");
+      }
     }, 300);
   };
 
