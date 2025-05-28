@@ -422,6 +422,7 @@ const Clinics = () => {
   const [clinicTypes, setClinicTypes] = useState<any[]>([]);
   const [isCheckingClinic, setIsCheckingClinic] = useState<string | null>(null);
   const [fullClinicPopup, setFullClinicPopup] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Fetch clinics from Supabase on mount
   useEffect(() => {
@@ -582,6 +583,7 @@ const Clinics = () => {
       toast.error("Please select a clinic");
       return;
     }
+    setIsSubmitting(true);
     // Generate proper reference number
     const reference = generateReferenceNumber();
     setBookingReference(reference);
@@ -607,16 +609,19 @@ const Clinics = () => {
         const result = await res.json();
         if (!result.success) {
           toast.error("There was a problem sending your confirmation email.");
+          setIsSubmitting(false);
           return;
         }
       } catch (err) {
         toast.error("There was a network error sending your confirmation email.");
+        setIsSubmitting(false);
         return;
       }
     }
 
     setBookingStep("payment");
     toast.success("Booking details saved! Please complete payment to confirm.");
+    setIsSubmitting(false);
   };
 
   // Handle payment confirmation (now does the Supabase insert)
@@ -955,10 +960,17 @@ const Clinics = () => {
                           </Button>
                           <Button
                             type="submit"
-                            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white flex-1 py-4 text-lg font-bold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                            className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-4 text-lg font-semibold shadow-lg transition-all duration-300 transform hover:scale-[1.02] rounded-full"
+                            disabled={isSubmitting}
                           >
-                            Continue to Payment
-                            <ArrowLeft className="w-5 h-5 ml-2 rotate-180" />
+                            {isSubmitting ? (
+                              <div className="flex items-center gap-2 justify-center">
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                Submitting...
+                              </div>
+                            ) : (
+                              "Continue to Payment"
+                            )}
                           </Button>
                         </div>
                       </form>

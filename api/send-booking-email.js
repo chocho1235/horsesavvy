@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         </div>
         <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 28px 24px 20px 24px;">
           <h2 style="color: #b91c1c; font-size: 1.3rem; margin-bottom: 12px;">Thank you, ${name.split(' ')[0]}!</h2>
-          <p style="font-size: 1.08rem; color: #222; margin-bottom: 18px;">We've received your booking request for the clinic below. Our team will review your request and send you payment instructions if a place is available. <b>Your booking is not yet confirmed.</b></p>
+          <p style="font-size: 1.08rem; color: #222; margin-bottom: 18px;">We've received your booking request for the clinic below. <b>Your spot is now reserved pending payment.</b> Please follow the payment instructions provided. Our team will check your payment and you will receive an email update once it is verified.</p>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 18px;">
             <tr><td style="padding: 8px 0; color: #b91c1c; font-weight: 600;">Clinic:</td><td style="padding: 8px 0;">${clinic}</td></tr>
             <tr><td style="padding: 8px 0; color: #b91c1c; font-weight: 600;">Date:</td><td style="padding: 8px 0;">${date}</td></tr>
@@ -34,9 +34,9 @@ export default async function handler(req, res) {
           </table>
           <div style="margin: 18px 0 12px 0; padding: 16px; background: #fef3c7; border-left: 4px solid #f59e42; border-radius: 6px; color: #92400e;">
             <b>What happens next?</b><br>
-            • We'll check availability and email you payment instructions if a place is available.<br>
-            • Your booking is only confirmed once payment is received and verified.<br>
-            • You'll receive further updates by email.
+            • Please complete your payment as soon as possible to secure your place.<br>
+            • We will check your payment and send you an email update.<br>
+            • If payment is not received within the required timeframe, your spot may be released.<br>
           </div>
           <p style="font-size: 1.01rem; color: #444; margin-top: 18px;">If you have any questions, reply to this email or contact us at <a href="mailto:Penelopepleasant@gmail.com" style="color: #b91c1c; text-decoration: underline;">Penelopepleasant@gmail.com</a>.</p>
         </div>
@@ -128,6 +128,7 @@ export default async function handler(req, res) {
     });
     res.status(200).json({ success: true });
   } catch (err) {
+    console.error('Error sending booking email:', err);
     res.status(500).json({ error: err.message });
   }
 } 

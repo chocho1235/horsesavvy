@@ -427,6 +427,24 @@ const AdminDashboard = () => {
       const { data } = await supabase.from('bookings').select('*');
       setBookings(data || []);
       toast.success('Booking marked as fully paid and confirmed');
+      // Send confirmation email
+      try {
+        await fetch('/api/send-booking-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: booking.email,
+            name: `${booking.first_name} ${booking.last_name}`,
+            clinic: booking.clinic_name,
+            date: booking.selected_date,
+            time: booking.selected_time,
+            reference: booking.reference,
+            status: 'confirmed',
+          }),
+        });
+      } catch (err) {
+        // Optionally log or toast error
+      }
     };
     // Helper: Decline booking
     const decline = async () => {
