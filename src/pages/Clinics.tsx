@@ -624,10 +624,16 @@ const Clinics = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     if (!pendingBookingData || !bookingReference) {
       toast.error("Missing booking details. Please try again.");
+      setBookingStep("confirmation");
       return;
     }
     const result = await saveBookingToSupabase(pendingBookingData, bookingReference);
-    if (!result) return;
+    if (!result) {
+      toast.error("Failed to save booking. Please try again.");
+      setBookingStep("confirmation");
+      return;
+    }
+    // Optionally, you could send a payment confirmation email here
     setTimeout(() => {
       setBookingStep("confirmation");
       toast.success("Booking confirmed successfully!");
