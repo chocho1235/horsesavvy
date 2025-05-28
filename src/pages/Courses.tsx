@@ -128,19 +128,22 @@ const CourseCard = React.memo(
             WebkitTransform: "translate3d(0,0,0)",
             isolation: "isolate",
           }}
-          className="relative bg-blue-900/80 backdrop-blur-md rounded-2xl shadow-xl flex flex-col sm:flex-row items-center justify-between p-6 mb-6 transition-all duration-300 cursor-pointer overflow-hidden border border-blue-700 hover:shadow-2xl hover:-translate-y-1 group"
+          className="relative bg-blue-900/80 backdrop-blur-md rounded-2xl shadow-xl flex flex-col items-start justify-between px-8 py-7 mb-7 transition-all duration-300 cursor-pointer overflow-hidden border border-blue-700 hover:shadow-2xl hover:-translate-y-1 group"
         >
           {/* Accent bar */}
           <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-red-500 to-red-700 rounded-l-2xl" />
-          <div className="flex-1 mb-2 sm:mb-0 sm:pr-6 text-center sm:text-left z-10">
-            <h3 className="text-white text-xl md:text-2xl font-bold mb-2 group-hover:text-yellow-300 transition-colors duration-300">
+          {/* Price badge top-right */}
+          <div className="absolute top-5 right-7 z-20">
+            <span className="inline-block bg-red-600 text-white font-bold text-lg rounded-full px-5 py-1.5 shadow-lg border-2 border-white/10 tracking-wide">
+              £{course.price}
+            </span>
+          </div>
+          <div className="flex-1 w-full z-10">
+            <h3 className="text-white text-2xl md:text-3xl font-extrabold mb-3 group-hover:text-yellow-300 transition-colors duration-300 leading-tight">
               {course.title}
             </h3>
-            <div className="inline-block bg-red-600/90 text-white font-semibold text-base rounded-full px-4 py-1 mt-1 mb-2 shadow-sm">
-              £{course.price}
-            </div>
           </div>
-          <div className="flex-shrink-0 z-10">
+          <div className="flex-shrink-0 z-10 mt-4 self-end">
             <ChevronRight className="w-7 h-7 text-red-400 group-hover:translate-x-1 transition-transform duration-300" />
           </div>
         </motion.div>

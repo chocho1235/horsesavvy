@@ -170,7 +170,7 @@ const ClinicForm = ({ clinic, onSave, onCancel }: {
               id="featured"
               checked={formData.featured}
               onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-              className="w-4 h-4 text-red-600"
+              className="w-4 h-4 text-red-600 cursor-pointer"
             />
             <label htmlFor="featured" className="text-white font-medium">Featured Clinic</label>
           </div>

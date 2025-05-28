@@ -259,6 +259,7 @@ const PaymentInstructions = ({
   onPaymentConfirmed: () => void;
   bookingData?: any;
 }) => {
+  const [agreed, setAgreed] = useState(false);
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     toast.success(`${label} copied to clipboard!`);
@@ -386,9 +387,23 @@ const PaymentInstructions = ({
             </div>
           </div>
           
+          <div className="flex items-center gap-3 mb-4 mt-2">
+            <input
+              type="checkbox"
+              id="agree-terms"
+              checked={agreed}
+              onChange={e => setAgreed(e.target.checked)}
+              className="w-5 h-5 accent-red-600 rounded border border-white/30 focus:ring-2 focus:ring-red-400 cursor-pointer"
+            />
+            <label htmlFor="agree-terms" className="text-white/80 text-sm select-none">
+              By booking, you agree to our{' '}
+              <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline text-red-300 hover:text-red-400">Terms and Conditions</a>.
+            </label>
+          </div>
           <Button
             onClick={onPaymentConfirmed}
             className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-4 text-lg shadow-lg transition-all duration-200 transform hover:scale-[1.02] rounded-full"
+            disabled={!agreed}
           >
             Confirm Payment Sent
           </Button>
@@ -842,10 +857,10 @@ const Clinics = () => {
                                     </SelectTrigger>
                                   </FormControl>
                                   <SelectContent className="bg-blue-900 border-white/20">
-                                    <SelectItem value="beginner" className="text-white hover:bg-blue-800">Beginner</SelectItem>
-                                    <SelectItem value="intermediate" className="text-white hover:bg-blue-800">Intermediate</SelectItem>
-                                    <SelectItem value="advanced" className="text-white hover:bg-blue-800">Advanced</SelectItem>
-                                    <SelectItem value="expert" className="text-white hover:bg-blue-800">Expert/Professional</SelectItem>
+                                    <SelectItem value="beginner" className="text-white hover:bg-blue-800 cursor-grab">Beginner</SelectItem>
+                                    <SelectItem value="intermediate" className="text-white hover:bg-blue-800 cursor-grab">Intermediate</SelectItem>
+                                    <SelectItem value="advanced" className="text-white hover:bg-blue-800 cursor-grab">Advanced</SelectItem>
+                                    <SelectItem value="expert" className="text-white hover:bg-blue-800 cursor-grab">Expert/Professional</SelectItem>
                                   </SelectContent>
                                 </Select>
                                 <FormMessage className="text-red-400" />

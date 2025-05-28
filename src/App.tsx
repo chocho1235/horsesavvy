@@ -28,6 +28,7 @@ const About = lazy(() => import("./pages/About"));
 const BeHorseSavvy = lazy(() => import("./pages/BeHorseSavvy"));
 const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
+const Terms = lazy(() => import("./pages/Terms"));
 
 // Loading component
 const LoadingFallback = () => (
@@ -95,6 +96,7 @@ const routes = [
   { path: "/bhs-stage-2-theory", element: <BHSStage2Theory /> },
   { path: "/bhs-stage-1-practical", element: <BHSStage1Practical /> },
   { path: "/about", element: <About /> },
+  { path: "/terms", element: <Terms /> },
   { path: "/behorsesavvy", element: <BeHorseSavvy /> },
   { path: "/penny-club", element: <NotFound /> },
   { path: "/events", element: <NotFound /> },

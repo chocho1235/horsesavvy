@@ -281,6 +281,21 @@ const AdminDashboard = () => {
     return true;
   };
 
+  // Update payment status
+  const updatePaymentStatus = async (bookingId: string, payment_status: string) => {
+    const { error } = await supabase
+      .from('bookings')
+      .update({ payment_status })
+      .eq('id', bookingId);
+    if (error) {
+      toast.error('Failed to update payment status');
+    } else {
+      toast.success('Payment status updated');
+      const { data } = await supabase.from('bookings').select('*');
+      setBookings(data || []);
+    }
+  };
+
   // Confirm booking
   const confirmBooking = async (bookingId: string) => {
     const success = await updateBookingStatus(bookingId, 'confirmed');
@@ -328,8 +343,14 @@ const AdminDashboard = () => {
     return matchesSearch;
   });
 
-  const pendingBookings = filteredBookings.filter(booking => booking.status === 'pending');
-  const confirmedBookings = filteredBookings.filter(booking => booking.status === 'confirmed');
+  // Pending: status is 'pending' and payment_status is 'pending' or 'received'
+  const pendingBookings = filteredBookings.filter(
+    booking => booking.status === 'pending' && (booking.payment_status === 'pending' || booking.payment_status === 'received' || !booking.payment_status)
+  );
+  // Confirmed: status is 'confirmed' and payment_status is 'confirmed'
+  const confirmedBookings = filteredBookings.filter(
+    booking => booking.status === 'confirmed' && booking.payment_status === 'confirmed'
+  );
   const declinedBookings = filteredBookings.filter(booking => booking.status === 'cancelled');
 
   // Export bookings
@@ -379,110 +400,169 @@ const AdminDashboard = () => {
     }
   };
 
+  // Delete all confirmed bookings
+  const deleteConfirmedBookings = async () => {
+    const { error } = await supabase
+      .from('bookings')
+      .delete()
+      .eq('status', 'confirmed');
+    if (error) {
+      toast.error('Failed to delete confirmed bookings');
+    } else {
+      toast.success('All confirmed bookings deleted');
+      // Refetch bookings
+      const { data } = await supabase.from('bookings').select('*');
+      setBookings(data || []);
+    }
+  };
+
   // Booking card component
-  const BookingCard = ({ booking, isPending = false, isDeclined = false }: { booking: BookingData; isPending?: boolean; isDeclined?: boolean }) => (
-    <div className="bg-white/5 p-6 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300 shadow-lg">
-      <div className="grid lg:grid-cols-4 gap-6">
-        <div className="space-y-3">
-          <div className="flex items-center gap-2 mb-2">
-            <User className="w-4 h-4 text-red-400" />
-            <span className="text-white font-semibold text-lg">
-              {booking.first_name} {booking.last_name}
-            </span>
-          </div>
-          <div className="space-y-1 text-sm">
-            <p className="text-white/70 flex items-center gap-2">
-              <Hash className="w-3 h-3" />
-              <span className="font-mono">{booking.reference}</span>
-            </p>
-            <p className="text-white/70 flex items-center gap-2">
-              <Mail className="w-3 h-3" />
-              {booking.email}
-            </p>
-            <p className="text-white/70 flex items-center gap-2">
-              <Phone className="w-3 h-3" />
-              {booking.phone}
-            </p>
-          </div>
-        </div>
-        
-        <div className="space-y-3">
-          <h4 className="text-white font-semibold flex items-center gap-2">
-            <Award className="w-4 h-4 text-red-400" />
-            Clinic Details
-          </h4>
-          <div className="space-y-1 text-sm">
-            <p className="text-white/90 font-medium">{booking.clinic_name}</p>
-            <p className="text-red-400 font-semibold">{booking.clinic_price}</p>
-            <p className="text-white/70">{booking.selected_date}</p>
-            <p className="text-white/70">{booking.selected_time}</p>
-          </div>
-        </div>
-        
-        <div className="space-y-3">
-          <h4 className="text-white font-semibold">Horse & Experience</h4>
-          <div className="space-y-1 text-sm">
-            <p className="text-white/80">
-              <span className="text-white/60">Horse:</span> {booking.horse_name}
-            </p>
-            <p className="text-white/80">
-              <span className="text-white/60">Level:</span> {booking.experience_level}
-            </p>
-            <p className="text-white/60 text-xs">
-              Booked: {booking.created_at && !isNaN(new Date(booking.created_at).getTime()) ? format(new Date(booking.created_at), 'MMM d, HH:mm') : 'N/A'}
-            </p>
-          </div>
-        </div>
-        
-        <div className="space-y-3">
-          {isPending ? (
-            <>
-              <h4 className="text-white font-semibold">Action Required</h4>
-              <div className="space-y-2">
-                <Button
-                  onClick={() => confirmBooking(booking.id)}
-                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-3 shadow-lg transition-all duration-300 transform hover:scale-105"
-                >
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Confirm
-                </Button>
-                <Button
-                  onClick={() => declineBooking(booking.id)}
-                  className="w-full bg-gradient-to-r from-red-800 to-red-900 hover:from-red-900 hover:to-red-950 text-white font-semibold py-3 shadow-lg transition-all duration-300 transform hover:scale-105 border border-red-600/50"
-                >
-                  <XCircle className="w-4 h-4 mr-2" />
-                  Decline
-                </Button>
-              </div>
-            </>
-          ) : (
-            <div className="space-y-3">
-              <h4 className="text-white font-semibold">Status</h4>
-              <div className={`p-3 rounded-lg ${
-                isDeclined 
-                  ? 'bg-red-950/50 border border-red-500/50'
-                  : 'bg-green-950/50 border border-green-500/50'
-              }`}>
-                <p className={`text-sm flex items-center gap-2 ${
-                  isDeclined ? 'text-red-200' : 'text-green-200'
-                }`}>
-                  {isDeclined ? <XCircle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
-                  {isDeclined ? 'Declined' : 'Confirmed'}
-                </p>
-              </div>
+  const BookingCard = ({ booking, isPending = false, isDeclined = false, showPaymentControls = false }: { booking: BookingData; isPending?: boolean; isDeclined?: boolean; showPaymentControls?: boolean }) => {
+    // Helper: Mark as full payment and confirm
+    const markAsFullAndConfirm = async () => {
+      await supabase
+        .from('bookings')
+        .update({ payment_status: 'confirmed', status: 'confirmed' })
+        .eq('id', booking.id);
+      const { data } = await supabase.from('bookings').select('*');
+      setBookings(data || []);
+      toast.success('Booking marked as fully paid and confirmed');
+    };
+    // Helper: Decline booking
+    const decline = async () => {
+      await updateBookingStatus(booking.id, 'cancelled');
+    };
+    return (
+      <div className="bg-white/5 p-6 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300 shadow-lg">
+        <div className="grid lg:grid-cols-4 gap-6">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <User className="w-4 h-4 text-red-400" />
+              <span className="text-white font-semibold text-lg">
+                {booking.first_name} {booking.last_name}
+              </span>
             </div>
-          )}
+            <div className="space-y-1 text-sm">
+              <p className="text-white/70 flex items-center gap-2">
+                <Hash className="w-3 h-3" />
+                <span className="font-mono">{booking.reference}</span>
+              </p>
+              <p className="text-white/70 flex items-center gap-2">
+                <Mail className="w-3 h-3" />
+                {booking.email}
+              </p>
+              <p className="text-white/70 flex items-center gap-2">
+                <Phone className="w-3 h-3" />
+                {booking.phone}
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <h4 className="text-white font-semibold flex items-center gap-2">
+              <Award className="w-4 h-4 text-red-400" />
+              Clinic Details
+            </h4>
+            <div className="space-y-1 text-sm">
+              <p className="text-white/90 font-medium">{booking.clinic_name}</p>
+              <p className="text-red-400 font-semibold">{booking.clinic_price}</p>
+              <p className="text-white/70">{booking.selected_date}</p>
+              <p className="text-white/70">{booking.selected_time}</p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <h4 className="text-white font-semibold">Horse & Experience</h4>
+            <div className="space-y-1 text-sm">
+              <p className="text-white/80">
+                <span className="text-white/60">Horse:</span> {booking.horse_name}
+              </p>
+              <p className="text-white/80">
+                <span className="text-white/60">Level:</span> {booking.experience_level}
+              </p>
+              <p className="text-white/60 text-xs">
+                Booked: {booking.created_at && !isNaN(new Date(booking.created_at).getTime()) ? format(new Date(booking.created_at), 'MMM d, HH:mm') : 'N/A'}
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            {/* Only show status for declined/confirmed, no action required UI */}
+            {!isPending && (
+              <div className="space-y-3">
+                <h4 className="text-white font-semibold">Status</h4>
+                <div className={`p-3 rounded-lg ${
+                  isDeclined 
+                    ? 'bg-red-950/50 border border-red-500/50'
+                    : 'bg-green-950/50 border border-green-500/50'
+                }`}>
+                  <p className={`text-sm flex items-center gap-2 ${
+                    isDeclined ? 'text-red-200' : 'text-green-200'
+                  }`}>
+                    {isDeclined ? <XCircle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
+                    {isDeclined ? 'Declined' : 'Confirmed'}
+                  </p>
+                </div>
+              </div>
+            )}
+            {/* Controls column (fourth, right of Horse & Experience) */}
+            <div className="space-y-3 flex flex-col items-end justify-between">
+              {/* Payment controls for pending bookings (only if not fully confirmed) */}
+              {isPending && booking.payment_status !== 'confirmed' && (
+                <div className="flex flex-col gap-2 items-end">
+                  <div className="text-white/80 text-sm mb-1">
+                    Payment Status: <span className={
+                      booking.payment_status === 'received'
+                        ? 'text-yellow-300 font-bold'
+                        : 'text-blue-300 font-bold'
+                    }>
+                      {booking.payment_status === 'received' ? 'Deposit Only' : 'Payment Pending'}
+                    </span>
+                  </div>
+                  <Button
+                    size="sm"
+                    className="bg-green-500/90 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded shadow"
+                    onClick={markAsFullAndConfirm}
+                  >
+                    Mark as Full Amount Paid & Confirm
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="bg-yellow-400/90 hover:bg-yellow-400 text-blue-900 font-semibold px-3 py-1 rounded shadow"
+                    onClick={() => updatePaymentStatus(booking.id, 'received')}
+                  >
+                    Mark as Deposit Only
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="bg-red-500/90 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded shadow"
+                    onClick={decline}
+                  >
+                    Decline
+                  </Button>
+                </div>
+              )}
+              {/* Status only for confirmed bookings */}
+              {showPaymentControls && booking.status === 'confirmed' && booking.payment_status === 'confirmed' && (
+                <div className="flex flex-col gap-2 items-end">
+                  <div className="text-white/80 text-sm mb-1">
+                    Payment Status: <span className="text-green-400 font-bold">Full Amount Paid</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
+        
+        {booking.special_requests && (
+          <div className="mt-6 pt-4 border-t border-white/10">
+            <h5 className="text-white font-medium mb-2">Special Requests:</h5>
+            <p className="text-white/70 text-sm bg-white/5 p-3 rounded-lg border border-white/10">{booking.special_requests}</p>
+          </div>
+        )}
       </div>
-      
-      {booking.special_requests && (
-        <div className="mt-6 pt-4 border-t border-white/10">
-          <h5 className="text-white font-medium mb-2">Special Requests:</h5>
-          <p className="text-white/70 text-sm bg-white/5 p-3 rounded-lg border border-white/10">{booking.special_requests}</p>
-        </div>
-      )}
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="min-h-screen bg-blue-950 text-white overflow-hidden relative">
@@ -583,13 +663,20 @@ const AdminDashboard = () => {
           {activeTab === "bookings" && (
             <>
               {/* Delete Declined Bookings Button */}
-              <div className="mb-6 flex justify-end">
+              <div className="mb-6 flex gap-4 justify-end">
                 <button
                   onClick={deleteDeclinedBookings}
                   className="flex items-center gap-2 border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-200 shadow-sm"
                 >
                   <Trash2 className="w-4 h-4" />
                   Delete All Declined Bookings
+                </button>
+                <button
+                  onClick={deleteConfirmedBookings}
+                  className="flex items-center gap-2 border border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold px-4 py-2 rounded-lg transition-colors duration-200 shadow-sm"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete All Confirmed Bookings
                 </button>
               </div>
 
@@ -731,11 +818,22 @@ const AdminDashboard = () => {
                       <p className="text-sm text-white/50">Confirm pending bookings above</p>
                     </div>
                   ) : (
-                    <div className="space-y-4">
-                      {confirmedBookings.map((booking) => (
-                        <BookingCard key={booking.id} booking={booking} isPending={false} />
-                      ))}
-                    </div>
+                    <>
+                      <div className="mb-8">
+                        <h3 className="text-lg font-bold text-green-300 mb-3 flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-300" /> Full Amount Paid ({confirmedBookings.length})
+                        </h3>
+                        {confirmedBookings.length === 0 ? (
+                          <div className="text-white/60 text-sm mb-4">No bookings with full payment yet.</div>
+                        ) : (
+                          <div className="space-y-4">
+                            {confirmedBookings.map((booking) => (
+                              <BookingCard key={booking.id} booking={booking} isPending={false} showPaymentControls={true} />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </>
                   )}
                 </CardContent>
               </Card>
