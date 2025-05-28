@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   const fromAddress = 'bookings@equinology.me';
 
   if (status === 'submitted') {
-    subject = 'We've Received Your Booking Request – BeHorseSavvy';
+    subject = "We've Received Your Booking Request - BeHorseSavvy";
     html = `
       <div style="font-family: 'Segoe UI', Arial, sans-serif; color: #1a202c; background: #f8fafc; padding: 32px; border-radius: 12px; max-width: 600px; margin: 0 auto;">
         <div style="text-align: center; margin-bottom: 32px;">
