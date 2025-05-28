@@ -15,7 +15,25 @@ export default async function handler(req, res) {
   // You can customize the 'from' address below. To use your own domain, verify it in Resend and replace the address.
   const fromAddress = 'onboarding@resend.dev'; // e.g., 'bookings@yourdomain.com' after domain verification
 
-  if (status === 'deposit') {
+  if (status === 'submitted') {
+    subject = 'Booking Request Received';
+    html = `
+      <div style="font-family:Arial,sans-serif; color:#222;">
+        <h2 style="color:#b91c1c;">Hi ${name},</h2>
+        <p>Thank you for submitting your booking request for the following clinic:</p>
+        <table style="margin:16px 0; font-size:1.05em;">
+          <tr><td><b>Clinic:</b></td><td>${clinic}</td></tr>
+          <tr><td><b>Date:</b></td><td>${date}</td></tr>
+          <tr><td><b>Time:</b></td><td>${time}</td></tr>
+          <tr><td><b>Reference:</b></td><td style="color:#b91c1c; font-weight:bold;">${reference}</td></tr>
+        </table>
+        <p style="color:#b91c1c;">This is an acknowledgement that we have received your booking request. Your place is not confirmed until payment is received and verified. You will receive further updates by email.</p>
+        <hr style="border:none; border-top:1px solid #eee; margin:24px 0;">
+        <p style="font-size:0.95em; color:#888;">If you have any questions, reply to this email or contact us at <a href="mailto:Penelopepleasant@gmail.com">Penelopepleasant@gmail.com</a>.</p>
+        <p style="font-size:0.9em; color:#aaa;">BeHorseSavvy</p>
+      </div>
+    `;
+  } else if (status === 'deposit') {
     subject = 'Deposit Received – Your Booking is Pending';
     html = `
       <div style="font-family:Arial,sans-serif; color:#222;">

@@ -586,6 +586,25 @@ const Clinics = () => {
     const reference = generateReferenceNumber();
     setBookingReference(reference);
     setPendingBookingData(data);
+
+    // Send booking request received email
+    const selectedClinicDetails = clinicTypes.find(c => c.id === selectedClinic);
+    if (selectedClinicDetails) {
+      fetch('/api/send-booking-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: data.email,
+          name: `${data.firstName} ${data.lastName}`,
+          clinic: selectedClinicDetails.name,
+          date: selectedClinicDetails.date,
+          time: selectedClinicDetails.time,
+          reference,
+          status: 'submitted',
+        }),
+      });
+    }
+
     setBookingStep("payment");
     toast.success("Booking details saved! Please complete payment to confirm.");
   };
