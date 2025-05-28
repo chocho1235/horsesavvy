@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   let html = '';
 
   // You can customize the 'from' address below. To use your own domain, verify it in Resend and replace the address.
-  const fromAddress = 'onboarding@resend.dev'; // e.g., 'bookings@yourdomain.com' after domain verification
+  const fromAddress = 'bookings@equinology.me'; // Use your verified domain
 
   if (status === 'submitted') {
     subject = 'Booking Request Received';
