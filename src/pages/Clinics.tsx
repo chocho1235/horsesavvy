@@ -590,19 +590,29 @@ const Clinics = () => {
     // Send booking request received email
     const selectedClinicDetails = clinicTypes.find(c => c.id === selectedClinic);
     if (selectedClinicDetails) {
-      fetch('/api/send-booking-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: data.email,
-          name: `${data.firstName} ${data.lastName}`,
-          clinic: selectedClinicDetails.name,
-          date: selectedClinicDetails.date,
-          time: selectedClinicDetails.time,
-          reference,
-          status: 'submitted',
-        }),
-      });
+      try {
+        const res = await fetch('/api/send-booking-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: data.email,
+            name: `${data.firstName} ${data.lastName}`,
+            clinic: selectedClinicDetails.name,
+            date: selectedClinicDetails.date,
+            time: selectedClinicDetails.time,
+            reference,
+            status: 'submitted',
+          }),
+        });
+        const result = await res.json();
+        if (!result.success) {
+          toast.error("There was a problem sending your confirmation email.");
+          return;
+        }
+      } catch (err) {
+        toast.error("There was a network error sending your confirmation email.");
+        return;
+      }
     }
 
     setBookingStep("payment");
