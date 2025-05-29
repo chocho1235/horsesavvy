@@ -80,7 +80,7 @@ export default async function handler(req, res) {
         </div>
         <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 28px 24px 20px 24px;">
           <h2 style="color: #16a34a; font-size: 1.3rem; margin-bottom: 12px;">Congratulations, ${name.split(' ')[0]}!</h2>
-          <p style="font-size: 1.08rem; color: #222; margin-bottom: 18px;">We have received your <b>full payment</b> for the clinic below. Your booking is now <b>fully confirmed</b> and we look forward to welcoming you!</p>
+          <p style="font-size: 1.08rem; color: #222; margin-bottom: 18px;">We are delighted to confirm your booking for the clinic below. Thank you for choosing <b>BeHorseSavvy</b> – we look forward to welcoming you and your horse!</p>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 18px;">
             <tr><td style="padding: 8px 0; color: #b91c1c; font-weight: 600;">Clinic:</td><td style="padding: 8px 0;">${clinic}</td></tr>
             <tr><td style="padding: 8px 0; color: #b91c1c; font-weight: 600;">Date:</td><td style="padding: 8px 0;">${date}</td></tr>
@@ -89,9 +89,14 @@ export default async function handler(req, res) {
           </table>
           <div style="margin: 18px 0 12px 0; padding: 16px; background: #dcfce7; border-left: 4px solid #22c55e; border-radius: 6px; color: #166534;">
             <b>What to expect next:</b><br>
-            • You will receive a final confirmation email with any additional details or instructions.<br>
             • Please arrive 15 minutes before your scheduled clinic time.<br>
-            • If you have any questions, reply to this email or contact us.
+            • Bring appropriate riding gear and safety equipment.<br>
+            • If you have any questions before the clinic, contact us at <a href="mailto:Penelopepleasant@gmail.com" style="color: #b91c1c; text-decoration: underline;">Penelopepleasant@gmail.com</a>.<br>
+          </div>
+          <div style="margin: 24px 0 0 0; padding: 16px; background: #f3f4f6; border-left: 4px solid #b91c1c; border-radius: 6px; color: #1a202c;">
+            <b>Your Invoice:</b><br>
+            Please find your automated invoice attached or available in your booking portal. This serves as your proof of payment and booking confirmation.<br>
+            <span style="font-size: 0.98rem; color: #666;">If you need another copy, let us know.</span>
           </div>
         </div>
         <div style="text-align: center; color: #aaa; font-size: 0.95rem; margin-top: 32px;">&copy; ${new Date().getFullYear()} BeHorseSavvy</div>

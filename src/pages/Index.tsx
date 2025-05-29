@@ -185,6 +185,14 @@ const Index = () => {
       </motion.div>
 
       <Footer />
+
+      {process.env.NODE_ENV !== 'production' && (
+        <div style={{ marginTop: 40, textAlign: 'center' }}>
+          <a href="/email-preview" style={{ color: '#b91c1c', fontWeight: 700, fontSize: 18, textDecoration: 'underline' }}>
+            Preview Booking Emails
+          </a>
+        </div>
+      )}
     </div>
   );
 };
