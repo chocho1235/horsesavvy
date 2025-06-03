@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     question: "What happens after I have enrolled?",
-    answer: "You will receive confirmation of your booking and details about the course. You will also need to purchase the BHS Challenge Awards Book (£15) which will be invoiced separately."
+    answer: "After you have enrolled, you will receive a link to our Moodle online learning platform along with instructions to access your course materials and get started."
   },
   {
     question: "Who is this course suitable for?",
@@ -96,12 +96,12 @@ export default function Bronze() {
               <motion.h1 
                 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
               >
-                Bronze Challenge Award
+                Bronze & Silver Challenge Awards
               </motion.h1>
               <motion.p 
                 className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
               >
-                This advanced course is ideal for learners who have completed Part 1 of the Challenge Awards or have equivalent horse care knowledge. It's your next step toward mastering essential and advanced horse management skills.
+                The BHS Bronze & Silver Challenge Awards are practical, hands-on courses designed for all levels. Bronze covers essential horse care and handling, while Silver builds on this foundation with more advanced skills and direct entry to BHS Stage 2 for eligible candidates. Both awards are delivered with expert guidance and flexible scheduling.
               </motion.p>
               <motion.div 
                 className="flex justify-center gap-4"
@@ -157,7 +157,7 @@ export default function Bronze() {
             {...animationProps}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold mb-6 text-white">Is This Course Right For You?</h2>
+            <h2 className="text-4xl font-bold mb-6 text-white">Are These Courses Right For You?</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
@@ -272,7 +272,7 @@ export default function Bronze() {
                   </div>
                   <div>
                     <h3 className="font-serif text-xl font-semibold text-white mb-2">Certification</h3>
-                    <p className="text-white/90 group-hover:text-white transition-colors">BHS Bronze Award certificate</p>
+                    <p className="text-white/90 group-hover:text-white transition-colors">BHS Bronze or Silver Award certificate (depending on level)</p>
                   </div>
                 </div>
               </div>
@@ -303,7 +303,7 @@ export default function Bronze() {
                   </div>
                   <div>
                     <h3 className="font-serif text-xl font-semibold text-white mb-2">Location</h3>
-                    <p className="text-white/90 group-hover:text-white transition-colors">Practical sessions at our facility</p>
+                    <p className="text-white/90 group-hover:text-white transition-colors">Practical sessions at our facility or your own yard (Silver Award)</p>
                   </div>
                 </div>
               </div>
@@ -350,10 +350,140 @@ export default function Bronze() {
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">Professional Development</h3>
                 <p className="text-white/90 group-hover:text-white transition-colors">
-                  Build essential skills and knowledge for a career in the equine industry
+                  Build essential skills and knowledge for a career in the equine industry. Silver Award offers direct entry to BHS Stage 2 (subject to eligibility).
                 </p>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Syllabus Section */}
+      <section className="py-12 bg-blue-950">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div {...animationProps}>
+            <div className="backdrop-blur-sm bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 rounded-xl shadow-xl p-8 sm:p-10 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <h3 className="font-serif text-2xl font-bold mb-8 text-center text-white relative">
+                <span className="relative z-10 after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-[1px] after:bg-red-500/40">Syllabus</span>
+              </h3>
+              <ul className="space-y-4 relative z-10">
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Describe the correct riding position
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Explain why riding in the correct position is important
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  List the sequence of footfalls for walk and trot
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Lead a horse from the stable to the arena
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Enter and leave the arena safely
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Mount using a mounting block
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Dismount
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Adjust stirrups and girth whilst mounted
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Ride in walk and trot on each rein using the correct aids for transitions between halt, walk and trot
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Ride in walk and trot on each rein using the correct aids for turns
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Ride in walk and trot on each rein using the correct aids for changes of rein
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Ride in walk and trot on each rein using the correct aids for 20m circle
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Ride in walk and trot on each rein using the correct aids for the correct trot diagonal
+                </li>
+                <li className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                    <span className="text-red-500">●</span>
+                  </span>
+                  Carry and use a short whip
+                </li>
+              </ul>
+              <div className="text-center mt-8">
+                <a href="https://www.bhs.org.uk/go-riding-and-learn/recreational-awards/challenge-awards/riding-flat/#:~:text=Bronze%20Award,a%20short%20whip" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 border border-white/20 hover:border-white/40 shadow-lg hover:shadow-xl font-medium">
+                  <span className="text-lg font-medium">View syllabus here</span>
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Bronze & Silver Awards Sections */}
+      <section className="py-12 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Bronze Section */}
+            <div>
+              <motion.h2 {...animationProps} className="text-3xl sm:text-4xl font-bold mb-6 text-white">Bronze Challenge Award</motion.h2>
+              <motion.p {...animationProps} className="text-lg text-white/90 mb-6">
+                The Bronze Challenge Award is designed for beginners of all ages who want to learn essential horse care and handling skills. No prior experience is required. This course covers the basics and provides a strong foundation in horse management.
+              </motion.p>
+              <img src="/Untitled design (14).svg" alt="Bronze Challenge Award" className="w-full h-auto object-contain rounded-xl shadow-lg mb-4" />
+            </div>
+            {/* Silver Section */}
+            <div>
+              <motion.h2 {...animationProps} className="text-3xl sm:text-4xl font-bold mb-6 text-white">Silver Challenge Award</motion.h2>
+              <motion.p {...animationProps} className="text-lg text-white/90 mb-6">
+                The Silver Challenge Award builds on the Bronze Award, introducing more advanced horse care and management skills. This course is ideal for those who have completed the Bronze Award or have equivalent experience. Successful completion may allow direct entry to BHS Stage 2 (subject to eligibility).
+              </motion.p>
+              <img src="/IMG_6922.JPG" alt="Silver Challenge Award" className="w-full h-auto object-contain rounded-xl shadow-lg mb-4" />
+            </div>
           </div>
         </div>
       </section>
@@ -372,8 +502,8 @@ export default function Bronze() {
             {faqs.map((faq, idx) => (
               <FaqItem
                 key={idx}
-                question={faq.question}
-                answer={faq.answer}
+                question={faq.question.replace('Bronze', 'Bronze & Silver').replace('Bronze Award', 'Bronze or Silver Award')}
+                answer={faq.answer.replace('Bronze', 'Bronze & Silver').replace('Bronze Award', 'Bronze or Silver Award').replace('£97', '£97 Bronze / £145 Silver')}
                 isOpen={openFaq === idx}
                 onToggle={() => handleFaqToggle(idx)}
                 animationProps={animationProps}
@@ -390,22 +520,42 @@ export default function Bronze() {
             {...animationProps}
             className="text-center mb-10"
           >
-            <h2 className="text-4xl font-bold mb-8 text-white">Get Started Now!</h2>
+            <h2 className="text-4xl font-bold mb-4 text-white">Enroll Today</h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto mb-8">
+              Get access to hands-on, practical training and earn your BHS Bronze or Silver Challenge Award.
+            </p>
           </motion.div>
-          
-          <div className="max-w-md mx-auto">
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Bronze Card */}
             <motion.div
               {...animationProps}
-              className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl will-change-transform"
+              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
               <div className="relative">
                 <div className="text-center">
-                  <h3 className="font-serif text-2xl font-bold text-white mb-3">BHS Challenge Awards</h3>
-                  <h4 className="font-serif text-xl font-bold text-white mb-5">Bronze Awards</h4>
+                  <h3 className="font-serif text-2xl font-bold text-white mb-3">Bronze Challenge Award</h3>
+                  <p className="font-serif text-lg font-medium text-white/80 mb-5">6 months access • Practical horse care & handling</p>
                   <p className="font-serif text-5xl font-bold text-red-500 mb-8">£97</p>
                   <Button className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-6 text-lg font-medium">
-                    Enroll Now
+                    Enroll for Bronze
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+            {/* Silver Card */}
+            <motion.div
+              {...animationProps}
+              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+              <div className="relative">
+                <div className="text-center">
+                  <h3 className="font-serif text-2xl font-bold text-white mb-3">Silver Challenge Award</h3>
+                  <p className="font-serif text-lg font-medium text-white/80 mb-5">6 months access • Advanced horse care & management</p>
+                  <p className="font-serif text-5xl font-bold text-red-500 mb-8">£97</p>
+                  <Button className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-6 text-lg font-medium">
+                    Enroll for Silver
                   </Button>
                 </div>
               </div>
