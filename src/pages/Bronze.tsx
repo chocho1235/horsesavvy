@@ -87,8 +87,8 @@ export default function Bronze() {
       
       {/* Hero Section */}
       <section className="relative bg-blue-950 py-20 sm:py-28 md:py-36 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-15" />
-        <div className="absolute inset-0 bg-blue-950/90" />
+        <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-40" />
+        <div className="absolute inset-0 bg-blue-950/80" />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
             <motion.div {...animationProps}>
