@@ -96,7 +96,8 @@ export default function Bronze() {
                 Bronze Challenge Award
               </motion.h1>
               <motion.p className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
-                Master the fundamentals of horsemanship with Britain's most trusted equestrian qualification
+                Master the fundamentals of horsemanship with Britain's most trusted equestrian qualification.<br />
+                <span className='text-white/70 text-base block mt-2'>Penny comes to you &mdash; all practical training is delivered at your yard, using your own horse. You have 12 weeks of access to complete your course.</span>
               </motion.p>
               <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                 <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
@@ -311,16 +312,15 @@ export default function Bronze() {
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-4">
                 <Clock className="w-8 h-8 text-red-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Duration</h3>
-              <p className="text-white/80">6-week comprehensive program</p>
+              <h3 className="text-lg font-semibold text-white mb-2">Access</h3>
+              <p className="text-white/80">12 weeks access to course materials</p>
             </motion.div>
-
             <motion.div {...animationProps} className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-4">
                 <Globe className="w-8 h-8 text-red-400" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Format</h3>
-              <p className="text-white/80">Practical sessions at our facility</p>
+              <p className="text-white/80">Penny travels to your yard for practical sessions with your own horse</p>
             </motion.div>
 
             <motion.div {...animationProps} className="text-center">
@@ -504,7 +504,7 @@ export default function Bronze() {
               <div className="flex items-center justify-center gap-4 mb-6">
                 <div className="flex items-center gap-2 text-white/80">
                   <Clock className="h-4 w-4 text-red-400" />
-                  <span className="text-sm">6 weeks</span>
+                  <span className="text-sm">12 weeks access</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/80">
                   <Award className="h-4 w-4 text-red-400" />
