@@ -30,6 +30,7 @@ const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
 const EmailPreview = lazy(() => import("./pages/EmailPreview"));
+const Silver = lazy(() => import("./pages/Silver"));
 
 // Loading component
 const LoadingFallback = () => (
@@ -108,6 +109,7 @@ const routes = [
   { path: "/case-studies", element: <NotFound /> },
   { path: "/admin", element: <Admin /> },
   { path: "/email-preview", element: <EmailPreview /> },
+  { path: "/silver", element: <Silver /> },
   { path: "*", element: <NotFound /> },
 ];
 
