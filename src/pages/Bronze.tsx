@@ -88,7 +88,7 @@ export default function Bronze() {
       {/* Hero Section */}
       <section className="relative bg-blue-950 py-20 sm:py-28 md:py-36 overflow-hidden">
         <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-40" />
-        <div className="absolute inset-0 bg-blue-950/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/90 to-blue-950/95 shadow-2xl" style={{boxShadow: '0 0 80px 20px rgba(30, 41, 59, 0.7)'}} />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center">
             <motion.div {...animationProps}>
@@ -154,7 +154,7 @@ export default function Bronze() {
               <h3 className="text-xl font-semibold text-white mb-4">Expert Instruction</h3>
               <p className="text-white/80">Learn from Penny Pleasant, BHS Accredited Professional Coach with 40+ years experience.</p>
             </motion.div>
-
+            
             <motion.div {...animationProps} className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-6">
                 <Award className="w-8 h-8 text-red-400" />
@@ -257,11 +257,139 @@ export default function Bronze() {
             </motion.div>
           </div>
 
+          {/* Online Elements Section */}
+          <motion.div {...animationProps} className="mt-16 mb-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Online Elements</h2>
+            <div className="w-20 h-1 bg-red-500 mx-auto mb-6"></div>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto">
+              The online part of this course consists of 4 interactive books, as shown below. Each book covers a key area of horse care and knowledge. All students have access to these online modules, while practical training is available only within a suitable radius for in-person visits.
+            </p>
+          </motion.div>
+
           {/* Course Image */}
           <motion.div {...animationProps} className="text-center mt-16">
             <img src="/Untitled design (14).svg" alt="Bronze Challenge Award" className="w-full max-w-md h-auto object-contain mx-auto" />
           </motion.div>
         </div>
+      </section>
+
+      {/* Bronze Book 1: Knowing Your Horse Section */}
+      <section className="py-16 bg-blue-950">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
+          <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
+            <img 
+              src="/image copy 2.png" 
+              alt="Bronze Book 1: Knowing Your Horse" 
+              className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
+            />
+          </div>
+          <div className="w-full md:w-1/2">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Bronze Book 1: Knowing Your Horse</h2>
+            <div className="w-20 h-1 bg-red-500 mb-6"></div>
+            <div className="space-y-8 text-white/90 text-lg">
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Identification</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
+                    <span>Describe a horse by colour, face and leg markings, and gender</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Anatomy</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify key points of the horse's body</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize the main parts of the horse's foot</span></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Health</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>List signs of good and poor health</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Carry out daily health checks</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize when and why a horse needs shoeing or trimming</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Describe ways to reduce the risk of disease on a yard</span></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Feeding</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Understand the rules of feeding</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify hay and haylage</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Describe different methods for providing hay or haylage</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Explain how to soak hay</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify ways to provide water in the stable</span></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Fittening</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Explain why a ridden horse should be fit</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize signs that a horse may not be fit</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bronze Book 2: Caring for Your Horse Section */}
+      <section className="py-16 bg-blue-950">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
+          <div className="w-full md:w-1/2 order-2 md:order-2 flex justify-center">
+            <img 
+              src="/book 1.png" 
+              alt="Bronze Book 2: Caring for Your Horse" 
+              className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
+            />
+          </div>
+          <div className="w-full md:w-1/2 order-1 md:order-1">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Bronze Book 2: Caring for Your Horse</h2>
+            <div className="w-20 h-1 bg-red-500 mb-6"></div>
+            <div className="space-y-8 text-white/90 text-lg">
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Behaviour</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can describe the horse's natural behaviours and instincts</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can describe a horse's vision and how this may affect his behaviour</span></li>
+                </ul>
+                  </div>
+                  <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Stable Care</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can list different types of bedding</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can skip out a stable and tidy the bed</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can clean and refill a water bucket or water drinker</span></li>
+                </ul>
+                  </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Field Care</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can give reasons to support regular turnout</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can describe suitable fencing for field boundaries</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can carry out routine daily field checks</span></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Rugs</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can identify and describe types of rug and their use</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can put on and take off a rug</span></li>
+                </ul>
+                  </div>
+                  <div>
+                <h3 className="text-xl font-semibold text-white mb-2">Grooming</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can describe the benefits for grooming horses</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can explain the use of the items in a grooming kit</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can groom a horse</span></li>
+                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can care for a horse after exercise</span></li>
+                </ul>
+              </div>
+                  </div>
+                </div>
+              </div>
       </section>
 
       {/* Meet Your Tutor */}
@@ -276,7 +404,7 @@ export default function Bronze() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
             </motion.div>
-            
+
             <motion.div {...animationProps} className="text-center md:text-left">
               <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Your Expert Instructor</h2>
               <div className="w-20 h-1 bg-red-500 mx-auto md:mx-0 mb-8"></div>
@@ -311,7 +439,7 @@ export default function Bronze() {
             <motion.div {...animationProps} className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-4">
                 <Clock className="w-8 h-8 text-red-400" />
-              </div>
+                </div>
               <h3 className="text-lg font-semibold text-white mb-2">Access</h3>
               <p className="text-white/80">12 weeks access to course materials</p>
             </motion.div>
@@ -326,7 +454,7 @@ export default function Bronze() {
             <motion.div {...animationProps} className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-red-400" />
-              </div>
+                </div>
               <h3 className="text-lg font-semibold text-white mb-2">Certification</h3>
               <p className="text-white/80">Official BHS Bronze Award</p>
             </motion.div>
@@ -367,100 +495,14 @@ export default function Bronze() {
               <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
                 <span className="w-8 h-8 rounded-full bg-red-600/20 flex items-center justify-center mr-3">
                   <ChevronRight className="w-4 h-4 text-red-500" />
-                </span>
+                  </span>
                 Returning Riders
               </h3>
               <p className="text-white/90">
                 Have some experience but want to refresh your skills and gain formal qualification? Build on your knowledge with proper technique and safety protocols.
               </p>
-            </motion.div>
+          </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* Detailed Syllabus */}
-      <section className="py-20 bg-blue-950">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Complete Syllabus</h2>
-            <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
-            <p className="text-lg text-white/80">
-              Everything you'll learn during your Bronze Award journey
-            </p>
-          </motion.div>
-
-          <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 sm:p-10 hover:border-white/40 transition-all duration-300">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Describe the correct riding position</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Explain why riding in the correct position is important</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">List the sequence of footfalls for walk and trot</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Lead a horse from the stable to the arena</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Enter and leave the arena safely</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Mount using a mounting block</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Dismount safely</span>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Adjust stirrups and girth whilst mounted</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Transitions between halt, walk and trot</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Execute turns and changes of rein</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Ride accurate 20m circles</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Use the correct trot diagonal</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span className="text-white/90">Carry and use a short whip</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="text-center mt-8">
-              <a 
-                href="https://www.bhs.org.uk/go-riding-and-learn/recreational-awards/challenge-awards/riding-flat/#:~:text=Bronze%20Award,a%20short%20whip" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-flex items-center px-6 py-3 bg-red-600/20 hover:bg-red-600/30 text-white rounded-lg transition-all duration-300 border border-red-500/50 hover:border-red-500 font-medium"
-              >
-                <span>View Official BHS Syllabus</span>
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </a>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -509,7 +551,7 @@ export default function Bronze() {
                 <div className="flex items-center gap-2 text-white/80">
                   <Award className="h-4 w-4 text-red-400" />
                   <span className="text-sm">BHS Certified</span>
-                </div>
+              </div>
                 <div className="flex items-center gap-2 text-white/80">
                   <Users className="h-4 w-4 text-red-400" />
                   <span className="text-sm">Expert tuition</span>
@@ -520,8 +562,8 @@ export default function Bronze() {
                 Enroll Now
               </Button>
               <p className="text-white/60 text-sm mt-4">Secure your place today • No hidden fees</p>
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
         </div>
       </section>
 
