@@ -13,7 +13,6 @@ import {
   Search,
   ChevronDown
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 
@@ -57,27 +56,6 @@ const practicalCourses = [
 // UK postcodes covered for practical training
 const validPostcodeAreas = ["RG", "OX", "SL", "HP", "GU"];
 
-// Animation variants - define once at the top with iOS Safari optimizations
-const fadeInUp = {
-  initial: { 
-    opacity: 0, 
-    y: 20,
-    transform: "translateZ(0)", // Force GPU acceleration
-  },
-  whileInView: { 
-    opacity: 1, 
-    y: 0,
-    transform: "translateZ(0)", // Maintain GPU layer
-  },
-  viewport: { once: true, margin: "-50px" }, // Reduced margin for better mobile detection
-  transition: { 
-    duration: 0.5, // Slightly longer for smoother iOS animation
-    ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for better iOS performance
-    opacity: { duration: 0.6 }, // Separate opacity timing
-    y: { duration: 0.5 }
-  }
-};
-
 // Icon component
 const HorseShoe = () => (
   <img
@@ -118,16 +96,7 @@ const CourseCard = React.memo(
 
     return (
       <Link to={toPath} onClick={onClickScroll} className="block group">
-        <motion.div
-          {...fadeInUp}
-          style={{
-            willChange: "transform, opacity",
-            transform: "translateZ(0)",
-            WebkitBackfaceVisibility: "hidden",
-            WebkitPerspective: 1000,
-            WebkitTransform: "translate3d(0,0,0)",
-            isolation: "isolate",
-          }}
+        <div
           className="relative bg-blue-900/80 backdrop-blur-md rounded-2xl shadow-xl flex flex-col items-start justify-between px-8 py-7 mb-7 transition-all duration-300 cursor-pointer overflow-hidden border border-blue-700 hover:shadow-2xl hover:-translate-y-1 group"
         >
           {/* Accent bar */}
@@ -146,7 +115,7 @@ const CourseCard = React.memo(
           <div className="flex-shrink-0 z-10 mt-4 self-end">
             <ChevronRight className="w-7 h-7 text-red-400 group-hover:translate-x-1 transition-transform duration-300" />
           </div>
-        </motion.div>
+        </div>
       </Link>
     );
   }
@@ -218,15 +187,15 @@ export const Courses = () => {
         <div className="absolute inset-0 bg-blue-950/90" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-3xl mx-auto">
-            <motion.div {...fadeInUp}>
-              <motion.h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white drop-shadow-lg">
+            <div>
+              <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white drop-shadow-lg">
                 BeHorseSavvy Courses
-              </motion.h1>
-              <motion.p className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0">
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0">
                 There's a course suited to everyone. Explore our online and practical options below.
-              </motion.p>
+              </p>
 
-              <motion.div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
                 <div className="flex items-center gap-2 px-4 py-2 bg-blue-900 rounded-full border border-white/10 shadow-sm">
                   <CheckCircle className="h-5 w-5 text-red-400" />
                   <span className="text-white/90 text-sm font-medium">
@@ -239,19 +208,16 @@ export const Courses = () => {
                     Delivered by Penny Pleasant BHS Accredited Professional Coach
                   </span>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div className="p-6 bg-blue-900 border border-white/20 rounded-lg max-w-2xl mx-auto shadow-lg will-change-transform">
+              <div className="p-6 bg-blue-900 border border-white/20 rounded-lg max-w-2xl mx-auto shadow-lg will-change-transform">
                 <p className="text-white/80 text-sm leading-relaxed">
                   Our courses feature a mix of programs designed by the British Horse Society and BeHorseSavvy.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-12"
+              <div 
+                className="mt-8 sm:mt-12"
               >
                 <Button
                   onClick={scrollToCourses}
@@ -261,31 +227,53 @@ export const Courses = () => {
                   <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" />
                   <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Course Overview Section */}
       <section className="py-16 sm:py-20 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div
+            className="grid md:grid-cols-2 gap-12 items-center"
+          >
+            <div className="space-y-6">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 drop-shadow-lg">Explore Our Online Equestrian Courses</h2>
+              <div className="w-24 h-1 bg-red-500/70 mx-auto md:mx-0 mb-6 rounded-full" />
+              <p className="text-white/80 text-lg max-w-2xl">
+                We offer a wide range of online equestrian courses tailored to support either home-educated learners and aspiring riders.
+              </p>
+            </div>
+            
+            <div className="relative">
+              <img src="/483657611_1328292291610514_6656248014588240074_n.jpg" alt="Equestrian course collage" className="rounded-2xl shadow-2xl border-4 border-blue-800/50" />
+              <div className="absolute -bottom-4 -right-4 bg-red-600 text-white p-3 rounded-full shadow-lg">
+                <Award className="w-8 h-8" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-20 bg-blue-900/40">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <motion.div
-            {...fadeInUp}
+          <div
             className="space-y-12"
           >
             <div className="text-center mb-16">
-              <motion.div {...fadeInUp}>
+              <div>
                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 drop-shadow-lg">Explore Our Online Equestrian Courses</h2>
                 <div className="w-24 h-1 bg-red-500/70 mx-auto mb-6 rounded-full" />
                 <p className="text-white/80 text-lg max-w-2xl mx-auto">
                   We offer a wide range of online equestrian courses tailored to support either home-educated learners and aspiring riders.
                 </p>
-              </motion.div>
+              </div>
             </div>
 
             <div className="space-y-12">
-              <motion.div {...fadeInUp} className="bg-blue-900 p-8 rounded-xl border border-white/10 shadow-xl">
+              <div className="bg-blue-900 p-8 rounded-xl border border-white/10 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
                     <Award className="w-6 h-6 text-red-400" />
@@ -296,9 +284,9 @@ export const Courses = () => {
                   Our exclusive BeHorse Savvy Levels 1, 2 & 3 are specially designed for home-educated equestrians looking to deepen their horse knowledge. 
                   These courses serve as an excellent foundation for those considering future college enrollment or a career in the equestrian world.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div {...fadeInUp} className="bg-blue-900 p-8 rounded-xl border border-white/10 shadow-xl">
+              <div className="bg-blue-900 p-8 rounded-xl border border-white/10 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
                     <User className="w-6 h-6 text-red-400" />
@@ -329,9 +317,9 @@ export const Courses = () => {
                     On successful completion, you gain direct entry to the BHS Stage 2 exam (booked via the BHS website).
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div {...fadeInUp} className="bg-blue-900 p-8 rounded-xl border border-white/10 shadow-xl">
+              <div className="bg-blue-900 p-8 rounded-xl border border-white/10 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
                     <Clock className="w-6 h-6 text-red-400" />
@@ -360,9 +348,9 @@ export const Courses = () => {
                 <p className="text-white/70 text-lg mt-6">
                   You decide what's working best for you or your learner, course by course.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div {...fadeInUp} className="bg-gradient-to-br from-red-500/20 to-red-500/10 p-8 rounded-xl border border-red-500/20 shadow-xl">
+              <div className="bg-gradient-to-br from-red-500/20 to-red-500/10 p-8 rounded-xl border border-red-500/20 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-red-500/30 flex items-center justify-center">
                     <User className="w-6 h-6 text-red-400" />
@@ -372,131 +360,106 @@ export const Courses = () => {
                 <p className="text-white/80 text-lg leading-relaxed">
                   At any time, you can call Penny to discuss your options and make a plan that suits your goals.
                 </p>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12 animation-container" ref={coursesRef}>
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12" ref={coursesRef}>
         {/* Online Courses */}
-        <motion.section 
-          {...fadeInUp}
+        <section
           className="mb-16 max-w-4xl mx-auto"
-          style={{
-            transform: "translateZ(0)",
-            WebkitBackfaceVisibility: "hidden",
-            backfaceVisibility: "hidden",
-          }}
         >
-          <div className="flex items-center gap-3 mb-8">
-            <Globe className="h-6 w-6 text-red-400" />
-            <h2 className="text-2xl font-bold text-white">ONLINE COURSES</h2>
-            <div className="h-px bg-white/20 flex-grow ml-3" />
+          <div className="text-center mb-10">
+            <div className="inline-block bg-blue-900/80 px-5 py-2 rounded-full mb-4 border border-blue-700">
+              <Globe className="w-8 h-8 text-red-400" />
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">Online Courses</h2>
+            <p className="text-white/70 text-lg">Learn from anywhere, at your own pace.</p>
           </div>
+
           <div className="space-y-6">
             {onlineCourses.map((course) => (
-              <CourseCard
-                key={course.id}
-                course={course}
-              />
+              <CourseCard key={course.id} course={course} />
             ))}
           </div>
-        </motion.section>
+        </section>
 
         {/* Practical Courses */}
-        <motion.section 
-          {...fadeInUp}
+        <section
           className="mb-16 max-w-4xl mx-auto"
         >
-          <div className="flex items-center gap-3 mb-8">
-            <MapPin className="h-6 w-6 text-red-400" />
-            <h2 className="text-2xl font-bold text-white">PRACTICAL COURSES</h2>
-            <div className="h-px bg-white/20 flex-grow ml-3" />
+          <div className="text-center mb-10">
+            <div className="inline-block bg-blue-900/80 px-5 py-2 rounded-full mb-4 border border-blue-700">
+              <MapPin className="w-8 h-8 text-red-400" />
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">Practical Training</h2>
+            <p className="text-white/70 text-lg">Hands-on experience with expert guidance. Check your eligibility below.</p>
           </div>
 
           {/* Postcode Checker */}
-          <motion.div 
-            {...fadeInUp}
-            className="mb-10 p-6 bg-blue-900 border border-white/20 rounded-lg shadow-lg will-change-transform"
+          <div
+            className="mb-10 p-6 bg-blue-900 border border-white/20 rounded-lg shadow-lg"
           >
-            <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
-              <Search className="w-5 h-5 text-red-400 mr-2" />
-              Check if we deliver in your area
-            </h3>
-            <p className="text-white/70 text-sm mb-6">
-              Practical courses are available in select areas. Enter your postcode to check availability:
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-grow">
+            <div className="flex flex-col sm:flex-row gap-4 items-center">
+              <div className="relative flex-grow w-full sm:w-auto">
                 <input
                   type="text"
                   ref={postcodeInputRef}
                   placeholder="Enter postcode (e.g. RG1 1AA)"
-                  className="w-full px-4 py-3 bg-blue-900/50 border border-white/20 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 shadow-inner transition-all"
+                  className="w-full pl-10 pr-4 py-3 bg-blue-950/80 border-2 border-blue-700 rounded-full text-white placeholder:text-blue-300/60 focus:outline-none focus:ring-2 focus:ring-red-500/80 shadow-inner"
                 />
+                <MapPin className="w-5 h-5 text-blue-300/60 absolute left-4 top-1/2 -translate-y-1/2" />
               </div>
               <Button
                 onClick={checkPostcode}
-                className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center h-[46px] border border-white/10"
+                className="w-full sm:w-auto px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full transition-colors flex items-center justify-center gap-2"
               >
-                <Search className="w-4 h-4 mr-2" />
-                Check Availability
+                <Search className="w-4 h-4" />
+                Check Area
               </Button>
             </div>
 
             {postcodeResult && (
-              <motion.div
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className={`mt-6 p-4 rounded ${
+              <div
+                className={`mt-6 p-4 rounded-lg ${
                   postcodeResult.available
                     ? "bg-green-900/20 border border-green-500/30"
                     : "bg-red-900/20 border border-red-500/30"
                 }`}
               >
                 <p
-                  className={`text-sm ${
+                  className={`text-sm text-center font-medium ${
                     postcodeResult.available
-                      ? "text-green-400"
-                      : "text-red-400"
+                      ? "text-green-300"
+                      : "text-red-300"
                   }`}
                 >
                   {postcodeResult.message}
                 </p>
-              </motion.div>
+              </div>
             )}
-          </motion.div>
+          </div>
 
           <div className="space-y-6">
             {practicalCourses.map((course) => (
-              <CourseCard
-                key={course.id}
-                course={course}
-              />
+              <CourseCard key={course.id} course={course} />
             ))}
           </div>
-        </motion.section>
+        </section>
 
         {/* Disclaimer */}
-        <motion.div
-          {...fadeInUp}
-          className="mt-16 p-6 bg-blue-900 border border-white/10 rounded-lg max-w-4xl mx-auto will-change-transform"
+        <div
+          className="mt-16 p-6 bg-blue-900 border border-white/10 rounded-lg max-w-4xl mx-auto"
         >
-          <div className="relative">
-            <h3 className="text-sm font-semibold mb-2 text-red-400 flex items-center">
-              <span className="w-5 h-5 rounded-full bg-red-900/30 flex items-center justify-center mr-2">
-                <ChevronRight className="w-3 h-3 text-red-400" />
-              </span>
-              Important Notice
-            </h3>
-            <p className="text-white/60 text-xs ml-7">
-              These courses prepare you for BHS assessments, but official qualification requires examination at a recognized BHS centre.
+          <div className="text-center">
+            <h3 className="text-xl font-semibold text-white mb-2">Can't decide?</h3>
+            <p className="text-white/80">
+              No problem. Feel free to give Penny a call to discuss your individual needs and she can advise on what's best for you.
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <Footer bgColor="bg-blue-950" />
