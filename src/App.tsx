@@ -20,6 +20,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const HorseKnowledge = lazy(() => import("./pages/HorseKnowledge"));
 const HorseKnowledge2 = lazy(() => import("./pages/HorseKnowledge2"));
 const Bronze = lazy(() => import("./pages/Bronze"));
+const BronzePractical = lazy(() => import("./pages/BronzePractical"));
 const Courses = lazy(() => import("./pages/Courses"));
 const BHSStage1Theory = lazy(() => import("./pages/BHSStage1Theory"));
 const BHSStage2Theory = lazy(() => import("./pages/BHSStage2Theory"));
@@ -94,6 +95,7 @@ const routes = [
   { path: "/horse-knowledge", element: <HorseKnowledge /> },
   { path: "/horse-knowledge-2", element: <HorseKnowledge2 /> },
   { path: "/bronze", element: <Bronze /> },
+  { path: "/bronze-practical", element: <BronzePractical /> },
   { path: "/bhs-stage-1-theory", element: <BHSStage1Theory /> },
   { path: "/bhs-stage-2-theory", element: <BHSStage2Theory /> },
   { path: "/bhs-stage-1-practical", element: <BHSStage1Practical /> },

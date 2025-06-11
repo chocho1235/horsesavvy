@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ChevronDown, ArrowLeft, Award, User } from "lucide-react";
+import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ChevronDown, ArrowLeft, Award, User, Search, MapPin, ChevronLeft, Star, Quote } from "lucide-react";
 import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
@@ -32,6 +32,53 @@ const faqs = [
   }
 ];
 
+// UK postcodes covered for practical training
+const validPostcodeAreas = ["RG", "OX", "SL", "HP", "GU"];
+
+// Testimonials data
+const testimonials = [
+  {
+    name: "Example Student A",
+    location: "Example Location",
+    rating: 5,
+    text: "The Bronze Award completely transformed my confidence around horses. Penny's teaching style is incredible - she made everything so clear and approachable. I went from being nervous to genuinely excited about every lesson!",
+    course: "Bronze Challenge Award",
+    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
+  },
+  {
+    name: "Example Student B",
+    location: "Example Location", 
+    rating: 5,
+    text: "As a complete beginner, I was worried I'd be out of my depth, but the course structure is perfect. The online materials prepared me well for the practical sessions, and now I feel confident handling horses independently.",
+    course: "Bronze Challenge Award",
+    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
+  },
+  {
+    name: "Example Student C",
+    location: "Example Location",
+    rating: 5,
+    text: "I loved how the course combined theory with hands-on practice. Penny's expertise really shows - she has this amazing ability to spot exactly what you need to work on and help you improve quickly.",
+    course: "Bronze Challenge Award",
+    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
+  },
+  {
+    name: "Example Student D",
+    location: "Example Location",
+    rating: 5,
+    text: "The Bronze Award gave me the foundation I needed to pursue my equestrian goals. The qualification is well-respected, and I feel properly prepared to continue my riding journey with confidence.",
+    course: "Bronze Challenge Award",
+    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
+  },
+  {
+    name: "Example Student E",
+    location: "Example Location",
+    rating: 5,
+    text: "Penny's teaching approach is fantastic - patient, encouraging, and incredibly knowledgeable. The course content is comprehensive but never overwhelming. I can't recommend it highly enough!",
+    course: "Bronze Challenge Award",
+    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
+  }
+];
+
 // Animation variants
 const fadeIn = {
   initial: { opacity: 0, y: 10 },
@@ -39,9 +86,15 @@ const fadeIn = {
 };
 
 export default function Bronze() {
+  const [postcodeResult, setPostcodeResult] = useState<{
+    available: boolean;
+    message: string;
+  } | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const isMobile = useIsMobile();
+  const postcodeInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -80,6 +133,44 @@ export default function Bronze() {
     document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
+  const checkPostcode = useCallback(() => {
+    const val = postcodeInputRef.current?.value.trim() ?? "";
+    if (!val) {
+      setPostcodeResult(null);
+      return;
+    }
+    const area = val.toUpperCase().split(" ")[0].replace(/[0-9]/g, "");
+    const ok = validPostcodeAreas.includes(area);
+    setPostcodeResult({
+      available: ok,
+      message: ok
+        ? "Great news! We offer practical training in your area."
+        : "Sorry, we don't currently offer practical training in your area, but our online elements are available nationwide.",
+    });
+    
+    // If postcode is valid, redirect to Bronze Practical page
+    if (ok) {
+      // Small delay to show the success message before redirecting
+      setTimeout(() => {
+        window.location.href = '/bronze-practical';
+      }, 2000);
+    }
+  }, []);
+
+  const nextTestimonial = useCallback(() => {
+    setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
+  }, []);
+
+  const prevTestimonial = useCallback(() => {
+    setCurrentTestimonial(prev => (prev - 1 + testimonials.length) % testimonials.length);
+  }, []);
+
+  // Auto-advance testimonials
+  useEffect(() => {
+    const interval = setInterval(nextTestimonial, 5000);
+    return () => clearInterval(interval);
+  }, [nextTestimonial]);
+
   return (
     <div className="min-h-[100dvh] bg-blue-950 text-white">
       <ContactHeader bgColor="bg-blue-950" />
@@ -96,8 +187,8 @@ export default function Bronze() {
                 Bronze Challenge Award
               </motion.h1>
               <motion.p className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
-                Master the fundamentals of horsemanship with Britain's most trusted equestrian qualification.<br />
-                <span className='text-white/70 text-base block mt-2'>Penny comes to you &mdash; all practical training is delivered at your yard, using your own horse. You have 12 weeks of access to complete your course.</span>
+                Build confidence and essential skills with this comprehensive equestrian qualification.<br />
+                <span className='text-white/70 text-base block mt-2'>12 weeks access to complete your course with online and practical elements.</span>
               </motion.p>
               <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                 <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
@@ -159,175 +250,117 @@ export default function Bronze() {
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-6">
                 <Award className="w-8 h-8 text-red-400" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-4">Recognized Qualification</h3>
+              <h3 className="text-xl font-semibold text-white mb-4">Recognised Qualification</h3>
               <p className="text-white/80">Earn your official BHS Bronze Award certificate, respected throughout the equestrian industry.</p>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* What You'll Learn */}
+      {/* Online Elements */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div {...animationProps} className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">What You'll Master</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Online Elements</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
-              Build confidence and competence across three essential areas of horsemanship
+              Access comprehensive online learning materials and resources
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Riding Skills */}
             <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
-                <ChevronRight className="w-6 h-6 text-red-400" />
+                <BookOpen className="w-6 h-6 text-red-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Riding Fundamentals</h3>
-              <ul className="space-y-3 text-white/90">
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Correct riding position and balance</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Walk and trot transitions</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Steering and control</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Safe mounting and dismounting</span>
-                </li>
-              </ul>
+              <h3 className="text-xl font-semibold text-white mb-4">Book 1</h3>
+              <p className="text-white/80">Riding Fit - Learn about rider fitness and its impact on your horse.</p>
             </motion.div>
 
-            {/* Horse Handling */}
             <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
-                <Users className="w-6 h-6 text-red-400" />
+                <BookOpen className="w-6 h-6 text-red-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Horse Handling</h3>
-              <ul className="space-y-3 text-white/90">
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Leading horses safely</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Arena safety protocols</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Equipment adjustments</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Basic groundwork skills</span>
-                </li>
-              </ul>
+              <h3 className="text-xl font-semibold text-white mb-4">Book 2</h3>
+              <p className="text-white/80">Knowing Your Horse - Understand equine behavior and communication.</p>
             </motion.div>
 
-            {/* Fitness & Preparation */}
             <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
-                <Sparkles className="w-6 h-6 text-red-400" />
+                <BookOpen className="w-6 h-6 text-red-400" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Preparation for Advanced Skills</h3>
-              <ul className="space-y-3 text-white/90">
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Light seat for jumping preparation</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Rider fitness and alignment</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Nutrition and hydration</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                  <span>Mental preparation</span>
-                </li>
-              </ul>
+              <h3 className="text-xl font-semibold text-white mb-4">Book 3</h3>
+              <p className="text-white/80">Handling Your Horse - Master safe and effective horse handling techniques.</p>
             </motion.div>
           </div>
-
-          {/* Online Elements Section */}
-          <motion.div {...animationProps} className="mt-16 mb-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Online Elements</h2>
-            <div className="w-20 h-1 bg-red-500 mx-auto mb-6"></div>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto">
-              The online part of this course consists of 4 interactive books, as shown below. Each book covers a key area of horse care and knowledge. All students have access to these online modules, while practical training is available only within a suitable radius for in-person visits.
-            </p>
-          </motion.div>
-
-          {/* Course Image */}
-          <motion.div {...animationProps} className="text-center mt-16">
-            <img src="/Untitled design (14).svg" alt="Bronze Challenge Award" className="w-full max-w-md h-auto object-contain mx-auto" />
-          </motion.div>
         </div>
       </section>
 
-      {/* Bronze Book 1: Knowing Your Horse Section */}
+
+
+      {/* Course Details */}
       <section className="py-16 bg-blue-950">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
-            <img 
-              src="/image copy 2.png" 
-              alt="Bronze Book 1: Knowing Your Horse" 
-              className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
-            />
-          </div>
-          <div className="w-full md:w-1/2">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Bronze Book 1: Knowing Your Horse</h2>
-            <div className="w-20 h-1 bg-red-500 mb-6"></div>
-            <div className="space-y-8 text-white/90 text-lg">
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Identification</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                    <span>Describe a horse by colour, face and leg markings, and gender</span>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Anatomy</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify key points of the horse's body</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize the main parts of the horse's foot</span></li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Health</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>List signs of good and poor health</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Carry out daily health checks</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize when and why a horse needs shoeing or trimming</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Describe ways to reduce the risk of disease on a yard</span></li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Feeding</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Understand the rules of feeding</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify hay and haylage</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Describe different methods for providing hay or haylage</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Explain how to soak hay</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify ways to provide water in the stable</span></li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Fittening</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Explain why a ridden horse should be fit</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize signs that a horse may not be fit</span></li>
-                </ul>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div {...animationProps} className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Course Details</h2>
+            <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
+          </motion.div>
+
+          {/* Bronze Book 1: Knowing Your Horse Section */}
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
+              <img 
+                src="/image copy 2.png" 
+                alt="Bronze Book 1: Knowing Your Horse" 
+                className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
+              />
+            </div>
+            <div className="w-full md:w-1/2">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Bronze Book 1: Knowing Your Horse</h2>
+              <div className="w-20 h-1 bg-red-500 mb-6"></div>
+              <div className="space-y-8 text-white/90 text-lg">
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Identification</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start">
+                      <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
+                      <span>Describe a horse by colour, face and leg markings, and gender</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Anatomy</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify key points of the horse's body</span></li>
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize the main parts of the horse's foot</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Health</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>List signs of good and poor health</span></li>
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Carry out daily health checks</span></li>
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize when and why a horse needs shoeing or trimming</span></li>
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Describe ways to reduce the risk of disease on a yard</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Feeding</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Understand the rules of feeding</span></li>
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify hay and haylage</span></li>
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Describe different methods for providing hay or haylage</span></li>
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Explain how to soak hay</span></li>
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify ways to provide water in the stable</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Fittening</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Explain why a ridden horse should be fit</span></li>
+                    <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize signs that a horse may not be fit</span></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -412,24 +445,24 @@ export default function Bronze() {
             
             <div className="space-y-6 text-white/90 text-lg">
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>How to work safely on a yard</span>
               </div>
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>How your behaviour or actions could affect your horse</span>
               </div>
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>How to lead your horse</span>
               </div>
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>How to clean your tack</span>
               </div>
-            </div>
-          </div>
-        </div>
+                  </div>
+                  </div>
+                </div>
       </section>
 
       {/* Bronze Book 4: Lungeing Your Horse Section */}
@@ -455,37 +488,139 @@ export default function Bronze() {
             
             <div className="space-y-4 text-white/90 text-lg">
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>I can give reasons for lungeing a horse</span>
               </div>
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>I can list the equipment required to lunge a horse</span>
               </div>
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>I can tack up for lungeing</span>
               </div>
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>I can lead a horse in preparation for lungeing</span>
               </div>
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>I can coil the lunge line</span>
               </div>
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>I can change the whip over</span>
               </div>
               <div className="flex items-start">
-                <span className="w-3 h-3 rounded-full bg-red-500 mt-2 mr-4 flex-shrink-0"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
                 <span>I can untack the horse after lungeing</span>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Practical Elements */}
+      <section className="py-20 bg-blue-950">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div {...animationProps} className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Practical Elements</h2>
+            <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
+            <p className="text-lg text-white/80 max-w-3xl mx-auto">
+              Check your eligibility for hands-on training with our expert instructor
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-1 gap-8 max-w-4xl mx-auto">
+            {/* How It Works */}
+            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6 mx-auto">
+                <BookOpen className="w-6 h-6 text-red-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-4 text-center">How Practical Training Works</h3>
+              <p className="text-white/80 text-center mb-6">
+                Our practical training is available in select areas. If you're within our service radius, you'll gain access to hands-on instruction to complement your online learning.
+              </p>
+              <ul className="space-y-3 text-white/90 max-w-2xl mx-auto">
+                <li className="flex items-start">
+                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
+                  <span>Check your postcode to see if practical training is available in your area</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
+                  <span>If eligible, you'll be taken to the Bronze Practical course page</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
+                  <span>Practical sessions complement your online learning with hands-on experience</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
+                  <span>All students can complete the Bronze Award with online elements only</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Postcode Checker */}
+            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6 mx-auto">
+                <MapPin className="w-6 h-6 text-red-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-4 text-center">Check Your Area</h3>
+              <p className="text-white/80 text-center mb-6">Enter your postcode to see if practical training is available in your location.</p>
+              
+              <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
+                <div className="relative flex-grow">
+                  <input
+                    type="text"
+                    ref={postcodeInputRef}
+                    placeholder="Enter postcode (e.g. RG1 1AA)"
+                    className="w-full px-4 py-3 bg-blue-900/50 border border-white/20 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 shadow-inner transition-all"
+                  />
+                </div>
+                <Button
+                  onClick={checkPostcode}
+                  className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center h-[46px] border border-white/10"
+                >
+                  <Search className="w-4 h-4 mr-2" />
+                  Check Availability
+                </Button>
+              </div>
+
+              {postcodeResult && (
+                <motion.div
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className={`mt-6 p-4 rounded max-w-xl mx-auto ${
+                    postcodeResult.available
+                      ? "bg-green-900/20 border border-green-500/30"
+                      : "bg-red-900/20 border border-red-500/30"
+                  }`}
+                >
+                  <p
+                    className={`text-sm text-center ${
+                      postcodeResult.available
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {postcodeResult.message}
+                    {postcodeResult.available && (
+                      <span className="block mt-2 text-green-300">
+                        You'll be redirected to the Bronze Practical course in a few seconds...
+                      </span>
+                    )}
+                  </p>
+                </motion.div>
+              )}
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+
 
       {/* Meet Your Tutor */}
       <section className="py-20 bg-blue-950">
@@ -519,18 +654,136 @@ export default function Bronze() {
                   Fully Insured<br/>
                   DBS Checked Safeguarding Certified
                 </p>
-              </div>
+                  </div>
               <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                 <div className="flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full">
                   <Award className="h-4 w-4 text-red-400" />
                   <span className="text-white/90 text-sm">BHS Accredited</span>
-                </div>
+                  </div>
                 <div className="flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full">
                   <Clock className="h-4 w-4 text-red-400" />
                   <span className="text-white/90 text-sm">40+ Years Experience</span>
                 </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Carousel */}
+      <section className="py-20 bg-blue-950">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div {...animationProps} className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">What Our Students Say</h2>
+            <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
+            <p className="text-lg text-white/80 max-w-3xl mx-auto">
+              Join hundreds of riders who have transformed their equestrian journey with the Bronze Challenge Award
+            </p>
+          </motion.div>
+
+                    <div className="relative max-w-6xl mx-auto">
+            <motion.div 
+              {...animationProps}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 md:p-12 relative overflow-hidden"
+            >
+              {/* Quote Icon */}
+              <div className="absolute top-6 left-6 opacity-20">
+                <Quote className="w-12 h-12 text-red-400" />
+              </div>
+
+              {/* Testimonial Content */}
+              <div className="relative z-10">
+                <motion.div
+                  key={currentTestimonial}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="grid md:grid-cols-5 gap-6 items-center"
+                >
+                  {/* Image Section */}
+                  <div className="md:col-span-2 flex justify-center">
+                    <div className="relative">
+                      <img 
+                        src={testimonials[currentTestimonial].image}
+                        alt={`${testimonials[currentTestimonial].name} with certificate`}
+                        className="w-48 h-48 md:w-56 md:h-56 object-cover rounded-xl shadow-2xl border-4 border-white/20"
+                      />
+                      {/* Certificate Badge Overlay */}
+                      <div className="absolute -bottom-3 -right-3 bg-red-600 text-white px-2 py-1 rounded-lg shadow-lg transform rotate-12">
+                        <div className="flex items-center gap-1">
+                          <Award className="w-3 h-3" />
+                          <span className="text-xs font-bold">BRONZE CERTIFIED</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content Section */}
+                  <div className="md:col-span-3 text-center md:text-left">
+                    {/* Stars */}
+                    <div className="flex justify-center md:justify-start mb-4">
+                      {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
+
+                    {/* Testimonial Text */}
+                    <blockquote className="text-lg md:text-xl text-white/90 leading-relaxed mb-6 font-light italic">
+                      "{testimonials[currentTestimonial].text}"
+                    </blockquote>
+
+                    {/* Author Info */}
+                    <div className="flex flex-col items-center md:items-start">
+                      <h4 className="text-lg font-semibold text-white mb-1">
+                        {testimonials[currentTestimonial].name}
+                      </h4>
+                      <p className="text-white/70 text-sm mb-3">
+                        {testimonials[currentTestimonial].location}
+                      </p>
+                      <div className="px-3 py-1 bg-red-600/20 rounded-full">
+                        <span className="text-red-400 text-xs font-medium">
+                          {testimonials[currentTestimonial].course}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={prevTestimonial}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="w-5 h-5 text-white" />
+            </button>
+
+            <button
+              onClick={nextTestimonial}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-5 h-5 text-white" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentTestimonial
+                      ? 'bg-red-500 scale-110'
+                      : 'bg-white/30 hover:bg-white/50'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
