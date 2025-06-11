@@ -233,31 +233,7 @@ export const Courses = () => {
         </div>
       </section>
 
-      {/* Course Overview Section */}
-      <section className="py-16 sm:py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div
-            className="grid md:grid-cols-2 gap-12 items-center"
-          >
-            <div className="space-y-6">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 drop-shadow-lg">Explore Our Online Equestrian Courses</h2>
-              <div className="w-24 h-1 bg-red-500/70 mx-auto md:mx-0 mb-6 rounded-full" />
-              <p className="text-white/80 text-lg max-w-2xl">
-                We offer a wide range of online equestrian courses tailored to support either home-educated learners and aspiring riders.
-              </p>
-            </div>
-            
-            <div className="relative">
-              <img src="/483657611_1328292291610514_6656248014588240074_n.jpg" alt="Equestrian course collage" className="rounded-2xl shadow-2xl border-4 border-blue-800/50" />
-              <div className="absolute -bottom-4 -right-4 bg-red-600 text-white p-3 rounded-full shadow-lg">
-                <Award className="w-8 h-8" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 sm:py-20 bg-blue-900/40">
+      <section className="py-16 sm:py-20 bg-blue-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div
             className="space-y-12"
