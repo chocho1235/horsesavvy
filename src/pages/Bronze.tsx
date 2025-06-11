@@ -283,7 +283,7 @@ export default function Bronze() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <motion.div 
               variants={fadeInUp}
               initial="initial"
@@ -321,6 +321,19 @@ export default function Bronze() {
               </div>
               <h3 className="text-xl font-semibold text-white mb-4">Book 3</h3>
               <p className="text-white/80">Handling Your Horse - Master safe and effective horse handling techniques.</p>
+            </motion.div>
+
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
+                <BookOpen className="w-6 h-6 text-red-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-4">Book 4</h3>
+              <p className="text-white/80">Lunging - Learn the fundamentals of lunging a horse safely and effectively.</p>
             </motion.div>
           </div>
         </div>
@@ -554,7 +567,7 @@ export default function Bronze() {
       </section>
 
       {/* Practical Elements */}
-      <section className="py-20 bg-blue-950">
+      <section className="py-20 bg-blue-950/50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             variants={fadeInUp}
