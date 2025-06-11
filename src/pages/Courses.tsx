@@ -165,7 +165,7 @@ export const Courses = () => {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-blue-950 text-blue-50 overflow-x-hidden">
+    <div className="min-h-screen bg-blue-950 text-blue-50">
       <ContactHeader bgColor="bg-blue-950" />
 
       {/* Back Home Button */}
