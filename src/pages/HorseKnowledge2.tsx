@@ -17,21 +17,11 @@ const LoadingFallback = () => (
 );
 
 // Animation variants
-const fadeIn = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 }
-};
-
-const slideInRight = {
-  initial: { opacity: 0, x: 20 },
-  whileInView: { opacity: 1, x: 0 }
-};
-
-// Page-level animation
-const pageAnimation = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 }
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.6, ease: "easeOut" }
 };
 
 const faqs = [
@@ -96,7 +86,7 @@ export default function HorseKnowledge2() {
       initial: "initial",
       whileInView: "whileInView",
       viewport: { once: true, margin: "-50px" },
-      variants: fadeIn,
+      variants: fadeInUp,
       transition: { 
         duration: 0.4,
         ease: "easeOut"
@@ -123,31 +113,43 @@ export default function HorseKnowledge2() {
         <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-15" />
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/80 to-blue-950/95" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center max-w-3xl mx-auto">
-            <motion.div {...animationProps}>
-              <motion.h1 
-                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
+          <motion.div
+            className="text-center max-w-3xl mx-auto"
+            initial="initial"
+            animate="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              whileInView: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            <motion.h1 
+              variants={fadeInUp}
+              className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
+            >
+              Horse Knowledge Part 2
+            </motion.h1>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
+            >
+              Part two further builds on your understanding and confidence by looking more in-depth at what you need to know when caring for a horse.
+            </motion.p>
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            >
+              <Button
+                onClick={handleEnrollClick}
+                className="bg-red-600 hover:bg-red-700 text-white px-8 py-6 text-lg font-medium rounded-lg transition-colors duration-300"
               >
-                Horse Knowledge Part 2
-              </motion.h1>
-              <motion.p 
-                className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
-              >
-                Part two further builds on your understanding and confidence by looking more in-depth at what you need to know when caring for a horse.
-              </motion.p>
-              <motion.div
-                {...animationProps}
-                className="flex flex-col sm:flex-row items-center justify-center gap-4"
-              >
-                <Button
-                  onClick={handleEnrollClick}
-                  className="bg-red-600 hover:bg-red-700 text-white px-8 py-6 text-lg font-medium rounded-lg transition-colors duration-300"
-                >
-                  Enroll Now
-                </Button>
-              </motion.div>
+                Enroll Now
+              </Button>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -156,7 +158,10 @@ export default function HorseKnowledge2() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div 
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="relative overflow-hidden rounded-xl shadow-2xl"
             >
               <img 
@@ -168,7 +173,10 @@ export default function HorseKnowledge2() {
             </motion.div>
             
             <motion.div 
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="text-center md:text-left"
             >
               <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
@@ -187,7 +195,10 @@ export default function HorseKnowledge2() {
       <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...animationProps}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-8 sm:mb-16"
           >
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">Course Overview</h2>
@@ -195,7 +206,10 @@ export default function HorseKnowledge2() {
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -224,7 +238,10 @@ export default function HorseKnowledge2() {
             </motion.div>
 
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -253,7 +270,10 @@ export default function HorseKnowledge2() {
             </motion.div>
 
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -288,7 +308,10 @@ export default function HorseKnowledge2() {
       <section className="py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...animationProps}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold mb-6 text-white">Is This Course Right For You?</h2>
@@ -298,7 +321,10 @@ export default function HorseKnowledge2() {
           </motion.div>
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -314,7 +340,10 @@ export default function HorseKnowledge2() {
             </motion.div>
 
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -330,7 +359,10 @@ export default function HorseKnowledge2() {
             </motion.div>
 
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -346,7 +378,10 @@ export default function HorseKnowledge2() {
             </motion.div>
 
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -369,7 +404,10 @@ export default function HorseKnowledge2() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center">
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="relative w-full aspect-[4/3] max-w-xl group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent rounded-xl" />
@@ -387,13 +425,16 @@ export default function HorseKnowledge2() {
       <section className="py-16 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...animationProps}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-8 sm:mb-16"
           >
             <h2 className="text-3xl font-bold mb-4 text-white">Course Content</h2>
             <div className="w-16 h-1 mx-auto bg-red-600/70" />
           </motion.div>
-          <motion.div {...animationProps} className="max-w-2xl mx-auto">
+          <motion.div variants={fadeInUp} className="max-w-2xl mx-auto">
             <div className="backdrop-blur-sm bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 rounded-xl shadow-xl p-8 sm:p-10 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <h3 className="font-serif text-2xl font-bold mb-8 text-center text-white relative">
@@ -437,7 +478,10 @@ export default function HorseKnowledge2() {
       <section className="py-16 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...animationProps}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-16"
           >
             <h2 className="text-3xl font-bold mb-4 text-white">Course Features</h2>
@@ -445,7 +489,10 @@ export default function HorseKnowledge2() {
           </motion.div>
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -461,7 +508,10 @@ export default function HorseKnowledge2() {
             </motion.div>
 
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -477,7 +527,10 @@ export default function HorseKnowledge2() {
             </motion.div>
 
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -499,7 +552,10 @@ export default function HorseKnowledge2() {
       <section id="pricing" className="py-16 bg-gradient-to-b from-blue-950 to-blue-950 border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...animationProps}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-10"
           >
             <h2 className="text-4xl font-bold mb-4 text-white">Get Started Now!</h2>
@@ -510,7 +566,10 @@ export default function HorseKnowledge2() {
           
           <div className="max-w-md mx-auto">
             <motion.div
-              {...animationProps}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
@@ -549,13 +608,22 @@ export default function HorseKnowledge2() {
       <section className="py-16 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...animationProps}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
             <div className="w-16 h-1 mx-auto bg-red-600/70" />
           </motion.div>
-          <div className="max-w-3xl mx-auto space-y-4">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="max-w-3xl mx-auto space-y-4"
+          >
             <Suspense fallback={<LoadingFallback />}>
               {faqs.map((faq, idx) => (
                 <FaqItem
@@ -564,11 +632,10 @@ export default function HorseKnowledge2() {
                   answer={faq.answer}
                   isOpen={openFaq === idx}
                   onToggle={() => handleFaqToggle(idx)}
-                  animationProps={animationProps}
                 />
               ))}
             </Suspense>
-          </div>
+          </motion.div>
         </div>
       </section>
 

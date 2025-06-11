@@ -36,9 +36,11 @@ const faqs = [
 ];
 
 // Subtle animation variants
-const fadeIn = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 }
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.6, ease: "easeOut" }
 };
 
 export default function BHSStage1Practical() {
@@ -60,28 +62,6 @@ export default function BHSStage1Practical() {
       mediaQuery.removeEventListener('change', handleChange);
     };
   }, []);
-
-  // Simple animation props with subtle scroll trigger
-  const getAnimationProps = () => {
-    // Check if we're in a browser environment
-    const isBrowser = typeof window !== 'undefined';
-    
-    // Disable animations on mobile devices or if reduced motion is preferred
-    if ((isBrowser && window.innerWidth < 768) || prefersReducedMotion) {
-      return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
-    }
-    
-    return {
-      initial: "initial",
-      whileInView: "whileInView",
-      viewport: { once: true, margin: "-50px" },
-      variants: fadeIn,
-      transition: { 
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    };
-  };
 
   const handleFaqToggle = (index: number) => {
     setOpenFaq(prev => prev === index ? null : index);
@@ -113,32 +93,45 @@ export default function BHSStage1Practical() {
         <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-15" />
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/80 to-blue-950/95" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center max-w-3xl mx-auto">
-            <motion.div {...getAnimationProps()}>
-              <motion.h1 
-                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
+          <motion.div
+            className="text-center max-w-3xl mx-auto"
+            initial="initial"
+            animate="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              whileInView: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            <motion.h1 
+              variants={fadeInUp}
+              className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
+            >
+              BHS Stage 1 Practical
+            </motion.h1>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
+            >
+              Essential horse care and riding skills with expert guidance.
+            </motion.p>
+            <motion.div
+              variants={fadeInUp}
+              className="flex justify-center gap-4"
+            >
+              <Button 
+                onClick={() => {
+                  document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-red-600 text-white hover:bg-red-700 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px]"
               >
-                BHS Stage 1 Practical
-              </motion.h1>
-              <motion.p 
-                className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
-              >
-                Essential horse care and riding skills with expert guidance.
-              </motion.p>
-              <motion.div 
-                className="flex justify-center gap-4"
-              >
-                <Button 
-                  onClick={() => {
-                    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="bg-red-600 text-white hover:bg-red-700 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px]"
-                >
-                  Enroll Now
-                </Button>
-              </motion.div>
+                Enroll Now
+              </Button>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -146,15 +139,20 @@ export default function BHSStage1Practical() {
       <section className="py-6 sm:py-8 md:py-12 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-6 sm:mb-8"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Introduction and Explanation</h2>
           </motion.div>
           
           <motion.div
-            {...getAnimationProps()}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="max-w-3xl mx-auto mb-6 sm:mb-8"
           >
             <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
@@ -175,21 +173,26 @@ export default function BHSStage1Practical() {
         </div>
       </section>
 
-      <MeetYourTutor getAnimationProps={getAnimationProps} fadeIn={fadeIn} />
+      <MeetYourTutor />
 
       {/* Course Overview */}
       <section className="py-6 sm:py-8 md:py-12 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-6 sm:mb-8"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Course Overview</h2>
           </motion.div>
           
           <motion.div
-            {...getAnimationProps()}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="max-w-3xl mx-auto mb-6 sm:mb-8"
           >
             <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
@@ -207,7 +210,10 @@ export default function BHSStage1Practical() {
           
           {/* Course Images */}
           <motion.div 
-            {...getAnimationProps()}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-8"
           >
             <div className="relative overflow-hidden rounded-xl shadow-2xl">
@@ -234,8 +240,10 @@ export default function BHSStage1Practical() {
       <section className="py-12 sm:py-16 md:py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-8 sm:mb-12 md:mb-16"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Who Is This Course For?</h2>
@@ -245,7 +253,10 @@ export default function BHSStage1Practical() {
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
             <motion.div
-              {...getAnimationProps()}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -268,7 +279,10 @@ export default function BHSStage1Practical() {
             </motion.div>
             
             <motion.div
-              {...getAnimationProps()}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -297,8 +311,10 @@ export default function BHSStage1Practical() {
       <section className="py-12 sm:py-16 md:py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-8 sm:mb-12 md:mb-16"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Syllabus</h2>
@@ -310,7 +326,10 @@ export default function BHSStage1Practical() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {/* Care Section */}
             <motion.div
-              {...getAnimationProps()}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
@@ -343,7 +362,10 @@ export default function BHSStage1Practical() {
 
             {/* Ride Section */}
             <motion.div
-              {...getAnimationProps()}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-6 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
@@ -381,8 +403,10 @@ export default function BHSStage1Practical() {
       <section className="py-6 sm:py-8 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center"
           >
             <a 
@@ -402,15 +426,20 @@ export default function BHSStage1Practical() {
       <section id="pricing" className="py-12 sm:py-16 md:py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-8 sm:mb-12"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">Course Pricing</h2>
           </motion.div>
           
           <motion.div
-            {...getAnimationProps()}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="max-w-3xl mx-auto"
           >
             <div className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
@@ -430,32 +459,38 @@ export default function BHSStage1Practical() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-blue-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 sm:py-24 bg-blue-950">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
-            className="text-center mb-8 sm:mb-12"
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-12"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-white/80">
+              Find answers to common questions about the course.
+            </p>
           </motion.div>
-          
-          <motion.div
-            {...getAnimationProps()}
-            className="max-w-3xl mx-auto"
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="space-y-4"
           >
-            <div className="space-y-4">
-              {faqs.map((faq, idx) => (
-                <FaqItem
-                  key={idx}
-                  question={faq.question}
-                  answer={faq.answer}
-                  isOpen={openFaq === idx}
-                  onToggle={() => handleFaqToggle(idx)}
-                  animationProps={getAnimationProps()}
-                />
-              ))}
-            </div>
+            {faqs.map((faq, index) => (
+              <FaqItem
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={openFaq === index}
+                onToggle={() => handleFaqToggle(index)}
+              />
+            ))}
           </motion.div>
         </div>
       </section>

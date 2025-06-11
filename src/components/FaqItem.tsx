@@ -6,7 +6,6 @@ interface FaqItemProps {
   answer: string;
   isOpen: boolean;
   onToggle: () => void;
-  animationProps: any;
 }
 
 const FaqItem: React.FC<FaqItemProps> = ({ 
@@ -14,12 +13,8 @@ const FaqItem: React.FC<FaqItemProps> = ({
   answer, 
   isOpen, 
   onToggle, 
-  animationProps 
 }) => (
-  <motion.div
-    {...animationProps}
-    className="group"
-  >
+  <div className="group">
     <button
       onClick={onToggle}
       className="w-full text-left backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
@@ -53,7 +48,7 @@ const FaqItem: React.FC<FaqItemProps> = ({
         )}
       </AnimatePresence>
     </button>
-  </motion.div>
+  </div>
 );
 
 export default React.memo(FaqItem); 

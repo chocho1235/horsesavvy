@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ChevronRight, Clock, BookOpen, Users, Globe, Award, User, ArrowLeft } from "lucide-react";
@@ -9,9 +9,11 @@ import { BackToHome } from "@/components/BackToHome";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // Animation variants
-const fadeIn = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 }
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.6, ease: "easeOut" }
 };
 
 export default function BronzePractical() {
@@ -29,23 +31,6 @@ export default function BronzePractical() {
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
-
-  const animationProps = useMemo(() => {
-    if (isMobile || prefersReducedMotion) {
-      return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
-    }
-    
-    return {
-      initial: "initial",
-      whileInView: "whileInView",
-      viewport: { once: true, margin: "-50px" },
-      variants: fadeIn,
-      transition: { 
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    };
-  }, [isMobile, prefersReducedMotion]);
 
   const handleEnrollClick = useCallback(() => {
     document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
@@ -73,45 +58,69 @@ export default function BronzePractical() {
         <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/90 to-blue-950/95 shadow-2xl" style={{boxShadow: '0 0 80px 20px rgba(30, 41, 59, 0.7)'}} />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center">
-            <motion.div {...animationProps}>
-              <motion.h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white">
-                Bronze Practical Training
-              </motion.h1>
-              <motion.p className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
-                Hands-on instruction to complement your online learning and build confidence with horses.<br />
-                <span className='text-white/70 text-base block mt-2'>Practical training available in your area with expert instruction.</span>
-              </motion.p>
-              <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
-                  <Award className="h-5 w-5 text-red-400" />
-                  <span className="text-white/90 text-sm font-medium">BHS Approved</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
-                  <User className="h-5 w-5 text-red-400" />
-                  <span className="text-white/90 text-sm font-medium">Expert Instruction</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
-                  <Globe className="h-5 w-5 text-red-400" />
-                  <span className="text-white/90 text-sm font-medium">Available in Your Area</span>
-                </div>
-              </motion.div>
-              <motion.div>
-                <Button 
-                  onClick={handleEnrollClick}
-                  className="bg-red-600 text-white hover:bg-red-700 px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  View Pricing & Enroll
-                </Button>
-                <p className="text-white/70 text-sm mt-3">Complete training package with online + practical elements</p>
-              </motion.div>
+          <motion.div
+            className="text-center"
+            initial="initial"
+            animate="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              whileInView: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            <motion.h1 
+              variants={fadeInUp}
+              className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white">
+              Bronze Practical Training
+            </motion.h1>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
+              Hands-on instruction to complement your online learning and build confidence with horses.<br />
+              <span className='text-white/70 text-base block mt-2'>Practical training available in your area with expert instruction.</span>
+            </motion.p>
+            <motion.div 
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
+                <Award className="h-5 w-5 text-red-400" />
+                <span className="text-white/90 text-sm font-medium">BHS Approved</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
+                <User className="h-5 w-5 text-red-400" />
+                <span className="text-white/90 text-sm font-medium">Expert Instruction</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
+                <Globe className="h-5 w-5 text-red-400" />
+                <span className="text-white/90 text-sm font-medium">Available in Your Area</span>
+              </div>
             </motion.div>
-          </div>
+            <motion.div
+              variants={fadeInUp}
+            >
+              <Button 
+                onClick={handleEnrollClick}
+                className="bg-red-600 text-white hover:bg-red-700 px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                View Pricing & Enroll
+              </Button>
+              <p className="text-white/70 text-sm mt-3">Complete training package with online + practical elements</p>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Bronze Practical Book 1: Riding Fit Section */}
-      <section className="py-16 bg-blue-950">
+      <motion.section 
+        variants={fadeInUp}
+        initial="initial"
+        whileInView="whileInView"
+        viewport={{ once: true, margin: "-50px" }}
+        className="py-16 bg-blue-950"
+      >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
           <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
             <img 
@@ -187,12 +196,25 @@ export default function BronzePractical() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Bronze Practical Book 2: Riding Flat Section */}
-      <section className="py-16 bg-blue-950">
+      <motion.section 
+        variants={fadeInUp}
+        initial="initial"
+        whileInView="whileInView"
+        viewport={{ once: true, margin: "-50px" }}
+        className="py-16 bg-blue-950"
+      >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 md:order-2 flex justify-center">
+            <img 
+              src="/Untitled design (33).png" 
+              alt="Bronze Practical Book 2: Riding Flat" 
+              className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
+            />
+          </div>
+          <div className="w-full md:w-1/2 md:order-1">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Bronze Practical Book 2: Riding Flat</h2>
             <div className="w-20 h-1 bg-red-500 mb-6"></div>
             <div className="space-y-8 text-white/90 text-lg">
@@ -209,7 +231,7 @@ export default function BronzePractical() {
                   </li>
                   <li className="flex items-start">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                    <span>Develop independent seat and hands</span>
+                    <span>Develop a secure and independent seat</span>
                   </li>
                 </ul>
               </div>
@@ -258,18 +280,17 @@ export default function BronzePractical() {
               </div>
             </div>
           </div>
-          <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
-            <img 
-              src="/Untitled design (33).png" 
-              alt="Bronze Practical Book 2: Riding Flat" 
-              className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
-            />
-          </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Bronze Practical Book 3: Riding Jump Section */}
-      <section className="py-16 bg-blue-950">
+      <motion.section 
+        variants={fadeInUp}
+        initial="initial"
+        whileInView="whileInView"
+        viewport={{ once: true, margin: "-50px" }}
+        className="py-16 bg-blue-950"
+      >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
           <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
             <img 
@@ -342,19 +363,24 @@ export default function BronzePractical() {
                   </li>
                   <li className="flex items-start">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                    <span>Develop harmony and balance over fences</span>
+                    <span>Tackle related distances and small combinations</span>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* What's Included */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">What's Included</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
@@ -363,7 +389,9 @@ export default function BronzePractical() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+            <motion.div 
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
                 <Globe className="w-6 h-6 text-red-400" />
               </div>
@@ -384,7 +412,9 @@ export default function BronzePractical() {
               </ul>
             </motion.div>
 
-            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+            <motion.div 
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
                 <User className="w-6 h-6 text-red-400" />
               </div>
@@ -411,7 +441,12 @@ export default function BronzePractical() {
       {/* Final CTA */}
       <section id="pricing" className="py-20 bg-blue-950 border-t border-white/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-12">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Start Your Complete Training</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-12">
@@ -419,7 +454,12 @@ export default function BronzePractical() {
             </p>
           </motion.div>
           
-          <motion.div {...animationProps} className="max-w-lg mx-auto">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="max-w-lg mx-auto">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 text-center hover:border-white/40 transition-all duration-300">
               <h3 className="text-2xl font-bold text-white mb-4">Bronze Practical Training</h3>
               <div className="flex items-center justify-center gap-4 mb-6">

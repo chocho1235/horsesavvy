@@ -6,6 +6,7 @@ import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 import MeetYourTutor from "@/components/MeetYourTutor";
+import FaqItem from "@/components/FaqItem";
 
 const faqs = [
   {
@@ -35,9 +36,11 @@ const faqs = [
 ];
 
 // Subtle animation variants
-const fadeIn = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 }
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.6, ease: "easeOut" }
 };
 
 export default function BHSStage2Theory() {
@@ -67,14 +70,14 @@ export default function BHSStage2Theory() {
     
     // Disable animations on mobile devices or if reduced motion is preferred
     if ((isBrowser && window.innerWidth < 768) || prefersReducedMotion) {
-      return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
+      return { initial: "initial", whileInView: "whileInView", variants: fadeInUp };
     }
     
     return {
       initial: "initial",
       whileInView: "whileInView",
       viewport: { once: true, margin: "-50px" },
-      variants: fadeIn,
+      variants: fadeInUp,
       transition: { 
         duration: 0.4,
         ease: "easeOut"
@@ -104,32 +107,45 @@ export default function BHSStage2Theory() {
         <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-15" />
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/80 to-blue-950/95" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center max-w-3xl mx-auto">
-            <motion.div {...getAnimationProps()}>
-              <motion.h1 
-                className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
+          <motion.div
+            className="text-center max-w-3xl mx-auto"
+            initial="initial"
+            animate="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              whileInView: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            <motion.h1 
+              variants={fadeInUp}
+              className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
+            >
+              BHS Stage 2 Theory
+            </motion.h1>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
+            >
+              Welcome to BHS Stage 2 Theory
+            </motion.p>
+            <motion.div
+              variants={fadeInUp}
+              className="flex justify-center gap-4"
+            >
+              <Button 
+                onClick={() => {
+                  document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-red-600 text-white hover:bg-red-700 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px]"
               >
-                BHS Stage 2 Theory
-              </motion.h1>
-              <motion.p 
-                className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
-              >
-                Welcome to BHS Stage 2 Theory
-              </motion.p>
-              <motion.div 
-                className="flex justify-center gap-4"
-              >
-                <Button 
-                  onClick={() => {
-                    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="bg-red-600 text-white hover:bg-red-700 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px]"
-                >
-                  Enroll Now
-                </Button>
-              </motion.div>
+                Enroll Now
+              </Button>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -137,15 +153,20 @@ export default function BHSStage2Theory() {
       <section className="py-6 sm:py-8 md:py-12 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-6 sm:mb-8"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Introduction and Explanation</h2>
           </motion.div>
           
           <motion.div
-            {...getAnimationProps()}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="max-w-3xl mx-auto mb-6 sm:mb-8"
           >
             <div className="group relative backdrop-blur-sm bg-white/10 p-4 sm:p-6 md:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
@@ -169,14 +190,16 @@ export default function BHSStage2Theory() {
         </div>
       </section>
 
-      <MeetYourTutor getAnimationProps={getAnimationProps} fadeIn={fadeIn} />
+      <MeetYourTutor />
 
       {/* Course Progression Diagram */}
       <section className="py-12 sm:py-16 md:py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-8 sm:mb-12"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Your BHS Journey</h2>
@@ -187,7 +210,10 @@ export default function BHSStage2Theory() {
 
           <div className="max-w-5xl mx-auto">
             <motion.div
-              {...getAnimationProps()}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="relative"
             >
               {/* Connection Line */}
@@ -248,8 +274,11 @@ export default function BHSStage2Theory() {
               </div>
 
               {/* Benefits Box */}
-              <div className="mt-16">
-                <div className="group relative backdrop-blur-sm bg-white/10 p-6 sm:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 max-w-3xl ml-8">
+              <div className="relative mt-16">
+                <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-red-500 flex items-center justify-center z-10">
+                  <span className="text-white font-bold">✓</span>
+                </div>
+                <div className="group relative backdrop-blur-sm bg-white/10 p-6 sm:p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 max-w-xl ml-8">
                   <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
                   <div className="relative">
                     <h3 className="font-serif text-2xl font-semibold text-white mb-4">Career Benefits</h3>
@@ -285,8 +314,10 @@ export default function BHSStage2Theory() {
       <section className="py-12 sm:py-16 md:py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-8 sm:mb-12 md:mb-16"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">How We'll Learn Together</h2>
@@ -332,8 +363,10 @@ export default function BHSStage2Theory() {
       <section className="py-12 sm:py-16 md:py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-8 sm:mb-12 md:mb-16"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-white">Who Is This Course For?</h2>
@@ -393,8 +426,10 @@ export default function BHSStage2Theory() {
       <section id="syllabus" className="py-16 bg-blue-950 border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
-            variants={fadeIn}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold mb-4 text-white">BHS Stage Two Syllabus</h2>
@@ -479,7 +514,10 @@ export default function BHSStage2Theory() {
       <section className="py-12 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            {...getAnimationProps()}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="max-w-3xl mx-auto"
           >
             <div className="group relative backdrop-blur-sm bg-white/10 p-10 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300">
@@ -499,7 +537,10 @@ export default function BHSStage2Theory() {
       <section id="pricing" className="py-16 bg-gradient-to-b from-blue-950 to-blue-950 border-t border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-10"
           >
             <h2 className="text-4xl font-bold mb-4 text-white">Enroll Today</h2>
@@ -510,7 +551,10 @@ export default function BHSStage2Theory() {
           
           <div className="max-w-md mx-auto">
             <motion.div
-              {...getAnimationProps()}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
@@ -534,55 +578,32 @@ export default function BHSStage2Theory() {
       <section className="py-16 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
-            {...getAnimationProps()}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
             <div className="w-16 h-1 mx-auto bg-red-600/70" />
           </motion.div>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq, idx) => (
-              <motion.div
-                key={idx}
-                {...getAnimationProps()}
-                className="group"
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full text-left backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
-                >
-                  <div className="flex justify-between items-center">
-                    <h3 className="font-serif text-xl font-semibold text-white group-hover:text-red-500 transition-colors pr-4">{faq.question}</h3>
-                    <motion.span 
-                      className="text-2xl text-red-500 flex-shrink-0 w-8 h-8 flex items-center justify-center"
-                      animate={{ rotate: openFaq === idx ? 180 : 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                    >
-                      +
-                    </motion.span>
-                  </div>
-                  <AnimatePresence initial={false}>
-                    {openFaq === idx && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ 
-                          height: { duration: 0.3, ease: "easeInOut" },
-                          opacity: { duration: 0.2, ease: "easeInOut" }
-                        }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pt-6 mt-6 border-t border-white/20 text-white/80 leading-relaxed">
-                          {faq.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </button>
-              </motion.div>
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="space-y-4"
+          >
+            {faqs.map((faq, index) => (
+              <FaqItem
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={openFaq === index}
+                onToggle={() => setOpenFaq(openFaq === index ? null : index)}
+              />
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 

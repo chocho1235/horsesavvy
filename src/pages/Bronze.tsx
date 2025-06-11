@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ChevronDown, ArrowLeft, Award, User, Search, MapPin, ChevronLeft, Star, Quote } from "lucide-react";
@@ -80,9 +80,11 @@ const testimonials = [
 ];
 
 // Animation variants
-const fadeIn = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 }
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.6, ease: "easeOut" }
 };
 
 export default function Bronze() {
@@ -91,39 +93,9 @@ export default function Bronze() {
     message: string;
   } | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const isMobile = useIsMobile();
   const postcodeInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  const animationProps = useMemo(() => {
-    if (isMobile || prefersReducedMotion) {
-      return { initial: "initial", whileInView: "whileInView", variants: fadeIn };
-    }
-    
-    return {
-      initial: "initial",
-      whileInView: "whileInView",
-      viewport: { once: true, margin: "-50px" },
-      variants: fadeIn,
-      transition: { 
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    };
-  }, [isMobile, prefersReducedMotion]);
 
   const handleFaqToggle = useCallback((index: number) => {
     setOpenFaq(prev => prev === index ? null : index);
@@ -181,47 +153,70 @@ export default function Bronze() {
         <div className="absolute inset-0 bg-[url('/483657611_1328292291610514_6656248014588240074_n.jpg')] bg-cover bg-center opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/90 to-blue-950/95 shadow-2xl" style={{boxShadow: '0 0 80px 20px rgba(30, 41, 59, 0.7)'}} />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center">
-            <motion.div {...animationProps}>
-              <motion.h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white">
-                Bronze Challenge Award
-              </motion.h1>
-              <motion.p className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
-                Build confidence and essential skills with this comprehensive equestrian qualification.<br />
-                <span className='text-white/70 text-base block mt-2'>12 weeks access to complete your course with online and practical elements.</span>
-              </motion.p>
-              <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
-                  <Award className="h-5 w-5 text-red-400" />
-                  <span className="text-white/90 text-sm font-medium">BHS Approved</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
-                  <Clock className="h-5 w-5 text-red-400" />
-                  <span className="text-white/90 text-sm font-medium">6 Week Course</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
-                  <Users className="h-5 w-5 text-red-400" />
-                  <span className="text-white/90 text-sm font-medium">All Levels Welcome</span>
-                </div>
-              </motion.div>
-              <motion.div>
-                <Button 
-                  onClick={handleEnrollClick}
-                  className="bg-red-600 text-white hover:bg-red-700 px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  Start Your Journey - £97
-                </Button>
-                <p className="text-white/70 text-sm mt-3">No prior experience required</p>
-              </motion.div>
+          <motion.div
+            className="text-center"
+            initial="initial"
+            animate="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              whileInView: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            <motion.h1 
+              variants={fadeInUp}
+              className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white">
+              Bronze Challenge Award
+            </motion.h1>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
+              Build confidence and essential skills with this comprehensive equestrian qualification.<br />
+              <span className='text-white/70 text-base block mt-2'>12 weeks access to complete your course with online and practical elements.</span>
+            </motion.p>
+            <motion.div 
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
+                <Award className="h-5 w-5 text-red-400" />
+                <span className="text-white/90 text-sm font-medium">BHS Approved</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
+                <Clock className="h-5 w-5 text-red-400" />
+                <span className="text-white/90 text-sm font-medium">6 Week Course</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
+                <Users className="h-5 w-5 text-red-400" />
+                <span className="text-white/90 text-sm font-medium">All Levels Welcome</span>
+              </div>
             </motion.div>
-          </div>
+            <motion.div
+              variants={fadeInUp}
+            >
+              <Button 
+                onClick={handleEnrollClick}
+                className="bg-red-600 text-white hover:bg-red-700 px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Start Your Journey - £97
+              </Button>
+              <p className="text-white/70 text-sm mt-3">No prior experience required</p>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Value Proposition */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Why Choose the Bronze Award?</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
@@ -230,7 +225,12 @@ export default function Bronze() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <motion.div {...animationProps} className="text-center">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-6">
                 <BookOpen className="w-8 h-8 text-red-400" />
               </div>
@@ -238,7 +238,12 @@ export default function Bronze() {
               <p className="text-white/80">From basic riding position to advanced techniques, covering everything you need to know.</p>
             </motion.div>
 
-            <motion.div {...animationProps} className="text-center">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-6">
                 <User className="w-8 h-8 text-red-400" />
               </div>
@@ -246,7 +251,12 @@ export default function Bronze() {
               <p className="text-white/80">Learn from Penny Pleasant, BHS Accredited Professional Coach with 40+ years experience.</p>
             </motion.div>
             
-            <motion.div {...animationProps} className="text-center">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-6">
                 <Award className="w-8 h-8 text-red-400" />
               </div>
@@ -260,7 +270,12 @@ export default function Bronze() {
       {/* Online Elements */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Online Elements</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
@@ -269,7 +284,12 @@ export default function Bronze() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
                 <BookOpen className="w-6 h-6 text-red-400" />
               </div>
@@ -277,7 +297,12 @@ export default function Bronze() {
               <p className="text-white/80">Riding Fit - Learn about rider fitness and its impact on your horse.</p>
             </motion.div>
 
-            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
                 <BookOpen className="w-6 h-6 text-red-400" />
               </div>
@@ -285,7 +310,12 @@ export default function Bronze() {
               <p className="text-white/80">Knowing Your Horse - Understand equine behavior and communication.</p>
             </motion.div>
 
-            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
                 <BookOpen className="w-6 h-6 text-red-400" />
               </div>
@@ -296,12 +326,15 @@ export default function Bronze() {
         </div>
       </section>
 
-
-
       {/* Course Details */}
       <section className="py-16 bg-blue-950">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Course Details</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
           </motion.div>
@@ -523,7 +556,12 @@ export default function Bronze() {
       {/* Practical Elements */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Practical Elements</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
@@ -533,7 +571,12 @@ export default function Bronze() {
 
           <div className="grid md:grid-cols-1 gap-8 max-w-4xl mx-auto">
             {/* How It Works */}
-            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6 mx-auto">
                 <BookOpen className="w-6 h-6 text-red-400" />
               </div>
@@ -562,7 +605,12 @@ export default function Bronze() {
             </motion.div>
 
             {/* Postcode Checker */}
-            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6 mx-auto">
                 <MapPin className="w-6 h-6 text-red-400" />
               </div>
@@ -620,13 +668,16 @@ export default function Bronze() {
         </div>
       </section>
 
-
-
       {/* Meet Your Tutor */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div {...animationProps} className="relative overflow-hidden rounded-xl shadow-2xl">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="relative overflow-hidden rounded-xl shadow-2xl">
               <img 
                 src="/P1000306 (1).jpg" 
                 alt="Penny Pleasant - Your Tutor" 
@@ -635,7 +686,12 @@ export default function Bronze() {
               <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
             </motion.div>
 
-            <motion.div {...animationProps} className="text-center md:text-left">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="text-center md:text-left">
               <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Your Expert Instructor</h2>
               <div className="w-20 h-1 bg-red-500 mx-auto md:mx-0 mb-8"></div>
               <h3 className="text-xl font-semibold text-white mb-4">Penny Pleasant</h3>
@@ -673,7 +729,12 @@ export default function Bronze() {
       {/* Testimonials Carousel */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">What Our Students Say</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
@@ -681,9 +742,11 @@ export default function Bronze() {
             </p>
           </motion.div>
 
-                    <div className="relative max-w-6xl mx-auto">
+          <div className="relative max-w-6xl mx-auto">
             <motion.div 
-              {...animationProps}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
               className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 md:p-12 relative overflow-hidden"
             >
               {/* Quote Icon */}
@@ -791,20 +854,35 @@ export default function Bronze() {
       {/* Course Details */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Course Details</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto"></div>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <motion.div {...animationProps} className="text-center">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-4">
                 <Clock className="w-8 h-8 text-red-400" />
                 </div>
               <h3 className="text-lg font-semibold text-white mb-2">Access</h3>
               <p className="text-white/80">12 weeks access to course materials</p>
             </motion.div>
-            <motion.div {...animationProps} className="text-center">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-4">
                 <Globe className="w-8 h-8 text-red-400" />
               </div>
@@ -812,7 +890,12 @@ export default function Bronze() {
               <p className="text-white/80">Penny travels to your yard for practical sessions with your own horse</p>
             </motion.div>
 
-            <motion.div {...animationProps} className="text-center">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-red-400" />
                 </div>
@@ -820,7 +903,12 @@ export default function Bronze() {
               <p className="text-white/80">Official BHS Bronze Award</p>
             </motion.div>
 
-            <motion.div {...animationProps} className="text-center">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="text-center">
               <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-red-400" />
               </div>
@@ -834,13 +922,23 @@ export default function Bronze() {
       {/* Who This Is For */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Perfect For</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto"></div>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
                 <span className="w-8 h-8 rounded-full bg-red-600/20 flex items-center justify-center mr-3">
                   <ChevronRight className="w-4 h-4 text-red-500" />
@@ -852,7 +950,12 @@ export default function Bronze() {
               </p>
             </motion.div>
 
-            <motion.div {...animationProps} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
               <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
                 <span className="w-8 h-8 rounded-full bg-red-600/20 flex items-center justify-center mr-3">
                   <ChevronRight className="w-4 h-4 text-red-500" />
@@ -870,30 +973,45 @@ export default function Bronze() {
       {/* FAQs */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-16">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto"></div>
           </motion.div>
           
-          <div className="space-y-4">
-            {faqs.map((faq, idx) => (
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="space-y-4"
+          >
+            {faqs.map((faq, index) => (
               <FaqItem
-                key={idx}
+                key={index}
                 question={faq.question}
                 answer={faq.answer}
-                isOpen={openFaq === idx}
-                onToggle={() => handleFaqToggle(idx)}
-                animationProps={animationProps}
+                isOpen={openFaq === index}
+                onToggle={() => handleFaqToggle(index)}
               />
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Final CTA */}
       <section id="pricing" className="py-20 bg-blue-950 border-t border-white/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div {...animationProps} className="text-center mb-12">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Start Your Equestrian Journey</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-12">
@@ -901,7 +1019,12 @@ export default function Bronze() {
             </p>
           </motion.div>
           
-          <motion.div {...animationProps} className="max-w-lg mx-auto">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="max-w-lg mx-auto">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 text-center hover:border-white/40 transition-all duration-300">
               <h3 className="text-2xl font-bold text-white mb-4">Bronze Challenge Award</h3>
               <div className="flex items-center justify-center gap-4 mb-6">

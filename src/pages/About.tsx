@@ -4,9 +4,16 @@ import { ArrowLeft, Mail, Award, Heart, Clock, Users, Phone } from "lucide-react
 import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { motion } from "framer-motion";
 
 const About = () => {
   const isMobile = useIsMobile();
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: "easeInOut" },
+  };
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
@@ -42,15 +49,25 @@ const About = () => {
             <div className="w-[200px] h-[200px] rounded-full bg-gradient-to-tr from-gold/20 via-gold/10 to-transparent backdrop-blur-sm" />
           </div>
           
-          <div className="mb-16 text-center relative z-10">
+          <motion.div 
+            className="mb-16 text-center relative z-10"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ ...fadeInUp.transition, delay: 0.2 }}
+          >
             <h1 className="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent">
               Welcome to BeHorseSavvy!
             </h1>
             
             <div className="w-32 h-1 bg-gradient-to-r from-white to-white/50 mx-auto rounded-full" />
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-3 gap-8 mb-16 relative z-10">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8 mb-16 relative z-10"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ ...fadeInUp.transition, delay: 0.4 }}
+          >
             {/* Featured image */}
             <div className="md:col-span-1 flex justify-center items-start">
               <div className="relative overflow-hidden rounded-xl shadow-xl border border-white/10">
@@ -81,9 +98,14 @@ const About = () => {
                 Penny combines decades of hands-on experience with a calm and practical teaching style. She's passionate about helping each rider grow, no matter their background or goals.
               </p>
             </div>
-          </div>
+          </motion.div>
           
-          <div className="prose prose-lg prose-invert mx-auto relative z-10">
+          <motion.div 
+            className="prose prose-lg prose-invert mx-auto relative z-10"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ ...fadeInUp.transition, delay: 0.6 }}
+          >
             <div className="bg-white/5 rounded-xl p-8 backdrop-blur-sm border border-white/10 mb-8">
               <h3 className="text-2xl font-bold mb-6 text-white">Qualifications & Certifications</h3>
               <ul className="space-y-3 text-white/90">
@@ -117,10 +139,15 @@ const About = () => {
                 </li>
               </ul>
             </div>
-          </div>
+          </motion.div>
           
           {/* Core values */}
-          <div className="grid md:grid-cols-2 gap-8 mt-16 mb-16 relative z-10">
+          <motion.div 
+            className="grid md:grid-cols-2 gap-8 mt-16 mb-16 relative z-10"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ ...fadeInUp.transition, delay: 0.8 }}
+          >
             <div className="bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10">
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-gradient-to-br from-white/20 to-white/10 rounded-lg">
@@ -160,10 +187,15 @@ const About = () => {
               </div>
               <p className="text-white/80">We believe that true horsemanship is a lifelong pursuit — and we're here to help you make every step of it rewarding.</p>
             </div>
-          </div>
+          </motion.div>
           
           {/* Contact section */}
-          <div className="mt-16 relative z-10">
+          <motion.div 
+            className="mt-16 relative z-10"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ ...fadeInUp.transition, delay: 1.0 }}
+          >
             <div className="bg-gradient-to-br from-white/10 to-white/5 p-8 rounded-2xl border border-white/10 backdrop-blur-sm">
               <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
                 <div className="p-2 bg-white/10 rounded-lg">
@@ -204,7 +236,7 @@ const About = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
       
