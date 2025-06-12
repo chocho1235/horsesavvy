@@ -208,65 +208,6 @@ export default function Bronze() {
         </div>
       </section>
 
-      {/* Value Proposition */}
-      <section className="py-20 bg-blue-950">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true, margin: "-50px" }}
-            className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Why Choose the Bronze Award?</h2>
-            <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
-            <p className="text-lg text-white/80 max-w-3xl mx-auto">
-              The perfect starting point for your equestrian journey, combining practical skills with essential knowledge in a structured, supportive environment.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div 
-              variants={fadeInUp}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={{ once: true, margin: "-50px" }}
-              className="text-center">
-              <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-6">
-                <BookOpen className="w-8 h-8 text-red-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-4">Comprehensive Curriculum</h3>
-              <p className="text-white/80">From basic riding position to advanced techniques, covering everything you need to know.</p>
-            </motion.div>
-
-            <motion.div 
-              variants={fadeInUp}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={{ once: true, margin: "-50px" }}
-              className="text-center">
-              <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-6">
-                <User className="w-8 h-8 text-red-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-4">Expert Instruction</h3>
-              <p className="text-white/80">Learn from Penny Pleasant, BHS Accredited Professional Coach with 40+ years experience.</p>
-            </motion.div>
-            
-            <motion.div 
-              variants={fadeInUp}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={{ once: true, margin: "-50px" }}
-              className="text-center">
-              <div className="w-16 h-16 rounded-full bg-red-600/20 flex items-center justify-center mx-auto mb-6">
-                <Award className="w-8 h-8 text-red-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-4">Recognised Qualification</h3>
-              <p className="text-white/80">Earn your official BHS Bronze Award certificate, respected throughout the equestrian industry.</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Online Elements */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
