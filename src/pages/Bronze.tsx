@@ -105,6 +105,10 @@ export default function Bronze() {
     document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   const checkPostcode = useCallback(() => {
     const val = postcodeInputRef.current?.value.trim() ?? "";
     if (!val) {
@@ -748,6 +752,7 @@ export default function Bronze() {
 
             <Link 
               to="/bronze-practical" 
+              onClick={scrollToTop}
               className="inline-flex items-center text-red-400 hover:text-red-300 font-medium"
             >
               Learn more about coaching options
