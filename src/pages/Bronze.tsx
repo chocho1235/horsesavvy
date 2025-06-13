@@ -33,7 +33,39 @@ const faqs = [
 ];
 
 // UK postcodes covered for practical training
-const validPostcodeAreas = ["RG", "OX", "SL", "HP", "GU"];
+const TARGET_POSTCODE = "BB18 6TD";
+const MAX_DISTANCE_MILES = 90;
+
+// Function to calculate distance between two postcodes using the Haversine formula
+const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+  const R = 3958.8; // Earth's radius in miles
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+};
+
+// Function to get coordinates from postcode using postcodes.io API
+const getCoordinates = async (postcode: string): Promise<{lat: number, lon: number} | null> => {
+  try {
+    const response = await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(postcode)}`);
+    const data = await response.json();
+    if (data.result) {
+      return {
+        lat: data.result.latitude,
+        lon: data.result.longitude
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error('Error fetching postcode data:', error);
+    return null;
+  }
+};
 
 // Testimonials data
 const testimonials = [
@@ -92,6 +124,7 @@ export default function Bronze() {
     available: boolean;
     message: string;
   } | null>(null);
+  const [isChecking, setIsChecking] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const isMobile = useIsMobile();
@@ -109,25 +142,62 @@ export default function Bronze() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const checkPostcode = useCallback(() => {
+  const checkPostcode = useCallback(async () => {
     const val = postcodeInputRef.current?.value.trim() ?? "";
     if (!val) {
       setPostcodeResult(null);
       return;
     }
-    const area = val.toUpperCase().split(" ")[0].replace(/[0-9]/g, "");
-    const ok = validPostcodeAreas.includes(area);
-    setPostcodeResult({
-      available: ok,
-      message: ok
-        ? "Great news! We offer in-person training in your area."
-        : "Sorry, we don't currently offer in-person training in your area, but our online course is available nationwide.",
-    });
-    
-    if (ok) {
-      setTimeout(() => {
-        window.location.href = '/bronze-practical';
-      }, 2000);
+
+    setIsChecking(true);
+    try {
+      // Format postcode (add space if missing)
+      const formattedPostcode = val.replace(/([A-Z]{1,2}[0-9][0-9A-Z]?)([0-9][A-Z]{2})/i, '$1 $2').toUpperCase();
+      
+      // Get coordinates for both postcodes
+      const [userCoords, targetCoords] = await Promise.all([
+        getCoordinates(formattedPostcode),
+        getCoordinates(TARGET_POSTCODE)
+      ]);
+
+      if (!userCoords || !targetCoords) {
+        setPostcodeResult({
+          available: false,
+          message: "Sorry, we couldn't verify your postcode. Please try again."
+        });
+        return;
+      }
+
+      // Calculate distance
+      const distance = calculateDistance(
+        userCoords.lat,
+        userCoords.lon,
+        targetCoords.lat,
+        targetCoords.lon
+      );
+
+      const isWithinRange = distance <= MAX_DISTANCE_MILES;
+      
+      setPostcodeResult({
+        available: isWithinRange,
+        message: isWithinRange
+          ? `Great news! You're within our service area (${Math.round(distance)} miles from our location).`
+          : `Sorry, you're ${Math.round(distance)} miles from our location, which is outside our service area (${MAX_DISTANCE_MILES} miles).`
+      });
+      
+      if (isWithinRange) {
+        setTimeout(() => {
+          window.location.href = '/bronze-practical';
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Error checking postcode:', error);
+      setPostcodeResult({
+        available: false,
+        message: "Sorry, there was an error checking your postcode. Please try again."
+      });
+    } finally {
+      setIsChecking(false);
     }
   }, []);
 
@@ -246,7 +316,7 @@ export default function Bronze() {
               <h3 className="text-xl font-semibold text-white mb-4">Book 1</h3>
               <p className="text-white/80">Knowing Your Horse - Understand equine behavior and communication.</p>
             </motion.div>
-            
+
             <motion.div 
               variants={fadeInUp}
               initial="initial"
@@ -272,7 +342,7 @@ export default function Bronze() {
               <h3 className="text-xl font-semibold text-white mb-4">Book 3</h3>
               <p className="text-white/80">Handling Your Horse - Master safe and effective horse handling techniques.</p>
             </motion.div>
-
+            
             <motion.div 
               variants={fadeInUp}
               initial="initial"
@@ -318,7 +388,7 @@ export default function Bronze() {
               <h3 className="text-xl font-semibold text-white mb-4">Book 1</h3>
               <p className="text-white/80">Knowing Your Horse - Understand equine behavior and communication.</p>
             </motion.div>
-            
+
             <motion.div 
               variants={fadeInUp}
               initial="initial"
@@ -357,8 +427,8 @@ export default function Bronze() {
               <h3 className="text-xl font-semibold text-white mb-4">Book 4</h3>
               <p className="text-white/80">Lungeing Your Horse - Learn the fundamentals of lunging a horse safely and effectively.</p>
             </motion.div>
-          </div>
-        </div>
+                </div>
+              </div>
       </section>
 
       {/* Meet Your Tutor */}
@@ -675,7 +745,7 @@ export default function Bronze() {
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
           </motion.div>
-
+          
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <FaqItem
@@ -708,16 +778,21 @@ export default function Bronze() {
                   <input
                     type="text"
                     ref={postcodeInputRef}
-                    placeholder="Enter postcode (e.g. RG1 1AA)"
+                    placeholder="Enter postcode (e.g. BB18 6TD)"
                     className="w-full px-4 py-3 bg-blue-900/50 border border-white/20 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 shadow-inner transition-all"
                   />
                 </div>
                 <Button
                   onClick={checkPostcode}
-                  className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center h-[46px] border border-white/10"
+                  disabled={isChecking}
+                  className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center h-[46px] border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Search className="w-4 h-4 mr-2" />
-                  Check Area
+                  {isChecking ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  ) : (
+                    <Search className="w-4 h-4 mr-2" />
+                  )}
+                  {isChecking ? 'Checking...' : 'Check Area'}
                 </Button>
               </div>
 
