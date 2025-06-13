@@ -770,7 +770,7 @@ export default function Bronze() {
             viewport={{ once: true, margin: "-50px" }}
             className="text-center">
             <h2 className="text-2xl font-semibold mb-4 text-white">Coaching on Your Horse</h2>
-            <p className="text-white/80 mb-6">For those who want personalized coaching with their own horse, we offer in-person sessions in select areas.</p>
+            <p className="text-white/80 mb-6">For those who want personalised coaching with their own horse, we offer in-person sessions in select areas.</p>
             
             <div className="max-w-xl mx-auto mb-6">
               <div className="flex flex-col sm:flex-row gap-3">
