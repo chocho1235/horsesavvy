@@ -173,7 +173,7 @@ export default function Bronze() {
               variants={fadeInUp}
               className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
               Build confidence and essential skills with this comprehensive online equestrian qualification.<br />
-              <span className='text-white/70 text-base block mt-2'>12 weeks access to complete your course with comprehensive online learning materials.</span>
+              <span className='text-white/70 text-base block mt-2'>Complete all four books (£97) to receive your BHS Bronze Certificate.</span>
               </motion.p>
             <motion.div 
               variants={fadeInUp}
@@ -285,80 +285,9 @@ export default function Bronze() {
         </div>
       </section>
 
-      {/* In-Person Training Option */}
-      <section className="py-12 bg-blue-950/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true, margin: "-50px" }}
-            className="text-center">
-            <h2 className="text-2xl font-semibold mb-4 text-white">In-Person Training Available</h2>
-            <p className="text-white/80 mb-6">For those who prefer hands-on learning, we offer in-person training sessions in select areas.</p>
-            
-            <div className="max-w-xl mx-auto mb-6">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-grow">
-                  <input
-                    type="text"
-                    ref={postcodeInputRef}
-                    placeholder="Enter postcode (e.g. RG1 1AA)"
-                    className="w-full px-4 py-3 bg-blue-900/50 border border-white/20 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 shadow-inner transition-all"
-                  />
-                </div>
-                <Button
-                  onClick={checkPostcode}
-                  className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center h-[46px] border border-white/10"
-                >
-                  <Search className="w-4 h-4 mr-2" />
-                  Check Area
-                </Button>
-              </div>
-
-              {postcodeResult && (
-                <motion.div
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className={`mt-4 p-4 rounded ${
-                    postcodeResult.available
-                      ? "bg-green-900/20 border border-green-500/30"
-                      : "bg-red-900/20 border border-red-500/30"
-                  }`}
-                >
-                  <p
-                    className={`text-sm text-center ${
-                      postcodeResult.available
-                        ? "text-green-400"
-                        : "text-red-400"
-                    }`}
-                  >
-                    {postcodeResult.message}
-                    {postcodeResult.available && (
-                      <span className="block mt-2 text-green-300">
-                        Redirecting to in-person course details...
-                      </span>
-                    )}
-                  </p>
-                </motion.div>
-              )}
-            </div>
-
-            <Link 
-              to="/bronze-practical" 
-              className="inline-flex items-center text-red-400 hover:text-red-300 font-medium"
-            >
-              Learn more about in-person options
-              <ChevronRight className="ml-1 h-4 w-4" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Course Details */}
-      <section className="py-16 bg-blue-950">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-blue-950">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             variants={fadeInUp}
             initial="initial"
@@ -367,218 +296,63 @@ export default function Bronze() {
             className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Course Details</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
+            <p className="text-lg text-white/80 max-w-3xl mx-auto">
+              Complete all four books to receive your BHS Bronze Certificate
+            </p>
           </motion.div>
 
-          {/* Bronze Book 1: Knowing Your Horse Section */}
-          <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
-            <img 
-                src="/image copy 2.png" 
-              alt="Bronze Book 1: Knowing Your Horse" 
-              className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
-            />
-          </div>
-          <div className="w-full md:w-1/2">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Bronze Book 1: Knowing Your Horse</h2>
-            <div className="w-20 h-1 bg-red-500 mb-6"></div>
-            <div className="space-y-8 text-white/90 text-lg">
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Identification</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                    <span>Describe a horse by colour, face and leg markings, and gender</span>
-                  </li>
-                </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
+                <BookOpen className="w-6 h-6 text-red-400" />
               </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Anatomy</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify key points of the horse's body</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize the main parts of the horse's foot</span></li>
-                </ul>
+              <h3 className="text-xl font-semibold text-white mb-4">Book 1</h3>
+              <p className="text-white/80">Knowing Your Horse - Understand equine behavior and communication.</p>
+            </motion.div>
+            
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
+                <BookOpen className="w-6 h-6 text-red-400" />
               </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Health</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>List signs of good and poor health</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Carry out daily health checks</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize when and why a horse needs shoeing or trimming</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Describe ways to reduce the risk of disease on a yard</span></li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Feeding</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Understand the rules of feeding</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify hay and haylage</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Describe different methods for providing hay or haylage</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Explain how to soak hay</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Identify ways to provide water in the stable</span></li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Fittening</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Explain why a ridden horse should be fit</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>Recognize signs that a horse may not be fit</span></li>
-                </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              <h3 className="text-xl font-semibold text-white mb-4">Book 2</h3>
+              <p className="text-white/80">Caring for Your Horse - Essential care and management techniques.</p>
+            </motion.div>
 
-      {/* Bronze Book 2: Caring for Your Horse Section */}
-      <section className="py-16 bg-blue-950">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
-          <div className="w-full md:w-1/2 order-2 md:order-2 flex justify-center">
-            <img 
-              src="/book 1.png" 
-              alt="Bronze Book 2: Caring for Your Horse" 
-              className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
-            />
-          </div>
-          <div className="w-full md:w-1/2 order-1 md:order-1">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Bronze Book 2: Caring for Your Horse</h2>
-            <div className="w-20 h-1 bg-red-500 mb-6"></div>
-            <div className="space-y-8 text-white/90 text-lg">
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Behaviour</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can describe the horse's natural behaviours and instincts</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can describe a horse's vision and how this may affect his behaviour</span></li>
-                </ul>
-                  </div>
-                  <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Stable Care</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can list different types of bedding</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can skip out a stable and tidy the bed</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can clean and refill a water bucket or water drinker</span></li>
-                </ul>
-                  </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Field Care</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can give reasons to support regular turnout</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can describe suitable fencing for field boundaries</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can carry out routine daily field checks</span></li>
-                </ul>
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
+                <BookOpen className="w-6 h-6 text-red-400" />
               </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Rugs</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can identify and describe types of rug and their use</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can put on and take off a rug</span></li>
-                </ul>
-                  </div>
-                  <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Grooming</h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can describe the benefits for grooming horses</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can explain the use of the items in a grooming kit</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can groom a horse</span></li>
-                  <li className="flex items-start"><span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span><span>I can care for a horse after exercise</span></li>
-                </ul>
-              </div>
-                  </div>
-                </div>
-              </div>
-      </section>
+              <h3 className="text-xl font-semibold text-white mb-4">Book 3</h3>
+              <p className="text-white/80">Handling Your Horse - Master safe and effective horse handling techniques.</p>
+            </motion.div>
 
-      {/* Bronze Book 3: Handling Your Horse Section */}
-      <section className="py-16 bg-blue-950">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
-            <img 
-              src="/handling hotse book 3.png" 
-              alt="Bronze Book 3: Handling Your Horse" 
-              className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
-            />
-          </div>
-          <div className="w-full md:w-1/2">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Bronze Book 3: Handling Your Horse</h2>
-            <div className="w-20 h-1 bg-red-500 mb-6"></div>
-            
-            <div className="mb-8">
-              <h3 className="text-2xl font-semibold text-white mb-4">Bronze Award</h3>
-            </div>
-            
-            <div className="space-y-6 text-white/90 text-lg">
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>How to work safely on a yard</span>
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-red-600/20 flex items-center justify-center mb-6">
+                <BookOpen className="w-6 h-6 text-red-400" />
               </div>
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>How your behaviour or actions could affect your horse</span>
-              </div>
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>How to lead your horse</span>
-              </div>
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>How to clean your tack</span>
-              </div>
-                  </div>
-                  </div>
-                </div>
-      </section>
-
-      {/* Bronze Book 4: Lungeing Your Horse Section */}
-      <section className="py-16 bg-blue-950">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
-          <div className="w-full md:w-1/2 order-2 md:order-2 flex justify-center">
-            <img 
-              src="/Untitled design (31).png" 
-              alt="Bronze Book 4: Lungeing Your Horse" 
-              className="rounded-xl shadow-2xl w-full max-w-xs md:max-w-sm aspect-[3/4] object-cover h-auto border-4 border-red-500/20 bg-white/10 p-4"
-            />
-          </div>
-          <div className="w-full md:w-1/2 order-1 md:order-1">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Bronze Book 4: Lungeing Your Horse</h2>
-            <div className="w-20 h-1 bg-red-500 mb-6"></div>
-            
-            <div className="mb-8">
-              <p className="text-lg text-white/80 mb-6 leading-relaxed">
-                Lungeing will add variation to your horse's exercise and is a great way to build a trusting relationship with your horse.
-              </p>
-              <h3 className="text-2xl font-semibold text-white mb-4">Bronze Award</h3>
-            </div>
-            
-            <div className="space-y-4 text-white/90 text-lg">
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>I can give reasons for lungeing a horse</span>
-              </div>
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>I can list the equipment required to lunge a horse</span>
-              </div>
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>I can tack up for lungeing</span>
-              </div>
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>I can lead a horse in preparation for lungeing</span>
-              </div>
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>I can coil the lunge line</span>
-              </div>
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>I can change the whip over</span>
-              </div>
-              <div className="flex items-start">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                <span>I can untack the horse after lungeing</span>
-              </div>
-            </div>
+              <h3 className="text-xl font-semibold text-white mb-4">Book 4</h3>
+              <p className="text-white/80">Lungeing Your Horse - Learn the fundamentals of lunging a horse safely and effectively.</p>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -885,7 +659,7 @@ export default function Bronze() {
         </div>
       </section>
 
-      {/* FAQs */}
+      {/* FAQ Section */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
@@ -895,16 +669,10 @@ export default function Bronze() {
             viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
-            <div className="w-24 h-1 bg-red-500 mx-auto"></div>
+            <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
           </motion.div>
-          
-          <motion.div 
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true, margin: "-50px" }}
-            className="space-y-4"
-          >
+
+          <div className="space-y-4">
             {faqs.map((faq, index) => (
               <FaqItem
                 key={index}
@@ -914,6 +682,77 @@ export default function Bronze() {
                 onToggle={() => handleFaqToggle(index)}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Coaching on Your Horse - Moved to bottom */}
+      <section className="py-12 bg-blue-950/50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center">
+            <h2 className="text-2xl font-semibold mb-4 text-white">Coaching on Your Horse</h2>
+            <p className="text-white/80 mb-6">For those who want personalized coaching with their own horse, we offer in-person sessions in select areas.</p>
+            
+            <div className="max-w-xl mx-auto mb-6">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-grow">
+                  <input
+                    type="text"
+                    ref={postcodeInputRef}
+                    placeholder="Enter postcode (e.g. RG1 1AA)"
+                    className="w-full px-4 py-3 bg-blue-900/50 border border-white/20 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 shadow-inner transition-all"
+                  />
+                </div>
+                <Button
+                  onClick={checkPostcode}
+                  className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center h-[46px] border border-white/10"
+                >
+                  <Search className="w-4 h-4 mr-2" />
+                  Check Area
+                </Button>
+              </div>
+
+              {postcodeResult && (
+                <motion.div
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className={`mt-4 p-4 rounded ${
+                    postcodeResult.available
+                      ? "bg-green-900/20 border border-green-500/30"
+                      : "bg-red-900/20 border border-red-500/30"
+                  }`}
+                >
+                  <p
+                    className={`text-sm text-center ${
+                      postcodeResult.available
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {postcodeResult.message}
+                    {postcodeResult.available && (
+                      <span className="block mt-2 text-green-300">
+                        Redirecting to coaching details...
+                      </span>
+                    )}
+                  </p>
+                </motion.div>
+              )}
+            </div>
+
+            <Link 
+              to="/bronze-practical" 
+              className="inline-flex items-center text-red-400 hover:text-red-300 font-medium"
+            >
+              Learn more about coaching options
+              <ChevronRight className="ml-1 h-4 w-4" />
+            </Link>
           </motion.div>
         </div>
       </section>
