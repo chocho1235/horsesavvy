@@ -39,20 +39,17 @@ interface BookingData {
 interface CourseBookingData {
   id: string;
   reference: string;
-  first_name: string;
-  last_name: string;
+  customer_name: string;
   customer_email: string;
   customer_phone: string;
   course_id: string;
-  course_name: string;
-  package_selection: string;
-  total_price: number;
+  selected_packages: string;
+  total_amount: number;
   created_at: string;
   status: 'pending' | 'payment_sent' | 'confirmed' | 'cancelled';
   payment_status?: 'pending' | 'confirmed';
   notes?: string;
-  age?: number;
-  experience_level?: string;
+  confirmed_at?: string;
 }
 
 // Sample bookings for demo purposes
@@ -455,10 +452,9 @@ const AdminDashboard = () => {
   const filteredCourseBookings = courseBookings.filter(booking => {
     const matchesSearch = 
       booking.reference.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.customer_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       booking.customer_email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.course_name.toLowerCase().includes(searchTerm.toLowerCase());
+      booking.course_id.toLowerCase().includes(searchTerm.toLowerCase());
     
     return matchesSearch;
   });
@@ -563,15 +559,38 @@ const AdminDashboard = () => {
         
         // Send confirmation email
         try {
+          // Map course_id to course name
+          const courseNames = {
+            'bronze-challenge': 'Bronze Challenge Award',
+            'stage-1-theory': 'BHS Stage 1 Theory',
+            'stage-2-theory': 'BHS Stage 2 Theory'
+          };
+          
+          // Get course name from course_id
+          const courseName = courseNames[booking.course_id] || 'Course';
+          
+          // Parse selected packages to get package description
+          let packageDescription = 'Course Package';
+          try {
+            const packages = JSON.parse(booking.selected_packages || '[]');
+            if (packages.includes('bronze-complete')) {
+              packageDescription = 'Complete Course';
+            } else if (packages.some(p => p.includes('bronze-book'))) {
+              packageDescription = 'Individual Books';
+            }
+          } catch (e) {
+            console.warn('Could not parse selected_packages:', booking.selected_packages);
+          }
+          
           await fetch('/api/send-course-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               email: booking.customer_email,
-              name: `${booking.first_name} ${booking.last_name}`,
-              course: booking.course_name,
-              packageSelection: booking.package_selection,
-              totalPrice: booking.total_price,
+              name: booking.customer_name || 'Student',
+              course: courseName,
+              packageSelection: packageDescription,
+              totalPrice: booking.total_amount,
               reference: booking.reference,
               status: 'confirmed',
             }),
@@ -614,7 +633,7 @@ const AdminDashboard = () => {
             <div className="flex items-center gap-2 mb-2">
               <User className="w-4 h-4 text-red-400" />
               <span className="text-white font-semibold text-lg">
-                {booking.first_name} {booking.last_name}
+                {booking.customer_name}
               </span>
             </div>
             <div className="space-y-1 text-sm">
@@ -639,29 +658,47 @@ const AdminDashboard = () => {
               Course Details
             </h4>
             <div className="space-y-1 text-sm">
-              <p className="text-white/90 font-medium">{booking.course_name}</p>
-              <p className="text-red-400 font-semibold">£{booking.total_price}</p>
-              <p className="text-white/70">{booking.package_selection}</p>
+              <p className="text-white/90 font-medium">
+                {(() => {
+                  const courseNames = {
+                    'bronze-challenge': 'Bronze Challenge Award',
+                    'stage-1-theory': 'BHS Stage 1 Theory',
+                    'stage-2-theory': 'BHS Stage 2 Theory'
+                  };
+                  return courseNames[booking.course_id] || 'Course';
+                })()}
+              </p>
+              <p className="text-red-400 font-semibold">£{booking.total_amount}</p>
+              <p className="text-white/70">
+                {(() => {
+                  try {
+                    const packages = JSON.parse(booking.selected_packages || '[]');
+                    if (packages.includes('bronze-complete')) {
+                      return 'Complete Course';
+                    } else if (packages.some(p => p.includes('bronze-book'))) {
+                      return 'Individual Books';
+                    }
+                    return 'Course Package';
+                  } catch (e) {
+                    return 'Course Package';
+                  }
+                })()}
+              </p>
               <p className="text-blue-300 text-xs font-medium">COURSE BOOKING</p>
             </div>
           </div>
           
           <div className="space-y-3">
-            <h4 className="text-white font-semibold">Student Info</h4>
+            <h4 className="text-white font-semibold">Booking Info</h4>
             <div className="space-y-1 text-sm">
-              {booking.age && (
-                <p className="text-white/80">
-                  <span className="text-white/60">Age:</span> {booking.age}
-                </p>
-              )}
-              {booking.experience_level && (
-                <p className="text-white/80">
-                  <span className="text-white/60">Level:</span> {booking.experience_level}
-                </p>
-              )}
               <p className="text-white/60 text-xs">
                 Booked: {booking.created_at && !isNaN(new Date(booking.created_at).getTime()) ? format(new Date(booking.created_at), 'MMM d, HH:mm') : 'N/A'}
               </p>
+              {booking.confirmed_at && (
+                <p className="text-white/60 text-xs">
+                  Confirmed: {format(new Date(booking.confirmed_at), 'MMM d, HH:mm')}
+                </p>
+              )}
             </div>
           </div>
           
