@@ -254,12 +254,23 @@ const AdminDashboard = () => {
   // Load bookings from Supabase
   useEffect(() => {
     const fetchBookings = async () => {
+      console.log('Fetching bookings from Supabase...');
       const { data, error } = await supabase.from('bookings').select('*');
+      console.log('Supabase response:', { data, error });
       if (error) {
+        console.error('Supabase error:', error);
         toast.error('Failed to load bookings from Supabase');
         setBookings([]);
       } else {
-        setBookings(data || []);
+        console.log('Raw bookings data:', data);
+        // Map database fields to expected interface fields
+        const mappedBookings = (data || []).map(booking => ({
+          ...booking,
+          selected_date: booking.clinic_date || booking.selected_date || '',
+          selected_time: booking.clinic_time || booking.selected_time || ''
+        }));
+        console.log('Mapped bookings:', mappedBookings);
+        setBookings(mappedBookings);
       }
     };
     fetchBookings();
@@ -277,7 +288,12 @@ const AdminDashboard = () => {
     }
     // Refetch bookings
     const { data } = await supabase.from('bookings').select('*');
-    setBookings(data || []);
+    const mappedBookings = (data || []).map(booking => ({
+      ...booking,
+      selected_date: booking.clinic_date || booking.selected_date || '',
+      selected_time: booking.clinic_time || booking.selected_time || ''
+    }));
+    setBookings(mappedBookings);
     return true;
   };
 
@@ -292,7 +308,12 @@ const AdminDashboard = () => {
     } else {
       toast.success('Payment status updated');
       const { data } = await supabase.from('bookings').select('*');
-      setBookings(data || []);
+      const mappedBookings = (data || []).map(booking => ({
+        ...booking,
+        selected_date: booking.clinic_date || booking.selected_date || '',
+        selected_time: booking.clinic_time || booking.selected_time || ''
+      }));
+      setBookings(mappedBookings);
     }
   };
 
@@ -396,7 +417,12 @@ const AdminDashboard = () => {
       toast.success('All declined/cancelled bookings deleted');
       // Refetch bookings
       const { data } = await supabase.from('bookings').select('*');
-      setBookings(data || []);
+      const mappedBookings = (data || []).map(booking => ({
+        ...booking,
+        selected_date: booking.clinic_date || booking.selected_date || '',
+        selected_time: booking.clinic_time || booking.selected_time || ''
+      }));
+      setBookings(mappedBookings);
     }
   };
 
@@ -412,7 +438,12 @@ const AdminDashboard = () => {
       toast.success('All confirmed bookings deleted');
       // Refetch bookings
       const { data } = await supabase.from('bookings').select('*');
-      setBookings(data || []);
+      const mappedBookings = (data || []).map(booking => ({
+        ...booking,
+        selected_date: booking.clinic_date || booking.selected_date || '',
+        selected_time: booking.clinic_time || booking.selected_time || ''
+      }));
+      setBookings(mappedBookings);
     }
   };
 
@@ -425,7 +456,12 @@ const AdminDashboard = () => {
         .update({ payment_status: 'confirmed', status: 'confirmed' })
         .eq('id', booking.id);
       const { data } = await supabase.from('bookings').select('*');
-      setBookings(data || []);
+      const mappedBookings = (data || []).map(booking => ({
+        ...booking,
+        selected_date: booking.clinic_date || booking.selected_date || '',
+        selected_time: booking.clinic_time || booking.selected_time || ''
+      }));
+      setBookings(mappedBookings);
       toast.success('Booking marked as fully paid and confirmed');
       // Send confirmation email
       try {

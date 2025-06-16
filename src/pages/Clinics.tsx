@@ -529,6 +529,7 @@ const Clinics = () => {
 
   // Save booking to Supabase (with .select() to always return data)
   const saveBookingToSupabase = async (bookingData: any, reference: string) => {
+    console.log('saveBookingToSupabase called with:', { bookingData, reference });
     const selectedClinicDetails = clinicTypes.find(c => c.id === selectedClinic);
     const maxParticipants = selectedClinicDetails?.maxParticipants || 0;
 
@@ -537,43 +538,50 @@ const Clinics = () => {
       .from('bookings')
       .select('*', { count: 'exact', head: true })
       .eq('clinic_type', selectedClinic);
+    console.log('Capacity check result:', { count, countError });
     if (countError) {
+      console.error('Count error:', countError);
       toast.error('Error checking clinic capacity. Please try again.');
       return null;
     }
     if (count >= maxParticipants) {
+      console.log('Clinic is full:', { count, maxParticipants });
       toast.error('Sorry, this clinic is fully booked. If you are still interested in partaking, please email Penelopepleasant@gmail.com.');
       return null;
     }
 
+    const bookingInsertData = {
+      first_name: bookingData.firstName,
+      last_name: bookingData.lastName,
+      email: bookingData.email,
+      phone: bookingData.phone,
+      clinic_type: selectedClinic,
+      clinic_name: selectedClinicDetails?.name || '',
+      clinic_price: selectedClinicDetails?.price || '',
+      clinic_date: selectedClinicDetails?.date || '',
+      clinic_time: selectedClinicDetails?.time || '',
+      instructor: selectedClinicDetails?.instructor || '',
+      experience_level: bookingData.experienceLevel,
+      horse_name: bookingData.horseName,
+      special_requests: bookingData.specialRequests || '',
+      reference: reference,
+      status: 'pending',
+      payment_status: 'pending',
+    };
+    console.log('Inserting booking data:', bookingInsertData);
+
     const { data, error } = await supabase
       .from('bookings')
-      .insert([
-        {
-          first_name: bookingData.firstName,
-          last_name: bookingData.lastName,
-          email: bookingData.email,
-          phone: bookingData.phone,
-          clinic_type: selectedClinic,
-          clinic_name: selectedClinicDetails?.name || '',
-          clinic_price: selectedClinicDetails?.price || '',
-          clinic_date: selectedClinicDetails?.date || '',
-          clinic_time: selectedClinicDetails?.time || '',
-          instructor: selectedClinicDetails?.instructor || '',
-          experience_level: bookingData.experienceLevel,
-          horse_name: bookingData.horseName,
-          special_requests: bookingData.specialRequests || '',
-          reference: reference,
-          status: 'pending',
-          payment_status: 'pending',
-        }
-      ])
+      .insert([bookingInsertData])
       .select()
       .single();
+    console.log('Supabase insert result:', { data, error });
     if (error) {
+      console.error('Insert error:', error);
       toast.error('Failed to save booking. Please try again.');
       return null;
     }
+    console.log('Booking saved successfully:', data);
     return data;
   };
 
@@ -589,7 +597,7 @@ const Clinics = () => {
     setBookingReference(reference);
     setPendingBookingData(data);
 
-    // Send booking request received email
+    // Send booking request received email (non-blocking for development)
     const selectedClinicDetails = clinicTypes.find(c => c.id === selectedClinic);
     if (selectedClinicDetails) {
       try {
@@ -608,14 +616,12 @@ const Clinics = () => {
         });
         const result = await res.json();
         if (!result.success) {
-          toast.error("There was a problem sending your confirmation email.");
-          setIsSubmitting(false);
-          return;
+          console.warn("Email sending failed, but continuing with booking");
+          // Don't block the booking process in development
         }
       } catch (err) {
-        toast.error("There was a network error sending your confirmation email.");
-        setIsSubmitting(false);
-        return;
+        console.warn("Email API not available (likely in development), continuing with booking:", err.message);
+        // Don't block the booking process - email API might not be available in development
       }
     }
 
