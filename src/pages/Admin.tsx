@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Search, CheckCircle, XCircle, Clock, Calendar, User, Phone, Mail, Hash, Download, Shield, Users, Award, AlertTriangle, LogOut, Timer, Eye, EyeOff, Plus, Edit, Trash2, CalendarDays } from "lucide-react";
+import { ArrowLeft, Search, CheckCircle, XCircle, Clock, Calendar, User, Phone, Mail, Hash, Download, Shield, Users, Award, AlertTriangle, LogOut, Timer, Eye, EyeOff, Plus, Edit, Trash2, CalendarDays, BookOpen } from "lucide-react";
 import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { format } from "date-fns";
@@ -33,6 +33,26 @@ interface BookingData {
   status: 'pending' | 'confirmed' | 'cancelled' | 'completed';
   payment_status: 'pending' | 'received' | 'confirmed';
   notes?: string;
+}
+
+// Types for course booking data
+interface CourseBookingData {
+  id: string;
+  reference: string;
+  first_name: string;
+  last_name: string;
+  customer_email: string;
+  customer_phone: string;
+  course_id: string;
+  course_name: string;
+  package_selection: string;
+  total_price: number;
+  created_at: string;
+  status: 'pending' | 'payment_sent' | 'confirmed' | 'cancelled';
+  payment_status?: 'pending' | 'confirmed';
+  notes?: string;
+  age?: number;
+  experience_level?: string;
 }
 
 // Sample bookings for demo purposes
@@ -244,10 +264,11 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
 
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState<BookingData[]>([]);
+  const [courseBookings, setCourseBookings] = useState<CourseBookingData[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [verifyReference, setVerifyReference] = useState("");
   const [verificationResult, setVerificationResult] = useState<BookingData | null>(null);
-  const [activeTab, setActiveTab] = useState<"bookings" | "clinics">("bookings");
+  const [activeTab, setActiveTab] = useState<"bookings" | "courses" | "clinics">("bookings");
 
   const sessionInfo = simpleAuth.getSessionInfo();
 
@@ -273,7 +294,23 @@ const AdminDashboard = () => {
         setBookings(mappedBookings);
       }
     };
+
+    const fetchCourseBookings = async () => {
+      console.log('Fetching course bookings from Supabase...');
+      const { data, error } = await supabase.from('course_bookings').select('*');
+      console.log('Course bookings response:', { data, error });
+      if (error) {
+        console.error('Course bookings error:', error);
+        toast.error('Failed to load course bookings from Supabase');
+        setCourseBookings([]);
+      } else {
+        console.log('Raw course bookings data:', data);
+        setCourseBookings(data || []);
+      }
+    };
+
     fetchBookings();
+    fetchCourseBookings();
   }, []);
 
   // Save bookings to Supabase (update status)
@@ -329,6 +366,46 @@ const AdminDashboard = () => {
     if (success) toast.success('Booking declined!');
   };
 
+  // Course booking management functions
+  const updateCourseBookingStatus = async (bookingId: string, status: string) => {
+    const { error } = await supabase
+      .from('course_bookings')
+      .update({ status })
+      .eq('id', bookingId);
+    if (error) {
+      toast.error('Failed to update course booking status');
+      return false;
+    }
+    // Refetch course bookings
+    const { data } = await supabase.from('course_bookings').select('*');
+    setCourseBookings(data || []);
+    return true;
+  };
+
+  const updateCoursePaymentStatus = async (bookingId: string, payment_status: string) => {
+    const { error } = await supabase
+      .from('course_bookings')
+      .update({ payment_status })
+      .eq('id', bookingId);
+    if (error) {
+      toast.error('Failed to update course payment status');
+    } else {
+      toast.success('Course payment status updated');
+      const { data } = await supabase.from('course_bookings').select('*');
+      setCourseBookings(data || []);
+    }
+  };
+
+  const confirmCourseBooking = async (bookingId: string) => {
+    const success = await updateCourseBookingStatus(bookingId, 'confirmed');
+    if (success) toast.success('Course booking confirmed!');
+  };
+
+  const declineCourseBooking = async (bookingId: string) => {
+    const success = await updateCourseBookingStatus(bookingId, 'cancelled');
+    if (success) toast.success('Course booking declined!');
+  };
+
   // Logout
   const handleLogout = () => {
     simpleAuth.logout();
@@ -373,6 +450,26 @@ const AdminDashboard = () => {
     booking => booking.status === 'confirmed' && booking.payment_status === 'confirmed'
   );
   const declinedBookings = filteredBookings.filter(booking => booking.status === 'cancelled');
+
+  // Course booking filters
+  const filteredCourseBookings = courseBookings.filter(booking => {
+    const matchesSearch = 
+      booking.reference.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.customer_email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.course_name.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    return matchesSearch;
+  });
+
+  const pendingCourseBookings = filteredCourseBookings.filter(
+    booking => booking.status === 'pending' || booking.status === 'payment_sent'
+  );
+  const confirmedCourseBookings = filteredCourseBookings.filter(
+    booking => booking.status === 'confirmed' && booking.payment_status === 'confirmed'
+  );
+  const declinedCourseBookings = filteredCourseBookings.filter(booking => booking.status === 'cancelled');
 
   // Export bookings
   const exportBookings = () => {
@@ -445,6 +542,192 @@ const AdminDashboard = () => {
       }));
       setBookings(mappedBookings);
     }
+  };
+
+  // Course booking card component
+  const CourseBookingCard = ({ booking, isPending = false, isDeclined = false, showPaymentControls = false }: { booking: CourseBookingData; isPending?: boolean; isDeclined?: boolean; showPaymentControls?: boolean }) => {
+    // Helper: Mark as full payment and confirm
+    const markAsFullAndConfirm = async () => {
+      console.log('Updating course booking:', booking.id);
+      const { error } = await supabase
+        .from('course_bookings')
+        .update({ payment_status: 'confirmed', status: 'confirmed' })
+        .eq('id', booking.id);
+      
+      if (error) {
+        console.error('Error updating course booking:', error);
+        toast.error('Failed to update course booking');
+      } else {
+        console.log('Course booking updated successfully');
+        toast.success('Course booking marked as fully paid and confirmed');
+        
+        // Send confirmation email
+        try {
+          await fetch('/api/send-course-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: booking.customer_email,
+              name: `${booking.first_name} ${booking.last_name}`,
+              course: booking.course_name,
+              packageSelection: booking.package_selection,
+              totalPrice: booking.total_price,
+              reference: booking.reference,
+              status: 'confirmed',
+            }),
+          });
+        } catch (emailError) {
+          console.warn("Course confirmation email failed:", emailError);
+          // Don't block the process if email fails
+        }
+        
+        // Refetch course bookings
+        const { data } = await supabase.from('course_bookings').select('*');
+        setCourseBookings(data || []);
+      }
+    };
+    
+    // Helper: Decline booking
+    const decline = async () => {
+      console.log('Declining course booking:', booking.id);
+      const { error } = await supabase
+        .from('course_bookings')
+        .update({ status: 'cancelled' })
+        .eq('id', booking.id);
+      
+      if (error) {
+        console.error('Error declining course booking:', error);
+        toast.error('Failed to decline course booking');
+      } else {
+        console.log('Course booking declined successfully');
+        toast.success('Course booking declined');
+        // Refetch course bookings
+        const { data } = await supabase.from('course_bookings').select('*');
+        setCourseBookings(data || []);
+      }
+    };
+    
+    return (
+      <div className="bg-white/5 p-6 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300 shadow-lg">
+        <div className="grid lg:grid-cols-4 gap-6">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <User className="w-4 h-4 text-red-400" />
+              <span className="text-white font-semibold text-lg">
+                {booking.first_name} {booking.last_name}
+              </span>
+            </div>
+            <div className="space-y-1 text-sm">
+              <p className="text-white/70 flex items-center gap-2">
+                <Hash className="w-3 h-3" />
+                <span className="font-mono">{booking.reference}</span>
+              </p>
+              <p className="text-white/70 flex items-center gap-2">
+                <Mail className="w-3 h-3" />
+                {booking.customer_email}
+              </p>
+              <p className="text-white/70 flex items-center gap-2">
+                <Phone className="w-3 h-3" />
+                {booking.customer_phone}
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <h4 className="text-white font-semibold flex items-center gap-2">
+              <BookOpen className="w-4 h-4 text-red-400" />
+              Course Details
+            </h4>
+            <div className="space-y-1 text-sm">
+              <p className="text-white/90 font-medium">{booking.course_name}</p>
+              <p className="text-red-400 font-semibold">£{booking.total_price}</p>
+              <p className="text-white/70">{booking.package_selection}</p>
+              <p className="text-blue-300 text-xs font-medium">COURSE BOOKING</p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <h4 className="text-white font-semibold">Student Info</h4>
+            <div className="space-y-1 text-sm">
+              {booking.age && (
+                <p className="text-white/80">
+                  <span className="text-white/60">Age:</span> {booking.age}
+                </p>
+              )}
+              {booking.experience_level && (
+                <p className="text-white/80">
+                  <span className="text-white/60">Level:</span> {booking.experience_level}
+                </p>
+              )}
+              <p className="text-white/60 text-xs">
+                Booked: {booking.created_at && !isNaN(new Date(booking.created_at).getTime()) ? format(new Date(booking.created_at), 'MMM d, HH:mm') : 'N/A'}
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            {/* Only show status for declined/confirmed, no action required UI */}
+            {!isPending && (
+              <div className="space-y-3">
+                <h4 className="text-white font-semibold">Status</h4>
+                <div className={`p-3 rounded-lg ${
+                  isDeclined 
+                    ? 'bg-red-950/50 border border-red-500/50'
+                    : 'bg-green-950/50 border border-green-500/50'
+                }`}>
+                  <p className={`text-sm flex items-center gap-2 ${
+                    isDeclined ? 'text-red-200' : 'text-green-200'
+                  }`}>
+                    {isDeclined ? <XCircle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
+                    {isDeclined ? 'Declined' : 'Confirmed'}
+                  </p>
+                </div>
+              </div>
+            )}
+            {/* Controls column (fourth, right of Student Info) */}
+            <div className="space-y-3 flex flex-col items-end justify-between">
+              {/* Payment controls for pending bookings */}
+              {isPending && booking.payment_status !== 'confirmed' && (
+                <div className="flex flex-col gap-2 items-end">
+                  <div className="text-white/80 text-sm mb-1">
+                    Payment Status: <span className="text-blue-300 font-bold">Payment Pending</span>
+                  </div>
+                  <Button
+                    size="sm"
+                    className="bg-green-500/90 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded shadow"
+                    onClick={markAsFullAndConfirm}
+                  >
+                    Mark as Full Amount Paid & Confirm
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="bg-red-500/90 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded shadow"
+                    onClick={decline}
+                  >
+                    Decline
+                  </Button>
+                </div>
+              )}
+              {/* Status only for confirmed bookings */}
+              {showPaymentControls && booking.status === 'confirmed' && booking.payment_status === 'confirmed' && (
+                <div className="flex flex-col gap-2 items-end">
+                  <div className="text-white/80 text-sm mb-1">
+                    Payment Status: <span className="text-green-400 font-bold">Full Amount Paid</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        {booking.notes && (
+          <div className="mt-6 pt-4 border-t border-white/10">
+            <h5 className="text-white font-medium mb-2">Notes:</h5>
+            <p className="text-white/70 text-sm bg-white/5 p-3 rounded-lg border border-white/10">{booking.notes}</p>
+          </div>
+        )}
+      </div>
+    );
   };
 
   // Booking card component
@@ -677,7 +960,18 @@ const AdminDashboard = () => {
                   }`}
                 >
                   <Calendar className="w-4 h-4 mr-2" />
-                  Bookings
+                  Clinic Bookings
+                </Button>
+                <Button
+                  onClick={() => setActiveTab("courses")}
+                  className={`px-6 py-3 rounded-md transition-all duration-300 ${
+                    activeTab === "courses"
+                      ? "bg-red-600 text-white shadow-lg"
+                      : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Course Bookings
                 </Button>
                 <Button
                   onClick={() => setActiveTab("clinics")}
@@ -688,7 +982,7 @@ const AdminDashboard = () => {
                   }`}
                 >
                   <Award className="w-4 h-4 mr-2" />
-                  Clinics
+                  Clinic Management
                 </Button>
               </div>
             </div>
@@ -920,6 +1214,169 @@ const AdminDashboard = () => {
                   <p className="text-white/70">Manage available clinics and offerings</p>
                 </div>
               </div>
+            </>
+          )}
+
+          {/* Courses Tab Content */}
+          {activeTab === "courses" && (
+            <>
+              {/* Quick Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/70 text-sm">Total Courses</p>
+                        <p className="text-white text-xl md:text-2xl font-bold">{courseBookings.length}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/70 text-sm">Pending</p>
+                        <p className="text-white text-xl md:text-2xl font-bold">
+                          {pendingCourseBookings.length}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/70 text-sm">Confirmed</p>
+                        <p className="text-white text-xl md:text-2xl font-bold">
+                          {confirmedCourseBookings.length}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <XCircle className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/70 text-sm">Declined</p>
+                        <p className="text-white text-xl md:text-2xl font-bold">
+                          {declinedCourseBookings.length}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Search */}
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2">
+                    <Search className="w-4 h-4 text-white/70 flex-shrink-0" />
+                    <Input
+                      placeholder="Search course bookings by name, email, reference, or course..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="bg-blue-900/50 border-white/30 text-white placeholder:text-white/50 h-12 text-lg focus:border-red-400 transition-all duration-300"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Pending Course Bookings */}
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
+                  <CardTitle className="text-white flex items-center gap-2">
+                    <Clock className="w-6 h-6" />
+                    Pending Course Bookings ({pendingCourseBookings.length})
+                  </CardTitle>
+                  <CardDescription className="text-white/90">
+                    Course bookings awaiting confirmation
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6">
+                  {pendingCourseBookings.length === 0 ? (
+                    <div className="text-center py-12 text-white/60">
+                      <Clock className="w-16 h-16 text-white/30 mx-auto mb-4" />
+                      <p className="text-lg">No pending course bookings</p>
+                      <p className="text-sm text-white/50">All caught up!</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {pendingCourseBookings.map((booking) => (
+                        <CourseBookingCard key={booking.id} booking={booking} isPending={true} />
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Confirmed Course Bookings */}
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
+                  <CardTitle className="text-white flex items-center gap-2">
+                    <CheckCircle className="w-6 h-6" />
+                    Confirmed Course Bookings ({confirmedCourseBookings.length})
+                  </CardTitle>
+                  <CardDescription className="text-white/90">
+                    All confirmed and ready for course access
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6">
+                  {confirmedCourseBookings.length === 0 ? (
+                    <div className="text-center py-12 text-white/60">
+                      <CheckCircle className="w-16 h-16 text-white/30 mx-auto mb-4" />
+                      <p className="text-lg">No confirmed course bookings yet</p>
+                      <p className="text-sm text-white/50">Confirm pending course bookings above</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {confirmedCourseBookings.map((booking) => (
+                        <CourseBookingCard key={booking.id} booking={booking} isPending={false} showPaymentControls={true} />
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Declined Course Bookings */}
+              {declinedCourseBookings.length > 0 && (
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl">
+                  <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
+                    <CardTitle className="text-white flex items-center gap-2">
+                      <XCircle className="w-6 h-6" />
+                      Declined Course Bookings ({declinedCourseBookings.length})
+                    </CardTitle>
+                    <CardDescription className="text-white/90">
+                      Course bookings that were declined
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <div className="space-y-4">
+                      {declinedCourseBookings.map((booking) => (
+                        <CourseBookingCard key={booking.id} booking={booking} isPending={false} isDeclined={true} />
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </>
           )}
 

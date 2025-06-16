@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { BackToHome } from "@/components/BackToHome";
 import { useIsMobile } from "@/hooks/use-mobile";
 import FaqItem from "@/components/FaqItem";
+import { CourseCheckout } from "@/components/checkout/CourseCheckout";
+import { getCourseConfig } from "@/config/courses";
 
 const faqs = [
   {
@@ -127,8 +129,13 @@ export default function Bronze() {
   const [isChecking, setIsChecking] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [preSelectedPackage, setPreSelectedPackage] = useState<string | null>(null);
   const isMobile = useIsMobile();
   const postcodeInputRef = useRef<HTMLInputElement>(null);
+
+  // Get Bronze course configuration
+  const bronzeConfig = getCourseConfig('bronze-challenge');
 
   const handleFaqToggle = useCallback((index: number) => {
     setOpenFaq(prev => prev === index ? null : index);
@@ -869,11 +876,14 @@ export default function Bronze() {
             className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-6">
               {/* Individual Books Option */}
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">Individual Books</h3>
-                  <p className="text-white/80">Complete one book at a time with its own certificate</p>
-                </div>
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300 cursor-pointer group" onClick={() => {
+                setPreSelectedPackage(null);
+                setShowCheckout(true);
+              }}>
+                                  <div className="text-center mb-6">
+                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">Individual Books</h3>
+                    <p className="text-white/80">Complete one book at a time with its own certificate</p>
+                  </div>
                 
                 <div className="space-y-4 mb-6">
                   <div className="p-3 bg-white/5 rounded-lg">
@@ -902,19 +912,22 @@ export default function Bronze() {
                   </div>
                 </div>
 
-                <Button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors duration-300 py-3">
+                <Button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors duration-300 py-3 group-hover:bg-white/20">
                   Select Books
                 </Button>
               </div>
 
               {/* Complete Course Option */}
-              <div className="bg-white/10 backdrop-blur-sm border border-red-500/30 rounded-xl p-8 hover:border-red-500/50 transition-all duration-300 relative">
+              <div className="bg-white/10 backdrop-blur-sm border border-red-500/30 rounded-xl p-8 hover:border-red-500/50 transition-all duration-300 relative cursor-pointer group" onClick={() => {
+                setPreSelectedPackage('bronze-complete');
+                setShowCheckout(true);
+              }}>
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-500 text-white px-4 py-1 rounded-full text-sm font-medium">
                   Best Value
                 </div>
                 
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">Complete Course</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">Complete Course</h3>
                   <p className="text-white/80">All 4 books + All Certificates</p>
                 </div>
 
@@ -946,7 +959,7 @@ export default function Bronze() {
                   </li>
                 </ul>
 
-                <Button className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-4 text-lg font-semibold rounded-lg">
+                <Button className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-4 text-lg font-semibold rounded-lg group-hover:bg-red-700">
                   Enroll Now
                 </Button>
                 <p className="text-white/60 text-sm mt-4 text-center">Secure your place today • No hidden fees</p>
@@ -957,6 +970,18 @@ export default function Bronze() {
       </section>
 
       <Footer bgColor="bg-blue-950" />
+
+      {/* Course Checkout Modal */}
+      {showCheckout && bronzeConfig && (
+        <CourseCheckout
+          courseConfig={bronzeConfig}
+          preSelectedPackage={preSelectedPackage}
+          onClose={() => {
+            setShowCheckout(false);
+            setPreSelectedPackage(null);
+          }}
+        />
+      )}
     </div>
   );
 } 
