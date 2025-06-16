@@ -225,7 +225,7 @@ export function CourseCheckout({ courseConfig, preSelectedPackage, onClose }: Co
   const total = calculateTotal(selectedPackages, courseConfig.id);
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-blue-900/60 backdrop-blur-sm z-50 overflow-y-auto">
       <div className="min-h-screen bg-blue-950">
         {/* Header */}
         <div className="sticky top-0 z-30 bg-blue-950/90 backdrop-blur border-b border-white/10 py-4">

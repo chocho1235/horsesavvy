@@ -73,6 +73,54 @@ const bronzePackages: CoursePackage[] = [
   }
 ];
 
+// Silver Challenge Award Configuration
+const silverPackages: CoursePackage[] = [
+  {
+    id: 'silver-book-1',
+    name: 'Book 1: Knowing Your Horse',
+    description: 'Complete with individual certificate',
+    price: 30,
+    type: 'individual'
+  },
+  {
+    id: 'silver-book-2',
+    name: 'Book 2: Caring for Your Horse',
+    description: 'Complete with individual certificate',
+    price: 30,
+    type: 'individual'
+  },
+  {
+    id: 'silver-book-3',
+    name: 'Book 3: Handling Your Horse',
+    description: 'Complete with individual certificate',
+    price: 30,
+    type: 'individual'
+  },
+  {
+    id: 'silver-book-4',
+    name: 'Book 4: Lungeing Your Horse',
+    description: 'Complete with individual certificate',
+    price: 30,
+    type: 'individual'
+  },
+  {
+    id: 'silver-complete',
+    name: 'Complete Course',
+    description: 'All 4 books + All Certificates',
+    price: 97,
+    items: [
+      'All 4 books included',
+      '4 Individual Certificates', 
+      'BHS Silver Award Certificate',
+      'Save £23 on individual prices',
+      '12 weeks access'
+    ],
+    type: 'bundle',
+    featured: true,
+    savings: 23
+  }
+];
+
 // Course Configurations
 export const courseConfigs: Record<string, CourseConfig> = {
   'bronze-challenge': {
@@ -80,6 +128,18 @@ export const courseConfigs: Record<string, CourseConfig> = {
     name: 'Bronze Challenge Award',
     description: 'BHS Bronze Challenge Award - Build confidence and skills',
     packages: bronzePackages,
+    checkout: {
+      requiresPersonalDetails: true,
+      requiresHorseDetails: false,
+      paymentMethods: ['bank-transfer'],
+      accessDuration: '12 weeks'
+    }
+  },
+  'silver-challenge': {
+    id: 'silver-challenge',
+    name: 'Silver Challenge Award',
+    description: 'BHS Silver Challenge Award - Advanced horse care and management',
+    packages: silverPackages,
     checkout: {
       requiresPersonalDetails: true,
       requiresHorseDetails: false,
