@@ -247,7 +247,7 @@ export default function Bronze() {
               variants={fadeInUp}
               className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
               Build confidence and essential skills with this comprehensive online equestrian qualification.<br />
-              <span className='text-white/70 text-base block mt-2'>Complete all four books (£97) to receive your BHS Bronze Certificate.</span>
+              <span className='text-white/70 text-base block mt-2'>Each book (£30) comes with its own certificate. Complete all four books (£97) to receive your BHS Bronze Award Certificate.</span>
               </motion.p>
             <motion.div 
               variants={fadeInUp}
@@ -770,7 +770,7 @@ export default function Bronze() {
             viewport={{ once: true, margin: "-50px" }}
             className="text-center">
             <h2 className="text-2xl font-semibold mb-4 text-white">Coaching on Your Horse</h2>
-            <p className="text-white/80 mb-6">For those who want personalised coaching with their own horse, we offer in-person sessions in select areas.</p>
+            <p className="text-whdite/80 mb-6">For those who want personalised coaching with their own horse, we offer in-person sessions in select areas.</p>
             
             <div className="max-w-xl mx-auto mb-6">
               <div className="flex flex-col sm:flex-row gap-3">
@@ -846,7 +846,15 @@ export default function Bronze() {
             whileInView="whileInView"
             viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Start Your Equestrian Journey</h2>
+            <div className="relative mb-12">
+              <img 
+                src="/image copy 3.png" 
+                alt="Horse and rider" 
+                className="w-full max-w-2xl mx-auto rounded-xl shadow-2xl border-4 border-white/20"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent rounded-xl"></div>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Start Today</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-12">
               Join hundreds of riders who have built their confidence and skills with the Bronze Challenge Award
@@ -858,30 +866,93 @@ export default function Bronze() {
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true, margin: "-50px" }}
-            className="max-w-lg mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 text-center hover:border-white/40 transition-all duration-300">
-              <h3 className="text-2xl font-bold text-white mb-4">Bronze Challenge Award</h3>
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="flex items-center gap-2 text-white/80">
-                  <Clock className="h-4 w-4 text-red-400" />
-                  <span className="text-sm">12 weeks access</span>
+            className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Individual Books Option */}
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 hover:border-white/40 transition-all duration-300">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">Individual Books</h3>
+                  <p className="text-white/80">Complete one book at a time with its own certificate</p>
                 </div>
-                <div className="flex items-center gap-2 text-white/80">
-                  <Award className="h-4 w-4 text-red-400" />
-                  <span className="text-sm">BHS Certified</span>
-              </div>
-                <div className="flex items-center gap-2 text-white/80">
-                  <Users className="h-4 w-4 text-red-400" />
-                  <span className="text-sm">Expert tuition</span>
+                
+                <div className="space-y-4 mb-6">
+                  <div className="p-3 bg-white/5 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white font-medium">Book 1: Knowing Your Horse</span>
+                      <span className="text-red-400 font-semibold">£30</span>
+                    </div>
+                  </div>
+                  <div className="p-3 bg-white/5 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white font-medium">Book 2: Caring for Your Horse</span>
+                      <span className="text-red-400 font-semibold">£30</span>
+                    </div>
+                  </div>
+                  <div className="p-3 bg-white/5 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white font-medium">Book 3: Handling Your Horse</span>
+                      <span className="text-red-400 font-semibold">£30</span>
+                    </div>
+                  </div>
+                  <div className="p-3 bg-white/5 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white font-medium">Book 4: Lungeing Your Horse</span>
+                      <span className="text-red-400 font-semibold">£30</span>
+                    </div>
+                  </div>
                 </div>
+
+                <Button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors duration-300 py-3">
+                  Select Books
+                </Button>
               </div>
-              <div className="text-4xl font-bold text-red-500 mb-6">£97</div>
-              <Button className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-4 text-lg font-semibold rounded-lg">
-                Enroll Now
-              </Button>
-              <p className="text-white/60 text-sm mt-4">Secure your place today • No hidden fees</p>
+
+              {/* Complete Course Option */}
+              <div className="bg-white/10 backdrop-blur-sm border border-red-500/30 rounded-xl p-8 hover:border-red-500/50 transition-all duration-300 relative">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                  Best Value
+                </div>
+                
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">Complete Course</h3>
+                  <p className="text-white/80">All 4 books + All Certificates</p>
+                </div>
+
+                <div className="flex items-center justify-center mb-6">
+                  <div className="text-4xl font-bold text-red-500">£97</div>
+                  <div className="ml-2 text-white/60 line-through">£120</div>
+                </div>
+
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-center text-white/90">
+                    <ChevronRight className="w-5 h-5 text-red-400 mr-2" />
+                    All 4 books included
+                  </li>
+                  <li className="flex items-center text-white/90">
+                    <ChevronRight className="w-5 h-5 text-red-400 mr-2" />
+                    4 Individual Certificates
+                  </li>
+                  <li className="flex items-center text-white/90">
+                    <ChevronRight className="w-5 h-5 text-red-400 mr-2" />
+                    BHS Bronze Award Certificate
+                  </li>
+                  <li className="flex items-center text-white/90">
+                    <ChevronRight className="w-5 h-5 text-red-400 mr-2" />
+                    Save £23 on individual prices
+                  </li>
+                  <li className="flex items-center text-white/90">
+                    <ChevronRight className="w-5 h-5 text-red-400 mr-2" />
+                    12 weeks access
+                  </li>
+                </ul>
+
+                <Button className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-4 text-lg font-semibold rounded-lg">
+                  Enroll Now
+                </Button>
+                <p className="text-white/60 text-sm mt-4 text-center">Secure your place today • No hidden fees</p>
               </div>
-            </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

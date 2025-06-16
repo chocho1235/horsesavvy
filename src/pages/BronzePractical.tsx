@@ -142,7 +142,7 @@ export default function BronzePractical() {
                   </li>
                   <li className="flex items-start">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
-                    <span>Personalized feedback on your riding position</span>
+                    <span>Personalised feedback on your riding position</span>
                   </li>
                   <li className="flex items-start">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3 flex-shrink-0"></span>
