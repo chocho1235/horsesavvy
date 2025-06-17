@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     question: "What will I receive on successful completion of the course?",
-    answer: "You will receive a BHS Challenge Award - Bronze Award certificate upon completion, demonstrating your foundational knowledge in horse care and handling."
+    answer: "Each book comes with its own individual certificate upon completion. If you complete all 4 books, you will also receive the full BHS Silver Award Certificate, demonstrating your comprehensive advanced knowledge in horse care and handling."
   }
 ];
 
@@ -75,16 +75,16 @@ const testimonials = [
     name: "Example Student A",
     location: "Example Location",
     rating: 5,
-    text: "The Bronze Award completely transformed my confidence around horses. Penny's teaching style is incredible - she made everything so clear and approachable. I went from being nervous to genuinely excited about every lesson!",
-    course: "Bronze Challenge Award",
+    text: "The Silver Award completely transformed my confidence around horses. Penny's teaching style is incredible - she made everything so clear and approachable. I went from being nervous to genuinely excited about every lesson!",
+    course: "Silver Challenge Award",
     image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
   },
   {
     name: "Example Student B",
     location: "Example Location", 
     rating: 5,
-    text: "As a complete beginner, I was worried I'd be out of my depth, but the course structure is perfect. The online materials are comprehensive and well-organised, and now I feel confident in my knowledge of horse care.",
-    course: "Bronze Challenge Award",
+    text: "As someone with Bronze Award experience, I was excited to advance my skills, and the Silver course structure is perfect. The online materials are comprehensive and well-organised, and now I feel confident in my advanced knowledge of horse care.",
+    course: "Silver Challenge Award",
     image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
   },
   {
@@ -92,15 +92,15 @@ const testimonials = [
     location: "Example Location",
     rating: 5,
     text: "I loved how the course combined theory with interactive learning. Penny's expertise really shows - she has this amazing ability to explain complex topics in an easy-to-understand way.",
-    course: "Bronze Challenge Award",
+    course: "Silver Challenge Award",
     image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
   },
   {
     name: "Example Student D",
     location: "Example Location",
     rating: 5,
-    text: "The Bronze Award gave me the foundation I needed to pursue my equestrian goals. The qualification is well-respected, and I feel properly prepared to continue my riding journey with confidence.",
-    course: "Bronze Challenge Award",
+    text: "The Silver Award gave me the advanced foundation I needed to pursue my equestrian goals. The qualification is well-respected, and I feel properly prepared to continue my riding journey with confidence.",
+    course: "Silver Challenge Award",
     image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
   },
   {
@@ -108,7 +108,7 @@ const testimonials = [
     location: "Example Location",
     rating: 5,
     text: "Penny's teaching approach is fantastic - patient, encouraging, and incredibly knowledgeable. The course content is comprehensive but never overwhelming. I can't recommend it highly enough!",
-    course: "Bronze Challenge Award",
+    course: "Silver Challenge Award",
     image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
   }
 ];
@@ -121,7 +121,7 @@ const fadeInUp = {
   transition: { duration: 0.6, ease: "easeOut" }
 };
 
-export default function Bronze() {
+export default function Silver() {
   const [postcodeResult, setPostcodeResult] = useState<{
     available: boolean;
     message: string;
@@ -194,7 +194,7 @@ export default function Bronze() {
       
       if (isWithinRange) {
         setTimeout(() => {
-          window.location.href = '/bronze-practical';
+          window.location.href = '/silver-practical';
         }, 2000);
       }
     } catch (error) {
@@ -269,7 +269,7 @@ export default function Bronze() {
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20">
                   <Users className="h-5 w-5 text-red-400" />
-                  <span className="text-white/90 text-sm font-medium">Bronze Award Required</span>
+                  <span className="text-white/90 text-sm font-medium">All Levels Welcome</span>
                 </div>
               </motion.div>
             <motion.div
@@ -282,9 +282,9 @@ export default function Bronze() {
                 >
                   Start Your Journey - £30 per book
                 </Button>
-                <p className="text-white/70 text-sm">Bronze Award or equivalent experience required</p>
+                <p className="text-white/70 text-sm">No prerequisites - suitable for all levels</p>
                 <Link 
-                  to="/bronze-practical" 
+                  to="/silver-practical" 
                   className="text-white/50 hover:text-white/70 text-sm"
                 >
                   Looking for in-person training?
@@ -306,7 +306,7 @@ export default function Bronze() {
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Course Details</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
-              Complete each book to receive individual BHS Silver Certificates
+              Each book awards its own individual certificate - complete all 4 for the full BHS Silver Award
             </p>
           </motion.div>
 
@@ -701,7 +701,7 @@ export default function Bronze() {
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">What Our Students Say</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
-              Join hundreds of riders who have transformed their equestrian journey with the Bronze Challenge Award
+              Join hundreds of riders who have transformed their equestrian journey with the Silver Challenge Award
             </p>
           </motion.div>
 
@@ -739,7 +739,7 @@ export default function Bronze() {
                       <div className="absolute -bottom-3 -right-3 bg-red-600 text-white px-2 py-1 rounded-lg shadow-lg transform rotate-12">
                         <div className="flex items-center gap-1">
                           <Award className="w-3 h-3" />
-                          <span className="text-xs font-bold">BRONZE CERTIFIED</span>
+                          <span className="text-xs font-bold">SILVER CERTIFIED</span>
                         </div>
                       </div>
                     </div>
@@ -863,7 +863,7 @@ export default function Bronze() {
                 <Award className="w-8 h-8 text-red-400" />
                 </div>
               <h3 className="text-lg font-semibold text-white mb-2">Certification</h3>
-              <p className="text-white/80">Official BHS Bronze Award</p>
+              <p className="text-white/80">Official BHS Silver Award</p>
             </motion.div>
 
             <motion.div 
@@ -1026,7 +1026,7 @@ export default function Bronze() {
             </div>
 
             <Link 
-              to="/bronze-practical" 
+              to="/silver-practical" 
               onClick={scrollToTop}
               className="inline-flex items-center text-red-400 hover:text-red-300 font-medium"
             >
