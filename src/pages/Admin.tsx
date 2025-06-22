@@ -302,7 +302,24 @@ const AdminDashboard = () => {
         setCourseBookings([]);
       } else {
         console.log('Raw course bookings data:', data);
-        setCourseBookings(data || []);
+        
+        // Fix any bookings that are missing status field
+        if (data) {
+          for (const booking of data) {
+            if (!booking.status) {
+              console.log('Fixing booking without status:', booking.reference);
+              await supabase
+                .from('course_bookings')
+                .update({ status: 'pending' })
+                .eq('id', booking.id);
+            }
+          }
+          // Refetch after fixing
+          const { data: updatedData } = await supabase.from('course_bookings').select('*');
+          setCourseBookings(updatedData || []);
+        } else {
+          setCourseBookings([]);
+        }
       }
     };
 
@@ -562,6 +579,7 @@ const AdminDashboard = () => {
           // Map course_id to course name
           const courseNames = {
             'bronze-challenge': 'Bronze Challenge Award',
+            'silver-challenge': 'Silver Challenge Award',
             'stage-1-theory': 'BHS Stage 1 Theory',
             'stage-2-theory': 'BHS Stage 2 Theory'
           };
@@ -573,9 +591,9 @@ const AdminDashboard = () => {
           let packageDescription = 'Course Package';
           try {
             const packages = JSON.parse(booking.selected_packages || '[]');
-            if (packages.includes('bronze-complete')) {
+            if (packages.includes('bronze-complete') || packages.includes('silver-complete')) {
               packageDescription = 'Complete Course';
-            } else if (packages.some(p => p.includes('bronze-book'))) {
+            } else if (packages.some(p => p.includes('bronze-book') || p.includes('silver-book'))) {
               packageDescription = 'Individual Books';
             }
           } catch (e) {
@@ -662,6 +680,7 @@ const AdminDashboard = () => {
                 {(() => {
                   const courseNames = {
                     'bronze-challenge': 'Bronze Challenge Award',
+                    'silver-challenge': 'Silver Challenge Award',
                     'stage-1-theory': 'BHS Stage 1 Theory',
                     'stage-2-theory': 'BHS Stage 2 Theory'
                   };
@@ -673,9 +692,9 @@ const AdminDashboard = () => {
                 {(() => {
                   try {
                     const packages = JSON.parse(booking.selected_packages || '[]');
-                    if (packages.includes('bronze-complete')) {
+                    if (packages.includes('bronze-complete') || packages.includes('silver-complete')) {
                       return 'Complete Course';
-                    } else if (packages.some(p => p.includes('bronze-book'))) {
+                    } else if (packages.some(p => p.includes('bronze-book') || p.includes('silver-book'))) {
                       return 'Individual Books';
                     }
                     return 'Course Package';

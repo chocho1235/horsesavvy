@@ -278,7 +278,7 @@ export default function Silver() {
             <motion.p 
               variants={fadeInUp}
               className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
-              The BHS Silver Challenge Award builds on the Bronze Award, introducing more advanced horse care and management skills.<br />
+              The BHS Silver Challenge Awards can be taken as a first step or if you've taken your Bronze BHS Challenge Awards as a continuation of forward learning.<br />
               <span className='text-white/70 text-base block mt-2'>Each book (£30) comes with its own certificate. Complete all 4 books to receive your BHS Silver Award Certificate.</span>
               </motion.p>
             <motion.div 

@@ -389,9 +389,8 @@ export function CourseCheckout({ courseConfig, preSelectedPackage, onClose }: Co
                             {!preSelectedPackage && (
                               <Button
                                 type="button"
-                                variant="outline"
                                 onClick={() => setCurrentStep("selection")}
-                                className="flex-1 border-white/20 text-white hover:bg-white/10"
+                                className="flex-1 bg-blue-600/20 border border-white/30 text-white hover:bg-blue-600/30 hover:text-white transition-all duration-200"
                               >
                                 Back to Selection
                               </Button>
