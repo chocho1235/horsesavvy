@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "Who is this course suitable for?",
-    answer: "This course is designed for beginners of all ages who want to learn essential horse care and handling skills. No prior experience is required."
+    answer: "This course is designed for those who want to advance their equestrian knowledge beyond the Bronze level. It builds upon foundational horse care skills and introduces more advanced management techniques."
   },
   {
     question: "Can I join if the course has already started?",
@@ -72,44 +72,12 @@ const getCoordinates = async (postcode: string): Promise<{lat: number, lon: numb
 // Testimonials data
 const testimonials = [
   {
-    name: "Example Student A",
-    location: "Example Location",
+    name: "Kara Starr",
+    location: "",
     rating: 5,
-    text: "The Silver Award completely transformed my confidence around horses. Penny's teaching style is incredible - she made everything so clear and approachable. I went from being nervous to genuinely excited about every lesson!",
+    text: "I really enjoy learning with penny for the challenge awards, my aim is to get to BHS stage 2. The courses are fun, very educational and Penny also makes it easy to understand and remember. These courses are very good to do, if you get stressed about exams situations.",
     course: "Silver Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
-  },
-  {
-    name: "Example Student B",
-    location: "Example Location", 
-    rating: 5,
-    text: "As someone with Bronze Award experience, I was excited to advance my skills, and the Silver course structure is perfect. The online materials are comprehensive and well-organised, and now I feel confident in my advanced knowledge of horse care.",
-    course: "Silver Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
-  },
-  {
-    name: "Example Student C",
-    location: "Example Location",
-    rating: 5,
-    text: "I loved how the course combined theory with interactive learning. Penny's expertise really shows - she has this amazing ability to explain complex topics in an easy-to-understand way.",
-    course: "Silver Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
-  },
-  {
-    name: "Example Student D",
-    location: "Example Location",
-    rating: 5,
-    text: "The Silver Award gave me the advanced foundation I needed to pursue my equestrian goals. The qualification is well-respected, and I feel properly prepared to continue my riding journey with confidence.",
-    course: "Silver Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
-  },
-  {
-    name: "Example Student E",
-    location: "Example Location",
-    rating: 5,
-    text: "Penny's teaching approach is fantastic - patient, encouraging, and incredibly knowledgeable. The course content is comprehensive but never overwhelming. I can't recommend it highly enough!",
-    course: "Silver Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
+    image: "/image copy 4.png"
   }
 ];
 
@@ -131,6 +99,9 @@ export default function Silver() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showCheckout, setShowCheckout] = useState(false);
   const [preSelectedPackage, setPreSelectedPackage] = useState<string | null>(null);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const isMobile = useIsMobile();
   const postcodeInputRef = useRef<HTMLInputElement>(null);
 
@@ -147,6 +118,60 @@ export default function Silver() {
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const handleContactFormSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const templateParams = {
+      from_name: formData.get('name') as string,
+      from_email: formData.get('email') as string, // User's email
+      phone: formData.get('phone') as string,
+      interest: formData.get('interest') as string,
+      message: formData.get('message') as string,
+      postcode: postcodeInputRef.current?.value || 'Not provided',
+      timestamp: new Date().toLocaleString()
+    };
+
+    try {
+      // Using Web3Forms - 250 submissions/month FREE, no signup required
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: '3cfc8c8b-b294-48d8-a225-5f40bad04364', // Web3Forms access key for Penelopepleasant@gmail.com
+          subject: 'New Silver Challenge 1-to-1 Coaching Enquiry',
+          name: templateParams.from_name,
+          email: templateParams.from_email,
+          phone: templateParams.phone,
+          interest: templateParams.interest,
+          message: templateParams.message || 'No additional message',
+          postcode: templateParams.postcode,
+          timestamp: templateParams.timestamp
+        })
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setSubmitSuccess(true);
+        setTimeout(() => {
+          setShowContactForm(false);
+          setSubmitSuccess(false);
+        }, 3000);
+      } else {
+        throw new Error('Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error sending contact form:', error);
+      alert('There was an error sending your message. Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   }, []);
 
   const checkPostcode = useCallback(async () => {
@@ -189,12 +214,12 @@ export default function Silver() {
         available: isWithinRange,
         message: isWithinRange
           ? `Great news! You're within our service area (${Math.round(distance)} miles from our location).`
-          : `Sorry, you're ${Math.round(distance)} miles from our location, which is outside our service area (${MAX_DISTANCE_MILES} miles).`
+          : `You're ${Math.round(distance)} miles from our location, which is outside our service area (${MAX_DISTANCE_MILES} miles).`
       });
       
       if (isWithinRange) {
         setTimeout(() => {
-          window.location.href = '/silver-practical';
+          setShowContactForm(true);
         }, 2000);
       }
     } catch (error) {
@@ -305,9 +330,7 @@ export default function Silver() {
             className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Course Details</h2>
             <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
-            <p className="text-lg text-white/80 max-w-3xl mx-auto">
-              Each book awards its own individual certificate - complete all 4 for the full BHS Silver Award
-            </p>
+
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -337,7 +360,7 @@ export default function Silver() {
               <p className="text-white/80">Horse behaviour interpretation, stable management, field care, rug fitting, and advanced grooming techniques.</p>
             </motion.div>
 
-            <motion.div 
+            {/* <motion.div 
               variants={fadeInUp}
               initial="initial"
               whileInView="whileInView"
@@ -361,8 +384,48 @@ export default function Silver() {
               </div>
               <h3 className="text-xl font-semibold text-white mb-4">Book 4: Lungeing Your Horse</h3>
               <p className="text-white/80">Safety assessment, practical lungeing skills, transitions, communication techniques, and relationship building.</p>
-            </motion.div>
+            </motion.div> */}
                 </div>
+
+          {/* Certification & Progression Information */}
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="mt-16 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8">
+            <h3 className="text-2xl font-semibold text-white mb-6 text-center">Certification & Progression</h3>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-lg font-semibold text-white mb-4">Each book passed = BHS Certificate of Attainment</h4>
+                <ul className="space-y-2 text-white/90">
+                  <li className="flex items-center">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mr-3"></span>
+                    <span>Knowing</span>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mr-3"></span>
+                    <span>Caring</span>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mr-3"></span>
+                    <span>Handling</span>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mr-3"></span>
+                    <span>Lungeing</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-white mb-4">Progression Opportunities</h4>
+                <div className="text-white/90 space-y-3">
+                  <p>On completion of all 4 books you can direct entry into Stage 2 Care Exam</p>
+                  <p className="text-sm text-white/70">Gold BHS membership required to submit the "pass" onto their website</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
               </div>
       </section>
 
@@ -504,7 +567,7 @@ export default function Silver() {
       </section>
 
       {/* Silver Book 3: Handling Your Horse Section */}
-      <section className="py-16 bg-blue-950">
+      {/* <section className="py-16 bg-blue-950">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
           <div className="w-full md:w-1/2 order-2 md:order-1 flex justify-center">
             <img 
@@ -568,7 +631,7 @@ export default function Silver() {
       </section>
 
       {/* Silver Book 4: Lungeing Your Horse Section */}
-      <section className="py-16 bg-blue-950">
+      {/* <section className="py-16 bg-blue-950">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
           <div className="w-full md:w-1/2 order-2 md:order-2 flex justify-center">
             <img 
@@ -629,7 +692,7 @@ export default function Silver() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Meet Your Tutor */}
       <section className="py-20 bg-blue-950">
@@ -671,7 +734,8 @@ export default function Silver() {
                 </p>
                 <p>
                   Fully Insured<br/>
-                  DBS Checked Safeguarding Certified
+                  DBS Checked<br/>
+                  Safeguarding Certified
                 </p>
                   </div>
               <div className="flex flex-wrap gap-4 justify-center md:justify-start">
@@ -850,7 +914,7 @@ export default function Silver() {
                 <Globe className="w-8 h-8 text-red-400" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">Format</h3>
-              <p className="text-white/80">Penny travels to your yard for practical sessions with your own horse</p>
+              <p className="text-white/80">Interactive online learning with comprehensive study materials and expert guidance</p>
             </motion.div>
 
             <motion.div 
@@ -960,82 +1024,189 @@ export default function Silver() {
         </div>
       </section>
 
-      {/* Coaching on Your Horse - Moved to bottom */}
-      <section className="py-12 bg-blue-950/50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 1-to-1 Coaching Sessions */}
+      <section className="py-20 bg-blue-950">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true, margin: "-50px" }}
-            className="text-center">
-            <h2 className="text-2xl font-semibold mb-4 text-white">Coaching on Your Horse</h2>
-            <p className="text-whdite/80 mb-6">For those who want personalised coaching with their own horse, we offer in-person sessions in select areas.</p>
-            
-            <div className="max-w-xl mx-auto mb-6">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-grow">
-                  <input
-                    type="text"
-                    ref={postcodeInputRef}
-                    placeholder="Enter postcode (e.g. BB18 6TD)"
-                    className="w-full px-4 py-3 bg-blue-900/50 border border-white/20 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 shadow-inner transition-all"
-                  />
-                </div>
-                <Button
-                  onClick={checkPostcode}
-                  disabled={isChecking}
-                  className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center h-[46px] border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isChecking ? (
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                  ) : (
-                    <Search className="w-4 h-4 mr-2" />
-                  )}
-                  {isChecking ? 'Checking...' : 'Check Area'}
-                </Button>
+            className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Pre booked 1 to 1</h2>
+            <div className="w-24 h-1 bg-red-500 mx-auto mb-8"></div>
+            <p className="text-lg text-white/80 max-w-3xl mx-auto">
+              All at your yard with your own or Loan Pony
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="space-y-6">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
+                  <Users className="w-6 h-6 text-red-400 mr-3" />
+                  Coaching For:
+                </h3>
+                <ul className="space-y-3 text-white/90">
+                  <li className="flex items-start">
+                    <ChevronRight className="w-5 h-5 text-red-400 mr-2 mt-0.5 flex-shrink-0" />
+                    <span>Riding Flat</span>
+                  </li>
+                  <li className="flex items-start">
+                    <ChevronRight className="w-5 h-5 text-red-400 mr-2 mt-0.5 flex-shrink-0" />
+                    <span>Ride Jump</span>
+                  </li>
+                  <li className="flex items-start">
+                    <ChevronRight className="w-5 h-5 text-red-400 mr-2 mt-0.5 flex-shrink-0" />
+                    <span>Lunge</span>
+                  </li>
+                </ul>
               </div>
 
-              {postcodeResult && (
-                <motion.div
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className={`mt-4 p-4 rounded ${
-                    postcodeResult.available
-                      ? "bg-green-900/20 border border-green-500/30"
-                      : "bg-red-900/20 border border-red-500/30"
-                  }`}
-                >
-                  <p
-                    className={`text-sm text-center ${
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
+                  <MapPin className="w-6 h-6 text-red-400 mr-3" />
+                  How It Works
+                </h3>
+                <div className="space-y-3 text-white/90">
+                  <div className="flex items-start">
+                    <span className="w-6 h-6 rounded-full bg-red-500 text-white text-sm flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">1</span>
+                    <span>Place your post code in the checker</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="w-6 h-6 rounded-full bg-red-500 text-white text-sm flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">2</span>
+                    <span>If you're within 90 miles (1 way) away, you can book</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="w-6 h-6 rounded-full bg-red-500 text-white text-sm flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">3</span>
+                    <span>Penny will call you to arrange your session</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-red-600/10 border border-red-500/30 rounded-xl p-6">
+                <p className="text-white/90 text-center">
+                  <strong className="text-white">Contact:</strong> 07718402465
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8">
+              <h3 className="text-2xl font-semibold text-white mb-6 text-center">Radius Checker</h3>
+              <div className="space-y-4 text-white/80 mb-6">
+                <p>• 180 miles round trip you're able to book for 1 to 1</p>
+                <p>• Place your post code inside the box and press the button</p>
+                <p>• If you're inside 180 miles, we'll arrange your session</p>
+                <p>• Outside the radius you'll be redirected to other BHS Courses</p>
+                <p>• Don't want to be redirected? Contact us directly</p>
+              </div>
+              
+              <div className="max-w-xl mx-auto">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="relative flex-grow">
+                    <input
+                      type="text"
+                      ref={postcodeInputRef}
+                      placeholder="Enter postcode (e.g. BB18 6TD)"
+                      className="w-full px-4 py-3 bg-blue-900/50 border border-white/20 rounded-md text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-red-500/50 shadow-inner transition-all"
+                    />
+                  </div>
+                  <Button
+                    onClick={checkPostcode}
+                    disabled={isChecking}
+                    className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors flex items-center justify-center h-[46px] border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isChecking ? (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                    ) : (
+                      <Search className="w-4 h-4 mr-2" />
+                    )}
+                    {isChecking ? 'Checking...' : 'Check Area'}
+                  </Button>
+                </div>
+
+                {postcodeResult && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className={`mt-4 p-4 rounded ${
                       postcodeResult.available
-                        ? "text-green-400"
-                        : "text-red-400"
+                        ? "bg-green-900/20 border border-green-500/30"
+                        : "bg-red-900/20 border border-red-500/30"
                     }`}
                   >
-                    {postcodeResult.message}
-                    {postcodeResult.available && (
-                      <span className="block mt-2 text-green-300">
-                        Redirecting to coaching details...
-                      </span>
+                    {postcodeResult.available ? (
+                      <div>
+                        <p className="text-sm text-center text-green-400">
+                          {postcodeResult.message}
+                        </p>
+                        <span className="block mt-2 text-green-300 text-center text-sm">
+                          Opening contact form...
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="text-red-400">
+                        <p className="text-sm text-center mb-4">
+                          {postcodeResult.message}
+                        </p>
+                        
+                        <div className="text-left space-y-4 text-sm">
+                          <div>
+                            <h4 className="font-semibold text-red-300 mb-2">Option 1: BHS Courses</h4>
+                            <ul className="space-y-1 text-red-200 ml-2">
+                              <li>• <strong>Stage 1 Theory (Care)</strong> - Take your Stage 1 Exam at a BHS approved Centre (once passed, eligible for Stage 2 Care)</li>
+                              <li>• BHS Horse Knowledge Book 1</li>
+                              <li>• BHS Horse Knowledge Book 2</li>
+                              <li>• All Recognised Equestrian qualifications</li>
+                              <li>• Helping you onto the BHS Learning Ladder</li>
+                              <li>• Recognised by Colleges & Equestrian Centres</li>
+                              <li>• Enabling you to work on a Riding School</li>
+                              <li>• Enabling you to work as a groom in the Equestrian industry</li>
+                            </ul>
+                          </div>
+                          
+                          <div>
+                            <h4 className="font-semibold text-red-300 mb-2">Option 2: #BeHorseSavvy Courses</h4>
+                            <p className="text-red-200 mb-2">Non-BHS courses designed by Penny for parallel learning - simplified and accessible:</p>
+                            <ul className="space-y-1 text-red-200 ml-2">
+                              <li>• Worded more easily</li>
+                              <li>• Step ladder up to Pony Club Exams D, D+, C & C+</li>
+                              <li>• Penny is a Pony Club Accredited Assessor</li>
+                              <li>• Home Educated & Neurodivergent friendly</li>
+                              <li>• Different learning styles catered for</li>
+                            </ul>
+                            <div className="mt-2 text-red-200">
+                              <strong>Available Books:</strong> BeHorseSavvy Books 1-4, each with individual certificates
+                            </div>
+                          </div>
+                          
+                          <div className="text-center pt-2 border-t border-red-500/30">
+                            <p className="text-red-300 font-medium">Still not certain?</p>
+                            <p className="text-red-200">Call Penny on 07718402465</p>
+                          </div>
+                        </div>
+                      </div>
                     )}
-                  </p>
-                </motion.div>
-              )}
-            </div>
-
-            <Link 
-              to="/silver-practical" 
-              onClick={scrollToTop}
-              className="inline-flex items-center text-red-400 hover:text-red-300 font-medium"
-            >
-              Learn more about coaching options
-              <ChevronRight className="ml-1 h-4 w-4" />
-            </Link>
-          </motion.div>
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
+
+
 
       {/* Final CTA */}
       <section id="pricing" className="py-20 bg-blue-950 border-t border-white/20">
@@ -1048,9 +1219,9 @@ export default function Silver() {
             className="text-center mb-12">
             <div className="relative mb-12">
               <img 
-                src="/image copy 3.png" 
+                src="/image copy 6.png" 
                 alt="Horse and rider" 
-                className="w-full max-w-2xl mx-auto rounded-xl shadow-2xl border-4 border-white/20"
+                className="w-full max-w-sm mx-auto rounded-xl shadow-2xl border-4 border-white/20"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent rounded-xl"></div>
             </div>
@@ -1091,7 +1262,7 @@ export default function Silver() {
                       <span className="text-red-400 font-semibold">£30</span>
                     </div>
                   </div>
-                  <div className="p-3 bg-white/5 rounded-lg">
+                  {/* <div className="p-3 bg-white/5 rounded-lg">
                     <div className="flex items-center justify-between">
                       <span className="text-white font-medium">Book 3: Handling Your Horse</span>
                       <span className="text-red-400 font-semibold">£30</span>
@@ -1102,7 +1273,7 @@ export default function Silver() {
                       <span className="text-white font-medium">Book 4: Lungeing Your Horse</span>
                       <span className="text-red-400 font-semibold">£30</span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <Button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-colors duration-300 py-3 group-hover:bg-white/20">
@@ -1163,6 +1334,150 @@ export default function Silver() {
       </section>
 
       <Footer bgColor="bg-blue-950" />
+
+      {/* Contact Form Modal */}
+      {showContactForm && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="bg-gradient-to-br from-blue-950 to-blue-900 border border-white/30 rounded-2xl p-10 w-full max-w-2xl relative shadow-2xl"
+          >
+            <button
+              onClick={() => setShowContactForm(false)}
+              className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors duration-200 text-xl"
+            >
+              ✕
+            </button>
+            
+            {submitSuccess ? (
+              <div className="text-center py-8">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-3xl font-bold text-white mb-6">Success!</h3>
+                <p className="text-white/90 mb-8 text-lg leading-relaxed">
+                  Thank you for your interest! Your details have been sent to Penny and she will call you within 24 hours to discuss your coaching needs.
+                </p>
+                <div className="text-sm text-green-400 font-medium">
+                  This window will close automatically...
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="text-center mb-8">
+                  <h3 className="text-3xl font-bold text-white mb-4">Get In Touch</h3>
+                  <div className="w-16 h-1 bg-gradient-to-r from-red-500 to-red-400 mx-auto mb-6"></div>
+                  <p className="text-white/90 text-lg leading-relaxed">
+                    Great! You're in our service area. Please fill out this form and Penny will call you to discuss your coaching needs.
+                  </p>
+                </div>
+                
+                <form onSubmit={handleContactFormSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-white/95 text-sm font-semibold mb-3">
+                        Name *
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm"
+                        placeholder="Your full name"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-white/95 text-sm font-semibold mb-3">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        required
+                        className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm"
+                        placeholder="Your phone number"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-white/95 text-sm font-semibold mb-3">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm"
+                      placeholder="Enter your email address"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-white/95 text-sm font-semibold mb-3">
+                      What are you interested in? *
+                    </label>
+                    <input
+                      type="text"
+                      name="interest"
+                      required
+                      className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm"
+                      placeholder="e.g. 1-to-1 coaching, lunge sessions, handling sessions..."
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-white/95 text-sm font-semibold mb-3">
+                      Additional Message (Optional)
+                    </label>
+                    <textarea
+                      name="message"
+                      rows={4}
+                      className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 resize-none transition-all duration-200 backdrop-blur-sm"
+                      placeholder="Any specific requirements or questions..."
+                    />
+                  </div>
+                  
+                  <div className="flex gap-4 pt-8">
+                    <Button
+                      type="button"
+                      onClick={() => setShowContactForm(false)}
+                      className="flex-1 bg-white/10 hover:bg-white/20 text-white border border-white/30 py-4 text-lg font-medium rounded-lg transition-all duration-200 hover:scale-[1.02]"
+                      disabled={isSubmitting}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      className="flex-1 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center justify-center">
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3" />
+                          Sending...
+                        </div>
+                      ) : (
+                        <>
+                          <span>Send Message</span>
+                          <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                          </svg>
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              </>
+            )}
+          </motion.div>
+        </div>
+      )}
 
       {/* Course Checkout Modal */}
       {showCheckout && silverConfig && (

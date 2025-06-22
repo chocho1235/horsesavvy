@@ -632,7 +632,8 @@ export default function Bronze() {
                 </p>
                 <p>
                   Fully Insured<br/>
-                  DBS Checked Safeguarding Certified
+                  DBS Checked<br/>
+                  Safeguarding Certified
                 </p>
                   </div>
               <div className="flex flex-wrap gap-4 justify-center md:justify-start">
