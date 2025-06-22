@@ -1369,10 +1369,29 @@ export default function Silver() {
             ) : (
               <>
                 <div className="text-center mb-8">
-                  <h3 className="text-3xl font-bold text-white mb-4">Get In Touch</h3>
+                  <h3 className="text-3xl font-bold text-white mb-4">Good News!</h3>
                   <div className="w-16 h-1 bg-gradient-to-r from-red-500 to-red-400 mx-auto mb-6"></div>
-                  <p className="text-white/90 text-lg leading-relaxed">
-                    Great! You're in our service area. Please fill out this form and Penny will call you to discuss your coaching needs.
+                  <p className="text-white/90 text-lg leading-relaxed mb-4">
+                    You're inside the radius area for:
+                  </p>
+                  <div className="bg-white/10 rounded-lg p-4 mb-6 backdrop-blur-sm border border-white/20">
+                    <ul className="text-white/95 text-left space-y-2">
+                      <li className="flex items-center">
+                        <span className="text-red-400 mr-3">•</span>
+                        <span className="font-medium">1 to 1 Coaching</span>
+                      </li>
+                      <li className="flex items-center">
+                        <span className="text-red-400 mr-3">•</span>
+                        <span className="font-medium">Handling</span>
+                      </li>
+                      <li className="flex items-center">
+                        <span className="text-red-400 mr-3">•</span>
+                        <span className="font-medium">Lungeing practicals</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <p className="text-white/80 text-base">
+                    Please fill out this form and Penny will call you to discuss your coaching needs.
                   </p>
                 </div>
                 
