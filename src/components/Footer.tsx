@@ -109,7 +109,7 @@ export const Footer = ({ bgColor = "bg-black" }: FooterProps) => {
                 <Facebook className="w-5 h-5" aria-hidden="true" />
               </a>
               <a 
-                href="https://www.instagram.com/penelope_pleasant/" 
+                href="https://www.instagram.com/behorsesavvy/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"

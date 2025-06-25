@@ -477,9 +477,11 @@ export default function BronzePractical() {
                 </div>
               </div>
               <div className="text-4xl font-bold text-red-500 mb-6">£150</div>
+              <Link to="/silver?showContact=true">
               <Button className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-4 text-lg font-semibold rounded-lg">
                 Enroll Now
               </Button>
+              </Link>
               <p className="text-white/60 text-sm mt-4">Includes online + practical • No hidden fees</p>
             </div>
           </motion.div>

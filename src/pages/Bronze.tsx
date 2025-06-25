@@ -72,44 +72,28 @@ const getCoordinates = async (postcode: string): Promise<{lat: number, lon: numb
 // Testimonials data
 const testimonials = [
   {
-    name: "Example Student A",
-    location: "Example Location",
+    name: "Ella",
+    location: "Bronze Challenge Award Student",
     rating: 5,
-    text: "The Bronze Award completely transformed my confidence around horses. Penny's teaching style is incredible - she made everything so clear and approachable. I went from being nervous to genuinely excited about every lesson!",
+    text: "Ella started her BHS challenge awards August 2024 she work hard each week Ella started as a  complete novice with basic knowledge around caring for horses. Ella is now much more confident and has good knowledge she often tells mum and dad off for not doing things the correct way. February 2025 Ella completed all her bronze awards and working towards her silver. we are so grateful penny is very accommodating and Ella's confidence and knowledge hasn't gone unnoticed. ",
     course: "Bronze Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
+    image: "/ellatestimonialbronze.png"
   },
   {
-    name: "Example Student B",
-    location: "Example Location", 
+    name: "Karla S",
+    location: "Bronze Challenge Award Student",
     rating: 5,
-    text: "As a complete beginner, I was worried I'd be out of my depth, but the course structure is perfect. The online materials are comprehensive and well-organised, and now I feel confident in my knowledge of horse care.",
+    text: "I really enjoy learning with penny for the challenge awards, my aim is to get to BHS stage 2. The courses are fun, very educational and Penny also makes it easy to understand and remember. These courses are very good to do, if you get stressed about exams situations.",
     course: "Bronze Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
+    image: "/image copy 7.png"
   },
   {
-    name: "Example Student C",
-    location: "Example Location",
+    name: "Isla F",
+    location: "Bronze Challenge Award Student",
     rating: 5,
-    text: "I loved how the course combined theory with interactive learning. Penny's expertise really shows - she has this amazing ability to explain complex topics in an easy-to-understand way.",
+    text: "I like doing the challenge awards, Penny makes it fun to learn, I have also made many friends on the course. I like learning all about ponies and how I can be a great owner for them. I think sometimes now Penny has made me know things that adults wouldn't even know.",
     course: "Bronze Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
-  },
-  {
-    name: "Example Student D",
-    location: "Example Location",
-    rating: 5,
-    text: "The Bronze Award gave me the foundation I needed to pursue my equestrian goals. The qualification is well-respected, and I feel properly prepared to continue my riding journey with confidence.",
-    course: "Bronze Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
-  },
-  {
-    name: "Example Student E",
-    location: "Example Location",
-    rating: 5,
-    text: "Penny's teaching approach is fantastic - patient, encouraging, and incredibly knowledgeable. The course content is comprehensive but never overwhelming. I can't recommend it highly enough!",
-    course: "Bronze Challenge Award",
-    image: "/69d3087a-116b-4867-88bb-3a0fff3fa21a.jpeg"
+    image: "/testimonial-placeholder.svg"
   }
 ];
 

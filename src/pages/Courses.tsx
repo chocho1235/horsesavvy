@@ -48,6 +48,11 @@ const practicalCourses = [
     price: 97
   },
   {
+    id: "bhs-silver-awards",
+    title: "Silver Challenge Award",
+    price: 97
+  },
+  {
     id: "bhs-stage-1-practical",
     title: "BHS Stage 1 Practical",
     price: 97
@@ -92,6 +97,8 @@ const CourseCard = React.memo(
           return "/horse-knowledge-2";
         case "bhs-bronze-awards":
           return "/bronze";
+        case "bhs-silver-awards":
+          return "/silver";
         case "bhs-stage-1-practical":
           return "/bhs-stage-1-practical";
         default:

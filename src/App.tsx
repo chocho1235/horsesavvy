@@ -32,6 +32,7 @@ const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
 const EmailPreview = lazy(() => import("./pages/EmailPreview"));
 const Silver = lazy(() => import("./pages/Silver"));
+const CampPleasant = lazy(() => import("./pages/CampPleasant"));
 
 // Loading component
 const LoadingFallback = () => (
@@ -107,7 +108,7 @@ const routes = [
   { path: "/clinics", element: <Clinics /> },
   { path: "/education", element: <NotFound /> },
   { path: "/merchandise", element: <NotFound /> },
-  { path: "/camp", element: <NotFound /> },
+  { path: "/camp", element: <CampPleasant /> },
   { path: "/case-studies", element: <NotFound /> },
   { path: "/admin", element: <Admin /> },
   { path: "/email-preview", element: <EmailPreview /> },

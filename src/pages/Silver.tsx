@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ChevronDown, ArrowLeft, Award, User, Search, MapPin, ChevronLeft, Star, Quote } from "lucide-react";
 import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { BackToHome } from "@/components/BackToHome";
 import { useIsMobile } from "@/hooks/use-mobile";
 import FaqItem from "@/components/FaqItem";
@@ -104,9 +104,17 @@ export default function Silver() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const isMobile = useIsMobile();
   const postcodeInputRef = useRef<HTMLInputElement>(null);
+  const location = useLocation();
 
   // Get Silver course configuration
   const silverConfig = getCourseConfig('silver-challenge');
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('showContact') === 'true') {
+      setShowContactForm(true);
+    }
+  }, [location]);
 
   const handleFaqToggle = useCallback((index: number) => {
     setOpenFaq(prev => prev === index ? null : index);
@@ -1337,16 +1345,16 @@ export default function Silver() {
 
       {/* Contact Form Modal */}
       {showContactForm && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 sm:p-6">
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="bg-gradient-to-br from-blue-950 to-blue-900 border border-white/30 rounded-2xl p-10 w-full max-w-2xl relative shadow-2xl"
+            className="bg-gradient-to-br from-blue-950 to-blue-900 border border-white/30 rounded-2xl p-6 sm:p-8 lg:p-10 w-full max-w-2xl relative shadow-2xl max-h-[90vh] overflow-y-auto"
           >
             <button
               onClick={() => setShowContactForm(false)}
-              className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors duration-200 text-xl"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 text-white/60 hover:text-white transition-colors duration-200 text-xl z-10"
             >
               ✕
             </button>
@@ -1368,112 +1376,112 @@ export default function Silver() {
               </div>
             ) : (
               <>
-                <div className="text-center mb-8">
-                  <h3 className="text-3xl font-bold text-white mb-4">Good News!</h3>
-                  <div className="w-16 h-1 bg-gradient-to-r from-red-500 to-red-400 mx-auto mb-6"></div>
-                  <p className="text-white/90 text-lg leading-relaxed mb-4">
+                <div className="text-center mb-6 sm:mb-8">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Good News!</h3>
+                  <div className="w-16 h-1 bg-gradient-to-r from-red-500 to-red-400 mx-auto mb-4 sm:mb-6"></div>
+                  <p className="text-white/90 text-base sm:text-lg leading-relaxed mb-3 sm:mb-4">
                     You're inside the radius area for:
                   </p>
-                  <div className="bg-white/10 rounded-lg p-4 mb-6 backdrop-blur-sm border border-white/20">
-                    <ul className="text-white/95 text-left space-y-2">
+                  <div className="bg-white/10 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6 backdrop-blur-sm border border-white/20">
+                    <ul className="text-white/95 text-left space-y-1 sm:space-y-2 text-sm sm:text-base">
                       <li className="flex items-center">
-                        <span className="text-red-400 mr-3">•</span>
+                        <span className="text-red-400 mr-2 sm:mr-3">•</span>
                         <span className="font-medium">1 to 1 Coaching</span>
                       </li>
                       <li className="flex items-center">
-                        <span className="text-red-400 mr-3">•</span>
+                        <span className="text-red-400 mr-2 sm:mr-3">•</span>
                         <span className="font-medium">Handling</span>
                       </li>
                       <li className="flex items-center">
-                        <span className="text-red-400 mr-3">•</span>
+                        <span className="text-red-400 mr-2 sm:mr-3">•</span>
                         <span className="font-medium">Lungeing practicals</span>
                       </li>
                     </ul>
                   </div>
-                  <p className="text-white/80 text-base">
+                  <p className="text-white/80 text-sm sm:text-base">
                     Please fill out this form and Penny will call you to discuss your coaching needs.
                   </p>
                 </div>
                 
-                <form onSubmit={handleContactFormSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={handleContactFormSubmit} className="space-y-4 sm:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div>
-                      <label className="block text-white/95 text-sm font-semibold mb-3">
+                      <label className="block text-white/95 text-sm font-semibold mb-2 sm:mb-3">
                         Name *
                       </label>
                       <input
                         type="text"
                         name="name"
                         required
-                        className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm"
+                        className="w-full px-4 py-3 sm:px-5 sm:py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm text-sm sm:text-base"
                         placeholder="Your full name"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-white/95 text-sm font-semibold mb-3">
+                      <label className="block text-white/95 text-sm font-semibold mb-2 sm:mb-3">
                         Phone Number *
                       </label>
                       <input
                         type="tel"
                         name="phone"
                         required
-                        className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm"
+                        className="w-full px-4 py-3 sm:px-5 sm:py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm text-sm sm:text-base"
                         placeholder="Your phone number"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-white/95 text-sm font-semibold mb-3">
+                    <label className="block text-white/95 text-sm font-semibold mb-2 sm:mb-3">
                       Email Address *
                     </label>
                     <input
                       type="email"
                       name="email"
                       required
-                      className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm"
+                      className="w-full px-4 py-3 sm:px-5 sm:py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm text-sm sm:text-base"
                       placeholder="Enter your email address"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-white/95 text-sm font-semibold mb-3">
+                    <label className="block text-white/95 text-sm font-semibold mb-2 sm:mb-3">
                       What are you interested in? *
                     </label>
                     <input
                       type="text"
                       name="interest"
                       required
-                      className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm"
+                      className="w-full px-4 py-3 sm:px-5 sm:py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 transition-all duration-200 backdrop-blur-sm text-sm sm:text-base"
                       placeholder="e.g. 1-to-1 coaching, lunge sessions, handling sessions..."
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-white/95 text-sm font-semibold mb-3">
+                    <label className="block text-white/95 text-sm font-semibold mb-2 sm:mb-3">
                       Additional Message (Optional)
                     </label>
                     <textarea
                       name="message"
-                      rows={4}
-                      className="w-full px-5 py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 resize-none transition-all duration-200 backdrop-blur-sm"
+                      rows={3}
+                      className="w-full px-4 py-3 sm:px-5 sm:py-4 bg-blue-900/30 border border-white/30 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-red-500/70 focus:border-red-500/50 resize-none transition-all duration-200 backdrop-blur-sm text-sm sm:text-base"
                       placeholder="Any specific requirements or questions..."
                     />
                   </div>
                   
-                  <div className="flex gap-4 pt-8">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6 sm:pt-8">
                     <Button
                       type="button"
                       onClick={() => setShowContactForm(false)}
-                      className="flex-1 bg-white/10 hover:bg-white/20 text-white border border-white/30 py-4 text-lg font-medium rounded-lg transition-all duration-200 hover:scale-[1.02]"
+                      className="flex-1 bg-white/10 hover:bg-white/20 text-white border border-white/30 py-3 sm:py-4 text-base sm:text-lg font-medium rounded-lg transition-all duration-200 hover:scale-[1.02]"
                       disabled={isSubmitting}
                     >
                       Cancel
                     </Button>
                     <Button
                       type="submit"
-                      className="flex-1 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
+                      className="flex-1 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (

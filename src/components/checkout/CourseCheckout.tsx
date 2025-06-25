@@ -228,25 +228,26 @@ export function CourseCheckout({ courseConfig, preSelectedPackage, onClose }: Co
     <div className="fixed inset-0 bg-blue-900/60 backdrop-blur-sm z-50 overflow-y-auto">
       <div className="min-h-screen bg-blue-950">
         {/* Header */}
-        <div className="sticky top-0 z-30 bg-blue-950/90 backdrop-blur border-b border-white/10 py-4">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-4">
+        <div className="sticky top-0 z-30 bg-blue-950/90 backdrop-blur border-b border-white/10 py-3 sm:py-4">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 sm:gap-4">
             <Button
               onClick={onClose}
               variant="ghost"
               size="sm"
-              className="text-white/70 hover:text-white hover:bg-white/10"
+              className="text-white/70 hover:text-white hover:bg-white/10 flex-shrink-0"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Course
+              <ArrowLeft className="w-4 h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Back to Course</span>
+              <span className="sm:hidden">Back</span>
             </Button>
-            <div>
-              <h1 className="text-white font-bold text-xl">
+            <div className="min-w-0">
+              <h1 className="text-white font-bold text-lg sm:text-xl truncate">
                 {courseConfig.name}
                 {preSelectedPackage && (
-                  <span className="text-red-400 text-base ml-2">• Complete Course Selected</span>
+                  <span className="text-red-400 text-sm sm:text-base ml-2 hidden sm:inline">• Complete Course Selected</span>
                 )}
               </h1>
-              <p className="text-white/70 text-sm">{courseConfig.description}</p>
+              <p className="text-white/70 text-xs sm:text-sm truncate">{courseConfig.description}</p>
             </div>
           </div>
         </div>
