@@ -36,9 +36,7 @@ const CampPleasant = lazy(() => import("./pages/CampPleasant"));
 
 // Loading component
 const LoadingFallback = () => (
-  <div className="min-h-screen flex items-center justify-center bg-blue-950">
-    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-red-500"></div>
-  </div>
+  <div className="min-h-screen bg-blue-950"></div>
 );
 
 // Initialize React Query client

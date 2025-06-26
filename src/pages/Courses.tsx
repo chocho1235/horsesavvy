@@ -59,10 +59,7 @@ const practicalCourses = [
   }
 ];
 
-// UK postcodes covered for practical training
-const validPostcodeAreas = ["RG", "OX", "SL", "HP", "GU"];
-
-// Light animation variant
+// Animation variant
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
@@ -143,43 +140,7 @@ const CourseCard = React.memo(
 );
 
 export const Courses = () => {
-  const [postcodeResult, setPostcodeResult] = useState<{
-    available: boolean;
-    message: string;
-  } | null>(null);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [checkedOnce, setCheckedOnce] = useState(false);
-  const postcodeInputRef = useRef<HTMLInputElement>(null);
   const coursesRef = useRef<HTMLDivElement>(null);
-
-  // Reduced motion listener
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-    const handler = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-    };
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  // Postcode check handler
-  const checkPostcode = useCallback(() => {
-    const val = postcodeInputRef.current?.value.trim() ?? "";
-    if (!val) {
-      setPostcodeResult(null);
-      return;
-    }
-    const area = val.toUpperCase().split(" ")[0].replace(/[0-9]/g, "");
-    const ok = validPostcodeAreas.includes(area);
-    setPostcodeResult({
-      available: ok,
-      message: ok
-        ? "Great news! We offer practical training in your area."
-        : "Sorry, we don't currently offer practical training in your area, but our online courses are available nationwide.",
-    });
-    if (!checkedOnce) setCheckedOnce(true);
-  }, [checkedOnce]);
 
   const scrollToCourses = () => {
     coursesRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -317,9 +278,8 @@ export const Courses = () => {
                 </ul>
                 <div className="bg-blue-900 p-6 rounded-lg border border-white/10">
                   <p className="text-white/70 text-lg leading-relaxed">
-                    If you're located within a qualifying postcode area, you may also be eligible for the BHS Challenge Award – Silver. 
-                    This hybrid course includes online theory modules and a pre-booked coaching session with your horse at your own yard. 
-                    On successful completion, you gain direct entry to the BHS Stage 2 exam (booked via the BHS website).
+                    The BHS Challenge Awards (Bronze and Silver) include online theory modules and a pre-booked coaching session with your horse at your own yard. 
+                    On successful completion of the Silver Award, you gain direct entry to the BHS Stage 2 exam (booked via the BHS website).
                   </p>
                 </div>
               </motion.div>
@@ -373,9 +333,7 @@ export const Courses = () => {
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-12" ref={coursesRef}>
         {/* Online Courses */}
-        <section
-          className="mb-16 max-w-4xl mx-auto"
-        >
+        <section className="mb-16 max-w-4xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-10">
             <div className="inline-block bg-blue-900/80 px-5 py-2 rounded-full mb-4 border border-blue-700">
               <Globe className="w-8 h-8 text-red-400" />
@@ -392,60 +350,13 @@ export const Courses = () => {
         </section>
 
         {/* Practical Courses */}
-        <section
-          className="mb-16 max-w-4xl mx-auto"
-        >
+        <section className="mb-16 max-w-4xl mx-auto">
           <motion.div {...fadeInUp} className="text-center mb-10">
             <div className="inline-block bg-blue-900/80 px-5 py-2 rounded-full mb-4 border border-blue-700">
-              <MapPin className="w-8 h-8 text-red-400" />
+              <User className="w-8 h-8 text-red-400" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Practical Training</h2>
-            <p className="text-white/70 text-lg">Hands-on experience with expert guidance. Check your eligibility below.</p>
-          </motion.div>
-
-          {/* Postcode Checker */}
-          <motion.div
-            {...fadeInUp}
-            className="mb-10 p-4 sm:p-6 bg-blue-900 border border-white/20 rounded-lg shadow-lg"
-          >
-            <div className="flex flex-col sm:flex-row gap-4 items-center">
-              <div className="relative flex-grow w-full sm:w-auto">
-                <input
-                  type="text"
-                  ref={postcodeInputRef}
-                  placeholder="Enter postcode (e.g. RG1 1AA)"
-                  className="w-full pl-10 pr-4 py-3 bg-blue-950/80 border-2 border-blue-700 rounded-full text-white placeholder:text-blue-300/60 focus:outline-none focus:ring-2 focus:ring-red-500/80 shadow-inner"
-                />
-                <MapPin className="w-5 h-5 text-blue-300/60 absolute left-4 top-1/2 -translate-y-1/2" />
-              </div>
-              <Button
-                onClick={checkPostcode}
-                className="w-full sm:w-auto px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full transition-colors flex items-center justify-center gap-2"
-              >
-                <Search className="w-4 h-4" />
-                Check Area
-              </Button>
-            </div>
-
-            {postcodeResult && (
-              <div
-                className={`mt-6 p-4 rounded-lg ${
-                  postcodeResult.available
-                    ? "bg-green-900/20 border border-green-500/30"
-                    : "bg-red-900/20 border border-red-500/30"
-                }`}
-              >
-                <p
-                  className={`text-sm text-center font-medium ${
-                    postcodeResult.available
-                      ? "text-green-300"
-                      : "text-red-300"
-                  }`}
-                >
-                  {postcodeResult.message}
-                </p>
-              </div>
-            )}
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Practical Courses</h2>
+            <p className="text-white/70 text-lg">In-person training with expert guidance.</p>
           </motion.div>
 
           <div className="space-y-6">
