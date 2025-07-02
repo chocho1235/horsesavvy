@@ -52,6 +52,27 @@ interface CourseBookingData {
   confirmed_at?: string;
 }
 
+// Types for camp booking data
+interface CampBookingData {
+  id: string;
+  reference: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  experience_level: string;
+  horse_name: string;
+  accommodation_type: string;
+  special_requests?: string;
+  camp_price: string;
+  camp_dates: string;
+  camp_location: string;
+  created_at: string;
+  status: 'pending' | 'confirmed' | 'cancelled' | 'completed';
+  payment_status: 'pending' | 'received' | 'confirmed';
+  notes?: string;
+}
+
 // Sample bookings for demo purposes
 const sampleBookings: BookingData[] = [
   {
@@ -262,10 +283,11 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState<BookingData[]>([]);
   const [courseBookings, setCourseBookings] = useState<CourseBookingData[]>([]);
+  const [campBookings, setCampBookings] = useState<CampBookingData[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [verifyReference, setVerifyReference] = useState("");
   const [verificationResult, setVerificationResult] = useState<BookingData | null>(null);
-  const [activeTab, setActiveTab] = useState<"bookings" | "courses" | "clinics">("bookings");
+  const [activeTab, setActiveTab] = useState<"bookings" | "courses" | "clinics" | "camps">("bookings");
 
   const sessionInfo = simpleAuth.getSessionInfo();
 
@@ -323,8 +345,23 @@ const AdminDashboard = () => {
       }
     };
 
+    const fetchCampBookings = async () => {
+      console.log('Fetching camp bookings from Supabase...');
+      const { data, error } = await supabase.from('camp_bookings').select('*');
+      console.log('Camp bookings response:', { data, error });
+      if (error) {
+        console.error('Camp bookings error:', error);
+        toast.error('Failed to load camp bookings from Supabase');
+        setCampBookings([]);
+      } else {
+        console.log('Raw camp bookings data:', data);
+        setCampBookings(data || []);
+      }
+    };
+
     fetchBookings();
     fetchCourseBookings();
+    fetchCampBookings();
   }, []);
 
   // Save bookings to Supabase (update status)
@@ -420,6 +457,96 @@ const AdminDashboard = () => {
     if (success) toast.success('Course booking declined!');
   };
 
+  // Camp booking management functions
+  const updateCampBookingStatus = async (bookingId: string, status: string) => {
+    const { error } = await supabase
+      .from('camp_bookings')
+      .update({ status })
+      .eq('id', bookingId);
+    if (error) {
+      toast.error('Failed to update camp booking status');
+      return false;
+    }
+    // Refetch camp bookings
+    const { data } = await supabase.from('camp_bookings').select('*');
+    setCampBookings(data || []);
+    return true;
+  };
+
+  const updateCampPaymentStatus = async (bookingId: string, payment_status: string) => {
+    const { error } = await supabase
+      .from('camp_bookings')
+      .update({ payment_status })
+      .eq('id', bookingId);
+    if (error) {
+      toast.error('Failed to update camp payment status');
+    } else {
+      toast.success('Camp payment status updated');
+      const { data } = await supabase.from('camp_bookings').select('*');
+      setCampBookings(data || []);
+    }
+  };
+
+  const confirmCampBooking = async (bookingId: string) => {
+    const success = await updateCampBookingStatus(bookingId, 'confirmed');
+    if (success) {
+      toast.success('Camp booking confirmed!');
+      
+      // Send confirmation email
+      const booking = campBookings.find(b => b.id === bookingId);
+      if (booking) {
+        try {
+          await fetch('/api/send-camp-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: booking.email,
+              name: `${booking.first_name} ${booking.last_name}`,
+              camp: 'Camp Pleasant 2026',
+              dates: booking.camp_dates,
+              location: booking.camp_location,
+              price: booking.camp_price,
+              reference: booking.reference,
+              status: 'confirmed',
+            }),
+          });
+        } catch (err) {
+          console.warn('Failed to send confirmation email:', err);
+        }
+      }
+    }
+  };
+
+  const declineCampBooking = async (bookingId: string) => {
+    const success = await updateCampBookingStatus(bookingId, 'cancelled');
+    if (success) {
+      toast.success('Camp booking declined!');
+      
+      // Send decline email
+      const booking = campBookings.find(b => b.id === bookingId);
+      if (booking) {
+        try {
+          await fetch('/api/send-camp-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: booking.email,
+              name: `${booking.first_name} ${booking.last_name}`,
+              camp: 'Camp Pleasant 2026',
+              dates: booking.camp_dates,
+              location: booking.camp_location,
+              price: booking.camp_price,
+              reference: booking.reference,
+              status: 'declined',
+            }),
+          });
+        } catch (err) {
+          console.warn('Failed to send decline email:', err);
+        }
+      }
+    }
+  };
+
   // Logout
   const handleLogout = () => {
     simpleAuth.logout();
@@ -483,6 +610,26 @@ const AdminDashboard = () => {
     booking => booking.status === 'confirmed' && booking.payment_status === 'confirmed'
   );
   const declinedCourseBookings = filteredCourseBookings.filter(booking => booking.status === 'cancelled');
+
+  // Camp booking filters
+  const filteredCampBookings = campBookings.filter(booking => {
+    const matchesSearch = 
+      booking.reference.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.experience_level.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    return matchesSearch;
+  });
+
+  const pendingCampBookings = filteredCampBookings.filter(
+    booking => booking.status === 'pending' && (booking.payment_status === 'pending' || booking.payment_status === 'received' || !booking.payment_status)
+  );
+  const confirmedCampBookings = filteredCampBookings.filter(
+    booking => booking.status === 'confirmed' && booking.payment_status === 'confirmed'
+  );
+  const declinedCampBookings = filteredCampBookings.filter(booking => booking.status === 'cancelled');
 
   // Export bookings
   const exportBookings = () => {
@@ -957,6 +1104,210 @@ const AdminDashboard = () => {
     );
   };
 
+  // Camp booking card component
+  const CampBookingCard = ({ booking, isPending = false, isDeclined = false, showPaymentControls = false }: { booking: CampBookingData; isPending?: boolean; isDeclined?: boolean; showPaymentControls?: boolean }) => {
+    // Helper: Mark as full payment and confirm
+    const markAsFullAndConfirm = async () => {
+      console.log('Updating camp booking:', booking.id);
+      const { error } = await supabase
+        .from('camp_bookings')
+        .update({ payment_status: 'confirmed', status: 'confirmed' })
+        .eq('id', booking.id);
+      
+      if (error) {
+        console.error('Error updating camp booking:', error);
+        toast.error('Failed to update camp booking');
+      } else {
+        console.log('Camp booking updated successfully');
+        toast.success('Camp booking marked as fully paid and confirmed');
+        
+        // Send confirmation email
+        try {
+          await fetch('/api/send-camp-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: booking.email,
+              name: `${booking.first_name} ${booking.last_name}`,
+              camp: 'Camp Pleasant 2026',
+              dates: booking.camp_dates,
+              location: booking.camp_location,
+              price: booking.camp_price,
+              reference: booking.reference,
+              status: 'confirmed',
+            }),
+          });
+        } catch (emailError) {
+          console.warn("Camp confirmation email failed:", emailError);
+        }
+        
+        // Refetch camp bookings
+        const { data } = await supabase.from('camp_bookings').select('*');
+        setCampBookings(data || []);
+      }
+    };
+    
+    // Helper: Decline booking
+    const decline = async () => {
+      console.log('Declining camp booking:', booking.id);
+      const { error } = await supabase
+        .from('camp_bookings')
+        .update({ status: 'cancelled' })
+        .eq('id', booking.id);
+      
+      if (error) {
+        console.error('Error declining camp booking:', error);
+        toast.error('Failed to decline camp booking');
+      } else {
+        console.log('Camp booking declined successfully');
+        toast.success('Camp booking declined');
+        
+        // Send decline email
+        try {
+          await fetch('/api/send-camp-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: booking.email,
+              name: `${booking.first_name} ${booking.last_name}`,
+              camp: 'Camp Pleasant 2026',
+              dates: booking.camp_dates,
+              location: booking.camp_location,
+              price: booking.camp_price,
+              reference: booking.reference,
+              status: 'declined',
+            }),
+          });
+        } catch (emailError) {
+          console.warn("Camp decline email failed:", emailError);
+        }
+        
+        // Refetch camp bookings
+        const { data } = await supabase.from('camp_bookings').select('*');
+        setCampBookings(data || []);
+      }
+    };
+
+    return (
+      <div className="bg-white/5 p-6 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300 shadow-lg">
+        <div className="grid lg:grid-cols-4 gap-6">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <User className="w-4 h-4 text-red-400" />
+              <span className="text-white font-semibold text-lg">
+                {booking.first_name} {booking.last_name}
+              </span>
+            </div>
+            <div className="space-y-1 text-sm">
+              <p className="text-white/70 flex items-center gap-2">
+                <Hash className="w-3 h-3" />
+                <span className="font-mono">{booking.reference}</span>
+              </p>
+              <p className="text-white/70 flex items-center gap-2">
+                <Mail className="w-3 h-3" />
+                {booking.email}
+              </p>
+              <p className="text-white/70 flex items-center gap-2">
+                <Phone className="w-3 h-3" />
+                {booking.phone}
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <h4 className="text-white font-semibold flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-red-400" />
+              Camp Details
+            </h4>
+            <div className="space-y-1 text-sm">
+              <p className="text-white/90 font-medium">Camp Pleasant 2026</p>
+              <p className="text-red-400 font-semibold">{booking.camp_price}</p>
+              <p className="text-white/70">{booking.camp_dates}</p>
+              <p className="text-white/70">{booking.camp_location}</p>
+              <p className="text-blue-300 text-xs font-medium">CAMP BOOKING</p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <h4 className="text-white font-semibold">Booking Info</h4>
+            <div className="space-y-1 text-sm">
+              <p className="text-white/80">
+                <span className="text-white/60">Experience:</span> {booking.experience_level}
+              </p>
+              <p className="text-white/80">
+                <span className="text-white/60">Horse:</span> {booking.horse_name}
+              </p>
+              <p className="text-white/60 text-xs">
+                Booked: {booking.created_at && !isNaN(new Date(booking.created_at).getTime()) ? format(new Date(booking.created_at), 'MMM d, HH:mm') : 'N/A'}
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            {/* Only show status for declined/confirmed, no action required UI */}
+            {!isPending && (
+              <div className="space-y-3">
+                <h4 className="text-white font-semibold">Status</h4>
+                <div className={`p-3 rounded-lg ${
+                  isDeclined 
+                    ? 'bg-red-950/50 border border-red-500/50'
+                    : 'bg-green-950/50 border border-green-500/50'
+                }`}>
+                  <p className={`text-sm flex items-center gap-2 ${
+                    isDeclined ? 'text-red-200' : 'text-green-200'
+                  }`}>
+                    {isDeclined ? <XCircle className="w-4 h-4" /> : <CheckCircle className="w-4 h-4" />}
+                    {isDeclined ? 'Declined' : 'Confirmed'}
+                  </p>
+                </div>
+              </div>
+            )}
+            {/* Controls column (fourth, right of Booking Info) */}
+            <div className="space-y-3 flex flex-col items-end justify-between">
+              {/* Payment controls for pending bookings */}
+              {isPending && booking.payment_status !== 'confirmed' && (
+                <div className="flex flex-col gap-2 items-end">
+                  <div className="text-white/80 text-sm mb-1">
+                    Payment Status: <span className="text-blue-300 font-bold">Payment Pending</span>
+                  </div>
+                  <Button
+                    size="sm"
+                    className="bg-green-500/90 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded shadow"
+                    onClick={markAsFullAndConfirm}
+                  >
+                    Mark as Full Amount Paid & Confirm
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="bg-red-500/90 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded shadow"
+                    onClick={decline}
+                  >
+                    Decline
+                  </Button>
+                </div>
+              )}
+              {/* Status only for confirmed bookings */}
+              {showPaymentControls && booking.status === 'confirmed' && booking.payment_status === 'confirmed' && (
+                <div className="flex flex-col gap-2 items-end">
+                  <div className="text-white/80 text-sm mb-1">
+                    Payment Status: <span className="text-green-400 font-bold">Full Amount Paid</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        {booking.special_requests && (
+          <div className="mt-6 pt-4 border-t border-white/10">
+            <h5 className="text-white font-medium mb-2">Special Requests:</h5>
+            <p className="text-white/70 text-sm bg-white/5 p-3 rounded-lg border border-white/10">{booking.special_requests}</p>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-blue-950 text-white overflow-hidden relative">
       {/* Decorative elements */}
@@ -1039,6 +1390,17 @@ const AdminDashboard = () => {
                 >
                   <Award className="w-4 h-4 mr-2" />
                   Clinic Management
+                </Button>
+                <Button
+                  onClick={() => setActiveTab("camps")}
+                  className={`px-6 py-3 rounded-md transition-all duration-300 ${
+                    activeTab === "camps"
+                      ? "bg-red-600 text-white shadow-lg"
+                      : "bg-transparent text-white/70 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  <Award className="w-4 h-4 mr-2" />
+                  Camp Bookings
                 </Button>
               </div>
             </div>
@@ -1440,6 +1802,169 @@ const AdminDashboard = () => {
           {activeTab === "clinics" && (
             <>
               <ClinicManagement />
+            </>
+          )}
+
+          {/* Camps Tab Content */}
+          {activeTab === "camps" && (
+            <>
+              {/* Quick Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/70 text-sm">Total Camps</p>
+                        <p className="text-white text-xl md:text-2xl font-bold">{campBookings.length}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                                             <div>
+                         <p className="text-white/70 text-sm">Pending</p>
+                         <p className="text-white text-xl md:text-2xl font-bold">
+                           {pendingCampBookings.length}
+                         </p>
+                       </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                                             <div>
+                         <p className="text-white/70 text-sm">Confirmed</p>
+                         <p className="text-white text-xl md:text-2xl font-bold">
+                           {confirmedCampBookings.length}
+                         </p>
+                       </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-lg">
+                  <CardContent className="p-4 md:p-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-red-500/20 rounded-lg">
+                        <XCircle className="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                      </div>
+                                             <div>
+                         <p className="text-white/70 text-sm">Declined</p>
+                         <p className="text-white text-xl md:text-2xl font-bold">
+                           {declinedCampBookings.length}
+                         </p>
+                       </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Search */}
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2">
+                    <Search className="w-4 h-4 text-white/70 flex-shrink-0" />
+                    <Input
+                      placeholder="Search camp bookings by name, email, reference, or experience level..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="bg-blue-900/50 border-white/30 text-white placeholder:text-white/50 h-12 text-lg focus:border-red-400 transition-all duration-300"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Pending Camp Bookings */}
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
+                                     <CardTitle className="text-white flex items-center gap-2">
+                     <Clock className="w-6 h-6" />
+                     Pending Camp Bookings ({pendingCampBookings.length})
+                   </CardTitle>
+                  <CardDescription className="text-white/90">
+                    Camp bookings awaiting confirmation
+                  </CardDescription>
+                </CardHeader>
+                                 <CardContent className="p-6">
+                   {pendingCampBookings.length === 0 ? (
+                     <div className="text-center py-12 text-white/60">
+                       <Clock className="w-16 h-16 text-white/30 mx-auto mb-4" />
+                       <p className="text-lg">No pending camp bookings</p>
+                       <p className="text-sm text-white/50">All caught up!</p>
+                     </div>
+                   ) : (
+                     <div className="space-y-4">
+                       {pendingCampBookings.map((booking) => (
+                         <CampBookingCard key={booking.id} booking={booking} isPending={true} />
+                       ))}
+                     </div>
+                   )}
+                 </CardContent>
+              </Card>
+
+              {/* Confirmed Camp Bookings */}
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl mb-8">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
+                                     <CardTitle className="text-white flex items-center gap-2">
+                     <CheckCircle className="w-6 h-6" />
+                     Confirmed Camp Bookings ({confirmedCampBookings.length})
+                   </CardTitle>
+                  <CardDescription className="text-white/90">
+                    All confirmed and ready for camp access
+                  </CardDescription>
+                </CardHeader>
+                                 <CardContent className="p-6">
+                   {confirmedCampBookings.length === 0 ? (
+                     <div className="text-center py-12 text-white/60">
+                       <CheckCircle className="w-16 h-16 text-white/30 mx-auto mb-4" />
+                       <p className="text-lg">No confirmed camp bookings yet</p>
+                       <p className="text-sm text-white/50">Confirm pending camp bookings above</p>
+                     </div>
+                   ) : (
+                     <div className="space-y-4">
+                       {confirmedCampBookings.map((booking) => (
+                         <CampBookingCard key={booking.id} booking={booking} isPending={false} showPaymentControls={true} />
+                       ))}
+                     </div>
+                   )}
+                 </CardContent>
+              </Card>
+
+                             {/* Declined Camp Bookings */}
+               {declinedCampBookings.length > 0 && (
+                 <Card className="bg-white/10 backdrop-blur-sm border-white/20 shadow-xl">
+                   <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg">
+                     <CardTitle className="text-white flex items-center gap-2">
+                       <XCircle className="w-6 h-6" />
+                       Declined Camp Bookings ({declinedCampBookings.length})
+                     </CardTitle>
+                     <CardDescription className="text-white/90">
+                       Camp bookings that were declined
+                     </CardDescription>
+                   </CardHeader>
+                   <CardContent className="p-6">
+                     <div className="space-y-4">
+                       {declinedCampBookings.map((booking) => (
+                         <CampBookingCard key={booking.id} booking={booking} isPending={false} isDeclined={true} />
+                       ))}
+                     </div>
+                   </CardContent>
+                 </Card>
+               )}
             </>
           )}
         </div>

@@ -25,7 +25,7 @@ const Index = () => {
         variants={fadeInUp}
         initial="initial"
         animate="whileInView"
-        className="absolute top-0 left-0 h-[50vh] w-[50vh] min-w-[350px] max-w-[450px] md:block hidden z-[51] md:backdrop-blur-sm shadow-2xl border-4 border-transparent"
+        className="absolute top-0 left-0 h-[50vh] w-[50vh] min-w-[350px] max-w-[450px] md:block hidden z-[51] md:backdrop-blur-sm shadow-2xl border-4 border-transparent bg-[#2a2a2a]"
         style={{
           background: 'linear-gradient(white, white) padding-box, linear-gradient(to right, #FF0000, #0066FF, #FFFFFF) border-box'
         }}

@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="BeHorseSavvy - The Penny Club - Professional equestrian education" />
     
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="/DSC_1374.jpg" />
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://behorsesavvy.vercel.app/" />
@@ -21,8 +24,12 @@
     <meta property="twitter:image" content="https://behorsesavvy.vercel.app/pennyclubmanifest.jpeg" />
 
     <title>BeHorseSavvy - The Penny Club</title>
+    
+    <!-- Facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0&appId=your-app-id&autoLogAppEvents=1"></script>
   </head>
   <body>
+    <div id="fb-root"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
