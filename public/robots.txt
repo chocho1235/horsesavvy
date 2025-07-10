@@ -1,5 +1,5 @@
 # Robots.txt for BeHorseSavvy - The Penny Club
-# https://behorsesavvy.vercel.app/robots.txt
+# https://behorsesavvy.online/robots.txt
 
 # Google bots
 User-agent: Googlebot
@@ -75,4 +75,4 @@ Disallow: /generate-secure-env.html
 Disallow: /browser-env-generator.html
 
 # Sitemap location
-Sitemap: https://behorsesavvy.vercel.app/sitemap.xml
+Sitemap: https://behorsesavvy.online/sitemap.xml

@@ -6,7 +6,7 @@
         
   <!-- Homepage -->
   <url>
-    <loc>https://behorsesavvy.vercel.app/</loc>
+    <loc>https://behorsesavvy.online/</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
   
   <!-- Main course pages -->
   <url>
-    <loc>https://behorsesavvy.vercel.app/courses</loc>
+    <loc>https://behorsesavvy.online/courses</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -22,21 +22,21 @@
   
   <!-- BHS Courses -->
   <url>
-    <loc>https://behorsesavvy.vercel.app/bhs-stage-1-theory</loc>
+    <loc>https://behorsesavvy.online/bhs-stage-1-theory</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://behorsesavvy.vercel.app/bhs-stage-2-theory</loc>
+    <loc>https://behorsesavvy.online/bhs-stage-2-theory</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://behorsesavvy.vercel.app/bhs-stage-1-practical</loc>
+    <loc>https://behorsesavvy.online/bhs-stage-1-practical</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -44,14 +44,14 @@
   
   <!-- Horse Knowledge Courses -->
   <url>
-    <loc>https://behorsesavvy.vercel.app/horse-knowledge</loc>
+    <loc>https://behorsesavvy.online/horse-knowledge</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://behorsesavvy.vercel.app/horse-knowledge-2</loc>
+    <loc>https://behorsesavvy.online/horse-knowledge-2</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -59,21 +59,21 @@
   
   <!-- Achievement Levels -->
   <url>
-    <loc>https://behorsesavvy.vercel.app/bronze</loc>
+    <loc>https://behorsesavvy.online/bronze</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://behorsesavvy.vercel.app/bronze-practical</loc>
+    <loc>https://behorsesavvy.online/bronze-practical</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://behorsesavvy.vercel.app/silver</loc>
+    <loc>https://behorsesavvy.online/silver</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -81,14 +81,14 @@
   
   <!-- BeHorseSavvy Brand Pages -->
   <url>
-    <loc>https://behorsesavvy.vercel.app/behorsesavvy</loc>
+    <loc>https://behorsesavvy.online/behorsesavvy</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://behorsesavvy.vercel.app/behorsesavvy/book1</loc>
+    <loc>https://behorsesavvy.online/behorsesavvy/book1</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -96,14 +96,14 @@
   
   <!-- Events and Training -->
   <url>
-    <loc>https://behorsesavvy.vercel.app/clinics</loc>
+    <loc>https://behorsesavvy.online/clinics</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://behorsesavvy.vercel.app/camp</loc>
+    <loc>https://behorsesavvy.online/camp</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -111,14 +111,14 @@
   
   <!-- Information Pages -->
   <url>
-    <loc>https://behorsesavvy.vercel.app/about</loc>
+    <loc>https://behorsesavvy.online/about</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://behorsesavvy.vercel.app/terms</loc>
+    <loc>https://behorsesavvy.online/terms</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
