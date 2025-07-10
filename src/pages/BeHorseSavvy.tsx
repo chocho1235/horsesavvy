@@ -6,28 +6,12 @@ import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 
-// Sophisticated animation variants
+// Optimized animation variants (same as Courses page)
 const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
-};
-
-const staggerContainer = {
-  initial: {},
-  whileInView: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const scaleIn = {
-  initial: { opacity: 0, scale: 0.95 },
-  whileInView: { opacity: 1, scale: 1 },
-  viewport: { once: true, margin: "-50px" },
-  transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }
+  transition: { duration: 0.6, ease: "easeOut" }
 };
 
 export default function BeHorseSavvy() {
@@ -78,21 +62,21 @@ export default function BeHorseSavvy() {
     <div className="min-h-screen bg-blue-950 text-white font-dyslexic">
       <ContactHeader bgColor="bg-blue-950" />
 
-      {/* Back Button */}
-      <div className="fixed top-20 left-6 z-30">
+      {/* Back Button - Mobile Optimized */}
+      <div className="fixed top-20 left-4 sm:left-6 z-30">
         <Link to="/">
           <Button
             variant="outline"
-            className="bg-blue-900/80 hover:bg-blue-800 text-white border-white/30 hover:border-yellow-500/50 rounded-full px-4 py-2 transition-all duration-300 hover:scale-105 shadow-lg"
+            className="bg-blue-900/80 hover:bg-blue-800 text-white border-white/30 hover:border-yellow-500/50 rounded-full px-3 py-1.5 sm:px-4 sm:py-2 transition-all duration-300 hover:scale-105 shadow-lg text-sm sm:text-base"
           >
             <ChevronLeft size={16} />
-            <span className="ml-2 font-medium">Back to Home</span>
+            <span className="ml-1 sm:ml-2 font-medium">Back to Home</span>
           </Button>
         </Link>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative bg-blue-950 py-20 sm:py-24 md:py-32 overflow-hidden rounded-b-3xl shadow-xl border-b border-white/10">
+      {/* Hero Section - Mobile Optimized */}
+      <section className="relative bg-blue-950 py-16 sm:py-20 md:py-32 overflow-hidden rounded-b-3xl shadow-xl border-b border-white/10">
         <div className="absolute inset-0 bg-[url('/homed2.png')] bg-cover bg-center opacity-15" />
         <div className="absolute inset-0 bg-blue-950/90" />
         
@@ -111,33 +95,34 @@ export default function BeHorseSavvy() {
             }}
           >
             {/* Badge */}
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/80 border border-yellow-500/30 backdrop-blur-sm mb-12">
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-blue-900/80 border border-yellow-500/30 backdrop-blur-sm mb-8 sm:mb-12">
               <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-              <span className="text-white/90 text-sm font-medium tracking-wide">BeHorseSavvy Exclusive Program</span>
+              <span className="text-white/90 text-xs sm:text-sm font-medium tracking-wide">BeHorseSavvy Exclusive Program</span>
             </motion.div>
 
-            <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-8 text-white drop-shadow-lg tracking-tight leading-tight">
+            <motion.h1 variants={fadeInUp} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 md:mb-8 text-white drop-shadow-lg tracking-tight leading-tight">
               Home Education <span className="bg-gradient-to-r from-yellow-500 via-yellow-400 to-amber-500 bg-clip-text text-transparent">Equestrians</span>
             </motion.h1>
-            <motion.p variants={fadeInUp} className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed tracking-wide px-4 sm:px-0">
+            
+            <motion.p variants={fadeInUp} className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-6 sm:mb-8 md:mb-12 leading-relaxed tracking-wide px-4 sm:px-0">
               Transform your child's education with expert equestrian learning, designed exclusively for home-educated students.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 mb-6">
+            <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
               {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-3 px-4 py-2 bg-blue-900 rounded-full border border-yellow-500/20 shadow-sm">
-                  <feature.icon className="h-5 w-5 text-yellow-500" />
-                  <span className="text-white/90 text-sm font-medium tracking-wide">{feature.text}</span>
+                <div key={index} className="flex items-center gap-2 sm:gap-3 px-2 py-1.5 sm:px-4 sm:py-2 bg-blue-900 rounded-full border border-yellow-500/20 shadow-sm">
+                  <feature.icon className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
+                  <span className="text-white/90 text-xs sm:text-sm font-medium tracking-wide">{feature.text}</span>
                 </div>
               ))}
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="flex justify-center">
+            <motion.div variants={fadeInUp} className="flex justify-center px-4 sm:px-0">
               <Button 
                 onClick={() => {
                   window.location.href = "mailto:Penelopepleasant@gmail.com?subject=Home%20Education%20Equestrians%20Enquiry";
                 }}
-                className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 hover:from-yellow-600 hover:to-amber-600 text-black px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px] font-bold border border-black/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 hover:from-yellow-600 hover:to-amber-600 text-black px-6 sm:px-8 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg w-full sm:w-auto h-auto sm:h-[52px] md:h-[60px] font-bold border border-black/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
               >
                 Start Your Journey
               </Button>
@@ -146,23 +131,18 @@ export default function BeHorseSavvy() {
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-24 bg-blue-900">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
-            initial="initial"
-            whileInView="whileInView"
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-800/50 border border-yellow-500/30 backdrop-blur-sm mb-6 shadow-lg">
+      {/* Benefits Section - Mobile Optimized */}
+      <section className="py-16 sm:py-20 md:py-24 bg-blue-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <motion.div className="text-center mb-12 sm:mb-16">
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-blue-800/50 border border-yellow-500/30 backdrop-blur-sm mb-4 sm:mb-6 shadow-lg">
               <Sparkles size={16} className="text-yellow-500" />
-              <span className="text-white/90 text-sm font-medium tracking-wide">Why Choose Us</span>
+              <span className="text-white/90 text-xs sm:text-sm font-medium tracking-wide">Why Choose Us</span>
             </motion.div>
             
             <motion.h2 
               variants={fadeInUp}
-              className="text-4xl md:text-6xl font-black mb-6 text-white drop-shadow-lg tracking-tight leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6 text-white drop-shadow-lg tracking-tight leading-tight"
             >
               Excellence in Every
               <br />
@@ -173,23 +153,18 @@ export default function BeHorseSavvy() {
             
             <motion.p 
               variants={fadeInUp}
-              className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed tracking-wide"
+              className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed tracking-wide px-4 sm:px-0"
             >
               Discover why families worldwide trust BeHorseSavvy for their children's equestrian education.
             </motion.p>
           </motion.div>
 
-          <motion.div 
-            initial="initial"
-            whileInView="whileInView"
-            variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
-                variants={scaleIn}
-                className="group relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 backdrop-blur-md rounded-2xl shadow-xl p-8 transition-all duration-300 overflow-hidden border border-yellow-500/20 hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500/40"
+                variants={fadeInUp}
+                className="group relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 overflow-hidden border border-yellow-500/20 hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500/40"
               >
                 {/* Gold accent bar */}
                 <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-2xl shadow-lg" />
@@ -198,41 +173,36 @@ export default function BeHorseSavvy() {
                 <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-amber-500/10 rounded-2xl" />
                 
                 <div className="relative z-10 pl-4">
-                  <div className="w-14 h-14 bg-gradient-to-br from-blue-800/80 to-blue-900/80 rounded-2xl flex items-center justify-center mb-6 group-hover:from-yellow-600/80 group-hover:to-amber-600/80 transition-all duration-300 shadow-lg border border-black/20">
-                    <benefit.icon size={24} className="text-yellow-500 group-hover:text-yellow-400 transition-colors duration-300" />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-800/80 to-blue-900/80 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:from-yellow-600/80 group-hover:to-amber-600/80 transition-all duration-300 shadow-lg border border-black/20">
+                    <benefit.icon size={20} className="sm:w-6 sm:h-6 text-yellow-500 group-hover:text-yellow-400 transition-colors duration-300" />
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors duration-300 tracking-wide leading-tight">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 group-hover:text-yellow-400 transition-colors duration-300 tracking-wide leading-tight">
                     {benefit.title}
                   </h3>
                   
-                  <p className="text-white/80 leading-relaxed tracking-wide">
+                  <p className="text-white/80 leading-relaxed tracking-wide text-sm sm:text-base">
                     {benefit.description}
                   </p>
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Course List Section */}
-      <section className="py-24 bg-blue-900">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div 
-            initial="initial"
-            whileInView="whileInView"
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-800/50 border border-yellow-500/30 backdrop-blur-sm mb-6 shadow-lg">
+      {/* Course List Section - Mobile Optimized */}
+      <section className="py-16 sm:py-20 md:py-24 bg-blue-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <motion.div className="text-center mb-12 sm:mb-16">
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-blue-800/50 border border-yellow-500/30 backdrop-blur-sm mb-4 sm:mb-6 shadow-lg">
               <BookOpen size={16} className="text-yellow-500" />
-              <span className="text-white/90 text-sm font-medium tracking-wide">Available Courses</span>
+              <span className="text-white/90 text-xs sm:text-sm font-medium tracking-wide">Available Courses</span>
             </motion.div>
             
             <motion.h2 
               variants={fadeInUp}
-              className="text-4xl md:text-6xl font-black mb-6 text-white drop-shadow-lg tracking-tight leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6 text-white drop-shadow-lg tracking-tight leading-tight"
             >
               Educational
               <br />
@@ -243,22 +213,17 @@ export default function BeHorseSavvy() {
             
             <motion.p 
               variants={fadeInUp}
-              className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed tracking-wide"
+              className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed tracking-wide px-4 sm:px-0"
             >
               Comprehensive educational materials designed specifically for home-educated equestrian students.
             </motion.p>
           </motion.div>
 
-          <motion.div 
-            initial="initial"
-            whileInView="whileInView"
-            variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* BeHorseSavvy Book 1 Course */}
             <motion.div
-              variants={scaleIn}
-              className="group relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 backdrop-blur-md rounded-2xl shadow-xl p-8 transition-all duration-300 overflow-hidden border border-yellow-500/20 hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500/40"
+              variants={fadeInUp}
+              className="group relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 overflow-hidden border border-yellow-500/20 hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500/40"
             >
               {/* Gold accent bar */}
               <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-2xl shadow-lg" />
@@ -267,60 +232,60 @@ export default function BeHorseSavvy() {
               <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-amber-500/10 rounded-2xl" />
               
               <div className="relative z-10 pl-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-800/80 to-blue-900/80 rounded-2xl flex items-center justify-center mb-6 group-hover:from-yellow-600/80 group-hover:to-amber-600/80 transition-all duration-300 shadow-lg border border-black/20">
-                  <BookOpen size={28} className="text-yellow-500 group-hover:text-yellow-400 transition-colors duration-300" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-800/80 to-blue-900/80 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:from-yellow-600/80 group-hover:to-amber-600/80 transition-all duration-300 shadow-lg border border-black/20">
+                  <BookOpen size={24} className="sm:w-7 sm:h-7 text-yellow-500 group-hover:text-yellow-400 transition-colors duration-300" />
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors duration-300 tracking-wide leading-tight">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 group-hover:text-yellow-400 transition-colors duration-300 tracking-wide leading-tight">
                   BeHorseSavvy Book 1
                 </h3>
                 
-                <p className="text-white/80 mb-6 leading-relaxed tracking-wide">
+                <p className="text-white/80 mb-4 sm:mb-6 leading-relaxed tracking-wide text-sm sm:text-base">
                   A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy.
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium border border-yellow-500/30">
+                <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
+                  <span className="px-2 py-1 sm:px-3 sm:py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs sm:text-sm font-medium border border-yellow-500/30">
                     Beginner Friendly
                   </span>
-                  <span className="px-3 py-1 bg-blue-800/30 text-blue-300 rounded-full text-sm font-medium border border-blue-500/30">
+                  <span className="px-2 py-1 sm:px-3 sm:py-1 bg-blue-800/30 text-blue-300 rounded-full text-xs sm:text-sm font-medium border border-blue-500/30">
                     Ages 8-14
                   </span>
                 </div>
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center gap-3">
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Horse anatomy and behaviour</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Horse anatomy and behaviour</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Basic grooming techniques</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Basic grooming techniques</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Safety around horses</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Safety around horses</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Interactive worksheets</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Interactive worksheets</span>
                   </div>
                 </div>
 
-                                 <Link to="/behorsesavvy/book1">
-                   <Button
-                     className="w-full bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 hover:from-yellow-600 hover:to-amber-600 text-black font-bold border border-black/20 transition-all duration-300 hover:scale-105 shadow-lg"
-                   >
-                     Learn More
-                   </Button>
-                 </Link>
+                <Link to="/behorsesavvy/book1">
+                  <Button
+                    className="w-full bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 hover:from-yellow-600 hover:to-amber-600 text-black font-bold border border-black/20 transition-all duration-300 hover:scale-105 shadow-lg text-sm sm:text-base"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
               </div>
             </motion.div>
 
             {/* Coming Soon Course 1 */}
             <motion.div
-              variants={scaleIn}
-              className="group relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 backdrop-blur-md rounded-2xl shadow-xl p-8 transition-all duration-300 overflow-hidden border border-yellow-500/20 hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500/40"
+              variants={fadeInUp}
+              className="group relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 overflow-hidden border border-yellow-500/20 hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500/40"
             >
               {/* Gold accent bar */}
               <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-2xl shadow-lg" />
@@ -329,52 +294,52 @@ export default function BeHorseSavvy() {
               <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-amber-500/10 rounded-2xl" />
               
               <div className="relative z-10 pl-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-800/80 to-blue-900/80 rounded-2xl flex items-center justify-center mb-6 group-hover:from-yellow-600/80 group-hover:to-amber-600/80 transition-all duration-300 shadow-lg border border-black/20">
-                  <GraduationCap size={28} className="text-yellow-500 group-hover:text-yellow-400 transition-colors duration-300" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-800/80 to-blue-900/80 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:from-yellow-600/80 group-hover:to-amber-600/80 transition-all duration-300 shadow-lg border border-black/20">
+                  <GraduationCap size={24} className="sm:w-7 sm:h-7 text-yellow-500 group-hover:text-yellow-400 transition-colors duration-300" />
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors duration-300 tracking-wide leading-tight">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 group-hover:text-yellow-400 transition-colors duration-300 tracking-wide leading-tight">
                   BeHorseSavvy Book 2
                 </h3>
                 
-                <p className="text-white/80 mb-6 leading-relaxed tracking-wide">
+                <p className="text-white/80 mb-4 sm:mb-6 leading-relaxed tracking-wide text-sm sm:text-base">
                   Advanced riding techniques, horse psychology, and stable management for intermediate young equestrians.
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium border border-yellow-500/30">
+                <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
+                  <span className="px-2 py-1 sm:px-3 sm:py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs sm:text-sm font-medium border border-yellow-500/30">
                     Intermediate
                   </span>
-                  <span className="px-3 py-1 bg-blue-800/30 text-blue-300 rounded-full text-sm font-medium border border-blue-500/30">
+                  <span className="px-2 py-1 sm:px-3 sm:py-1 bg-blue-800/30 text-blue-300 rounded-full text-xs sm:text-sm font-medium border border-blue-500/30">
                     Ages 12-16
                   </span>
-                  <span className="px-3 py-1 bg-gray-600/30 text-gray-300 rounded-full text-sm font-medium border border-gray-500/30">
+                  <span className="px-2 py-1 sm:px-3 sm:py-1 bg-gray-600/30 text-gray-300 rounded-full text-xs sm:text-sm font-medium border border-gray-500/30">
                     Coming Soon
                   </span>
                 </div>
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center gap-3">
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Advanced riding skills</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Advanced riding skills</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Horse psychology</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Horse psychology</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Stable management</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Stable management</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Competition preparation</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Competition preparation</span>
                   </div>
                 </div>
 
                 <Button
                   disabled
-                  className="w-full bg-gray-600/50 text-gray-300 font-bold border border-gray-500/30 cursor-not-allowed"
+                  className="w-full bg-gray-600/50 text-gray-300 font-bold border border-gray-500/30 cursor-not-allowed text-sm sm:text-base"
                 >
                   Coming Soon
                 </Button>
@@ -383,8 +348,8 @@ export default function BeHorseSavvy() {
 
             {/* Coming Soon Course 2 */}
             <motion.div
-              variants={scaleIn}
-              className="group relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 backdrop-blur-md rounded-2xl shadow-xl p-8 transition-all duration-300 overflow-hidden border border-yellow-500/20 hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500/40"
+              variants={fadeInUp}
+              className="group relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 overflow-hidden border border-yellow-500/20 hover:shadow-2xl hover:-translate-y-1 hover:border-yellow-500/40"
             >
               {/* Gold accent bar */}
               <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-2xl shadow-lg" />
@@ -393,120 +358,92 @@ export default function BeHorseSavvy() {
               <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-amber-500/10 rounded-2xl" />
               
               <div className="relative z-10 pl-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-800/80 to-blue-900/80 rounded-2xl flex items-center justify-center mb-6 group-hover:from-yellow-600/80 group-hover:to-amber-600/80 transition-all duration-300 shadow-lg border border-black/20">
-                  <Award size={28} className="text-yellow-500 group-hover:text-yellow-400 transition-colors duration-300" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-800/80 to-blue-900/80 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:from-yellow-600/80 group-hover:to-amber-600/80 transition-all duration-300 shadow-lg border border-black/20">
+                  <Award size={24} className="sm:w-7 sm:h-7 text-yellow-500 group-hover:text-yellow-400 transition-colors duration-300" />
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors duration-300 tracking-wide leading-tight">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 group-hover:text-yellow-400 transition-colors duration-300 tracking-wide leading-tight">
                   Professional Development
                 </h3>
                 
-                <p className="text-white/80 mb-6 leading-relaxed tracking-wide">
+                <p className="text-white/80 mb-4 sm:mb-6 leading-relaxed tracking-wide text-sm sm:text-base">
                   Career-focused course for aspiring equestrian professionals and advanced riders seeking certification.
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-6">
-                  <span className="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium border border-yellow-500/30">
+                <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
+                  <span className="px-2 py-1 sm:px-3 sm:py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs sm:text-sm font-medium border border-yellow-500/30">
                     Advanced
                   </span>
-                  <span className="px-3 py-1 bg-blue-800/30 text-blue-300 rounded-full text-sm font-medium border border-blue-500/30">
+                  <span className="px-2 py-1 sm:px-3 sm:py-1 bg-blue-800/30 text-blue-300 rounded-full text-xs sm:text-sm font-medium border border-blue-500/30">
                     Ages 16+
                   </span>
-                  <span className="px-3 py-1 bg-gray-600/30 text-gray-300 rounded-full text-sm font-medium border border-gray-500/30">
+                  <span className="px-2 py-1 sm:px-3 sm:py-1 bg-gray-600/30 text-gray-300 rounded-full text-xs sm:text-sm font-medium border border-gray-500/30">
                     Coming Soon
                   </span>
                 </div>
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center gap-3">
+                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Instructor certification</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Instructor certification</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Business management</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Business management</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Advanced horsemanship</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Advanced horsemanship</span>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                    <span className="text-white/90 text-sm tracking-wide">Professional networking</span>
+                    <span className="text-white/90 text-xs sm:text-sm tracking-wide">Professional networking</span>
                   </div>
                 </div>
 
                 <Button
                   disabled
-                  className="w-full bg-gray-600/50 text-gray-300 font-bold border border-gray-500/30 cursor-not-allowed"
+                  className="w-full bg-gray-600/50 text-gray-300 font-bold border border-gray-500/30 cursor-not-allowed text-sm sm:text-base"
                 >
                   Coming Soon
                 </Button>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-blue-950">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <motion.div
-            initial="initial"
-            whileInView="whileInView"
-            variants={staggerContainer}
-            className="relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 backdrop-blur-md rounded-2xl shadow-xl p-12 border border-yellow-500/20 overflow-hidden"
-          >
-            {/* Gold accent bar */}
-            <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-2xl shadow-lg" />
-            
-            {/* Subtle background glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-amber-500/10 rounded-2xl" />
-            
-            <div className="relative z-10 pl-4">
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-800/50 border border-yellow-500/30 backdrop-blur-sm mb-6 shadow-lg">
-                <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                <span className="text-white/90 text-sm font-medium tracking-wide">Ready to Start</span>
-              </motion.div>
+      {/* Contact Section - Mobile Optimized */}
+      <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-br from-blue-950 to-blue-900 border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <motion.div variants={fadeInUp} className="mb-6 sm:mb-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
+              Ready to Start Your Journey?
+            </h2>
+            <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">
+              Join our community of home-educated equestrians and unlock your child's potential with professional guidance.
+            </p>
+          </motion.div>
 
-              <motion.h3 
-                variants={fadeInUp}
-                className="text-4xl md:text-5xl font-black mb-6 text-white drop-shadow-lg tracking-tight leading-tight"
+          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4 sm:px-0">
+            <Button
+              onClick={() => {
+                window.location.href = "mailto:Penelopepleasant@gmail.com?subject=Home%20Education%20Equestrians%20Enquiry";
+              }}
+              className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 hover:from-yellow-600 hover:to-amber-600 text-black px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold border border-black/20 transition-all duration-300 hover:scale-105 shadow-lg w-full sm:w-auto"
+            >
+              <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+              Get Started Today
+            </Button>
+            <Link to="/behorsesavvy/book1">
+              <Button
+                variant="outline"
+                className="border-white/30 text-white hover:bg-white/10 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold transition-all duration-300 hover:scale-105 w-full sm:w-auto"
               >
-                Begin Your Child's
-                <br />
-                <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent drop-shadow-lg">
-                  Equestrian Journey
-                </span>
-              </motion.h3>
-              
-              <motion.p 
-                variants={fadeInUp}
-                className="text-xl text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed tracking-wide"
-              >
-                Join our exclusive program and give your child access to world-class equestrian education from the comfort of home.
-              </motion.p>
-              
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button 
-                  onClick={() => {
-                    window.location.href = "mailto:Penelopepleasant@gmail.com?subject=Home%20Education%20Equestrians%20Enquiry";
-                  }}
-                  className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 hover:from-yellow-600 hover:to-amber-600 text-black px-8 py-4 rounded-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group border border-black/20 backdrop-blur-sm"
-                >
-                  <Mail size={20} className="mr-2" />
-                  Contact Penny
-                  <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                
-                <div className="flex items-center gap-2 text-white/70">
-                  <span className="text-sm">or email:</span>
-                  <a href="mailto:Penelopepleasant@gmail.com" className="text-yellow-500 hover:text-yellow-400 font-medium transition-colors underline-offset-4 hover:underline">
-                    Penelopepleasant@gmail.com
-                  </a>
-                </div>
-              </motion.div>
-            </div>
+                <BookOpen className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                Explore Book 1
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>
