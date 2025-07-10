@@ -77,8 +77,8 @@ export default function BeHorseSavvy() {
 
       {/* Hero Section - Mobile Optimized */}
       <section className="relative bg-blue-950 py-16 sm:py-20 md:py-32 overflow-hidden rounded-b-3xl shadow-xl border-b border-white/10">
-        <div className="absolute inset-0 bg-[url('/homed2.png')] bg-cover bg-center opacity-15" />
-        <div className="absolute inset-0 bg-blue-950/90" />
+        <div className="absolute inset-0 bg-[url('/homed2.png')] bg-cover bg-center opacity-25" />
+        <div className="absolute inset-0 bg-blue-950/80" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
@@ -120,7 +120,7 @@ export default function BeHorseSavvy() {
             <motion.div variants={fadeInUp} className="flex justify-center px-4 sm:px-0">
               <Button 
                 onClick={() => {
-                  window.location.href = "mailto:Penelopepleasant@gmail.com?subject=Home%20Education%20Equestrians%20Enquiry";
+                  document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 hover:from-yellow-600 hover:to-amber-600 text-black px-6 sm:px-8 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg w-full sm:w-auto h-auto sm:h-[52px] md:h-[60px] font-bold border border-black/20 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
               >
@@ -192,7 +192,7 @@ export default function BeHorseSavvy() {
       </section>
 
       {/* Course List Section - Mobile Optimized */}
-      <section className="py-16 sm:py-20 md:py-24 bg-blue-900">
+      <section id="courses" className="py-16 sm:py-20 md:py-24 bg-blue-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div className="text-center mb-12 sm:mb-16">
             <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-blue-800/50 border border-yellow-500/30 backdrop-blur-sm mb-4 sm:mb-6 shadow-lg">

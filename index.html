@@ -128,11 +128,16 @@
     </script>
     
     <!-- Preload critical resources -->
-    <link rel="preload" as="image" href="/DSC_1374.jpg" />
     <link rel="preload" as="image" href="/DSC_9397.jpg" />
+    
+    <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    
+    <!-- Preload OpenDyslexic fonts -->
+    <link rel="preload" as="font" type="font/woff2" href="https://cdn.jsdelivr.net/npm/opendyslexic@0.91.12/fonts/OpenDyslexic-Regular.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="https://cdn.jsdelivr.net/npm/opendyslexic@0.91.12/fonts/OpenDyslexic-Bold.woff2" crossorigin />
     
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="//connect.facebook.net" />
