@@ -42,7 +42,7 @@ export default async function handler(req, res) {
           </div>
           <div style="margin: 18px 0 12px 0; padding: 16px; background: #e0f2fe; border-left: 4px solid #0284c7; border-radius: 6px; color: #075985;">
             <b>What's Included:</b><br>
-            • 4 days of professional BHS coaching<br>
+            • 3 days of professional BHS coaching<br>
             • Stabling for your horse<br>
             • Haylage provided<br>
             • Access to all facilities<br>
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
         </div>
         <div style="background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 28px 24px 20px 24px;">
           <h2 style="color: #16a34a; font-size: 1.3rem; margin-bottom: 12px;">🎉 Congratulations, ${name.split(' ')[0]}!</h2>
-          <p style="font-size: 1.08rem; color: #222; margin-bottom: 18px;">We are absolutely delighted to confirm your place at <b>Camp Pleasant 2026</b>! Thank you for choosing BeHorseSavvy – we can't wait to welcome you and your horse for this incredible 4-day equestrian adventure!</p>
+          <p style="font-size: 1.08rem; color: #222; margin-bottom: 18px;">We are absolutely delighted to confirm your place at <b>Camp Pleasant 2026</b>! Thank you for choosing BeHorseSavvy – we can't wait to welcome you and your horse for this incredible 3-day equestrian adventure!</p>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 18px;">
             <tr><td style="padding: 8px 0; color: #b91c1c; font-weight: 600;">Camp:</td><td style="padding: 8px 0;">${camp}</td></tr>
             <tr><td style="padding: 8px 0; color: #b91c1c; font-weight: 600;">Dates:</td><td style="padding: 8px 0;">${dates}</td></tr>
@@ -77,11 +77,11 @@ export default async function handler(req, res) {
             • Bring appropriate riding gear and safety equipment.<br>
             • Accommodation arrangements should be made separately if needed.<br>
             • Contact us for accommodation recommendations in the area.<br>
-            • Arrive ready for an amazing 4-day equestrian experience!<br>
+            • Arrive ready for an amazing 3-day equestrian experience!<br>
           </div>
           <div style="margin: 18px 0 12px 0; padding: 16px; background: #e0f2fe; border-left: 4px solid #0284c7; border-radius: 6px; color: #075985;">
             <b>Your Camp Pleasant 2026 Includes:</b><br>
-            • 4 days of intensive professional BHS coaching<br>
+            • 3 days of intensive professional BHS coaching<br>
             • Stabling for your horse with haylage provided<br>
             • Access to all Kelsall Hill Equestrian Centre facilities<br>
             • Expert guidance to enhance your riding skills<br>

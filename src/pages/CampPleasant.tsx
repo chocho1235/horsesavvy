@@ -112,7 +112,7 @@ const CampDetailsComponent = ({ onNext }: { onNext: () => void }) => (
       </h2>
       <div className="w-24 h-1 bg-red-500 mx-auto mb-6 rounded-full" />
       <p className="text-white/80 text-lg max-w-2xl mx-auto">
-        Join us for an incredible 4-day equestrian experience at Kelsall Hill
+        Join us for an incredible 3-day equestrian experience at Kelsall Hill
       </p>
     </div>
     
@@ -135,7 +135,7 @@ const CampDetailsComponent = ({ onNext }: { onNext: () => void }) => (
                   </div>
                   <div className="flex items-center gap-3">
                     <Clock className="w-5 h-5 text-red-400" />
-                    <span className="text-white">4 days of intensive training</span>
+                    <span className="text-white">3 days of intensive training</span>
                   </div>
                 </div>
               </div>
@@ -231,7 +231,7 @@ const CampBookingSummary = () => (
             Duration & Facilities
           </h4>
           <div className="space-y-2 text-white/90">
-            <p><span className="font-medium">Duration:</span> 4 days</p>
+            <p><span className="font-medium">Duration:</span> 3 days</p>
             <p><span className="font-medium">Stabling:</span> Included</p>
             <p><span className="font-medium">Haylage:</span> Provided</p>
           </div>
@@ -1080,7 +1080,7 @@ export default function CampPleasant() {
                 <motion.p 
                   variants={fadeInUp}
                   className="text-xl sm:text-2xl text-white/90 max-w-4xl mx-auto mb-8 leading-relaxed">
-                  An Unforgettable 4-Day Equestrian Experience at Kelsall Hill
+                  An Unforgettable 3-Day Equestrian Experience at Kelsall Hill
                 </motion.p>
                 
                 <motion.div 
@@ -1164,7 +1164,7 @@ export default function CampPleasant() {
                   <div className="mb-4">
                     <h2 className="text-lg font-bold text-gray-900 mb-2">Camp Pleasant 2026</h2>
                     <p className="text-gray-600 text-sm mb-3">
-                      Join us for an incredible 4-day equestrian experience at Kelsall Hill with expert BHS accredited coaches.
+                      Join us for an incredible 3-day equestrian experience at Kelsall Hill with expert BHS accredited coaches.
                     </p>
                   </div>
 

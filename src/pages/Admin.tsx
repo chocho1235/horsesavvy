@@ -747,7 +747,8 @@ const AdminDashboard = () => {
             console.warn('Could not parse selected_packages:', booking.selected_packages);
           }
           
-          await fetch('/api/send-course-email', {
+          console.log('Sending course confirmation email to:', booking.customer_email);
+          const response = await fetch('/api/send-course-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -760,9 +761,19 @@ const AdminDashboard = () => {
               status: 'confirmed',
             }),
           });
+          
+          const result = await response.json();
+          console.log('Course email API response:', result);
+          
+          if (!response.ok || !result.success) {
+            console.error('Course email sending failed:', result);
+            toast.error('Course confirmed but failed to send confirmation email');
+          } else {
+            toast.success('Course confirmed and confirmation email sent!');
+          }
         } catch (emailError) {
-          console.warn("Course confirmation email failed:", emailError);
-          // Don't block the process if email fails
+          console.error("Course confirmation email failed:", emailError);
+          toast.error('Course confirmed but failed to send confirmation email');
         }
         
         // Refetch course bookings
@@ -951,7 +962,8 @@ const AdminDashboard = () => {
       toast.success('Booking marked as fully paid and confirmed');
       // Send confirmation email
       try {
-        await fetch('/api/send-booking-email', {
+        console.log('Sending confirmation email to:', booking.email);
+        const response = await fetch('/api/send-booking-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -964,8 +976,19 @@ const AdminDashboard = () => {
             status: 'confirmed',
           }),
         });
+        
+        const result = await response.json();
+        console.log('Email API response:', result);
+        
+        if (!response.ok || !result.success) {
+          console.error('Email sending failed:', result);
+          toast.error('Booking confirmed but failed to send confirmation email');
+        } else {
+          toast.success('Booking confirmed and confirmation email sent!');
+        }
       } catch (err) {
-        // Optionally log or toast error
+        console.error('Error sending confirmation email:', err);
+        toast.error('Booking confirmed but failed to send confirmation email');
       }
     };
     // Helper: Decline booking
@@ -1123,7 +1146,8 @@ const AdminDashboard = () => {
         
         // Send confirmation email
         try {
-          await fetch('/api/send-camp-email', {
+          console.log('Sending camp confirmation email to:', booking.email);
+          const response = await fetch('/api/send-camp-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -1137,8 +1161,19 @@ const AdminDashboard = () => {
               status: 'confirmed',
             }),
           });
+          
+          const result = await response.json();
+          console.log('Camp email API response:', result);
+          
+          if (!response.ok || !result.success) {
+            console.error('Camp email sending failed:', result);
+            toast.error('Camp confirmed but failed to send confirmation email');
+          } else {
+            toast.success('Camp confirmed and confirmation email sent!');
+          }
         } catch (emailError) {
-          console.warn("Camp confirmation email failed:", emailError);
+          console.error("Camp confirmation email failed:", emailError);
+          toast.error('Camp confirmed but failed to send confirmation email');
         }
         
         // Refetch camp bookings
@@ -1164,7 +1199,8 @@ const AdminDashboard = () => {
         
         // Send decline email
         try {
-          await fetch('/api/send-camp-email', {
+          console.log('Sending camp decline email to:', booking.email);
+          const response = await fetch('/api/send-camp-email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -1178,8 +1214,19 @@ const AdminDashboard = () => {
               status: 'declined',
             }),
           });
+          
+          const result = await response.json();
+          console.log('Camp decline email API response:', result);
+          
+          if (!response.ok || !result.success) {
+            console.error('Camp decline email sending failed:', result);
+            toast.error('Camp declined but failed to send decline email');
+          } else {
+            toast.success('Camp declined and decline email sent!');
+          }
         } catch (emailError) {
-          console.warn("Camp decline email failed:", emailError);
+          console.error("Camp decline email failed:", emailError);
+          toast.error('Camp declined but failed to send decline email');
         }
         
         // Refetch camp bookings

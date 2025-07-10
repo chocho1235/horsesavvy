@@ -27,6 +27,7 @@ const BHSStage2Theory = lazy(() => import("./pages/BHSStage2Theory"));
 const BHSStage1Practical = lazy(() => import("./pages/BhsStage1Practical"));
 const About = lazy(() => import("./pages/About"));
 const BeHorseSavvy = lazy(() => import("./pages/BeHorseSavvy"));
+const BeHorseSavvyBook1 = lazy(() => import("./pages/BeHorseSavvyBook1"));
 const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
@@ -101,6 +102,7 @@ const routes = [
   { path: "/about", element: <About /> },
   { path: "/terms", element: <Terms /> },
   { path: "/behorsesavvy", element: <BeHorseSavvy /> },
+  { path: "/behorsesavvy/book1", element: <BeHorseSavvyBook1 /> },
   { path: "/penny-club", element: <NotFound /> },
   { path: "/events", element: <NotFound /> },
   { path: "/clinics", element: <Clinics /> },

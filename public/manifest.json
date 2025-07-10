@@ -1,0 +1,97 @@
+{
+  "name": "BeHorseSavvy - The Penny Club",
+  "short_name": "BeHorseSavvy",
+  "description": "Professional equestrian training and education. Offering BHS Stage 1 & 2 Theory courses, practical training, and expert coaching for riders of all levels.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e3a8a",
+  "theme_color": "#1e3a8a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-GB",
+  "dir": "ltr",
+  "categories": ["education", "training", "sports", "equestrian"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/pennyclubmanifest.jpeg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Courses",
+      "short_name": "Courses",
+      "description": "View all available courses",
+      "url": "/courses",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "BHS Stage 1 Theory",
+      "short_name": "BHS Stage 1",
+      "description": "BHS Stage 1 Theory Course",
+      "url": "/bhs-stage-1-theory",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Horse Knowledge",
+      "short_name": "Horse Knowledge",
+      "description": "Essential Horse Knowledge Course",
+      "url": "/horse-knowledge",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Clinics",
+      "short_name": "Clinics",
+      "description": "View upcoming clinics and events",
+      "url": "/clinics",
+      "icons": [
+        {
+          "src": "/favicon.ico",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {},
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  }
+} 

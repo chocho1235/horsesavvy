@@ -18,6 +18,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'dyslexic': ['OpenDyslexic', 'sans-serif'],
+			},
 			colors: {
 				gold: {
 					DEFAULT: '#D4AF37',
