@@ -198,7 +198,7 @@ export const Courses = () => {
               <div className="flex items-center gap-2 px-4 py-2 bg-blue-900 rounded-full border border-white/10 shadow-sm">
                 <User className="h-5 w-5 text-red-400" />
                 <span className="text-white/90 text-sm font-medium text-center">
-                  Delivered by Penny Pleasant BHS Accredited Professional Coach
+                  Delivered by Penny Pleasant BHS Professional Accredited Coach
                 </span>
               </div>
             </motion.div>

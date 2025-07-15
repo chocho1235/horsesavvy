@@ -1,0 +1,61 @@
+Google Search Console Setup Guide for BeHorseSavvy
+========================================================
+
+To complete the SEO setup for BeHorseSavvy, you'll need to:
+
+1. GOOGLE SEARCH CONSOLE SETUP:
+   - Go to https://search.google.com/search-console/
+   - Add property: https://behorsesavvy.online
+   - Choose "HTML tag" verification method
+   - Copy the verification code (content="...")
+   - Add to index.html in the verification section:
+     <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" />
+
+2. BING WEBMASTER TOOLS:
+   - Go to https://www.bing.com/webmasters/
+   - Add site: https://behorsesavvy.online
+   - Get verification code
+   - Add to index.html:
+     <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
+
+3. YANDEX WEBMASTER:
+   - Go to https://webmaster.yandex.com/
+   - Add site: https://behorsesavvy.online
+   - Get verification code
+   - Add to index.html:
+     <meta name="yandex-verification" content="YOUR_YANDEX_VERIFICATION_CODE" />
+
+4. SUBMIT SITEMAP:
+   After verification, submit your sitemap to search engines:
+   - Google: Submit https://behorsesavvy.online/sitemap.xml
+   - Bing: Submit https://behorsesavvy.online/sitemap.xml
+   - Yandex: Submit https://behorsesavvy.online/sitemap.xml
+
+5. MONITOR PERFORMANCE:
+   - Check Search Console for indexing status
+   - Monitor keywords: "behorsesavvy", "penny pleasant", "bhs stage 1 courses"
+   - Track ranking improvements over time
+
+6. SOCIAL MEDIA SETUP:
+   - Create Twitter account @behorsesavvy (if not exists)
+   - Create Facebook page for BeHorseSavvy
+   - Add social media links to structured data
+
+Key target keywords that should now rank well:
+- behorsesavvy
+- penny pleasant
+- bhs stage 1 courses
+- bhs stage 2 theory
+- horse knowledge courses
+- home education horses
+- equestrian training
+- bhs professional accredited coach
+
+The site now includes:
+✓ Comprehensive meta tags
+✓ Structured data for courses and instructor
+✓ Optimized titles and descriptions
+✓ Breadcrumb navigation
+✓ Social media tags
+✓ Mobile-friendly setup
+✓ Proper canonicalization 

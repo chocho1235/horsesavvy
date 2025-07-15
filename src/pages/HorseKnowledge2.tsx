@@ -156,36 +156,81 @@ export default function HorseKnowledge2() {
       {/* Meet Your Tutor Section */}
       <section className="py-16 sm:py-24 bg-blue-950/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
+              Meet Your Tutor
+            </h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70 mb-8"></div>
+          </div>
+          
+          <div className="relative overflow-hidden rounded-xl shadow-2xl max-w-2xl mx-auto mb-12">
+            <img 
+              src="/P1000306 (1).jpg" 
+              alt="Penny Pleasant - Your Tutor" 
+              className="w-full h-auto object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
             <motion.div 
               variants={fadeInUp}
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true, margin: "-50px" }}
-              className="relative overflow-hidden rounded-xl shadow-2xl"
+              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
             >
-              <img 
-                src="/P1000306 (1).jpg" 
-                alt="Penny Pleasant - Your Tutor" 
-                className="w-full h-auto object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
-            </motion.div>
-            
-            <motion.div 
-              variants={fadeInUp}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={{ once: true, margin: "-50px" }}
-              className="text-center md:text-left"
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                Meet Your Tutor
-              </h2>
-              <div className="w-20 h-1 bg-red-500 mx-auto md:mx-0 mb-8"></div>
-              <p className="text-lg text-white/90 leading-relaxed">
-                Penny Pleasant is a BHS Accredited Professional Coach with over 40 years of experience in the equestrian world. Her passion for horses began at the age of six and has grown into a lifelong commitment to teaching and sharing knowledge.
-              </p>
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <h3 className="font-serif text-3xl font-bold text-white mb-2">Penny Pleasant</h3>
+                <p className="text-xl text-red-400 font-semibold mb-8">BHS Professional Accredited Coach</p>
+                
+                <div className="grid md:grid-cols-2 gap-8 text-left">
+                  <div>
+                    <h4 className="text-white font-semibold mb-4 text-lg">Qualifications:</h4>
+                    <ul className="space-y-2 text-white/90">
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Pony Club Accredited Trainer</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Pony Club Assessor</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>BSPS Course Builder</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Panel Judge</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-white font-semibold mb-4 text-lg">Professional Standards:</h4>
+                    <ul className="space-y-2 text-white/90">
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Trained in relative adjustment</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Fully Insured</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>DBS Checked</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Safeguarding Certified</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>

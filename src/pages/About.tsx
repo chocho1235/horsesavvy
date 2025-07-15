@@ -83,7 +83,7 @@ const About = () => {
             {/* Text content */}
             <div className="md:col-span-2 prose prose-lg prose-invert">
               <p className="text-xl text-white/90 leading-relaxed mb-8">
-                Penny Pleasant is a British Horse Society accredited coach with over 40 years of experience in the equestrian world. Her passion for horses began at the age of six and grew steadily during her time at boarding school in North Wales, along with having her own ponies at home. From an early age, horses became a central part of her life.
+                Penny Pleasant is a British Horse Society Professional Accredited Coach with over 40 years of experience in the equestrian world. Her passion for horses began at the age of six and grew steadily during her time at boarding school in North Wales, along with having her own ponies at home. From an early age, horses became a central part of her life.
               </p>
               
               <p className="text-xl text-white/90 leading-relaxed mb-8">
@@ -111,7 +111,7 @@ const About = () => {
               <ul className="space-y-3 text-white/90">
                 <li className="flex items-start">
                   <span className="text-red-500 mr-2">▪</span>
-                  <span>BHS Accredited Professional Coach</span>
+                  <span>BHS Professional Accredited Coach</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-red-500 mr-2">▪</span>
@@ -123,7 +123,19 @@ const About = () => {
                 </li>
                 <li className="flex items-start">
                   <span className="text-red-500 mr-2">▪</span>
-                  <span>Pony Club Accredited Coach & Assessor</span>
+                  <span>Pony Club Accredited Trainer</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-red-500 mr-2">▪</span>
+                  <span>Pony Club Assessor</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-red-500 mr-2">▪</span>
+                  <span>Trained in relative adjustment</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-red-500 mr-2">▪</span>
+                  <span>Fully Insured</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-red-500 mr-2">▪</span>
@@ -131,7 +143,7 @@ const About = () => {
                 </li>
                 <li className="flex items-start">
                   <span className="text-red-500 mr-2">▪</span>
-                  <span>Safeguarding & Child Protection Certified</span>
+                  <span>Safeguarding Certified</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-red-500 mr-2">▪</span>

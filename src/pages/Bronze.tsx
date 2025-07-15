@@ -607,7 +607,7 @@ export default function Bronze() {
                 <p className="mb-4">
                   BHS Professional Accredited Coach<br/>
                   • Pony Club Accredited Trainer<br/>
-                  • Pony Club Assesor<br/>
+                  • Pony Club Assessor<br/>
                   • BSPS Course Builder<br/>
                   • Panel Judge
                 </p>

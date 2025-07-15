@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 import MeetYourTutor from "@/components/MeetYourTutor";
 import FaqItem from "@/components/FaqItem";
+import SEO from "@/components/SEO";
 
 const faqs = [
   {
@@ -48,6 +49,52 @@ export default function BHSStage1Theory() {
 
   return (
     <div className="min-h-[100dvh] bg-gradient-to-b from-blue-950 to-blue-950 text-white">
+      <SEO 
+        title="BHS Stage 1 Theory Course - BeHorseSavvy with Penny Pleasant"
+        description="BHS Stage 1 Theory course with Penny Pleasant - BHS Professional Accredited Coach. Comprehensive horse knowledge, care, and handling training for aspiring equestrians. Online course with expert instruction."
+        keywords="bhs stage 1 theory, bhs stage 1 course, bhs theory course, horse knowledge, equestrian training, bhs professional accredited coach, penny pleasant bhs, horse care training, bhs stage 1 theory course online"
+        canonicalUrl="/bhs-stage-1-theory"
+        courseData={{
+          "@type": "Course",
+          "name": "BHS Stage 1 Theory Course",
+          "description": "Comprehensive BHS Stage 1 Theory course covering essential horse knowledge, care, and handling for aspiring equestrians.",
+          "provider": {
+            "@type": "Organization",
+            "name": "BeHorseSavvy"
+          },
+          "instructor": {
+            "@type": "Person",
+            "name": "Penny Pleasant",
+            "jobTitle": "BHS Professional Accredited Coach"
+          },
+          "educationalLevel": "Beginner to Intermediate",
+          "url": "https://behorsesavvy.online/bhs-stage-1-theory",
+          "courseMode": "Online"
+        }}
+        breadcrumbData={{
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://behorsesavvy.online/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Courses",
+              "item": "https://behorsesavvy.online/courses"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "BHS Stage 1 Theory",
+              "item": "https://behorsesavvy.online/bhs-stage-1-theory"
+            }
+          ]
+        }}
+      />
       <ContactHeader bgColor="bg-blue-950" />
       
       {/* Back Home Button */}

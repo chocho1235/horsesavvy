@@ -1,12 +1,13 @@
 import React, { useState, useCallback, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, ArrowLeft, Heart } from "lucide-react";
+import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, Heart, CheckCircle } from "lucide-react";
 import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { BackToHome } from "@/components/BackToHome";
 import { useIsMobile } from "@/hooks/use-mobile";
+import SEO from "@/components/SEO";
 
 // Lazy load FAQ component
 const BeHorseSavvyFaqItem = lazy(() => import("@/components/BeHorseSavvyFaqItem"));
@@ -37,7 +38,7 @@ const faqs = [
   },
   {
     question: "What will I receive on successful completion of the course?",
-    answer: "You will receive a BeHorseSavvy Book 1 Certificate of Completion."
+    answer: "You will receive a BeHorseSavvy Level 1 Certificate of Completion."
   },
   {
     question: "Can international students study this course?",
@@ -63,11 +64,63 @@ export default function BeHorseSavvyBook1() {
   }, []);
 
   const handleEnrollClick = useCallback(() => {
-    window.location.href = "mailto:Penelopepleasant@gmail.com?subject=BeHorseSavvy%20Book%201%20Enquiry";
+    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   return (
     <div className="min-h-[100dvh] bg-gradient-to-b from-blue-950 to-blue-950 text-white font-dyslexic">
+      <SEO 
+        title="BeHorseSavvy Level 1 Course - £55 - Home Education Horses with Penny Pleasant"
+        description="BeHorseSavvy Level 1 course for home-educated children aged 8-14. Learn horse care, safety, and behavior with Penny Pleasant, BHS Professional Accredited Coach. £55 course fee."
+        keywords="behorsesavvy level 1, behorsesavvy book 1, home education horses, horse care for children, penny pleasant horse courses, home schooled horse education, children horse training, horse knowledge for kids"
+        canonicalUrl="/behorsesavvy/book1"
+        courseData={{
+          "@type": "Course",
+          "name": "BeHorseSavvy Level 1",
+          "description": "Fun first course teaching horse care, safety, and understanding for home-educated students aged 8-14.",
+          "provider": {
+            "@type": "Organization",
+            "name": "BeHorseSavvy"
+          },
+          "instructor": {
+            "@type": "Person",
+            "name": "Penny Pleasant",
+            "jobTitle": "BHS Professional Accredited Coach"
+          },
+          "educationalLevel": "Beginner",
+          "audience": "Home-educated children aged 8-14",
+          "url": "https://behorsesavvy.online/behorsesavvy/book1",
+          "courseMode": "Online",
+          "offers": {
+            "@type": "Offer",
+            "price": "55",
+            "priceCurrency": "GBP"
+          }
+        }}
+        breadcrumbData={{
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://behorsesavvy.online/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "BeHorseSavvy",
+              "item": "https://behorsesavvy.online/behorsesavvy"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Level 1",
+              "item": "https://behorsesavvy.online/behorsesavvy/book1"
+            }
+          ]
+        }}
+      />
       <ContactHeader bgColor="bg-blue-950" />
       
       <BackToHome />
@@ -90,26 +143,17 @@ export default function BeHorseSavvyBook1() {
               },
             }}
           >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/80 border border-yellow-500/30 backdrop-blur-sm mb-6">
-              <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-              <span className="text-white/90 text-sm font-medium tracking-wide">BeHorseSavvy Course</span>
-            </motion.div>
-            
             <motion.h1 
               variants={fadeInUp}
               className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
             >
-              <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent">
-                BeHorseSavvy
-              </span>
-              <br />
-              Book 1
+              BeHorseSavvy Level 1
             </motion.h1>
             <motion.p 
               variants={fadeInUp}
               className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
             >
-              Learn how to care for horses and keep them happy and healthy! Discover basic grooming skills and understand how horses think and feel.
+              A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy. Perfect for home-educated students aged 8-14.
             </motion.p>
             <motion.div
               variants={fadeInUp}
@@ -117,9 +161,9 @@ export default function BeHorseSavvyBook1() {
             >
               <Button 
                 onClick={handleEnrollClick}
-                className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 hover:from-yellow-600 hover:to-amber-600 text-black px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px] font-bold border border-black/20"
+                className="bg-red-600 text-white hover:bg-red-700 px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg w-full sm:w-auto h-[52px] sm:h-[60px]"
               >
-                Contact Penny
+                Enrol Now
               </Button>
             </motion.div>
           </motion.div>
@@ -127,38 +171,83 @@ export default function BeHorseSavvyBook1() {
       </section>
 
       {/* Meet Your Tutor Section */}
-      <section className="py-16 sm:py-24 bg-blue-950">
+      <section className="py-16 sm:py-24 bg-blue-950/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
+              Meet Your Tutor
+            </h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70 mb-8"></div>
+          </div>
+          
+          <div className="relative overflow-hidden rounded-xl shadow-2xl max-w-2xl mx-auto mb-12">
+            <img 
+              src="/P1000306 (1).jpg" 
+              alt="Penny Pleasant - Your Tutor" 
+              className="w-full h-auto object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
             <motion.div 
               variants={fadeInUp}
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true, margin: "-50px" }}
-              className="relative overflow-hidden rounded-xl shadow-2xl"
+              className="group relative backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300"
             >
-              <img 
-                src="/P1000306 (1).jpg" 
-                alt="Penny Pleasant - Your Tutor" 
-                className="w-full h-auto object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
-            </motion.div>
-            
-            <motion.div 
-              variants={fadeInUp}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={{ once: true, margin: "-50px" }}
-              className="text-center md:text-left"
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">
-                Meet Your Tutor
-              </h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-yellow-500 to-amber-600 mx-auto md:mx-0 mb-8"></div>
-              <p className="text-lg text-white/90 leading-relaxed">
-                Penny Pleasant is a qualified horse instructor who has been working with horses for over 40 years! She started loving horses when she was just six years old and loves teaching children about horses, especially home-schooled students.
-              </p>
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <h3 className="font-serif text-3xl font-bold text-white mb-2">Penny Pleasant</h3>
+                <p className="text-xl text-red-400 font-semibold mb-8">BHS Professional Accredited Coach</p>
+                
+                <div className="grid md:grid-cols-2 gap-8 text-left">
+                  <div>
+                    <h4 className="text-white font-semibold mb-4 text-lg">Qualifications:</h4>
+                    <ul className="space-y-2 text-white/90">
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Pony Club Accredited Trainer</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Pony Club Assessor</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>BSPS Course Builder</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Panel Judge</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-white font-semibold mb-4 text-lg">Professional Standards:</h4>
+                    <ul className="space-y-2 text-white/90">
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Trained in relative adjustment</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Fully Insured</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>DBS Checked</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-red-400 mr-2">•</span>
+                        <span>Safeguarding Certified</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -174,9 +263,17 @@ export default function BeHorseSavvyBook1() {
             viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold mb-6 text-white">
-              What Will We Be <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent">Covering</span>
-            </h2>
+            <h2 className="text-4xl font-bold mb-6 text-white">BeHorseSavvy Level 1</h2>
+          </motion.div>
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-8 sm:mb-16"
+          >
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">Course Overview</h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70" />
           </motion.div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
@@ -185,29 +282,28 @@ export default function BeHorseSavvyBook1() {
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true, margin: "-50px" }}
-              className="group relative md:backdrop-blur-sm bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 p-8 rounded-lg border border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300 shadow-md will-change-transform"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
-              <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-amber-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative pl-4">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
                 <h3 className="font-serif text-2xl font-semibold mb-6 text-white flex items-center">
-                  <span className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center mr-4">
-                    <Heart className="w-5 h-5 text-yellow-500" />
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4">
+                    <Heart className="w-5 h-5 text-red-500" />
                   </span>
-                  Horse Care Basics
+                  What You'll Learn
                 </h3>
                 <ul className="space-y-4">
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Daily care for your horse</span>
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Horse anatomy and behavior</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Keeping horses safe in stables and fields</span>
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Grooming techniques</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">How horses think and feel</span>
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Safety around horses</span>
                   </li>
                 </ul>
               </div>
@@ -218,72 +314,109 @@ export default function BeHorseSavvyBook1() {
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true, margin: "-50px" }}
-              className="group relative md:backdrop-blur-sm bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 p-8 rounded-lg border border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300 shadow-md will-change-transform"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
-              <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-amber-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative pl-4">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
                 <h3 className="font-serif text-2xl font-semibold mb-6 text-white flex items-center">
-                  <span className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center mr-4">
-                    <Sparkles className="w-5 h-5 text-yellow-500" />
-                  </span>
-                  Grooming Skills
-                </h3>
-                <ul className="space-y-4">
-                  <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">How to groom your horse</span>
-                  </li>
-                  <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Different types of rugs available</span>
-                  </li>
-                  <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">How to put on and take off a rug</span>
-                  </li>
-                </ul>
-              </div>
-            </motion.div>
-
-            <motion.div
-              variants={fadeInUp}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={{ once: true, margin: "-50px" }}
-              className="group relative md:backdrop-blur-sm bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 p-8 rounded-lg border border-yellow-500/20 hover:border-yellow-500/40 transition-all duration-300 shadow-md will-change-transform"
-            >
-              <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-lg" />
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-amber-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative pl-4">
-                <h3 className="font-serif text-2xl font-semibold mb-6 text-white flex items-center">
-                  <span className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center mr-4">
-                    <BookOpen className="w-5 h-5 text-yellow-500" />
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4">
+                    <Sparkles className="w-5 h-5 text-red-500" />
                   </span>
                   Course Features
                 </h3>
                 <ul className="space-y-4">
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
                     <span className="text-white/90 group-hover/item:text-white transition-colors">Designed for home education</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
                     <span className="text-white/90 group-hover/item:text-white transition-colors">Interactive worksheets included</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
                     <span className="text-white/90 group-hover/item:text-white transition-colors">Age-appropriate content (8-14)</span>
                   </li>
                 </ul>
               </div>
             </motion.div>
+
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <h3 className="font-serif text-2xl font-semibold mb-6 text-white flex items-center">
+                  <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4">
+                    <CheckCircle className="w-5 h-5 text-red-500" />
+                  </span>
+                  Course Benefits
+                </h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">BeHorseSavvy Certificate</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Self-paced learning</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Perfect for home education</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
           </div>
+
+          {/* Course Content */}
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="max-w-2xl mx-auto mt-16 mb-12"
+          >
+            <div className="backdrop-blur-sm bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 rounded-xl shadow-xl p-8 sm:p-10 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <h3 className="font-serif text-2xl font-bold mb-8 text-center text-white relative">
+                <span className="relative z-10 after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-[1px] after:bg-red-500/40">What We'll Cover</span>
+              </h3>
+              <ul className="space-y-4 relative z-10">
+                {[
+                  "Horse Care Essentials",
+                  "Daily care routines for your horse",
+                  "Keeping horses safe in stables and fields",
+                  "Understanding how horses think and feel",
+                  "Grooming Skills",
+                  "How to groom your horse properly",
+                  "Different types of rugs available",
+                  "How to put on and take off a rug",
+                  "Interactive worksheets and activities",
+                  "Age-appropriate learning materials"
+                ].map((item, index) => (
+                  <li key={index} className="flex items-center text-white/90 hover:text-white transition-colors duration-200 text-lg group/item">
+                    <span className="w-10 h-10 rounded-full bg-red-600/10 flex items-center justify-center mr-4 group-hover/item:bg-red-600/20 transition-all duration-300">
+                      <span className="text-red-500">●</span>
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Course Benefits */}
-      <section className="py-16 sm:py-24 bg-blue-950">
+
+
+      {/* Who is the Course For */}
+      <section className="py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             variants={fadeInUp}
@@ -292,44 +425,28 @@ export default function BeHorseSavvyBook1() {
             viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold mb-6 text-white">
-              Perfect for <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent">Home Education</span>
-            </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-yellow-500 to-amber-600 mx-auto mb-8"></div>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-              This course is perfect for home-schooled children! Learn at your own pace and discover important life skills while having fun with horses.
+            <h2 className="text-4xl font-bold mb-6 text-white">Is This Course Right For You?</h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto mb-12">
+              This course is perfect for home-educated children who want to learn about horses in a fun, engaging way.
             </p>
           </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <motion.div
               variants={fadeInUp}
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true, margin: "-50px" }}
-              className="relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 p-8 rounded-2xl border border-yellow-500/20 shadow-xl"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
-              <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-2xl" />
-              <div className="pl-4">
-                <h3 className="text-2xl font-bold text-white mb-4">Educational Benefits</h3>
-                <ul className="space-y-3 text-white/90">
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    Learn to be responsible and caring
-                  </li>
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    Feel more confident around horses
-                  </li>
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    Learn useful skills for life
-                  </li>
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    Learn to solve problems
-                  </li>
-                </ul>
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Users className="h-8 w-8 text-red-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">Home-Educated Children</h3>
+                <p className="text-white/90 group-hover:text-white transition-colors">
+                  Perfect for home education! Learn about horses in a fun, engaging way that fits your learning schedule.
+                </p>
               </div>
             </motion.div>
 
@@ -338,29 +455,137 @@ export default function BeHorseSavvyBook1() {
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true, margin: "-50px" }}
-              className="relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 p-8 rounded-2xl border border-yellow-500/20 shadow-xl"
+              className="group relative md:backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
             >
-              <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-2xl" />
-              <div className="pl-4">
-                <h3 className="text-2xl font-bold text-white mb-4">Practical Skills</h3>
-                <ul className="space-y-3 text-white/90">
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    How to brush and care for horses
-                  </li>
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    How to stay safe around horses
-                  </li>
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    Understanding what horses like and don't like
-                  </li>
-                  <li className="flex items-start">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500 mt-2 mr-3" />
-                    Learning about brushes and horse equipment
-                  </li>
-                </ul>
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <BookOpen className="h-8 w-8 text-red-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">Complete Beginners</h3>
+                <p className="text-white/90 group-hover:text-white transition-colors">
+                  Never worked with horses before? No problem! We'll guide you through everything step by step.
+                </p>
+              </div>
+          </motion.div>
+          
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="group relative md:backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Heart className="h-8 w-8 text-red-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">Horse Lovers</h3>
+                <p className="text-white/90 group-hover:text-white transition-colors">
+                  Love horses and want to learn more? This course will teach you how to care for them properly and safely.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="group relative md:backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative text-center">
+                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Globe className="h-8 w-8 text-red-500" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">Future Riders</h3>
+                <p className="text-white/90 group-hover:text-white transition-colors">
+                  Planning to start riding or get your own horse? This course provides the essential knowledge you need.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Course Snapshot */}
+      <section className="py-12 sm:py-16 md:py-24 bg-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-8 sm:mb-16"
+          >
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">Course Snapshot</h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70" />
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="space-y-4"
+            >
+              <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
+                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex items-start">
+                  <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <Users className="h-7 w-7 text-red-500" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-semibold text-white mb-2">Age Group</h3>
+                    <p className="text-white/90 group-hover:text-white transition-colors">Perfect for ages 8-14</p>
+                  </div>
+                </div>
+              </div>
+              <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
+                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex items-start">
+                  <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <Clock className="h-7 w-7 text-red-500" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-semibold text-white mb-2">Duration</h3>
+                    <p className="text-white/90 group-hover:text-white transition-colors">Self-paced learning</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="space-y-4"
+            >
+              <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
+                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex items-start">
+                  <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <BookOpen className="h-7 w-7 text-red-500" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-semibold text-white mb-2">Format</h3>
+                    <p className="text-white/90 group-hover:text-white transition-colors">Interactive worksheets and activities</p>
+                  </div>
+                </div>
+              </div>
+              <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
+                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex items-start">
+                  <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+                    <Globe className="h-7 w-7 text-red-500" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-semibold text-white mb-2">Study Anywhere</h3>
+                    <p className="text-white/90 group-hover:text-white transition-colors">Designed for home education worldwide</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -378,7 +603,7 @@ export default function BeHorseSavvyBook1() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold mb-4 text-white">Frequently Asked Questions</h2>
-            <div className="w-16 h-1 mx-auto bg-gradient-to-r from-yellow-500 to-amber-600" />
+            <div className="w-16 h-1 mx-auto bg-red-600/70" />
           </motion.div>
           <motion.div 
             variants={fadeInUp}
@@ -402,38 +627,64 @@ export default function BeHorseSavvyBook1() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 sm:py-24 bg-blue-950">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Get Started Now CTA Section */}
+      <section id="pricing" className="py-16 bg-gradient-to-b from-blue-950 to-blue-950 border-t border-white/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true, margin: "-50px" }}
-            className="relative bg-gradient-to-br from-blue-900/90 via-blue-900/80 to-blue-900/90 p-12 rounded-2xl border border-yellow-500/20 shadow-xl"
+            className="text-center mb-10"
           >
-            <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-yellow-500 to-amber-600 rounded-l-2xl" />
-            <div className="pl-4">
-              <h2 className="text-4xl font-bold mb-6 text-white">
-                Ready to Start Your <span className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 bg-clip-text text-transparent">Journey</span>?
-              </h2>
-              <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Start your exciting horse adventure with BeHorseSavvy Book 1! Learn how to be a great friend to horses while having lots of fun.
-              </p>
-              <Button
-                onClick={handleEnrollClick}
-                className="bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-600 hover:from-yellow-600 hover:to-amber-600 text-black px-8 py-4 text-lg font-bold border border-black/20 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl"
-              >
-                Contact Penny Today
-              </Button>
-              <div className="mt-6 text-white/70">
-                <p className="text-sm">or email directly:</p>
-                <a href="mailto:Penelopepleasant@gmail.com" className="text-yellow-500 hover:text-yellow-400 font-medium transition-colors">
-                  Penelopepleasant@gmail.com
-                </a>
-              </div>
-            </div>
+            <h2 className="text-4xl font-bold mb-4 text-white">Get Started Now!</h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto mb-8">
+              Start your exciting horse adventure with BeHorseSavvy Level 1
+            </p>
           </motion.div>
+          
+          <div className="max-w-md mx-auto">
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl will-change-transform"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
+              <div className="relative">
+                <div className="text-center">
+                  <h3 className="font-serif text-2xl font-bold text-white mb-3">BeHorseSavvy</h3>
+                  <h4 className="font-serif text-xl font-bold text-white mb-5">Level 1</h4>
+                  <p className="font-serif text-3xl font-bold text-red-500 mb-3">Fees £55</p>
+                  <div className="bg-white/5 rounded-lg p-4 mb-8">
+                    <ul className="space-y-3 text-left">
+                      <li className="flex items-center text-white/90">
+                        <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
+                        <span>Perfect for home education</span>
+                      </li>
+                      <li className="flex items-center text-white/90">
+                        <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
+                        <span>Ages 8-14 beginner friendly</span>
+                      </li>
+                      <li className="flex items-center text-white/90">
+                        <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
+                        <span>Interactive worksheets included</span>
+                      </li>
+                    </ul>
+                  </div>
+                                <Button 
+                    onClick={() => {
+                      window.location.href = "mailto:Penelopepleasant@gmail.com?subject=BeHorseSavvy%20Level%201%20Enquiry";
+                    }}
+                    className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-6 text-lg font-medium"
+                  >
+                    Enrol Now
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+            </div>
         </div>
       </section>
 
