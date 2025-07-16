@@ -34,6 +34,7 @@ const Terms = lazy(() => import("./pages/Terms"));
 const EmailPreview = lazy(() => import("./pages/EmailPreview"));
 const Silver = lazy(() => import("./pages/Silver"));
 const CampPleasant = lazy(() => import("./pages/CampPleasant"));
+const ComingSoon = lazy(() => import("./pages/ComingSoon"));
 
 // Loading component
 const LoadingFallback = () => (
@@ -135,17 +136,37 @@ const AppRoutes = memo(() => (
 
 AppRoutes.displayName = 'AppRoutes';
 
-const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
-);
+const App = () => {
+  // Check if coming soon mode is enabled
+  const isComingSoonMode = import.meta.env.VITE_COMING_SOON === 'true';
+  
+  if (isComingSoonMode) {
+    return (
+      <ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Suspense fallback={<LoadingFallback />}>
+              <ComingSoon />
+            </Suspense>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </ErrorBoundary>
+    );
+  }
+
+  return (
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
+  );
+};
 
 export default App;
