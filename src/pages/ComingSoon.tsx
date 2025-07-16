@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Heart, Mail, Calendar, Star } from 'lucide-react';
+import { Heart, Calendar, Star } from 'lucide-react';
 
 const ComingSoon = () => {
   const fadeInUp = {
@@ -89,25 +89,7 @@ const ComingSoon = () => {
             </div>
           </motion.div>
 
-          {/* Email Signup */}
-          <motion.div 
-            variants={fadeInUp}
-            className="bg-white/10 backdrop-blur-sm rounded-lg p-8 border border-white/20 max-w-md mx-auto"
-          >
-            <Mail className="w-8 h-8 text-red-400 mx-auto mb-4" />
-            <h3 className="text-white font-semibold mb-2">Get Notified</h3>
-            <p className="text-white/70 text-sm mb-4">Be the first to know when we launch</p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input 
-                type="email" 
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:border-red-400"
-              />
-              <button className="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors">
-                Notify Me
-              </button>
-            </div>
-          </motion.div>
+
 
           {/* Footer */}
           <motion.div 
