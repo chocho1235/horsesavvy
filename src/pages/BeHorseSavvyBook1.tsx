@@ -71,13 +71,13 @@ export default function BeHorseSavvyBook1() {
     <div className="min-h-[100dvh] bg-gradient-to-b from-blue-950 to-blue-950 text-white font-dyslexic">
       <SEO 
         title="BeHorseSavvy Level 1 Course - £55 - Home Education Horses with Penny Pleasant"
-        description="BeHorseSavvy Level 1 course for home-educated children aged 8-14. Learn horse care, safety, and behavior with Penny Pleasant, BHS Professional Accredited Coach. £55 course fee."
+        description="BeHorseSavvy Level 1 course for home-educated children. Learn horse care, safety, and behavior with Penny Pleasant, BHS Professional Accredited Coach. £55 course fee."
         keywords="behorsesavvy level 1, behorsesavvy book 1, home education horses, horse care for children, penny pleasant horse courses, home schooled horse education, children horse training, horse knowledge for kids"
         canonicalUrl="/behorsesavvy/book1"
         courseData={{
           "@type": "Course",
           "name": "BeHorseSavvy Level 1",
-          "description": "Fun first course teaching horse care, safety, and understanding for home-educated students aged 8-14.",
+          "description": "Fun first course teaching horse care, safety, and understanding for home-educated students.",
           "provider": {
             "@type": "Organization",
             "name": "BeHorseSavvy"
@@ -87,8 +87,8 @@ export default function BeHorseSavvyBook1() {
             "name": "Penny Pleasant",
             "jobTitle": "BHS Professional Accredited Coach"
           },
-          "educationalLevel": "Beginner",
-          "audience": "Home-educated children aged 8-14",
+          "educationalLevel": "All levels",
+          "audience": "Home-educated children",
           "url": "https://behorsesavvy.online/behorsesavvy/book1",
           "courseMode": "Online",
           "offers": {
@@ -164,7 +164,7 @@ export default function BeHorseSavvyBook1() {
               variants={fadeInUp}
               className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
             >
-              A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy. Perfect for home-educated students aged 8-14.
+              A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy. Perfect for home-educated students.
             </motion.p>
             <motion.div
               variants={fadeInUp}
@@ -461,24 +461,7 @@ export default function BeHorseSavvyBook1() {
               </div>
             </motion.div>
 
-            <motion.div
-              variants={fadeInUp}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={{ once: true, margin: "-50px" }}
-              className="group relative md:backdrop-blur-sm bg-white/10 p-6 rounded-lg border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative text-center">
-                <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <BookOpen className="h-8 w-8 text-red-500" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Complete Beginners</h3>
-                <p className="text-white/90 group-hover:text-white transition-colors">
-                  Never worked with horses before? No problem! We'll guide you through everything step by step.
-                </p>
-              </div>
-          </motion.div>
+            
           
             <motion.div
               variants={fadeInUp}
@@ -542,18 +525,7 @@ export default function BeHorseSavvyBook1() {
               viewport={{ once: true, margin: "-50px" }}
               className="space-y-4"
             >
-              <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative flex items-start">
-                  <div className="w-14 h-14 rounded-xl bg-red-600/10 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
-                    <Users className="h-7 w-7 text-red-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-semibold text-white mb-2">Age Group</h3>
-                    <p className="text-white/90 group-hover:text-white transition-colors">Perfect for ages 8-14</p>
-                  </div>
-                </div>
-              </div>
+
               <div className="group relative md:backdrop-blur-sm bg-white/10 p-8 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-md will-change-transform">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative flex items-start">
@@ -674,10 +646,7 @@ export default function BeHorseSavvyBook1() {
                         <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
                         <span>Perfect for home education</span>
                       </li>
-                      <li className="flex items-center text-white/90">
-                        <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
-                        <span>Ages 8-14 beginner friendly</span>
-                      </li>
+
                       <li className="flex items-center text-white/90">
                         <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
                         <span>Interactive worksheets included</span>

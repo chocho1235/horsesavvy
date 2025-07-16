@@ -99,7 +99,7 @@ export default function BeHorseSavvy() {
             </motion.div>
 
             <motion.div variants={fadeInUp}>
-              <Button
+              <Button 
                 onClick={scrollToCourses}
                 className="group relative bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-4 rounded-full transition-all duration-300 flex items-center gap-3 mx-auto text-lg font-medium shadow-lg hover:shadow-xl hover:scale-105 border border-white/10"
               >
@@ -123,7 +123,7 @@ export default function BeHorseSavvy() {
                 We specialize in providing world-class equestrian education designed specifically for home-educated students.
               </p>
             </motion.div>
-
+            
             <div className="space-y-8">
               <motion.div {...fadeInUp} className="bg-blue-900 p-8 rounded-xl border border-white/10 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
@@ -135,7 +135,7 @@ export default function BeHorseSavvy() {
                 <p className="text-white/70 text-lg leading-relaxed">
                   Professional equestrian education tailored specifically for home-educated children. Our courses combine academic learning with practical horse knowledge, delivered by BHS Professional Accredited Coach Penny Pleasant.
                 </p>
-              </motion.div>
+          </motion.div>
 
               <motion.div {...fadeInUp} className="bg-blue-900 p-8 rounded-xl border border-white/10 shadow-xl">
                 <div className="flex items-center gap-4 mb-6">
@@ -233,19 +233,12 @@ export default function BeHorseSavvy() {
                     <div className="flex-1 pr-4">
                       <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-2 group-hover:text-red-300 transition-colors duration-300 leading-tight">
                         BeHorseSavvy Level 1
-                      </h3>
+                </h3>
                       <p className="text-white/80 mb-4 text-sm sm:text-base leading-relaxed">
-                        A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy.
-                      </p>
+                  A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy.
+                </p>
+
                       
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        <span className="px-2 py-1 bg-red-500/20 text-red-300 rounded-full text-xs font-medium border border-red-500/30">
-                          Beginner Friendly
-                        </span>
-                        <span className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs font-medium border border-blue-500/30">
-                          Ages 8-14
-                        </span>
-                      </div>
 
                       <div className="space-y-2 mb-4">
                         <div className="flex items-center gap-2">
@@ -266,15 +259,15 @@ export default function BeHorseSavvy() {
                         <span className="text-red-400 font-bold text-lg">Fees £55</span>
                         <div className="flex-grow h-px bg-white/10" />
                       </div>
-                    </div>
+                  </div>
                     <div className="flex-shrink-0 z-10">
                       <div className="bg-blue-800/50 group-hover:bg-red-600/50 rounded-full p-3 transition-colors duration-300">
                         <ArrowRight className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform duration-300" />
-                      </div>
-                    </div>
+                  </div>
+                  </div>
                   </div>
                 </div>
-              </Link>
+                </Link>
             </motion.div>
 
             {/* Coming Soon Course 1 */}
@@ -290,17 +283,14 @@ export default function BeHorseSavvy() {
                   <div className="flex-1 pr-4">
                     <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-2 leading-tight">
                       BeHorseSavvy Level 2
-                    </h3>
+                </h3>
                     <p className="text-white/70 mb-4 text-sm sm:text-base leading-relaxed">
-                      Advanced riding techniques, horse psychology, and stable management for intermediate young equestrians.
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
+                  Advanced riding techniques, horse psychology, and stable management for intermediate young equestrians.
+                </p>
+
+                                        <div className="flex flex-wrap gap-2 mb-4">
                       <span className="px-2 py-1 bg-red-500/20 text-red-300 rounded-full text-xs font-medium border border-red-500/30">
                         Intermediate
-                      </span>
-                      <span className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs font-medium border border-blue-500/30">
-                        Ages 12-16
                       </span>
                       <span className="px-2 py-1 bg-gray-500/20 text-gray-300 rounded-full text-xs font-medium border border-gray-500/30">
                         Coming Soon
@@ -325,12 +315,12 @@ export default function BeHorseSavvy() {
                     <div className="flex items-center gap-4">
                       <span className="text-gray-400 font-bold text-lg">Coming Soon</span>
                       <div className="flex-grow h-px bg-white/10" />
-                    </div>
+                  </div>
                   </div>
                   <div className="flex-shrink-0 z-10">
                     <div className="bg-gray-600/50 rounded-full p-3">
                       <Clock className="w-6 h-6 text-gray-400" />
-                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -348,18 +338,15 @@ export default function BeHorseSavvy() {
                 <div className="flex justify-between items-start w-full">
                   <div className="flex-1 pr-4">
                     <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-2 leading-tight">
-                      Professional Development
-                    </h3>
+                  Professional Development
+                </h3>
                     <p className="text-white/70 mb-4 text-sm sm:text-base leading-relaxed">
-                      Career-focused course for aspiring equestrian professionals and advanced riders seeking certification.
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
+                  Career-focused course for aspiring equestrian professionals and advanced riders seeking certification.
+                </p>
+
+                                        <div className="flex flex-wrap gap-2 mb-4">
                       <span className="px-2 py-1 bg-red-500/20 text-red-300 rounded-full text-xs font-medium border border-red-500/30">
                         Advanced
-                      </span>
-                      <span className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs font-medium border border-blue-500/30">
-                        Ages 16+
                       </span>
                       <span className="px-2 py-1 bg-gray-500/20 text-gray-300 rounded-full text-xs font-medium border border-gray-500/30">
                         Coming Soon
@@ -384,12 +371,12 @@ export default function BeHorseSavvy() {
                     <div className="flex items-center gap-4">
                       <span className="text-gray-400 font-bold text-lg">Coming Soon</span>
                       <div className="flex-grow h-px bg-white/10" />
-                    </div>
+                  </div>
                   </div>
                   <div className="flex-shrink-0 z-10">
                     <div className="bg-gray-600/50 rounded-full p-3">
                       <Clock className="w-6 h-6 text-gray-400" />
-                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -414,26 +401,26 @@ export default function BeHorseSavvy() {
             <p className="text-white/80 text-lg leading-relaxed mb-8">
               Join our community of home-educated equestrians and unlock your child's potential with professional guidance.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                onClick={() => {
-                  window.location.href = "mailto:Penelopepleasant@gmail.com?subject=Home%20Education%20Equestrians%20Enquiry";
-                }}
+            <Button
+              onClick={() => {
+                window.location.href = "mailto:Penelopepleasant@gmail.com?subject=Home%20Education%20Equestrians%20Enquiry";
+              }}
                 className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 text-base font-bold transition-all duration-300 hover:scale-105 shadow-lg w-full sm:w-auto"
-              >
+            >
                 <Mail className="mr-2 h-5 w-5" />
-                Get Started Today
-              </Button>
-              <Link to="/behorsesavvy/book1">
-                <Button
-                  variant="outline"
+              Get Started Today
+            </Button>
+            <Link to="/behorsesavvy/book1">
+              <Button
+                variant="outline"
                   className="border-white text-white hover:bg-white/10 px-8 py-3 text-base font-bold transition-all duration-300 hover:scale-105 w-full sm:w-auto"
-                >
+              >
                   <BookOpen className="mr-2 h-5 w-5" />
                   Explore Level 1
-                </Button>
-              </Link>
+              </Button>
+            </Link>
             </div>
           </motion.div>
         </div>

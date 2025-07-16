@@ -164,14 +164,14 @@ export default function HorseKnowledge2() {
           </div>
           
           <div className="relative overflow-hidden rounded-xl shadow-2xl max-w-2xl mx-auto mb-12">
-            <img 
-              src="/P1000306 (1).jpg" 
-              alt="Penny Pleasant - Your Tutor" 
-              className="w-full h-auto object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
+              <img 
+                src="/P1000306 (1).jpg" 
+                alt="Penny Pleasant - Your Tutor" 
+                className="w-full h-auto object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/60 to-transparent"></div>
           </div>
-          
+            
           <div className="max-w-4xl mx-auto">
             <motion.div 
               variants={fadeInUp}

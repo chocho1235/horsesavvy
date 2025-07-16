@@ -89,8 +89,8 @@ const MeetYourTutor: React.FC = () => {
                       <span>Safeguarding Certified</span>
                     </li>
                   </ul>
-                </div>
-              </div>
+            </div>
+          </div>
             </div>
           </div>
         </div>
