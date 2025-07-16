@@ -71,13 +71,13 @@ export default function BeHorseSavvyBook1() {
     <div className="min-h-[100dvh] bg-gradient-to-b from-blue-950 to-blue-950 text-white font-dyslexic">
       <SEO 
         title="BeHorseSavvy Level 1 Course - £55 - Home Education Horses with Penny Pleasant"
-        description="BeHorseSavvy Level 1 course for home-educated children. Learn horse care, safety, and behavior with Penny Pleasant, BHS Professional Accredited Coach. £55 course fee."
+        description="BeHorseSavvy Level 1 course for all students. Learn horse care, safety, and behavior with Penny Pleasant, BHS Professional Accredited Coach. £55 course fee."
         keywords="behorsesavvy level 1, behorsesavvy book 1, home education horses, horse care for children, penny pleasant horse courses, home schooled horse education, children horse training, horse knowledge for kids"
         canonicalUrl="/behorsesavvy/book1"
         courseData={{
           "@type": "Course",
           "name": "BeHorseSavvy Level 1",
-          "description": "Fun first course teaching horse care, safety, and understanding for home-educated students.",
+          "description": "Fun first course teaching horse care, safety, and understanding for all students.",
           "provider": {
             "@type": "Organization",
             "name": "BeHorseSavvy"
@@ -88,7 +88,7 @@ export default function BeHorseSavvyBook1() {
             "jobTitle": "BHS Professional Accredited Coach"
           },
           "educationalLevel": "All levels",
-          "audience": "Home-educated children",
+          "audience": "All students",
           "url": "https://behorsesavvy.online/behorsesavvy/book1",
           "courseMode": "Online",
           "offers": {
@@ -164,7 +164,7 @@ export default function BeHorseSavvyBook1() {
               variants={fadeInUp}
               className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
             >
-              A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy. Perfect for home-educated students.
+              A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy. Perfect for all students.
             </motion.p>
             <motion.div
               variants={fadeInUp}

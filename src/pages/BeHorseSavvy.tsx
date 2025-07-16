@@ -80,7 +80,7 @@ export default function BeHorseSavvy() {
             </motion.h1>
             
             <motion.p variants={fadeInUp} className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0">
-              Transform your child's education with expert equestrian learning, designed exclusively for home-educated students.
+              Transform your child's education with expert equestrian learning, designed for all students.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 mb-6">
