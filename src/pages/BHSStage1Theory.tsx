@@ -69,7 +69,23 @@ export default function BHSStage1Theory() {
           },
           "educationalLevel": "Beginner to Intermediate",
           "url": "https://behorsesavvy.online/bhs-stage-1-theory",
-          "courseMode": "Online"
+          "courseMode": "Online",
+          "offers": {
+            "@type": "Offer",
+            "price": "85",
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/InStock"
+          },
+          "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "Online",
+            "courseWorkload": "P4W",
+            "instructor": {
+              "@type": "Person",
+              "name": "Penny Pleasant",
+              "jobTitle": "BHS Professional Accredited Coach"
+            }
+          }
         }}
         breadcrumbData={{
           "@type": "BreadcrumbList",

@@ -94,7 +94,18 @@ export default function BeHorseSavvyBook1() {
           "offers": {
             "@type": "Offer",
             "price": "55",
-            "priceCurrency": "GBP"
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/InStock"
+          },
+          "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "Online",
+            "courseWorkload": "P3W",
+            "instructor": {
+              "@type": "Person",
+              "name": "Penny Pleasant",
+              "jobTitle": "BHS Professional Accredited Coach"
+            }
           }
         }}
         breadcrumbData={{
