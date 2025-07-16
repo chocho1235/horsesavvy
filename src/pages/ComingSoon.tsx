@@ -96,8 +96,19 @@ const ComingSoon = () => {
             variants={fadeInUp}
             className="mt-12 pt-8 border-t border-white/20"
           >
-            <p className="text-white/60 text-sm">
+            <p className="text-white/60 text-sm mb-4">
               © 2024 BeHorseSavvy. Professional equestrian education with Penny Pleasant.
+            </p>
+            <p className="text-white/50 text-xs">
+              Powered by{' '}
+              <a 
+                href="https://equinology.co.uk" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-red-400 hover:text-red-300 transition-colors underline decoration-red-400/50 hover:decoration-red-300/50"
+              >
+                Equinology
+              </a>
             </p>
           </motion.div>
         </motion.div>
