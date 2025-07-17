@@ -1,7 +1,7 @@
 import React, { useState, useCallback, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, Heart, CheckCircle } from "lucide-react";
+import { ChevronRight, Sparkles, Clock, BookOpen, Users, Globe, Heart, CheckCircle, ArrowRight } from "lucide-react";
 import { ContactHeader } from "@/components/ContactHeader";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
@@ -38,7 +38,7 @@ const faqs = [
   },
   {
     question: "What will I receive on successful completion of the course?",
-    answer: "You will receive a BeHorseSavvy Level 1 Certificate of Completion."
+    answer: "You will receive a BeHorseSavvy Level 2 Certificate of Completion."
   },
   {
     question: "Can international students study this course?",
@@ -54,7 +54,7 @@ const fadeInUp = {
   transition: { duration: 0.6, ease: "easeOut" }
 };
 
-export default function BeHorseSavvyBook1() {
+export default function BeHorseSavvyBook2() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const isMobile = useIsMobile();
 
@@ -70,14 +70,14 @@ export default function BeHorseSavvyBook1() {
   return (
     <div className="min-h-[100dvh] bg-gradient-to-b from-blue-950 to-blue-950 text-white font-dyslexic">
       <SEO 
-        title="BeHorseSavvy Level 1 Course - £55 - Home Education Horses with Penny Pleasant"
-        description="BeHorseSavvy Level 1 course for all students. Learn horse care, safety, and behavior with Penny Pleasant, BHS Professional Accredited Coach. £55 course fee."
-        keywords="behorsesavvy level 1, behorsesavvy book 1, home education horses, horse care for children, penny pleasant horse courses, home schooled horse education, children horse training, horse knowledge for kids"
-        canonicalUrl="/behorsesavvy/book1"
+        title="BeHorseSavvy Level 2 Course - Advanced Horse Care & Anatomy - Penny Pleasant"
+        description="BeHorseSavvy Level 2 course covering horse breeds, anatomy, health, feeding, and fitness. Advanced horse care knowledge for all students."
+        keywords="behorsesavvy level 2, horse breeds, horse anatomy, horse health, horse feeding, horse fitness, advanced horse care, penny pleasant horse courses"
+        canonicalUrl="/behorsesavvy/book2"
         courseData={{
           "@type": "Course",
-          "name": "BeHorseSavvy Level 1",
-          "description": "Fun first course teaching horse care, safety, and understanding for all students.",
+          "name": "BeHorseSavvy Level 2",
+          "description": "Advanced course covering horse breeds, anatomy, health, feeding, and fitness.",
           "provider": {
             "@type": "Organization",
             "name": "BeHorseSavvy"
@@ -87,20 +87,20 @@ export default function BeHorseSavvyBook1() {
             "name": "Penny Pleasant",
             "jobTitle": "BHS Professional Accredited Coach"
           },
-          "educationalLevel": "All levels",
+          "educationalLevel": "Intermediate",
           "audience": "All students",
-          "url": "https://behorsesavvy.online/behorsesavvy/book1",
+          "url": "https://behorsesavvy.online/behorsesavvy/book2",
           "courseMode": "Online",
           "offers": {
             "@type": "Offer",
-            "price": "55",
+            "price": "75",
             "priceCurrency": "GBP",
             "availability": "https://schema.org/InStock"
           },
           "hasCourseInstance": {
             "@type": "CourseInstance",
             "courseMode": "Online",
-            "courseWorkload": "P3W",
+            "courseWorkload": "P4W",
             "instructor": {
               "@type": "Person",
               "name": "Penny Pleasant",
@@ -126,8 +126,8 @@ export default function BeHorseSavvyBook1() {
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "Level 1",
-              "item": "https://behorsesavvy.online/behorsesavvy/book1"
+              "name": "Level 2",
+              "item": "https://behorsesavvy.online/behorsesavvy/book2"
             }
           ]
         }}
@@ -138,7 +138,7 @@ export default function BeHorseSavvyBook1() {
       
       {/* Hero Section */}
       <section className="relative bg-blue-950 py-16 sm:py-24 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/homed2.png')] bg-cover bg-center opacity-15" />
+        <div className="absolute inset-0 bg-[url('/The%20penny%20club%20-%20WD2%20%281%29.svg')] bg-contain bg-center bg-no-repeat opacity-20" />
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/80 to-blue-950/95" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
@@ -158,13 +158,13 @@ export default function BeHorseSavvyBook1() {
               variants={fadeInUp}
               className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-8 text-white"
             >
-              BeHorseSavvy Level 1
+              BeHorseSavvy Level 2
             </motion.h1>
             <motion.p 
               variants={fadeInUp}
               className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4 sm:px-0"
             >
-              A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy. Perfect for all students.
+              Advanced horse care knowledge covering breeds, anatomy, health, feeding, and fitness. Build on your Level 1 foundation.
             </motion.p>
             <motion.div
               variants={fadeInUp}
@@ -274,7 +274,7 @@ export default function BeHorseSavvyBook1() {
             viewport={{ once: true, margin: "-50px" }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-bold mb-6 text-white">BeHorseSavvy Level 1</h2>
+            <h2 className="text-4xl font-bold mb-6 text-white">BeHorseSavvy Level 2</h2>
           </motion.div>
           <motion.div 
             variants={fadeInUp}
@@ -306,15 +306,15 @@ export default function BeHorseSavvyBook1() {
                 <ul className="space-y-4">
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Horse anatomy and behavior</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Horse breeds and anatomy</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Grooming techniques</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Health and welfare</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Safety around horses</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Feeding and fitness</span>
                   </li>
                 </ul>
               </div>
@@ -338,7 +338,7 @@ export default function BeHorseSavvyBook1() {
                 <ul className="space-y-4">
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 group-hover/item:text-white transition-colors">Designed for home education</span>
+                    <span className="text-white/90 group-hover/item:text-white transition-colors">Advanced horse care knowledge</span>
                   </li>
                   <li className="flex items-start group/item">
                     <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
@@ -385,54 +385,6 @@ export default function BeHorseSavvyBook1() {
             </motion.div>
           </div>
 
-          {/* Course Design Philosophy */}
-          <motion.div 
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true, margin: "-50px" }}
-            className="max-w-4xl mx-auto mt-16 mb-12"
-          >
-            <div className="backdrop-blur-sm bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 rounded-xl shadow-xl p-8 sm:p-10 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <h3 className="font-serif text-2xl font-bold mb-8 text-center text-white relative">
-                <span className="relative z-10 after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-[1px] after:bg-red-500/40">Course Features</span>
-              </h3>
-              <div className="relative z-10">
-                <ul className="space-y-4 text-white/90">
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-3 mt-1">•</span>
-                    <span>Clear, purposeful course structure</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-3 mt-1">•</span>
-                    <span>Accessible horsemanship for all students</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-3 mt-1">•</span>
-                    <span>Suitable for all educational backgrounds</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-3 mt-1">•</span>
-                    <span>Progressive learning approach</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-3 mt-1">•</span>
-                    <span>Step-by-step knowledge building</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-3 mt-1">•</span>
-                    <span>Fun and enjoyable learning experience</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-3 mt-1">•</span>
-                    <span>Attention to detail throughout</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </motion.div>
-
           {/* Course Content */}
           <motion.div 
             variants={fadeInUp}
@@ -448,14 +400,13 @@ export default function BeHorseSavvyBook1() {
               </h3>
               <ul className="space-y-4 relative z-10">
                 {[
-                  "Horse Care Essentials",
-                  "Daily care routines for your horse",
-                  "Keeping horses safe in stables and fields",
-                  "Understanding how horses think and feel",
-                  "Grooming Skills",
-                  "How to groom your horse properly",
-                  "Different types of rugs available",
-                  "How to put on and take off a rug",
+                  "Common Breeds of Horses",
+                  "How to Measure your Horse's Height",
+                  "Horse's Major Organs & their Function",
+                  "Knowing & Meeting the Basic Welfare Needs",
+                  "How to Look after your Horse's Health",
+                  "Common Horse Feeds and How to Prepare them",
+                  "Fittening Your Horse",
                   "Interactive worksheets and activities",
                   "Age-appropriate learning materials"
                 ].map((item, index) => (
@@ -472,8 +423,6 @@ export default function BeHorseSavvyBook1() {
         </div>
       </section>
 
-
-
       {/* Who is the Course For */}
       <section className="py-20 bg-blue-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -486,7 +435,7 @@ export default function BeHorseSavvyBook1() {
           >
             <h2 className="text-4xl font-bold mb-6 text-white">Is This Course Right For You?</h2>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-12">
-              This course is perfect for home-educated children who want to learn about horses in a fun, engaging way.
+              This course is perfect for students who have completed Level 1 and want to advance their horse care knowledge.
             </p>
           </motion.div>
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
@@ -502,15 +451,13 @@ export default function BeHorseSavvyBook1() {
                 <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Users className="h-8 w-8 text-red-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Home-Educated Children</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Level 1 Graduates</h3>
                 <p className="text-white/90 group-hover:text-white transition-colors">
-                  Perfect for home education! Learn about horses in a fun, engaging way that fits your learning schedule.
+                  Perfect for students who have completed Level 1 and want to build on their foundation knowledge.
                 </p>
               </div>
             </motion.div>
 
-            
-          
             <motion.div
               variants={fadeInUp}
               initial="initial"
@@ -523,9 +470,9 @@ export default function BeHorseSavvyBook1() {
                 <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Heart className="h-8 w-8 text-red-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Horse Lovers</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Advanced Learners</h3>
                 <p className="text-white/90 group-hover:text-white transition-colors">
-                  Love horses and want to learn more? This course will teach you how to care for them properly and safely.
+                  For students ready to dive deeper into horse anatomy, health, and advanced care techniques.
                 </p>
               </div>
             </motion.div>
@@ -542,9 +489,9 @@ export default function BeHorseSavvyBook1() {
                 <div className="w-16 h-16 rounded-full bg-red-600/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Globe className="h-8 w-8 text-red-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">Future Riders</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">Future Professionals</h3>
                 <p className="text-white/90 group-hover:text-white transition-colors">
-                  Planning to start riding or get your own horse? This course provides the essential knowledge you need.
+                  For students considering a career in equestrian care or wanting professional-level knowledge.
                 </p>
               </div>
             </motion.div>
@@ -670,7 +617,7 @@ export default function BeHorseSavvyBook1() {
           >
             <h2 className="text-4xl font-bold mb-4 text-white">Get Started Now!</h2>
             <p className="text-lg text-white/80 max-w-2xl mx-auto mb-8">
-              Start your exciting horse adventure with BeHorseSavvy Level 1
+              Advance your horse knowledge with BeHorseSavvy Level 2
             </p>
           </motion.div>
           
@@ -686,13 +633,13 @@ export default function BeHorseSavvyBook1() {
               <div className="relative">
                 <div className="text-center">
                   <h3 className="font-serif text-2xl font-bold text-white mb-3">BeHorseSavvy</h3>
-                  <h4 className="font-serif text-xl font-bold text-white mb-5">Level 1</h4>
-                  <p className="font-serif text-3xl font-bold text-red-500 mb-3">Fees £55</p>
+                  <h4 className="font-serif text-xl font-bold text-white mb-5">Level 2</h4>
+                  <p className="font-serif text-3xl font-bold text-red-500 mb-3">Fees £75</p>
                   <div className="bg-white/5 rounded-lg p-4 mb-8">
                     <ul className="space-y-3 text-left">
                       <li className="flex items-center text-white/90">
                         <ChevronRight className="h-5 w-5 text-red-500 mr-2 flex-shrink-0" />
-                        <span>Perfect for home education</span>
+                        <span>Advanced horse care knowledge</span>
                       </li>
 
                       <li className="flex items-center text-white/90">
@@ -703,7 +650,7 @@ export default function BeHorseSavvyBook1() {
                   </div>
                                 <Button 
                     onClick={() => {
-                      window.location.href = "mailto:Penelopepleasant@gmail.com?subject=BeHorseSavvy%20Level%201%20Enquiry";
+                      window.location.href = "mailto:Penelopepleasant@gmail.com?subject=BeHorseSavvy%20Level%202%20Enquiry";
                     }}
                     className="w-full bg-red-600 text-white hover:bg-red-700 transition-colors duration-300 py-6 text-lg font-medium"
                   >
@@ -716,7 +663,36 @@ export default function BeHorseSavvyBook1() {
         </div>
       </section>
 
-      <Footer bgColor="bg-blue-950" />
+      {/* FAQ Section */}
+      <section className="py-16 sm:py-24 bg-blue-950/50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
+            <div className="w-16 h-1 mx-auto bg-red-600/70 mb-8"></div>
+          </motion.div>
+          
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <Suspense key={index} fallback={<LoadingFallback />}>
+                <BeHorseSavvyFaqItem
+                  question={faq.question}
+                  answer={faq.answer}
+                  isOpen={openFaq === index}
+                  onToggle={() => handleFaqToggle(index)}
+                />
+              </Suspense>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 } 

@@ -28,6 +28,7 @@ const BHSStage1Practical = lazy(() => import("./pages/BhsStage1Practical"));
 const About = lazy(() => import("./pages/About"));
 const BeHorseSavvy = lazy(() => import("./pages/BeHorseSavvy"));
 const BeHorseSavvyBook1 = lazy(() => import("./pages/BeHorseSavvyBook1"));
+const BeHorseSavvyBook2 = lazy(() => import("./pages/BeHorseSavvyBook2"));
 const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
@@ -104,6 +105,7 @@ const routes = [
   { path: "/terms", element: <Terms /> },
   { path: "/behorsesavvy", element: <BeHorseSavvy /> },
   { path: "/behorsesavvy/book1", element: <BeHorseSavvyBook1 /> },
+  { path: "/behorsesavvy/book2", element: <BeHorseSavvyBook2 /> },
   { path: "/penny-club", element: <NotFound /> },
   { path: "/events", element: <NotFound /> },
   { path: "/clinics", element: <Clinics /> },
@@ -139,6 +141,10 @@ AppRoutes.displayName = 'AppRoutes';
 const App = () => {
   // Check if coming soon mode is enabled
   const isComingSoonMode = import.meta.env.VITE_COMING_SOON === 'true';
+  
+  // Debug: Log the environment variable value
+  console.log('VITE_COMING_SOON value:', import.meta.env.VITE_COMING_SOON);
+  console.log('isComingSoonMode:', isComingSoonMode);
   
   if (isComingSoonMode) {
     return (
