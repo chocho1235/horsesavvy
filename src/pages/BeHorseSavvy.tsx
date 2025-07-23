@@ -231,12 +231,9 @@ export default function BeHorseSavvy() {
                   
                   <div className="flex justify-between items-start w-full">
                     <div className="flex-1 pr-4">
-                      <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-2 group-hover:text-red-300 transition-colors duration-300 leading-tight">
+                      <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-4 group-hover:text-red-300 transition-colors duration-300 leading-tight">
                         BeHorseSavvy Level 1
-                </h3>
-                      <p className="text-white/80 mb-4 text-sm sm:text-base leading-relaxed">
-                  A fun first course teaching you how to care for horses, keep them safe, and understand what makes them happy.
-                </p>
+                      </h3>
 
                       
 
@@ -282,12 +279,9 @@ export default function BeHorseSavvy() {
                   
                   <div className="flex justify-between items-start w-full">
                     <div className="flex-1 pr-4">
-                      <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-2 group-hover:text-red-300 transition-colors duration-300 leading-tight">
+                      <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-4 group-hover:text-red-300 transition-colors duration-300 leading-tight">
                         BeHorseSavvy Level 2
                       </h3>
-                      <p className="text-white/80 mb-4 text-sm sm:text-base leading-relaxed">
-                        Advanced horse care knowledge covering breeds, anatomy, health, feeding, and fitness.
-                      </p>
 
                       <div className="space-y-2 mb-4">
                         <div className="flex items-center gap-2">
@@ -319,60 +313,50 @@ export default function BeHorseSavvy() {
               </Link>
             </motion.div>
 
-            {/* Coming Soon Course 2 */}
+            {/* BeHorseSavvy Level 3 Course */}
             <motion.div
               variants={fadeInUp}
               className="group"
             >
-              <div className="relative bg-blue-900/50 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 overflow-hidden border border-blue-700/50 opacity-75">
-                {/* Red accent bar */}
-                <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-red-500 to-red-700 rounded-l-2xl" />
-                
-                <div className="flex justify-between items-start w-full">
-                  <div className="flex-1 pr-4">
-                    <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-2 leading-tight">
-                  Professional Development
-                </h3>
-                    <p className="text-white/70 mb-4 text-sm sm:text-base leading-relaxed">
-                  Career-focused course for aspiring equestrian professionals and advanced riders seeking certification.
-                </p>
+              <Link to="/behorsesavvy/book3" className="block">
+                <div className="relative bg-blue-900/80 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 cursor-pointer overflow-hidden border border-blue-700 hover:shadow-2xl hover:-translate-y-1 group">
+                  {/* Red accent bar */}
+                  <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-red-500 to-red-700 rounded-l-2xl" />
+                  
+                  <div className="flex justify-between items-start w-full">
+                    <div className="flex-1 pr-4">
+                      <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-4 group-hover:text-red-300 transition-colors duration-300 leading-tight">
+                        BeHorseSavvy Level 3
+                      </h3>
 
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="px-2 py-1 bg-red-500/20 text-red-300 rounded-full text-xs font-medium border border-red-500/30">
-                        Advanced
-                      </span>
-                      <span className="px-2 py-1 bg-gray-500/20 text-gray-300 rounded-full text-xs font-medium border border-gray-500/30">
-                        Coming Soon
-                      </span>
-                    </div>
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          <span className="text-white/80 text-sm">Horse communication</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          <span className="text-white/80 text-sm">Stable management</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          <span className="text-white/80 text-sm">Advanced grooming</span>
+                        </div>
+                      </div>
 
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-red-400 rounded-full" />
-                        <span className="text-white/70 text-sm">Instructor certification</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-red-400 rounded-full" />
-                        <span className="text-white/70 text-sm">Business management</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-red-400 rounded-full" />
-                        <span className="text-white/70 text-sm">Advanced horsemanship</span>
+                      <div className="flex items-center gap-4">
+                        <span className="text-red-400 font-bold text-lg">Fees £75</span>
+                        <div className="flex-grow h-px bg-white/10" />
                       </div>
                     </div>
-
-                    <div className="flex items-center gap-4">
-                      <span className="text-gray-400 font-bold text-lg">Coming Soon</span>
-                      <div className="flex-grow h-px bg-white/10" />
-                  </div>
-                  </div>
-                  <div className="flex-shrink-0 z-10">
-                    <div className="bg-gray-600/50 rounded-full p-3">
-                      <Clock className="w-6 h-6 text-gray-400" />
-                  </div>
+                    <div className="flex-shrink-0 z-10">
+                      <div className="bg-blue-800/50 group-hover:bg-red-600/50 rounded-full p-3 transition-colors duration-300">
+                        <ArrowRight className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </motion.div>
           </div>
         </div>

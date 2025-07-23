@@ -29,6 +29,7 @@ const About = lazy(() => import("./pages/About"));
 const BeHorseSavvy = lazy(() => import("./pages/BeHorseSavvy"));
 const BeHorseSavvyBook1 = lazy(() => import("./pages/BeHorseSavvyBook1"));
 const BeHorseSavvyBook2 = lazy(() => import("./pages/BeHorseSavvyBook2"));
+const BeHorseSavvyBook3 = lazy(() => import("./pages/BeHorseSavvyBook3"));
 const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
@@ -106,6 +107,7 @@ const routes = [
   { path: "/behorsesavvy", element: <BeHorseSavvy /> },
   { path: "/behorsesavvy/book1", element: <BeHorseSavvyBook1 /> },
   { path: "/behorsesavvy/book2", element: <BeHorseSavvyBook2 /> },
+  { path: "/behorsesavvy/book3", element: <BeHorseSavvyBook3 /> },
   { path: "/penny-club", element: <NotFound /> },
   { path: "/events", element: <NotFound /> },
   { path: "/clinics", element: <Clinics /> },

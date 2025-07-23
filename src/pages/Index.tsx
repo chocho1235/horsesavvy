@@ -85,19 +85,13 @@ const Index = () => {
                   </p>
                   <motion.div 
                     variants={fadeInUp}
-                    className="flex flex-col md:flex-row items-center justify-center gap-6"
+                    className="flex justify-center md:justify-start mt-8"
                   >
                     <Link 
                       to="/about"
-                      className="relative text-xl bg-white text-black px-12 py-5 rounded-full hover:bg-white/90 transition-all duration-300 w-full md:w-auto font-semibold shadow-sm hover:shadow-md text-center"
+                      className="relative text-xl bg-white text-black px-16 py-6 rounded-full hover:bg-white/90 transition-all duration-300 w-full md:w-auto font-semibold shadow-lg hover:shadow-xl text-center transform hover:scale-105"
                     >
                       About Us
-                    </Link>
-                    <Link 
-                      to="/case-studies" 
-                      className="relative text-xl bg-white text-black px-12 py-5 rounded-full hover:bg-white/90 transition-all duration-300 w-full md:w-auto text-center font-semibold shadow-sm hover:shadow-md"
-                    >
-                      Case Studies
                     </Link>
                   </motion.div>
                 </motion.div>
