@@ -323,7 +323,7 @@ export default function BHSStage1Practical() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          <div className="space-y-8 max-w-5xl mx-auto">
             {/* Care Section */}
             <motion.div
               variants={fadeInUp}
@@ -337,23 +337,23 @@ export default function BHSStage1Practical() {
                 <h3 className="text-xl font-semibold mb-4 text-white">Stage 1 Care</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">1.1</span>
                     <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Safe handling and approach to horses</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">1.2</span>
                     <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Grooming and basic health checks</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">1.3</span>
                     <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Tacking up and equipment care</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">1.4</span>
                     <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Stable management and yard safety</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">1.5</span>
                     <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Basic feeding and watering</span>
                   </li>
                 </ul>
@@ -373,24 +373,56 @@ export default function BHSStage1Practical() {
                 <h3 className="text-xl font-semibold mb-4 text-white">Stage 1 Ride</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Mounting and dismounting safely</span>
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.1</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">State the reasons for warming up and cooling down a horse</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Walk and halt transitions</span>
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.2</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Ride in a balanced and secure position</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Trot work and diagonals</span>
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.3</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Ride showing respect and consideration for the horse and other riders</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Basic canter work</span>
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.4</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Maintain a balanced position in walk and trot without stirrups</span>
                   </li>
                   <li className="flex items-start group/item">
-                    <span className="w-2 h-2 rounded-full bg-red-500 mt-2 mr-3" />
-                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Arena figures and steering</span>
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.5</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Maintain a balanced position in trot and canter in a light seat</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.6</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Maintain a balanced position over trotting poles</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.7</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Ride transitions between the paces</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.8</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Ride a range of simple school figures</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.9</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">State the aids for riding transitions and turns</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.10</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Ride on the correct trot diagonal and change as required</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.11</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">State the number of beats within the pace and the sequence of footfalls</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.12</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Show where appropriate, how to use a short whip (75cm/30" or less)</span>
+                  </li>
+                  <li className="flex items-start group/item">
+                    <span className="text-red-500 font-semibold mr-3 min-w-[2rem]">3.13</span>
+                    <span className="text-white/90 text-sm sm:text-base group-hover/item:text-white transition-colors">Recognise correct canter leads</span>
                   </li>
                 </ul>
               </div>
