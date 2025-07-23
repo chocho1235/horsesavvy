@@ -138,8 +138,8 @@ export default function BeHorseSavvyBook2() {
       
       {/* Hero Section */}
       <section className="relative bg-blue-950 py-16 sm:py-24 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/The%20penny%20club%20-%20WD2%20%281%29.svg')] bg-contain bg-center bg-no-repeat opacity-60" />
-        <div className="absolute inset-0 bg-blue-950/60" />
+        <div className="absolute inset-0 bg-[url('/homed2.png')] bg-cover bg-center opacity-15" />
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/95 via-blue-950/80 to-blue-950/95" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             className="text-center max-w-3xl mx-auto"
