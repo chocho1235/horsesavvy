@@ -224,7 +224,7 @@ export default function BeHorseSavvy() {
               variants={fadeInUp}
               className="group"
             >
-              <Link to="/behorsesavvy/book1" className="block">
+                              <Link to="/behorsesavvy/level1" className="block">
                 <div className="relative bg-blue-900/80 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 cursor-pointer overflow-hidden border border-blue-700 hover:shadow-2xl hover:-translate-y-1 group">
                   {/* Red accent bar */}
                   <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-red-500 to-red-700 rounded-l-2xl" />
@@ -272,7 +272,7 @@ export default function BeHorseSavvy() {
               variants={fadeInUp}
               className="group"
             >
-              <Link to="/behorsesavvy/book2" className="block">
+                              <Link to="/behorsesavvy/level2" className="block">
                 <div className="relative bg-blue-900/80 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 cursor-pointer overflow-hidden border border-blue-700 hover:shadow-2xl hover:-translate-y-1 group">
                   {/* Red accent bar */}
                   <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-red-500 to-red-700 rounded-l-2xl" />
@@ -318,7 +318,7 @@ export default function BeHorseSavvy() {
               variants={fadeInUp}
               className="group"
             >
-              <Link to="/behorsesavvy/book3" className="block">
+                              <Link to="/behorsesavvy/level3" className="block">
                 <div className="relative bg-blue-900/80 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 cursor-pointer overflow-hidden border border-blue-700 hover:shadow-2xl hover:-translate-y-1 group">
                   {/* Red accent bar */}
                   <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-red-500 to-red-700 rounded-l-2xl" />
@@ -358,7 +358,373 @@ export default function BeHorseSavvy() {
                 </div>
               </Link>
             </motion.div>
+
+            {/* BeHorseSavvy Level 4 Course */}
+            <motion.div
+              variants={fadeInUp}
+              className="group"
+            >
+                              <Link to="/behorsesavvy/level4" className="block">
+                <div className="relative bg-blue-900/80 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 cursor-pointer overflow-hidden border border-blue-700 hover:shadow-2xl hover:-translate-y-1 group">
+                  {/* Red accent bar */}
+                  <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-red-500 to-red-700 rounded-l-2xl" />
+                  
+                  <div className="flex justify-between items-start w-full">
+                    <div className="flex-1 pr-4">
+                      <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-4 group-hover:text-red-300 transition-colors duration-300 leading-tight">
+                        BeHorseSavvy Level 4
+                      </h3>
+
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          <span className="text-white/80 text-sm">Yard work and handling</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          <span className="text-white/80 text-sm">Safety procedures</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          <span className="text-white/80 text-sm">Equipment care</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                        <span className="text-red-400 font-bold text-lg">Fees £75</span>
+                        <div className="flex-grow h-px bg-white/10" />
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0 z-10">
+                      <div className="bg-blue-800/50 group-hover:bg-red-600/50 rounded-full p-3 transition-colors duration-300">
+                        <ArrowRight className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+
+            {/* BeHorseSavvy Level 5 Course */}
+            <motion.div
+              variants={fadeInUp}
+              className="group"
+            >
+                              <Link to="/behorsesavvy/level5" className="block">
+                <div className="relative bg-blue-900/80 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-300 cursor-pointer overflow-hidden border border-blue-700 hover:shadow-2xl hover:-translate-y-1 group">
+                  {/* Red accent bar */}
+                  <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-red-500 to-red-700 rounded-l-2xl" />
+                  
+                  <div className="flex justify-between items-start w-full">
+                    <div className="flex-1 pr-4">
+                      <h3 className="text-white text-xl sm:text-2xl font-extrabold mb-4 group-hover:text-red-300 transition-colors duration-300 leading-tight">
+                        BeHorseSavvy Level 5
+                      </h3>
+
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          <span className="text-white/80 text-sm">Rider fitness</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          <span className="text-white/80 text-sm">Body position</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-red-400 rounded-full" />
+                          <span className="text-white/80 text-sm">Mental health</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                        <span className="text-red-400 font-bold text-lg">Fees £75</span>
+                        <div className="flex-grow h-px bg-white/10" />
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0 z-10">
+                      <div className="bg-blue-800/50 group-hover:bg-red-600/50 rounded-full p-3 transition-colors duration-300">
+                        <ArrowRight className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Course Selection Guide */}
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-blue-950 to-blue-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Which Level is Right for You?</h2>
+            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              Use this guide to find the perfect starting point for your equestrian journey
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true, margin: "-50px" }}
+            className="relative"
+          >
+            {/* Main Decision Flow */}
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+              {/* Level 1 */}
+              <div className="group relative">
+                <div className="bg-gradient-to-br from-blue-900/80 to-blue-800/80 backdrop-blur-sm border-2 border-red-500/40 rounded-xl p-6 text-center hover:border-red-400 hover:bg-blue-800/90 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <span className="text-2xl font-bold text-white">1</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">Level 1</h3>
+                  <p className="text-red-300 text-sm mb-4 font-medium">Complete Beginner</p>
+                  <div className="space-y-2 text-left">
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>No horse experience</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Learn basic safety</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Start from scratch</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2">
+                  <div className="w-6 h-0.5 bg-gradient-to-r from-red-500 to-red-400"></div>
+                </div>
+              </div>
+
+              {/* Level 2 */}
+              <div className="group relative">
+                <div className="bg-gradient-to-br from-blue-900/80 to-blue-800/80 backdrop-blur-sm border-2 border-red-500/40 rounded-xl p-6 text-center hover:border-red-400 hover:bg-blue-800/90 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <span className="text-2xl font-bold text-white">2</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">Level 2</h3>
+                  <p className="text-red-300 text-sm mb-4 font-medium">Basic Knowledge</p>
+                  <div className="space-y-2 text-left">
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Level 1 completed</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Basic horse care</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Health & welfare</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2">
+                  <div className="w-6 h-0.5 bg-gradient-to-r from-red-500 to-red-400"></div>
+                </div>
+              </div>
+
+              {/* Level 3 */}
+              <div className="group relative">
+                <div className="bg-gradient-to-br from-blue-900/80 to-blue-800/80 backdrop-blur-sm border-2 border-red-500/40 rounded-xl p-6 text-center hover:border-red-400 hover:bg-blue-800/90 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <span className="text-2xl font-bold text-white">3</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">Level 3</h3>
+                  <p className="text-red-300 text-sm mb-4 font-medium">Intermediate</p>
+                  <div className="space-y-2 text-left">
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Level 2 completed</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Advanced care</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Communication</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2">
+                  <div className="w-6 h-0.5 bg-gradient-to-r from-red-500 to-red-400"></div>
+                </div>
+              </div>
+
+              {/* Level 4 */}
+              <div className="group relative">
+                <div className="bg-gradient-to-br from-blue-900/80 to-blue-800/80 backdrop-blur-sm border-2 border-red-500/40 rounded-xl p-6 text-center hover:border-red-400 hover:bg-blue-800/90 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <span className="text-2xl font-bold text-white">4</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">Level 4</h3>
+                  <p className="text-red-300 text-sm mb-4 font-medium">Advanced</p>
+                  <div className="space-y-2 text-left">
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Level 3 completed</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Yard work skills</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Professional handling</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2">
+                  <div className="w-6 h-0.5 bg-gradient-to-r from-red-500 to-red-400"></div>
+                </div>
+              </div>
+
+              {/* Level 5 */}
+              <div className="group relative">
+                <div className="bg-gradient-to-br from-blue-900/80 to-blue-800/80 backdrop-blur-sm border-2 border-red-500/40 rounded-xl p-6 text-center hover:border-red-400 hover:bg-blue-800/90 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <span className="text-2xl font-bold text-white">5</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">Level 5</h3>
+                  <p className="text-red-300 text-sm mb-4 font-medium">Expert</p>
+                  <div className="space-y-2 text-left">
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Level 4 completed</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Rider fitness</span>
+                    </div>
+                    <div className="flex items-center text-white/80 text-sm">
+                      <CheckCircle className="w-4 h-4 text-red-400 mr-2 flex-shrink-0" />
+                      <span>Performance focus</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Decision Guide */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+              <motion.div
+                variants={fadeInUp}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={{ once: true, margin: "-50px" }}
+                className="bg-gradient-to-br from-blue-900/80 to-blue-800/80 backdrop-blur-sm border-2 border-white/20 rounded-xl p-6 hover:border-red-400/50 hover:bg-blue-800/90 transition-all duration-300 shadow-lg"
+              >
+                <h4 className="text-lg font-bold text-white mb-4 flex items-center">
+                  <Sparkles className="w-5 h-5 text-red-400 mr-2" />
+                  New to Horses?
+                </h4>
+                <p className="text-white/80 text-sm mb-4">Start with Level 1 to build a solid foundation</p>
+                <Link to="/behorsesavvy/level1">
+                  <Button className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300">
+                    Start Level 1
+                  </Button>
+                </Link>
+              </motion.div>
+
+              <motion.div
+                variants={fadeInUp}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={{ once: true, margin: "-50px" }}
+                className="bg-gradient-to-br from-blue-900/80 to-blue-800/80 backdrop-blur-sm border-2 border-white/20 rounded-xl p-6 hover:border-red-400/50 hover:bg-blue-800/90 transition-all duration-300 shadow-lg"
+              >
+                <h4 className="text-lg font-bold text-white mb-4 flex items-center">
+                  <Heart className="w-5 h-5 text-red-400 mr-2" />
+                  Some Experience?
+                </h4>
+                <p className="text-white/80 text-sm mb-4">Choose Level 2 or 3 based on your current knowledge</p>
+                <div className="flex gap-2">
+                  <Link to="/behorsesavvy/level2" className="flex-1">
+                    <Button className="w-full border-2 border-red-400/50 bg-transparent text-white hover:bg-red-500/20 hover:border-red-400 text-sm font-medium transition-all duration-300">
+                      Level 2
+                    </Button>
+                  </Link>
+                  <Link to="/behorsesavvy/level3" className="flex-1">
+                    <Button className="w-full border-2 border-red-400/50 bg-transparent text-white hover:bg-red-500/20 hover:border-red-400 text-sm font-medium transition-all duration-300">
+                      Level 3
+                    </Button>
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div
+                variants={fadeInUp}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={{ once: true, margin: "-50px" }}
+                className="bg-gradient-to-br from-blue-900/80 to-blue-800/80 backdrop-blur-sm border-2 border-white/20 rounded-xl p-6 hover:border-red-400/50 hover:bg-blue-800/90 transition-all duration-300 shadow-lg"
+              >
+                <h4 className="text-lg font-bold text-white mb-4 flex items-center">
+                  <GraduationCap className="w-5 h-5 text-red-400 mr-2" />
+                  Advanced Learner?
+                </h4>
+                <p className="text-white/80 text-sm mb-4">Level 4 for yard work or Level 5 for rider fitness</p>
+                <div className="flex gap-2">
+                  <Link to="/behorsesavvy/level4" className="flex-1">
+                    <Button className="w-full border-2 border-red-400/50 bg-transparent text-white hover:bg-red-500/20 hover:border-red-400 text-sm font-medium transition-all duration-300">
+                      Level 4
+                    </Button>
+                  </Link>
+                  <Link to="/behorsesavvy/level5" className="flex-1">
+                    <Button className="w-full border-2 border-red-400/50 bg-transparent text-white hover:bg-red-500/20 hover:border-red-400 text-sm font-medium transition-all duration-300">
+                      Level 5
+                    </Button>
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Progression Benefits */}
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={{ once: true, margin: "-50px" }}
+              className="mt-12 bg-gradient-to-br from-blue-900/90 to-blue-800/90 backdrop-blur-sm border-2 border-red-500/30 rounded-xl p-8 shadow-xl"
+            >
+              <h3 className="text-2xl font-bold text-white text-center mb-6">Why Follow the Progression?</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-red-500/30 to-red-600/30 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <BookOpen className="w-6 h-6 text-red-400" />
+                  </div>
+                  <h4 className="text-white font-semibold mb-2">Structured Learning</h4>
+                  <p className="text-white/70 text-sm">Each level builds upon the previous, ensuring comprehensive understanding</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-red-500/30 to-red-600/30 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <CheckCircle className="w-6 h-6 text-red-400" />
+                  </div>
+                  <h4 className="text-white font-semibold mb-2">Confidence Building</h4>
+                  <p className="text-white/70 text-sm">Gradual progression helps build confidence and skills systematically</p>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-red-500/30 to-red-600/30 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Award className="w-6 h-6 text-red-400" />
+                  </div>
+                  <h4 className="text-white font-semibold mb-2">Professional Development</h4>
+                  <p className="text-white/70 text-sm">Complete all levels for a comprehensive equestrian education</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -389,10 +755,10 @@ export default function BeHorseSavvy() {
                 <Mail className="mr-2 h-5 w-5" />
               Get Started Today
             </Button>
-            <Link to="/behorsesavvy/book1">
+            <Link to="/behorsesavvy/level1">
               <Button
                 variant="outline"
-                  className="border-white text-white hover:bg-white/10 px-8 py-3 text-base font-bold transition-all duration-300 hover:scale-105 w-full sm:w-auto"
+                  className="border-red-400/50 text-white hover:bg-red-500/20 hover:border-red-400 px-8 py-3 text-base font-bold transition-all duration-300 hover:scale-105 w-full sm:w-auto"
               >
                   <BookOpen className="mr-2 h-5 w-5" />
                   Explore Level 1

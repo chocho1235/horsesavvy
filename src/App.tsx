@@ -30,6 +30,8 @@ const BeHorseSavvy = lazy(() => import("./pages/BeHorseSavvy"));
 const BeHorseSavvyBook1 = lazy(() => import("./pages/BeHorseSavvyBook1"));
 const BeHorseSavvyBook2 = lazy(() => import("./pages/BeHorseSavvyBook2"));
 const BeHorseSavvyBook3 = lazy(() => import("./pages/BeHorseSavvyBook3"));
+const BeHorseSavvyBook4 = lazy(() => import("./pages/BeHorseSavvyBook4"));
+const BeHorseSavvyBook5 = lazy(() => import("./pages/BeHorseSavvyBook5"));
 const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
@@ -37,6 +39,7 @@ const EmailPreview = lazy(() => import("./pages/EmailPreview"));
 const Silver = lazy(() => import("./pages/Silver"));
 const CampPleasant = lazy(() => import("./pages/CampPleasant"));
 const ComingSoon = lazy(() => import("./pages/ComingSoon"));
+const Merchandise = lazy(() => import("./pages/Merchandise"));
 
 // Loading component
 const LoadingFallback = () => (
@@ -105,14 +108,16 @@ const routes = [
   { path: "/about", element: <About /> },
   { path: "/terms", element: <Terms /> },
   { path: "/behorsesavvy", element: <BeHorseSavvy /> },
-  { path: "/behorsesavvy/book1", element: <BeHorseSavvyBook1 /> },
-  { path: "/behorsesavvy/book2", element: <BeHorseSavvyBook2 /> },
-  { path: "/behorsesavvy/book3", element: <BeHorseSavvyBook3 /> },
+          { path: "/behorsesavvy/level1", element: <BeHorseSavvyBook1 /> },
+        { path: "/behorsesavvy/level2", element: <BeHorseSavvyBook2 /> },
+        { path: "/behorsesavvy/level3", element: <BeHorseSavvyBook3 /> },
+        { path: "/behorsesavvy/level4", element: <BeHorseSavvyBook4 /> },
+        { path: "/behorsesavvy/level5", element: <BeHorseSavvyBook5 /> },
   { path: "/penny-club", element: <NotFound /> },
   { path: "/events", element: <NotFound /> },
   { path: "/clinics", element: <Clinics /> },
   { path: "/education", element: <NotFound /> },
-  { path: "/merchandise", element: <NotFound /> },
+  { path: "/merchandise", element: <Merchandise /> },
   { path: "/camp", element: <CampPleasant /> },
   { path: "/case-studies", element: <NotFound /> },
   { path: "/admin", element: <Admin /> },
