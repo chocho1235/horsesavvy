@@ -93,57 +93,56 @@ class ErrorBoundary extends Component<{ children: ReactNode, fallback?: ReactNod
   }
 }
 
-/**
- * Application routes configuration
- */
-const routes = [
-  { path: "/", element: <Index /> },
-  { path: "/courses", element: <Courses /> },
-  { path: "/horse-knowledge", element: <HorseKnowledge /> },
-  { path: "/horse-knowledge-2", element: <HorseKnowledge2 /> },
-  { path: "/bronze", element: <Bronze /> },
-  { path: "/bronze-practical", element: <BronzePractical /> },
-  { path: "/bhs-stage-1-theory", element: <BHSStage1Theory /> },
-  { path: "/bhs-stage-2-theory", element: <BHSStage2Theory /> },
-  { path: "/bhs-stage-1-practical", element: <BHSStage1Practical /> },
-  { path: "/about", element: <About /> },
-  { path: "/terms", element: <Terms /> },
-  { path: "/behorsesavvy", element: <BeHorseSavvy /> },
-          { path: "/behorsesavvy/level1", element: <BeHorseSavvyBook1 /> },
-        { path: "/behorsesavvy/level2", element: <BeHorseSavvyBook2 /> },
-        { path: "/behorsesavvy/level3", element: <BeHorseSavvyBook3 /> },
-        { path: "/behorsesavvy/level4", element: <BeHorseSavvyBook4 /> },
-        { path: "/behorsesavvy/level5", element: <BeHorseSavvyBook5 /> },
-  { path: "/bhs-theory-stage-2-quiz-1", element: <BhsTheoryStage2Quiz1 /> },
-  { path: "/penny-club", element: <NotFound /> },
-  { path: "/events", element: <NotFound /> },
-  { path: "/clinics", element: <Clinics /> },
-  { path: "/education", element: <NotFound /> },
-  { path: "/merchandise", element: <Merchandise /> },
-  { path: "/camp", element: <CampPleasant /> },
-  { path: "/case-studies", element: <NotFound /> },
-  { path: "/admin", element: <Admin /> },
-  { path: "/email-preview", element: <EmailPreview /> },
-  { path: "/silver", element: <Silver /> },
-  { path: "*", element: <NotFound /> },
-];
-
 // Memoized routes to prevent unnecessary re-renders
-const AppRoutes = memo(() => (
-  <Routes>
-    {routes.map(({ path, element }) => (
-      <Route 
-        key={path} 
-        path={path} 
-        element={
-          <Suspense fallback={<LoadingFallback />}>
-            {element}
-          </Suspense>
-        } 
-      />
-    ))}
-  </Routes>
-));
+const AppRoutes = memo(({ isComingSoonMode }: { isComingSoonMode: boolean }) => {
+  const routes = [
+    { path: "/", element: isComingSoonMode ? <ComingSoon /> : <Index /> },
+    { path: "/courses", element: <Courses /> },
+    { path: "/horse-knowledge", element: <HorseKnowledge /> },
+    { path: "/horse-knowledge-2", element: <HorseKnowledge2 /> },
+    { path: "/bronze", element: <Bronze /> },
+    { path: "/bronze-practical", element: <BronzePractical /> },
+    { path: "/bhs-stage-1-theory", element: <BHSStage1Theory /> },
+    { path: "/bhs-stage-2-theory", element: <BHSStage2Theory /> },
+    { path: "/bhs-stage-1-practical", element: <BHSStage1Practical /> },
+    { path: "/about", element: <About /> },
+    { path: "/terms", element: <Terms /> },
+    { path: "/behorsesavvy", element: <BeHorseSavvy /> },
+            { path: "/behorsesavvy/level1", element: <BeHorseSavvyBook1 /> },
+          { path: "/behorsesavvy/level2", element: <BeHorseSavvyBook2 /> },
+          { path: "/behorsesavvy/level3", element: <BeHorseSavvyBook3 /> },
+          { path: "/behorsesavvy/level4", element: <BeHorseSavvyBook4 /> },
+          { path: "/behorsesavvy/level5", element: <BeHorseSavvyBook5 /> },
+    { path: "/bhs-theory-stage-2-quiz-1", element: <BhsTheoryStage2Quiz1 /> },
+    { path: "/penny-club", element: <NotFound /> },
+    { path: "/events", element: <NotFound /> },
+    { path: "/clinics", element: <Clinics /> },
+    { path: "/education", element: <NotFound /> },
+    { path: "/merchandise", element: <Merchandise /> },
+    { path: "/camp", element: <CampPleasant /> },
+    { path: "/case-studies", element: <NotFound /> },
+    { path: "/admin", element: <Admin /> },
+    { path: "/email-preview", element: <EmailPreview /> },
+    { path: "/silver", element: <Silver /> },
+    { path: "*", element: <NotFound /> },
+  ];
+
+  return (
+    <Routes>
+      {routes.map(({ path, element }) => (
+        <Route 
+          key={path} 
+          path={path} 
+          element={
+            <Suspense fallback={<LoadingFallback />}>
+              {element}
+            </Suspense>
+          } 
+        />
+      ))}
+    </Routes>
+  );
+});
 
 AppRoutes.displayName = 'AppRoutes';
 
@@ -154,21 +153,6 @@ const App = () => {
   // Debug: Log the environment variable value
   console.log('VITE_COMING_SOON value:', import.meta.env.VITE_COMING_SOON);
   console.log('isComingSoonMode:', isComingSoonMode);
-  
-  if (isComingSoonMode) {
-    return (
-      <ErrorBoundary>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <Toaster />
-            <Suspense fallback={<LoadingFallback />}>
-              <ComingSoon />
-            </Suspense>
-          </TooltipProvider>
-        </QueryClientProvider>
-      </ErrorBoundary>
-    );
-  }
 
   return (
     <ErrorBoundary>
@@ -176,7 +160,7 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <BrowserRouter>
-            <AppRoutes />
+            <AppRoutes isComingSoonMode={isComingSoonMode} />
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
