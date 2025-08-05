@@ -33,6 +33,7 @@ const BeHorseSavvyBook3 = lazy(() => import("./pages/BeHorseSavvyBook3"));
 const BeHorseSavvyBook4 = lazy(() => import("./pages/BeHorseSavvyBook4"));
 const BeHorseSavvyBook5 = lazy(() => import("./pages/BeHorseSavvyBook5"));
 const BhsTheoryStage2Quiz1 = lazy(() => import("./pages/BhsTheoryStage2Quiz1"));
+const BhsTheoryStage2Quiz2 = lazy(() => import("./pages/BhsTheoryStage2Quiz2"));
 const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
@@ -114,6 +115,7 @@ const AppRoutes = memo(({ isComingSoonMode }: { isComingSoonMode: boolean }) => 
           { path: "/behorsesavvy/level4", element: <BeHorseSavvyBook4 /> },
           { path: "/behorsesavvy/level5", element: <BeHorseSavvyBook5 /> },
     { path: "/bhs-theory-stage-2-quiz-1", element: <BhsTheoryStage2Quiz1 /> },
+    { path: "/bhs-theory-stage-2-quiz-2", element: <BhsTheoryStage2Quiz2 /> },
     { path: "/penny-club", element: <NotFound /> },
     { path: "/events", element: <NotFound /> },
     { path: "/clinics", element: <Clinics /> },
