@@ -34,6 +34,10 @@ const BeHorseSavvyBook4 = lazy(() => import("./pages/BeHorseSavvyBook4"));
 const BeHorseSavvyBook5 = lazy(() => import("./pages/BeHorseSavvyBook5"));
 const BhsTheoryStage2Quiz1 = lazy(() => import("./pages/BhsTheoryStage2Quiz1"));
 const BhsTheoryStage2Quiz2 = lazy(() => import("./pages/BhsTheoryStage2Quiz2"));
+const BhsTheoryStage2Quiz3 = lazy(() => import("./pages/BhsTheoryStage2Quiz3"));
+const BhsTheoryStage2Quiz4 = lazy(() => import("./pages/BhsTheoryStage2Quiz4"));
+const BhsTheoryStage2Quiz5 = lazy(() => import("./pages/BhsTheoryStage2Quiz5"));
+const BhsTheoryStage2Quiz6 = lazy(() => import("./pages/BhsTheoryStage2Quiz6"));
 const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
@@ -116,6 +120,10 @@ const AppRoutes = memo(({ isComingSoonMode }: { isComingSoonMode: boolean }) => 
           { path: "/behorsesavvy/level5", element: <BeHorseSavvyBook5 /> },
     { path: "/bhs-theory-stage-2-quiz-1", element: <BhsTheoryStage2Quiz1 /> },
     { path: "/bhs-theory-stage-2-quiz-2", element: <BhsTheoryStage2Quiz2 /> },
+    { path: "/bhs-theory-stage-2-quiz-3", element: <BhsTheoryStage2Quiz3 /> },
+    { path: "/bhs-theory-stage-2-quiz-4", element: <BhsTheoryStage2Quiz4 /> },
+    { path: "/bhs-theory-stage-2-quiz-5", element: <BhsTheoryStage2Quiz5 /> },
+    { path: "/bhs-theory-stage-2-quiz-6", element: <BhsTheoryStage2Quiz6 /> },
     { path: "/penny-club", element: <NotFound /> },
     { path: "/events", element: <NotFound /> },
     { path: "/clinics", element: <Clinics /> },
