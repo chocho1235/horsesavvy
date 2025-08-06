@@ -38,6 +38,8 @@ const BhsTheoryStage2Quiz3 = lazy(() => import("./pages/BhsTheoryStage2Quiz3"));
 const BhsTheoryStage2Quiz4 = lazy(() => import("./pages/BhsTheoryStage2Quiz4"));
 const BhsTheoryStage2Quiz5 = lazy(() => import("./pages/BhsTheoryStage2Quiz5"));
 const BhsTheoryStage2Quiz6 = lazy(() => import("./pages/BhsTheoryStage2Quiz6"));
+const BhsTheoryStage2Quiz7 = lazy(() => import("./pages/BhsTheoryStage2Quiz7"));
+const BhsTheoryStage2Quiz8 = lazy(() => import("./pages/BhsTheoryStage2Quiz8"));
 const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
@@ -124,6 +126,8 @@ const AppRoutes = memo(({ isComingSoonMode }: { isComingSoonMode: boolean }) => 
     { path: "/bhs-theory-stage-2-quiz-4", element: <BhsTheoryStage2Quiz4 /> },
     { path: "/bhs-theory-stage-2-quiz-5", element: <BhsTheoryStage2Quiz5 /> },
     { path: "/bhs-theory-stage-2-quiz-6", element: <BhsTheoryStage2Quiz6 /> },
+    { path: "/bhs-theory-stage-2-quiz-7", element: <BhsTheoryStage2Quiz7 /> },
+    { path: "/bhs-theory-stage-2-quiz-8", element: <BhsTheoryStage2Quiz8 /> },
     { path: "/penny-club", element: <NotFound /> },
     { path: "/events", element: <NotFound /> },
     { path: "/clinics", element: <Clinics /> },
