@@ -14,9 +14,9 @@ Your admin panel now has **military-grade security** with multiple layers of pro
 7. Restart your application
 8. **DELETE the HTML file immediately for security**
 
-### 2. Default Access (Development)
-- **URL**: `http://localhost:8089/admin`
-- **Password**: `Admin2024!Secure` (if no environment configured)
+### 2. Admin Session (Server)
+- Admin login now also calls `/api/admin-login` to mint a secure HttpOnly cookie.
+- All admin data mutations go through server routes using the Supabase service role.
 
 ## 🛡️ Advanced Security Features
 

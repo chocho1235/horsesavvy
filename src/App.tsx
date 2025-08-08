@@ -12,7 +12,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Component, ErrorInfo, ReactNode, memo, Suspense, lazy } from "react";
+import { Component, ErrorInfo, ReactNode, memo, Suspense, lazy, useEffect } from "react";
 
 // Lazy load page components
 const Index = lazy(() => import("./pages/Index"));
@@ -40,6 +40,9 @@ const BhsTheoryStage2Quiz5 = lazy(() => import("./pages/BhsTheoryStage2Quiz5"));
 const BhsTheoryStage2Quiz6 = lazy(() => import("./pages/BhsTheoryStage2Quiz6"));
 const BhsTheoryStage2Quiz7 = lazy(() => import("./pages/BhsTheoryStage2Quiz7"));
 const BhsTheoryStage2Quiz8 = lazy(() => import("./pages/BhsTheoryStage2Quiz8"));
+const BhsTheoryStage2Quiz9 = lazy(() => import("./pages/BhsTheoryStage2Quiz9"));
+const BhsTheoryStage2Quiz10 = lazy(() => import("./pages/BhsTheoryStage2Quiz10"));
+const BhsTheoryStage2Quiz11 = lazy(() => import("./pages/BhsTheoryStage2Quiz11"));
 const Clinics = lazy(() => import("./pages/Clinics"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Terms = lazy(() => import("./pages/Terms"));
@@ -128,6 +131,9 @@ const AppRoutes = memo(({ isComingSoonMode }: { isComingSoonMode: boolean }) => 
     { path: "/bhs-theory-stage-2-quiz-6", element: <BhsTheoryStage2Quiz6 /> },
     { path: "/bhs-theory-stage-2-quiz-7", element: <BhsTheoryStage2Quiz7 /> },
     { path: "/bhs-theory-stage-2-quiz-8", element: <BhsTheoryStage2Quiz8 /> },
+    { path: "/bhs-theory-stage-2-quiz-9", element: <BhsTheoryStage2Quiz9 /> },
+    { path: "/bhs-theory-stage-2-quiz-10", element: <BhsTheoryStage2Quiz10 /> },
+    { path: "/bhs-theory-stage-2-quiz-11", element: <BhsTheoryStage2Quiz11 /> },
     { path: "/penny-club", element: <NotFound /> },
     { path: "/events", element: <NotFound /> },
     { path: "/clinics", element: <Clinics /> },
@@ -167,6 +173,14 @@ const App = () => {
   // Debug: Log the environment variable value
   console.log('VITE_COMING_SOON value:', import.meta.env.VITE_COMING_SOON);
   console.log('isComingSoonMode:', isComingSoonMode);
+
+  // Keep Vercel/Supabase warm - calls Supabase every few days
+  useEffect(() => {
+    const ping = () => fetch('/api/keepalive').catch(() => {});
+    ping();
+    const id = setInterval(ping, 30 * 60 * 1000); // Every 30 minutes
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <ErrorBoundary>

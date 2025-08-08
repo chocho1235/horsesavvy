@@ -157,7 +157,11 @@ const AdminLogin = ({ onLogin }: { onLogin: () => void }) => {
     setIsLoading(true);
 
     try {
+      // Also ask server to mint an admin session cookie
       const result = await simpleAuth.login(password);
+      try {
+        await fetch('/api/admin-login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password }), credentials: 'include' });
+      } catch {}
       
       if (result.success) {
         toast.success(result.message);
@@ -294,8 +298,9 @@ const AdminDashboard = () => {
   // Load bookings from Supabase
   useEffect(() => {
     const fetchBookings = async () => {
-      console.log('Fetching bookings from Supabase...');
-      const { data, error } = await supabase.from('bookings').select('*');
+      console.log('Fetching bookings via admin API...');
+      const res = await fetch('/api/admin-list?table=bookings', { credentials: 'include' });
+      const { data, error } = res.ok ? await res.json() : { data: null, error: { message: 'HTTP ' + res.status } };
       console.log('Supabase response:', { data, error });
       if (error) {
         console.error('Supabase error:', error);
@@ -315,8 +320,9 @@ const AdminDashboard = () => {
     };
 
     const fetchCourseBookings = async () => {
-      console.log('Fetching course bookings from Supabase...');
-      const { data, error } = await supabase.from('course_bookings').select('*');
+      console.log('Fetching course bookings via admin API...');
+      const res = await fetch('/api/admin-list?table=course_bookings', { credentials: 'include' });
+      const { data, error } = res.ok ? await res.json() : { data: null, error: { message: 'HTTP ' + res.status } };
       console.log('Course bookings response:', { data, error });
       if (error) {
         console.error('Course bookings error:', error);
@@ -346,8 +352,9 @@ const AdminDashboard = () => {
     };
 
     const fetchCampBookings = async () => {
-      console.log('Fetching camp bookings from Supabase...');
-      const { data, error } = await supabase.from('camp_bookings').select('*');
+      console.log('Fetching camp bookings via admin API...');
+      const res = await fetch('/api/admin-list?table=camp_bookings', { credentials: 'include' });
+      const { data, error } = res.ok ? await res.json() : { data: null, error: { message: 'HTTP ' + res.status } };
       console.log('Camp bookings response:', { data, error });
       if (error) {
         console.error('Camp bookings error:', error);
@@ -366,10 +373,8 @@ const AdminDashboard = () => {
 
   // Save bookings to Supabase (update status)
   const updateBookingStatus = async (bookingId: string, status: string) => {
-    const { error } = await supabase
-      .from('bookings')
-      .update({ status })
-      .eq('id', bookingId);
+    const res = await fetch('/api/admin-update-booking', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: 'bookings', id: bookingId, update: { status } }), credentials: 'include' });
+    const { error } = res.ok ? { error: null } : { error: { message: 'HTTP ' + res.status } };
     if (error) {
       toast.error('Failed to update booking status');
       return false;
@@ -387,10 +392,8 @@ const AdminDashboard = () => {
 
   // Update payment status
   const updatePaymentStatus = async (bookingId: string, payment_status: string) => {
-    const { error } = await supabase
-      .from('bookings')
-      .update({ payment_status })
-      .eq('id', bookingId);
+    const res = await fetch('/api/admin-update-booking', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: 'bookings', id: bookingId, update: { payment_status } }), credentials: 'include' });
+    const { error } = res.ok ? { error: null } : { error: { message: 'HTTP ' + res.status } };
     if (error) {
       toast.error('Failed to update payment status');
     } else {
@@ -419,10 +422,8 @@ const AdminDashboard = () => {
 
   // Course booking management functions
   const updateCourseBookingStatus = async (bookingId: string, status: string) => {
-    const { error } = await supabase
-      .from('course_bookings')
-      .update({ status })
-      .eq('id', bookingId);
+    const res = await fetch('/api/admin-update-booking', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: 'course_bookings', id: bookingId, update: { status } }), credentials: 'include' });
+    const { error } = res.ok ? { error: null } : { error: { message: 'HTTP ' + res.status } };
     if (error) {
       toast.error('Failed to update course booking status');
       return false;
@@ -434,10 +435,8 @@ const AdminDashboard = () => {
   };
 
   const updateCoursePaymentStatus = async (bookingId: string, payment_status: string) => {
-    const { error } = await supabase
-      .from('course_bookings')
-      .update({ payment_status })
-      .eq('id', bookingId);
+    const res = await fetch('/api/admin-update-booking', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: 'course_bookings', id: bookingId, update: { payment_status } }), credentials: 'include' });
+    const { error } = res.ok ? { error: null } : { error: { message: 'HTTP ' + res.status } };
     if (error) {
       toast.error('Failed to update course payment status');
     } else {
@@ -459,10 +458,8 @@ const AdminDashboard = () => {
 
   // Camp booking management functions
   const updateCampBookingStatus = async (bookingId: string, status: string) => {
-    const { error } = await supabase
-      .from('camp_bookings')
-      .update({ status })
-      .eq('id', bookingId);
+    const res = await fetch('/api/admin-update-booking', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: 'camp_bookings', id: bookingId, update: { status } }), credentials: 'include' });
+    const { error } = res.ok ? { error: null } : { error: { message: 'HTTP ' + res.status } };
     if (error) {
       toast.error('Failed to update camp booking status');
       return false;
@@ -474,10 +471,8 @@ const AdminDashboard = () => {
   };
 
   const updateCampPaymentStatus = async (bookingId: string, payment_status: string) => {
-    const { error } = await supabase
-      .from('camp_bookings')
-      .update({ payment_status })
-      .eq('id', bookingId);
+    const res = await fetch('/api/admin-update-booking', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: 'camp_bookings', id: bookingId, update: { payment_status } }), credentials: 'include' });
+    const { error } = res.ok ? { error: null } : { error: { message: 'HTTP ' + res.status } };
     if (error) {
       toast.error('Failed to update camp payment status');
     } else {

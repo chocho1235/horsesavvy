@@ -194,19 +194,11 @@ export function CourseCheckout({ courseConfig, preSelectedPackage, onClose }: Co
   // Handle payment confirmation
   const handlePaymentConfirmed = async () => {
     try {
-      // Update booking status to confirmed
-      const { error } = await supabase
-        .from('course_bookings')
-        .update({ 
-          status: 'payment_sent',
-          confirmed_at: new Date().toISOString()
-        })
-        .eq('reference', bookingReference);
-
-      if (error) throw error;
-
+      // Update booking status to payment_sent via admin API is not needed; client marks own booking by reference safely
+      const res = await fetch('/api/public-payment-sent', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ reference: bookingReference }) });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       toast.success('Payment confirmation received!');
-      setCurrentStep("confirmation");
+      setCurrentStep('confirmation');
     } catch (error) {
       console.error('Error confirming payment:', error);
       toast.error('There was an error confirming your payment. Please contact support.');

@@ -33,12 +33,12 @@ const bookingSchema = z.object({
 
 type BookingFormData = z.infer<typeof bookingSchema>;
 
-// Bank details for payment
+// Bank details for payment (loaded from server at runtime)
 const bankDetails = {
-  accountName: "BeHorseSavvy Ltd",
-  sortCode: "12-34-56",
-  accountNumber: "87654321",
-  bankName: "Lloyds Bank"
+  accountName: "",
+  sortCode: "",
+  accountNumber: "",
+  bankName: ""
 };
 
 const steps = [
@@ -260,6 +260,8 @@ const PaymentInstructions = ({
   bookingData?: any;
 }) => {
   const [agreed, setAgreed] = useState(false);
+  const [bank, setBank] = useState({ accountName: '', sortCode: '', accountNumber: '', bankName: '' });
+  useEffect(() => { fetch('/api/public-bank-config').then(r => r.json()).then(setBank).catch(() => {}); }, []);
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     toast.success(`${label} copied to clipboard!`);
@@ -295,11 +297,11 @@ const PaymentInstructions = ({
                   <div className="flex justify-between items-center p-4 bg-white/5 rounded-lg border border-white/10">
                     <span className="text-white/70 font-medium">Account Name:</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-white font-mono font-semibold">{bankDetails.accountName}</span>
+                      <span className="text-white font-mono font-semibold">{bank.accountName || 'Loading...'}</span>
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => copyToClipboard(bankDetails.accountName, "Account name")}
+                        onClick={() => copyToClipboard(bank.accountName, "Account name")}
                         className="h-8 w-8 p-0 text-white/70 hover:text-white hover:bg-white/10"
                       >
                         <Copy className="w-4 h-4" />
@@ -310,11 +312,11 @@ const PaymentInstructions = ({
                   <div className="flex justify-between items-center p-4 bg-white/5 rounded-lg border border-white/10">
                     <span className="text-white/70 font-medium">Sort Code:</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-white font-mono font-semibold text-lg">{bankDetails.sortCode}</span>
+                      <span className="text-white font-mono font-semibold text-lg">{bank.sortCode || '—'}</span>
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => copyToClipboard(bankDetails.sortCode, "Sort code")}
+                        onClick={() => copyToClipboard(bank.sortCode, "Sort code")}
                         className="h-8 w-8 p-0 text-white/70 hover:text-white hover:bg-white/10"
                       >
                         <Copy className="w-4 h-4" />
@@ -327,11 +329,11 @@ const PaymentInstructions = ({
                   <div className="flex justify-between items-center p-4 bg-white/5 rounded-lg border border-white/10">
                     <span className="text-white/70 font-medium">Account Number:</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-white font-mono font-semibold text-lg">{bankDetails.accountNumber}</span>
+                      <span className="text-white font-mono font-semibold text-lg">{bank.accountNumber || '—'}</span>
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => copyToClipboard(bankDetails.accountNumber, "Account number")}
+                        onClick={() => copyToClipboard(bank.accountNumber, "Account number")}
                         className="h-8 w-8 p-0 text-white/70 hover:text-white hover:bg-white/10"
                       >
                         <Copy className="w-4 h-4" />
@@ -423,6 +425,7 @@ const Clinics = () => {
   const [isCheckingClinic, setIsCheckingClinic] = useState<string | null>(null);
   const [fullClinicPopup, setFullClinicPopup] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bank, setBank] = useState(bankDetails);
 
   // Fetch clinics from Supabase on mount
   useEffect(() => {
@@ -450,6 +453,10 @@ const Clinics = () => {
       }
     };
     fetchClinics();
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/public-bank-config').then(r => r.json()).then(setBank).catch(() => {});
   }, []);
 
   // Handle URL parameters for payment success
@@ -498,12 +505,9 @@ const Clinics = () => {
       return;
     }
     const maxParticipants = selectedClinicDetails.maxParticipants || 0;
-    // Check current bookings for this clinic, excluding cancelled/declined
-    const { count, error: countError } = await supabase
-      .from('bookings')
-      .select('*', { count: 'exact', head: true })
-      .eq('clinic_type', clinicId)
-      .not('status', 'in', '("cancelled","declined")');
+    // Check current bookings via server (bypasses RLS)
+    const r = await fetch(`/api/public-availability?clinicType=${encodeURIComponent(clinicId)}`);
+    const { count, error: countError } = r.ok ? await r.json() : { count: null, error: { message: 'HTTP ' + r.status } };
     setIsCheckingClinic(null);
     if (countError) {
       setFullClinicPopup(true);
@@ -534,10 +538,8 @@ const Clinics = () => {
     const maxParticipants = selectedClinicDetails?.maxParticipants || 0;
 
     // Check current bookings for this clinic
-    const { count, error: countError } = await supabase
-      .from('bookings')
-      .select('*', { count: 'exact', head: true })
-      .eq('clinic_type', selectedClinic);
+    const resp = await fetch(`/api/public-availability?clinicType=${encodeURIComponent(selectedClinic)}`);
+    const { count, error: countError } = resp.ok ? await resp.json() : { count: null, error: { message: 'HTTP ' + resp.status } };
     console.log('Capacity check result:', { count, countError });
     if (countError) {
       console.error('Count error:', countError);

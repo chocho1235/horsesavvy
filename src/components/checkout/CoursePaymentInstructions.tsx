@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Banknote, Copy } from "lucide-react";
@@ -13,12 +13,12 @@ interface CoursePaymentInstructionsProps {
   onPaymentConfirmed: () => void;
 }
 
-// Bank details - same as clinics
+// Bank details are fetched from server (no hardcoded secrets in bundle)
 const bankDetails = {
-  accountName: "BeHorseSavvy Ltd",
-  sortCode: "12-34-56", 
-  accountNumber: "87654321",
-  bankName: "Lloyds Bank"
+  accountName: "",
+  sortCode: "",
+  accountNumber: "",
+  bankName: ""
 };
 
 export function CoursePaymentInstructions({
@@ -29,6 +29,10 @@ export function CoursePaymentInstructions({
   onPaymentConfirmed
 }: CoursePaymentInstructionsProps) {
   const [agreed, setAgreed] = useState(false);
+  const [bank, setBank] = useState(bankDetails);
+  useEffect(() => {
+    fetch('/api/public-bank-config').then(r => r.json()).then(setBank).catch(() => {});
+  }, []);
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -95,11 +99,11 @@ export function CoursePaymentInstructions({
                   <div className="flex justify-between items-center p-4 bg-white/5 rounded-lg border border-white/10">
                     <span className="text-white/70 font-medium">Account Name:</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-white font-mono font-semibold">{bankDetails.accountName}</span>
+                       <span className="text-white font-mono font-semibold">{bank.accountName || 'Loading...'}</span>
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => copyToClipboard(bankDetails.accountName, "Account name")}
+                         onClick={() => copyToClipboard(bank.accountName, "Account name")}
                         className="h-8 w-8 p-0 text-white/70 hover:text-white hover:bg-white/10"
                       >
                         <Copy className="w-4 h-4" />
@@ -110,11 +114,11 @@ export function CoursePaymentInstructions({
                   <div className="flex justify-between items-center p-4 bg-white/5 rounded-lg border border-white/10">
                     <span className="text-white/70 font-medium">Sort Code:</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-white font-mono font-semibold text-lg">{bankDetails.sortCode}</span>
+                       <span className="text-white font-mono font-semibold text-lg">{bank.sortCode || '—'}</span>
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => copyToClipboard(bankDetails.sortCode, "Sort code")}
+                         onClick={() => copyToClipboard(bank.sortCode, "Sort code")}
                         className="h-8 w-8 p-0 text-white/70 hover:text-white hover:bg-white/10"
                       >
                         <Copy className="w-4 h-4" />
@@ -127,11 +131,11 @@ export function CoursePaymentInstructions({
                   <div className="flex justify-between items-center p-4 bg-white/5 rounded-lg border border-white/10">
                     <span className="text-white/70 font-medium">Account Number:</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-white font-mono font-semibold text-lg">{bankDetails.accountNumber}</span>
+                       <span className="text-white font-mono font-semibold text-lg">{bank.accountNumber || '—'}</span>
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => copyToClipboard(bankDetails.accountNumber, "Account number")}
+                         onClick={() => copyToClipboard(bank.accountNumber, "Account number")}
                         className="h-8 w-8 p-0 text-white/70 hover:text-white hover:bg-white/10"
                       >
                         <Copy className="w-4 h-4" />

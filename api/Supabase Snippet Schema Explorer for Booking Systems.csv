@@ -1,0 +1,87 @@
+info_type,name,type,details
+COLUMNS,bookings,clinic_date,text (YES)
+COLUMNS,bookings,clinic_name,text (YES)
+COLUMNS,bookings,clinic_price,text (YES)
+COLUMNS,bookings,clinic_time,text (YES)
+COLUMNS,bookings,clinic_type,text (YES)
+COLUMNS,bookings,created_at,timestamp with time zone (YES)
+COLUMNS,bookings,email,text (YES)
+COLUMNS,bookings,experience_level,text (YES)
+COLUMNS,bookings,first_name,text (YES)
+COLUMNS,bookings,horse_name,text (YES)
+COLUMNS,bookings,id,uuid (NO)
+COLUMNS,bookings,instructor,text (YES)
+COLUMNS,bookings,last_name,text (YES)
+COLUMNS,bookings,payment_status,text (YES)
+COLUMNS,bookings,phone,text (YES)
+COLUMNS,bookings,reference,text (YES)
+COLUMNS,bookings,special_requests,text (YES)
+COLUMNS,bookings,status,text (YES)
+COLUMNS,camp_bookings,accommodation_type,character varying (YES)
+COLUMNS,camp_bookings,camp_dates,character varying (NO)
+COLUMNS,camp_bookings,camp_location,character varying (NO)
+COLUMNS,camp_bookings,camp_price,character varying (NO)
+COLUMNS,camp_bookings,created_at,timestamp with time zone (NO)
+COLUMNS,camp_bookings,email,character varying (NO)
+COLUMNS,camp_bookings,experience_level,character varying (NO)
+COLUMNS,camp_bookings,first_name,character varying (NO)
+COLUMNS,camp_bookings,horse_name,character varying (YES)
+COLUMNS,camp_bookings,id,uuid (NO)
+COLUMNS,camp_bookings,last_name,character varying (NO)
+COLUMNS,camp_bookings,notes,text (YES)
+COLUMNS,camp_bookings,payment_status,character varying (YES)
+COLUMNS,camp_bookings,phone,character varying (NO)
+COLUMNS,camp_bookings,reference,character varying (NO)
+COLUMNS,camp_bookings,special_requests,text (YES)
+COLUMNS,camp_bookings,status,character varying (YES)
+COLUMNS,camp_bookings,updated_at,timestamp with time zone (NO)
+COLUMNS,clinics,created_at,timestamp with time zone (YES)
+COLUMNS,clinics,date,text (NO)
+COLUMNS,clinics,date_value,date (NO)
+COLUMNS,clinics,description,text (YES)
+COLUMNS,clinics,featured,boolean (YES)
+COLUMNS,clinics,id,uuid (NO)
+COLUMNS,clinics,instructor,text (NO)
+COLUMNS,clinics,level,text (YES)
+COLUMNS,clinics,max_participants,integer (NO)
+COLUMNS,clinics,name,text (NO)
+COLUMNS,clinics,price,text (NO)
+COLUMNS,clinics,time,text (NO)
+COLUMNS,clinics,time_value,text (NO)
+COLUMNS,course_bookings,confirmed_at,timestamp without time zone (YES)
+COLUMNS,course_bookings,course_id,character varying (NO)
+COLUMNS,course_bookings,course_name,character varying (YES)
+COLUMNS,course_bookings,created_at,timestamp without time zone (YES)
+COLUMNS,course_bookings,customer_email,character varying (NO)
+COLUMNS,course_bookings,customer_name,character varying (NO)
+COLUMNS,course_bookings,customer_phone,character varying (YES)
+COLUMNS,course_bookings,first_name,character varying (YES)
+COLUMNS,course_bookings,id,uuid (NO)
+COLUMNS,course_bookings,last_name,character varying (YES)
+COLUMNS,course_bookings,package_selection,text (YES)
+COLUMNS,course_bookings,payment_status,character varying (YES)
+COLUMNS,course_bookings,reference,character varying (NO)
+COLUMNS,course_bookings,selected_packages,jsonb (NO)
+COLUMNS,course_bookings,status,character varying (YES)
+COLUMNS,course_bookings,total_amount,numeric (NO)
+COLUMNS,course_bookings,total_price,numeric (YES)
+POLICIES,bookings,Allow public deletes on bookings,DELETE - PERMISSIVE
+POLICIES,bookings,Allow public inserts on bookings,INSERT - PERMISSIVE
+POLICIES,bookings,Allow public reads on bookings,SELECT - PERMISSIVE
+POLICIES,bookings,Allow public updates on bookings,UPDATE - PERMISSIVE
+POLICIES,bookings,anon_insert_bookings,INSERT - PERMISSIVE
+POLICIES,camp_bookings,Enable all access for camp_bookings,ALL - PERMISSIVE
+POLICIES,camp_bookings,Enable delete for authenticated users,DELETE - PERMISSIVE
+POLICIES,camp_bookings,Enable insert for all users,INSERT - PERMISSIVE
+POLICIES,camp_bookings,Enable read for authenticated users,SELECT - PERMISSIVE
+POLICIES,camp_bookings,Enable update for authenticated users,UPDATE - PERMISSIVE
+POLICIES,camp_bookings,anon_insert_camp_bookings,INSERT - PERMISSIVE
+POLICIES,clinics,Allow public insert on clinics,INSERT - PERMISSIVE
+POLICIES,clinics,Allow public select on clinics,SELECT - PERMISSIVE
+POLICIES,clinics,anon_select_clinics,SELECT - PERMISSIVE
+POLICIES,clinics,select,ALL - PERMISSIVE
+POLICIES,course_bookings,anon_insert_course_bookings,INSERT - PERMISSIVE
+TABLES,bookings,table,null
+TABLES,camp_bookings,table,null
+TABLES,clinics,table,null
+TABLES,course_bookings,table,null
